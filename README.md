@@ -13,41 +13,68 @@
 
 ## 페이지 및 기능
 
-- `/` Home
-  - 로그인 버튼
-  - 회원가입 버튼
-- `/main` 메인 페이지(금융상품)
+- `/` Home 페이지
+  - 로그인 페이지 이동 버튼
+  - 회원가입 페이지 이동 버튼
+- `/main` 메인 페이지(금융상품) - "GET : api/products"
   - 신청 가능 대출금 총합
   - 현재 신청 가능한 대출 상품들
   - 현재 신청 가능한 청약 상품들
-- `user` 개인 페이지
+- `user` 개인 페이지 - "GET : api/user"
   - 관심상품 리스트
   - 장바구니 상품 리스트
   - 신청한 대출상품 리스트
-  - 정보 수정 버튼
+  - 정보 수정 페이지 이동 버튼
   - 회원 탈퇴
-    - 회원 탈퇴 클릭시 컨펌모달창 띄움 : 예/아니오
-- `user/edit` 개인정보 수정 페이지
-  - 정보수정 form : 패스워드/이름/나이/직업/거주지/특기/취미
-  - 확인 버튼
-- `user/mycart` 장바구니 페이지
-  - 구매한 상품 (카드형식 구매하기 버튼 유)
-- `user/wishlist` 관심상품 페이지
-  - 구매한 상품(카드형식 구매하기버튼 무)
+    - 회원 탈퇴 클릭시 컨펌모달창 띄움 : 예/아니오 - "DELETE : api/auth/signup"
+- `user/edit` 개인정보 수정 페이지 - "GET api/auth/user"
+  - 정보수정 form : 패스워드/이름/나이/직업/거주지/특기/취미/연봉
+  - 확인 버튼 - "PUT api/user"
+- `user/myCart` 장바구니 페이지 - "GET api/auth/user"
+  - 구매한 상품 (카드형식 구매하기 버튼O)
+  - 구매하기 버튼 - "POST api/products/financial/buy"
+- `user/wishlist` 관심상품 페이지 - "GET api/auth/user"
+  - 구매한 상품(카드형식 구매하기 버튼X)
+  - 장바구니로 추가하기 버튼 - - "PUT api/auth/user"
 - `singup` 회원가입 페이지
   - 입력 폼: 이메일/ 패스워드/ 이름/나이/직업/거주지역/특기/취미
   - 회원가입 약관
+  - 회원가입 확인 버튼 - "POST : api/auth/signup"
 - `signin` 로그인 페이지
 
   - 입력폼: 이메일 / 패스워드
-  - 로그인 버튼
-  - 회원가입 버튼
+    - 로그인 버튼 - "POST : api/auth/signin"
+  - 회원가입 페이지 이동 버튼 (route /signup )
 
-- `product/financial` 금융상품페이지
+- `products/financial` 금융상품페이지 -"GET api/products/financial"
+  - 검색 form
+    - 검색어 제출 - "GET api/products/financial"
+  - 정렬 select 박스
+  - 검색 리스트
+- `products/financial/:financialId` 금융 상품 상세페이지 - "GET api/products/financial/:financialId"
+  - 상품 이미지
+  - 상품명
+  - 간단한 description
+  - 장바구니, 구매하기(신청하기), 관심상품(등록) 버튼
+    - 구매하기 버튼시 모달창 띄움 : 신청하기 / 취소하기 - "POST api/products/financial/buy"
+
+### +@ (추가?)
+
+- `products/card` 카드 관련 페이지
   - 검색 input
   - 정렬 select 박스
   - 검색 리스트
-- `product/financial/:financialId` 금융 상품 상세페이지
+- `products/card/:cardId` 금융 상품 상세페이지
+  - 상품 이미지
+  - 상품명
+  - 간단한 description
+  - 장바구니, 구매하기(신청하기), 관심상품(등록) 버튼
+    - 구매하기 버튼시 모달창 띄움 : 신청하기 / 취소하기
+- `products/membership` 멤버십 관련
+  - 검색 input
+  - 정렬 select 박스
+  - 검색 리스트
+- `products/memebership/:memebershipId` 멤버십 혜택 상세페이지
   - 상품 이미지
   - 상품명
   - 간단한 description
@@ -63,7 +90,7 @@
 ```json
 {
   "content-type": "application/json",
-  "apikey": "abcdefg"
+  "apikey": "aQF1bDcFEF12fg78fp2PqFmcE13"
 }
 ```
 
@@ -87,7 +114,7 @@ interface RequestBody {
   age: number; // 나이 (필수!)
   job?: string; // 직업 (선택)
   location?: string; // 사는 곳 (선택)
-  skill?: string[]; // 특기 (선택)
+  skills?: string[]; // 특기 (선택)
 }
 ```
 
@@ -99,7 +126,7 @@ interface RequestBody {
   "age": 25,
   "job": "개발자",
   "location": "서울/경기",
-  "skill": ["코딩/개발", "글쓰기", "작곡/작사", "그림/디자인", "기획/아이디어"]
+  "skills": ["코딩/개발", "글쓰기", "작곡/작사", "그림/디자인", "기획/아이디어"]
 }
 ```
 
@@ -115,9 +142,9 @@ interface ResponseValue {
     age: number; // 나이
     job: string | null; // 직업
     location: string | null; // 지역
-    skill: string[]; // 특기
+    skills: string[]; // 특기
     wishlist: string[]; // 관심상품 목록
-    mycart: string[]; // 장바구니
+    myCart: string[]; // 장바구니
     status: {
       creditScore: number; // 신용점수
       assets: IAssets; // 자산관련
@@ -138,7 +165,7 @@ interface ResponseValue {
     "age": 25,
     "job": "개발자",
     "location": "서울/경기",
-    "skill": [
+    "skills": [
       "코딩/개발",
       "글쓰기",
       "작곡/작사",
@@ -146,7 +173,7 @@ interface ResponseValue {
       "기획/아이디어"
     ],
     "wishlist": ["adbDasdfd1d91FD", "Fdf19dfkcfddfasd"], // 관심상품 목록
-    "mycart": ["dfoD@12fdVdasdfad"], // 장바구니
+    "myCart": ["dfoD@12fdVdasdfad"], // 장바구니
     "status": {
       "creditScore": 999,
       "assets": {
@@ -198,9 +225,9 @@ interface ResponseValue {
     age: number; // 나이
     job: string | null; // 직업
     location: string | null; // 지역
-    skill: string[] | null; // 특기
+    skills: string[] | null; // 특기
     wishlist: string[]; // 관심상품 목록
-    mycart: string[]; // 장바구니
+    myCart: string[]; // 장바구니
     status: {
       creditScore: number; // 신용점수
       assets: IAssets; // 자산관련
@@ -228,8 +255,8 @@ interface ILoan {
     "job": "개발자",
     "location": "서울/경기",
     "wishlist": ["adbDasdfd1d91FD", "Fdf19dfkcfddfasd"], // 관심상품 목록
-    "mycart": ["dfoD@12fdVdasdfad"], // 장바구니
-    "skill": [
+    "myCart": ["dfoD@12fdVdasdfad"], // 장바구니
+    "skills": [
       "코딩/개발",
       "글쓰기",
       "작곡/작사",
@@ -274,7 +301,7 @@ interface ResponseValue {
     age: number; // 나이
     job: string | null; // 직업
     location: string | null; // 지역
-    skill: string[] | null; // 특기
+    skills: string[] | null; // 특기
     status: {
       creditScore: number; // 신용점수
       assets: IAssets; // 자산관련
@@ -296,8 +323,8 @@ interface ResponseValue {
     "job": "개발자",
     "location": "서울/경기",
     "wishlist": ["adbDasdfd1d91FD", "Fdf19dfkcfddfasd"],
-    "mycart": ["dfoD@12fdVdasdfad"],
-    "skill": [
+    "myCart": ["dfoD@12fdVdasdfad"],
+    "skills": [
       "코딩/개발",
       "글쓰기",
       "작곡/작사",
@@ -354,7 +381,7 @@ interface RequestBody {
   age?: number; // 새로운 나이
   job?: string | null; // 새로운 직업
   location?: string | null; // 새로운 지역
-  skill?: string[] | null; // 새로운 특기
+  skills?: string[] | null; // 새로운 특기
 }
 ```
 
@@ -374,18 +401,18 @@ interface ResponseValue {
   age?: number; // 새로운 나이
   job?: string | null; // 새로운 직업
   location?: string | null; // 새로운 지역
-  skill?: string[] | null; // 새로운 특기
+  skills?: string[] | null; // 새로운 특기
 }
 ```
 
 ```json
 {
-  "email": "thesecon@gmail.com",
-  "displayName": "ParkYoungWoong",
+  "email": "abcd1234@gmail.com",
+  "displayName": "HongGilDong",
   "age": 25,
   "job": "개발자",
   "location": "서울/경기",
-  "skill": ["코딩/개발", "글쓰기", "작곡/작사", "그림/디자인", "기획/아이디어"]
+  "skills": ["코딩/개발", "글쓰기", "작곡/작사", "그림/디자인", "기획/아이디어"]
 }
 ```
 
@@ -550,7 +577,7 @@ interface Financial {
 - 신청 가능 대출금 총합보다 대출 금액이 크면 대출 신청이 처리되지 않습니다.(에러 반환)
 
 ```curl
-curl https://BASE_API_URL/api/financial/apply
+curl https://BASE_API_URL/api/products/financial/:financialId
   \ -X 'POST'
   \ -H 'Authorization: Bearer <accessToken>'
 ```

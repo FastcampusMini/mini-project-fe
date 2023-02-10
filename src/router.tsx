@@ -1,15 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import Home from "./pages/Home";
-import Main from "./pages/Main";
-import Financial from "./pages/Product/Financial";
-import FinancialId from "./pages/Product/Financial/[financialId]";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import User from "./pages/User";
-import Edit from "./pages/User/Edit";
-import MyCart from "./pages/User/MyCart";
-import WishList from "./pages/User/WishList";
+import Home from "./pages/home";
+import Main from "./pages/main";
+import Financial from "./pages/products/Financial";
+import FinancialId from "./pages/products/Financial/[financialId]";
+import SignIn from "./pages/signin";
+import SignUp from "./pages/signup";
+import User from "./pages/user";
+import Edit from "./pages/user/Edit";
+import MyCart from "./pages/user/MyCart";
+import WishList from "./pages/user/WishList";
 
 const router = createBrowserRouter([
   {
@@ -50,12 +50,12 @@ const router = createBrowserRouter([
         element: <User />,
       },
       {
-        path: "product/financial/:financialId",
+        path: "products/financial/:financialId",
         element: <FinancialId />,
       },
 
       {
-        path: "product/financial",
+        path: "products/financial",
         element: <Financial />,
       },
     ],
