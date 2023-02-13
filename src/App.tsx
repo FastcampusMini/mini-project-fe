@@ -4,10 +4,10 @@ import Nav from "./components/Nav";
 
 function App() {
   return (
-    <>
+    <main className='w-[640px] border'>
       <Nav />
       <Outlet />
-    </>
+    </main>
   );
 }
 
