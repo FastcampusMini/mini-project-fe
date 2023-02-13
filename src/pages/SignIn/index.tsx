@@ -11,7 +11,7 @@ const SignIn = () => {
       <p className='text-right mb-7 text-lg font-semibold'>취소</p>
       <h1 className='text-3xl mb-10'>
         핀크 이용을 위해 <br />
-        <span className='font-semibold '>본인확인</span>을 해주세요
+        <span className='font-semibold'>본인확인</span>을 해주세요
       </h1>
       <form className='flex flex-col'>
         <input
