@@ -1,13 +1,14 @@
 import React from "react";
+import CartCard from "../../components/CartCard";
 
 const Mycart = () => {
   return (
-    <div>
-      <h1>호호</h1>
-      <h2 className="text-2xl">하하</h2>
-      <h3>안녕하세용</h3>
-      <h4>된다</h4>
-    </div>
+    <article>
+      <div className="w-10/12 m-auto">
+        <h1 className="mb-5 text-3xl font-bold">장바구니</h1>
+      </div>
+      <CartCard />
+    </article>
   );
 };
 
