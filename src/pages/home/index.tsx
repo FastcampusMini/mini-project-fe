@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import ConfirmModal from "../../components/modal/ConfirmModal";
 import Btn from "./Btn";
 
 const Home = () => {
+  const [modal, setModal] = useState(false);
   return (
     <div className='flex flex-col justify-center h-screen'>
+      <ConfirmModal />
       <h1 className='mx-auto text-4xl font-black mb-32'>Finnq</h1>
       <div className='flex flex-col items-center gap-4'>
         <Btn text={"로그인"} />
