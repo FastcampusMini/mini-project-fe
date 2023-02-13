@@ -1,5 +1,7 @@
 # mini-project-fe
 
+https://documenter.getpostman.com/view/25760000/2s935so2bC
+
 ## 라이브러리
 
 - react-icons 아이콘 컴포넌트
