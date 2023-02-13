@@ -1,19 +1,19 @@
-import { createBrowserRouter } from 'react-router-dom';
-import App from './App';
-import Home from './pages/Home';
-import Main from './pages/Main';
-import Financial from './pages/products/Financial';
-import FinancialId from './pages/products/Financial/[financialId]';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import User from './pages/User';
-import Edit from './pages/User/Edit';
-import MyCart from './pages/User/MyCart';
-import WishList from './pages/User/WishList';
+import { createBrowserRouter } from "react-router-dom";
+import App from "./App";
+import Home from "./pages/home";
+import Main from "./pages/main";
+import Financial from "./pages/products/financial";
+import FinancialId from "./pages/products/financial/[financialId]";
+import SignIn from "./pages/signin";
+import SignUp from "./pages/signup";
+import User from "./pages/user";
+import Edit from "./pages/user/Edit";
+import MyCart from "./pages/user/MyCart";
+import WishList from "./pages/user/WishList";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
@@ -21,41 +21,41 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'main',
+        path: "main",
         element: <Main />,
       },
 
       {
-        path: 'signin',
+        path: "signin",
         element: <SignIn />,
       },
       {
-        path: 'signup',
+        path: "signup",
         element: <SignUp />,
       },
       {
-        path: 'user/mycart',
+        path: "user/mycart",
         element: <MyCart />,
       },
       {
-        path: 'user/edit',
+        path: "user/edit",
         element: <Edit />,
       },
       {
-        path: 'user/wishlist',
+        path: "user/wishlist",
         element: <WishList />,
       },
       {
-        path: 'user',
+        path: "user",
         element: <User />,
       },
       {
-        path: 'products/financial/:financialId',
+        path: "products/financial/:financialId",
         element: <FinancialId />,
       },
 
       {
-        path: 'products/financial',
+        path: "products/financial",
         element: <Financial />,
       },
     ],
