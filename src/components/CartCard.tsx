@@ -3,7 +3,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 const CartCard = () => {
   return (
-    <section className="mb-8 w-10/12 m-auto">
+    <section className="mb-5 w-10/12 m-auto">
       <div className="flex justify-between py-5 pl-5 pr-2 border-solid border border-light-gray rounded-t-xl">
         <div className="flex items-center ">
           <img
@@ -25,7 +25,7 @@ const CartCard = () => {
         </div>
       </div>
       <div className="flex items-center justify-between px-3 py-2 border border-t-0 border-light-gray rounded-b-xl bg-[#f3f3f3] ">
-        <p className="text-[#808080] font-semibold">
+        <p className=" text-[#808080] font-semibold">
           청년만 가입할수 있는 적금입니다.
         </p>
         <button className="bg-yellow px-6 py-3 text-white font-bold rounded-lg">
