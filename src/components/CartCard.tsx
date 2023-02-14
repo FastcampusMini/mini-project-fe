@@ -3,12 +3,12 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 const CartCard = () => {
   return (
-    <section className="mb-5 w-10/12 m-auto">
-      <div className="flex justify-between py-5 pl-5 pr-2 border-solid border border-light-gray rounded-t-xl">
-        <div className="flex items-center ">
+    <section className="w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]">
+      <div className="flex justify-between py-5 pl-5 pr-2 border-solid border border-black/10 rounded-t-lg">
+        <div className="flex items-center">
           <svg
-            width="80"
-            height="80"
+            width="50"
+            height="50"
             viewBox="0 0 104 80"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -18,24 +18,26 @@ const CartCard = () => {
               fill="#FCAF17"
             />
           </svg>
+          <div className="flex flex-col mx-4 gap-1">
+            <h2 className="text-black40 font-semibold">국민은행</h2>
+            <h3 className="font-bold text-3xl mb-2">청년적금</h3>
+          </div>
         </div>
-        <div>
-          <h2 className="text-[#808080] mb-2">국민은행</h2>
-          <h3 className="font-bold text-xl mb-2">청년적금</h3>
-          <h4 className="text-sm">문의 031-123-1234</h4>
-        </div>
-        <div className="ml-12 flex items-center ">
-          <p className="text-[#F4AE5C] font-black text-xl">최저 1.5% </p>
-        </div>
-        <div className="pointer-events-auto">
-          <TiDeleteOutline className="text-4xl text-[#E5E7EB] font-light cursor-pointer" />
+        <div className="flex">
+          <div className="flex flex-col font-bold text-orange items-end justify-center gap-2 mx-4 text-lg">
+            <span>최저 3.45%</span>
+            <span>300만원</span>
+          </div>
+          <div className="pointer-events-auto">
+            <TiDeleteOutline className="text-4xl text-[#E5E7EB] font-light cursor-pointer" />
+          </div>
         </div>
       </div>
-      <div className="flex items-center justify-between px-3 py-2 border border-t-0 border-light-gray rounded-b-xl bg-[#f3f3f3] ">
-        <p className=" text-[#808080] font-semibold">
+      <div className="flex items-center justify-between px-3 py-1 border border-t-0 border-black5 rounded-b-lg bg-[#f3f3f3] ">
+        <p className="font-semibold text-black60">
           청년만 가입할수 있는 적금입니다.
         </p>
-        <button className="bg-[#F4AE5C] px-6 py-3 text-white font-bold rounded-lg">
+        <button className="bg-light-orange px-6 py-3 text-white font-bold">
           신청하기
         </button>
       </div>
