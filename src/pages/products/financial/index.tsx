@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { BiSearch } from 'react-icons/bi'
-// import ProductCard from "../../../components/FinancialProdCard";
+import ProductCard from "../../../components/FinancialProdCard";
 
 const Financial = () => {
   const [ isActive, setIsActive ] = useState(false)
