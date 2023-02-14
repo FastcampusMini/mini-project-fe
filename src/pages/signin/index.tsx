@@ -11,7 +11,7 @@ const SignIn = () => {
   return (
     <>
       <div className='relative'>
-        <p className='text-right mb-7 text-lg font-semibold'>취소</p>
+        <p className='text-right mb-7 text-lg font-semibold cursor-pointer'>취소</p>
         <h1 className='text-3xl mb-10'>
           핀크 이용을 위해 <br />
           <span className='font-semibold'>본인확인</span>을 해주세요
@@ -30,7 +30,7 @@ const SignIn = () => {
             {...register('password')}
           />
           <div
-            className='flex items-center justify-center gap-1 my-10 font-semibold text-gray'
+            className='flex items-center justify-center gap-1 my-10 font-semibold text-gray cursor-pointer'
             onClick={() => navigate('/signup')}
           >
             <p>회원가입을 아직 안하셨나요?</p>
