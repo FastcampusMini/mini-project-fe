@@ -1,29 +1,27 @@
 import React from "react";
-import { MdOutlineShoppingCart } from "react-icons/md";
-import CartElement from "../../components/MyCart/CartElement";
+import { AiOutlineFileSearch } from "react-icons/ai";
 import EmptyCart from "../../components/MyCart/EmptyCart";
 import Back from "../../components/Navigation/Back";
+import OrderListElement from "./../../components/OrderList/OrderListElement";
 
-const Mycart = () => {
+const OrderList = () => {
   return (
     <article>
       <Back />
       <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
-        장바구니
+        신청 내역
       </h1>
       <EmptyCart>
-        <MdOutlineShoppingCart className="text-7xl" />
+        <AiOutlineFileSearch className="text-7xl" />
         <p className="text-center font-extrabold text-lg">
-          장바구니에
-          <br />
-          담긴 상품이 없습니다.
+          신청내역이 없습니다.
         </p>
       </EmptyCart>
       {/* {[1, 2, 3].map((data, i) => (
-        <CartElement key={i} />
+        <OrderListElement key={i} />
       ))} */}
     </article>
   );
 };
 
-export default Mycart;
+export default OrderList;
