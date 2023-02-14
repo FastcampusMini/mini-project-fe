@@ -27,9 +27,9 @@ const WishListCard = () => {
         className="cursor-pointer flex justify-end m-5"
       >
         {wish ? (
-          <FaHeart className="text-2xl text-orange" />
+          <FaHeart className="text-2xl text-[#FF0000]" />
         ) : (
-          <FiHeart className="text-2xl text-orange" />
+          <FiHeart className="text-2xl text-[#FF0000]" />
         )}
       </div>
     </section>

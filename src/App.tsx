@@ -4,7 +4,7 @@ import Nav from "./components/Nav";
 
 function App() {
   return (
-    <main className='w-[640px] border mx-auto'>
+    <main className="max-w-[640px] h-screen border mx-auto">
       <Outlet />
     </main>
   );
