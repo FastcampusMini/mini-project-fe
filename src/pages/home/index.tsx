@@ -1,6 +1,7 @@
+// import ConfirmModal from "../../components/ui/ConfirmModal";
 import React, { useState } from "react";
-import ConfirmModal from "../../components/ui/ConfirmModal";
 import Btn from "./Btn";
+import ConfirmModal from "@components/ui/ConfirmModal";
 
 const Home = () => {
   const [modal, setModal] = useState(false);
