@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import WishListCard from "./../../components/WishListCard";
+import React from "react";
+import WishListElement from "../../components/WishList/WishListElement";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const WishList = () => {
@@ -9,11 +9,9 @@ const WishList = () => {
       <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
         관심상품
       </h1>
-      <div className="flex flex-wrap">
-        {[1, 2, 3].map((data, i) => (
-          <WishListCard key={i} />
-        ))}
-      </div>
+      {[1, 2, 3].map((data, i) => (
+        <WishListElement key={i} />
+      ))}
     </article>
   );
 };
