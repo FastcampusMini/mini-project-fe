@@ -4,7 +4,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const Mycart = () => {
   return (
-    <article className="p-10">
+    <article>
       <AiOutlineArrowLeft size="36" className=" cursor-pointer" />
       <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
         장바구니
