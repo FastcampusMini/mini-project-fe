@@ -3,34 +3,46 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const cartApi = createApi({
   reducerPath: "cartApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://0eb87ea2-bcc1-4cc1-afba-27bb8eb62c64.mock.pstmn.io",
+    // baseUrl 변경
+    baseUrl: "http://localhost:4000",
   }),
   tagTypes: ["Cart"],
   endpoints: (builder) => ({
-    getCart: builder.query<ICartApi, String>({
-      query: () => "/basket2",
+    // Data[] => ICart로 변경하기
+    getCart: builder.query<Data[], String>({
+      query: () => "/basket",
       providesTags: ["Cart"],
     }),
-    // setCart: builder.mutation({
-    //   query: ({ name, value }) => {
-    //     return {
-    //       url: `count/${name}`,
-    //       method: "POST",
-    //       body: { value }
-    //     };
-    //   },
-    //   invalidatesTags: (result, error, arg) => [{ type: "Cart", id: arg.name }]
-    // })
+    addCart: builder.mutation({
+      // cartData도 아마? productsId를 받는 것 같다. 어차피 다 다시 작성해야함..
+      query: (cartData: Data) => {
+        return {
+          // /basket/add 로 변경하기
+          url: "/basket",
+          method: "POST",
+          body: cartData,
+        };
+      },
+      invalidatesTags: ["Cart"],
+    }),
+    deleteCart: builder.mutation({
+      query: (id: number) => ({
+        url: `/basket/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Cart"],
+    }),
   }),
 });
 
-export interface ICartApi {
+// 나중에 추가되는 데이터 있을 예정이니 다시 작성하기
+export interface ICart {
   code: number;
   message: string;
-  output: Output[];
+  data: Data[];
 }
 
-export interface Output {
+export interface Data {
   basketId: number;
   productId: number;
   brand: string;
@@ -40,6 +52,8 @@ export interface Output {
   phone: string;
   datail: string;
   price: string;
+  img: string;
 }
 
-export const { useGetCartQuery } = cartApi;
+export const { useGetCartQuery, useAddCartMutation, useDeleteCartMutation } =
+  cartApi;

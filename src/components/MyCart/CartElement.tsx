@@ -1,9 +1,9 @@
 import React from "react";
 import { TiDeleteOutline } from "react-icons/ti";
 import Card from "./Card";
-import { ICart } from "../../pages/user/MyCart";
 
-const CartElement = ({ cartData }) => {
+// key 값 변경 될 수도 있음
+const CartElement = ({ cartData, deleteCart }) => {
   return (
     <section className="w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]">
       <Card data={cartData}>
@@ -13,7 +13,12 @@ const CartElement = ({ cartData }) => {
             <span>{cartData.price}만원</span>
           </div>
           <div className="pointer-events-auto">
-            <TiDeleteOutline className="text-4xl text-[#E5E7EB] font-light cursor-pointer" />
+            <TiDeleteOutline
+              onClick={async () => {
+                await deleteCart(cartData.basketId);
+              }}
+              className="text-4xl text-[#E5E7EB] font-light cursor-pointer"
+            />
           </div>
         </div>
       </Card>
