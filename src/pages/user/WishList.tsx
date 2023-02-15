@@ -18,7 +18,7 @@ const WishList = () => {
       <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
         관심상품
       </h1>
-      {cart.length === 0 ? (
+      {cart?.length === 0 || !cart ? (
         <EmptyCart>
           <FaHeartBroken className="text-7xl" />
           <p className="flex flex-col gap-3 text-center font-extrabold text-lg">

@@ -16,26 +16,29 @@ const Mycart = () => {
     return <>Loading</>;
   }
   return (
-    <article>
-      <Back />
-      <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
-        장바구니
-      </h1>
-      {cart.length === 0 ? (
-        <EmptyCart>
-          <MdOutlineShoppingCart className="text-7xl" />
-          <p className="text-center font-extrabold text-lg">
-            장바구니에
-            <br />
-            담긴 상품이 없습니다.
-          </p>
-        </EmptyCart>
-      ) : null}
-      {/* cart?.data?로 변경하기 */}
-      {cart?.map((value: ICart, i: number) => (
-        <CartElement cartData={value} deleteCart={deleteCart} key={i} />
-      ))}
-    </article>
+    <>
+      <article>
+        <Back />
+        <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
+          장바구니
+        </h1>
+        {/* 나중에 변경하기 */}
+        {cart?.length === 0 || !cart ? (
+          <EmptyCart>
+            <MdOutlineShoppingCart className="text-7xl" />
+            <p className="text-center font-extrabold text-lg">
+              장바구니에
+              <br />
+              담긴 상품이 없습니다.
+            </p>
+          </EmptyCart>
+        ) : null}
+        {/* cart?.data?로 변경하기 */}
+        {cart?.map((value: ICart, i: number) => (
+          <CartElement cartData={value} deleteCart={deleteCart} key={i} />
+        ))}
+      </article>
+    </>
   );
 };
 
