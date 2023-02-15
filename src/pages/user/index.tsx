@@ -15,7 +15,7 @@ const User = () => {
           안녕하세요! <span className='font-semibold'>홍혜원님</span>
         </h1>
         <div
-          className='flex items-center gap-1 font-semibold text-gray cursor-pointer mb-10'
+          className='flex items-center gap-1 font-semibold text-gray cursor-pointer mb-10 hover:text-yellow'
           onClick={() => navigate('/user/edit')}
         >
           <p>내 프로필 보기</p>
@@ -24,21 +24,21 @@ const User = () => {
         <p className='text-2xl font-semibold mb-6'>나의 금융정보</p>
         <div>
           <div
-            className='flex items-center gap-4 text-xl py-5 border-b border-light-gray cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/wishlist')}
+            className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            onClick={() => navigate('/user/wishlist')}
           >
             <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
             <span>관심상품</span>
           </div>
           <div
-            className='flex items-center gap-4 text-xl py-5 border-b border-light-gray cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
             onClick={() => navigate('/user/mycart')}
           >
             <BsFillCartCheckFill className='text-yellow text-2xl ' />
             <span>장바구니</span>
           </div>
           <div
-            className='flex items-center gap-4 text-xl py-5 border-b border-light-gray cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
             onClick={() => navigate('/signup')}
           >
             <MdAccountBalanceWallet className='text-yellow text-2xl' />

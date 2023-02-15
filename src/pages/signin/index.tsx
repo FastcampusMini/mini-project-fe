@@ -10,7 +10,7 @@ const SignIn = () => {
 
   return (
     <>
-      <div className='relative'>
+      <div>
         <p className='text-right mb-7 text-lg font-semibold cursor-pointer'>취소</p>
         <h1 className='text-3xl mb-10'>
           핀크 이용을 위해 <br />
