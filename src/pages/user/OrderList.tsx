@@ -11,15 +11,15 @@ const OrderList = () => {
       <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
         신청 내역
       </h1>
-      <EmptyCart>
+      {/* <EmptyCart>
         <AiOutlineFileSearch className="text-7xl" />
         <p className="text-center font-extrabold text-lg">
           신청내역이 없습니다.
         </p>
-      </EmptyCart>
-      {/* {[1, 2, 3].map((data, i) => (
+      </EmptyCart> */}
+      {[1, 2, 3].map((data, i) => (
         <OrderListElement key={i} />
-      ))} */}
+      ))}
     </article>
   );
 };
