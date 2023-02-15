@@ -4,7 +4,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { BsFillBookmarkHeartFill, BsFillCartCheckFill } from 'react-icons/bs';
 import { FaUserTimes } from 'react-icons/fa';
 import { MdAccountBalanceWallet } from 'react-icons/md';
-import Navigation from '../../components/Navigation';
+import Navigation from '../../components/ui/Navigation';
 
 const User = () => {
   const navigate = useNavigate();

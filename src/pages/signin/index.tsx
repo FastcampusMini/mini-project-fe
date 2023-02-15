@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
-import ConfrimBtn from '../../components/ConfirmBtn';
+import ConfrimBtn from '../../components/ui/ConfirmBtn';
 
 const SignIn = () => {
   const navigate = useNavigate();
