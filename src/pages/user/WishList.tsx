@@ -15,16 +15,16 @@ const WishList = () => {
   return (
     <article>
       <Back />
-      <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
+      <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
         관심상품
       </h1>
       {cart?.length === 0 || !cart ? (
         <EmptyCart>
-          <FaHeartBroken className="text-7xl" />
-          <p className="flex flex-col gap-3 text-center font-extrabold text-lg">
+          <FaHeartBroken className='text-7xl' />
+          <p className='flex flex-col gap-3 text-center font-extrabold text-lg'>
             관심 상품이 비어있네요!
             <br />
-            <span className="text-sm">
+            <span className='text-sm'>
               원하는 상품의 하트아이콘을 <br /> 눌러 관심상품 리스트를
               만들어보세요.
             </span>
