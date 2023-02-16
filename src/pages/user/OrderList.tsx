@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import EmptyCart from "../../components/MyCart/EmptyCart";
-import Back from "../../components/Navigation/Back";
+import Back from "../../components/ui/Navigation/Back";
 import OrderListElement from "./../../components/OrderList/OrderListElement";
 import { useGetCartQuery } from "../../store/api/cartApi";
 import { ICart } from "./MyCart";
