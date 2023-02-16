@@ -1,13 +1,13 @@
-import React from "react";
-import WishListElement from "../../components/WishList/WishListElement";
-import { FaHeartBroken } from "react-icons/fa";
-import EmptyCart from "./../../components/MyCart/EmptyCart";
-import Back from "./../../components/Navigation/Back";
-import { useGetCartQuery, useAddCartMutation } from "../../store/api/cartApi";
-import { ICart } from "./MyCart";
+import React from 'react';
+import WishListElement from '../../components/WishList/WishListElement';
+import { FaHeartBroken } from 'react-icons/fa';
+import EmptyCart from './../../components/MyCart/EmptyCart';
+import Back from '../../components/ui/Navigation/Back';
+import { useGetCartQuery, useAddCartMutation } from '../../store/api/cartApi';
+import { ICart } from './MyCart';
 
 const WishList = () => {
-  const { data: cart, isLoading } = useGetCartQuery("");
+  const { data: cart, isLoading } = useGetCartQuery('');
   const [addCart] = useAddCartMutation();
   if (isLoading) {
     return <>Loading</>;
