@@ -5,13 +5,21 @@ import { RouterProvider } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import router from "./router";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
+import { cartApi } from "./store/api/cartApi";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <ApiProvider api={cartApi}>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </ApiProvider>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
