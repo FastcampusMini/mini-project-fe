@@ -1,0 +1,56 @@
+{
+  "basket": [
+    {
+      "id": 1,
+      "basketId": 1,
+      "productId": 1,
+      "brand": "국민은행",
+      "logo": "예시",
+      "name": "청년적금",
+      "rate": "1.5",
+      "phone": "031-123-1234",
+      "datail": "청년만 가입할수 있는 적금입니다.",
+      "price": "300",
+      "img": "https://ai.esmplus.com/heehyohoo/project/kb.png"
+    },
+    {
+      "id": 2,
+      "basketId": 2,
+      "productId": 2,
+      "brand": "카카오뱅크",
+      "logo": "예시2",
+      "name": "청년적금2",
+      "rate": "2.5",
+      "phone": "031-123-1234",
+      "datail": "청년만 가입할수 있는 적금입니다.",
+      "price": "400",
+      "img": "https://ai.esmplus.com/heehyohoo/project/kakao.png"
+    },
+    {
+      "id": 3,
+      "basketId": 3,
+      "productId": 3,
+      "brand": "하나은행",
+      "logo": "예시",
+      "name": "청년적금4",
+      "rate": "4.5",
+      "phone": "031-123-1234",
+      "datail": "청년만 가입할수 있는 적금입니다.",
+      "price": "500",
+      "img": "https://ai.esmplus.com/heehyohoo/project/hana.png"
+    },
+    {
+      "id": 4,
+      "basketId": 4,
+      "productId": 4,
+      "brand": "기업은행",
+      "logo": "예시",
+      "name": "청년적금4",
+      "rate": "5.5",
+      "phone": "031-123-1234",
+      "datail": "청년만 가입할수 있는 적금입니다.",
+      "price": "700",
+      "img": "https://ai.esmplus.com/heehyohoo/project/ibk.png"
+    }
+  ]
+}
