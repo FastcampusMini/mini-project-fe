@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Nav from "./components/Nav";
 import DevLinks from "./DevLinks";
-import son from "@assets/son.json";
 
 function App() {
-  console.log(son);
   return (
     <>
       <DevLinks />
