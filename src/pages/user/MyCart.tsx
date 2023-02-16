@@ -3,7 +3,7 @@ import axios from "axios";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import CartElement from "../../components/MyCart/CartElement";
 import EmptyCart from "../../components/MyCart/EmptyCart";
-import Back from "../../components/Navigation/Back";
+import Back from "../../components/ui/Navigation/Back";
 import {
   useGetCartQuery,
   useDeleteCartMutation,
@@ -19,14 +19,14 @@ const Mycart = () => {
     <>
       <article>
         <Back />
-        <h1 className="mb-5 pb-3 text-center text-2xl font-bold border-b border-black">
+        <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           장바구니
         </h1>
         {/* 나중에 변경하기 */}
         {cart?.length === 0 || !cart ? (
           <EmptyCart>
-            <MdOutlineShoppingCart className="text-7xl" />
-            <p className="text-center font-extrabold text-lg">
+            <MdOutlineShoppingCart className='text-7xl' />
+            <p className='text-center font-extrabold text-lg'>
               장바구니에
               <br />
               담긴 상품이 없습니다.
