@@ -4,7 +4,7 @@ import { AiFillHome } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-const index = ({ type }) => {
+const index = ({ type }: any) => {
   const isScroll = type === "scroll";
   const navigate = useNavigate();
   return (
