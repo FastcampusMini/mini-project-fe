@@ -1,36 +1,41 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const cartApi = createApi({
-  reducerPath: "cartApi",
+  reducerPath: 'cartApi',
   baseQuery: fetchBaseQuery({
-    // baseUrl 변경
-    baseUrl: "http://localhost:4000",
+    // env로
+    baseUrl: 'http://52.78.32.230:8080',
+    prepareHeaders: (headers) => {
+      headers.set(
+        'Authorization',
+        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2NjQ3Njk3LCJleHAiOjE2NzY2NDk0OTcsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.1A1svRtVD2sItvJf01Wp_VzB5Wha3V_jf8i7CCirMgM`,
+      );
+      headers.set('Content-Type', 'application/json');
+    },
   }),
-  tagTypes: ["Cart"],
+  tagTypes: ['Cart'],
   endpoints: (builder) => ({
-    // Data[] => ICart로 변경하기
-    getCart: builder.query<Data[], String>({
-      query: () => "/basket",
-      providesTags: ["Cart"],
+    getCart: builder.query<ICart, String>({
+      query: () => '/basket',
+      providesTags: ['Cart'],
     }),
     addCart: builder.mutation({
-      // cartData도 아마? productsId를 받는 것 같다. 어차피 다 다시 작성해야함..
-      query: (cartData: Data) => {
+      query: (cartData: ICartData) => {
         return {
-          // /basket/add 로 변경하기
-          url: "/basket",
-          method: "POST",
+          url: '/basket/add',
+          method: 'POST',
           body: cartData,
         };
       },
-      invalidatesTags: ["Cart"],
+      invalidatesTags: ['Cart'],
     }),
     deleteCart: builder.mutation({
-      query: (id: number) => ({
-        url: `/basket/${id}`,
-        method: "DELETE",
+      query: (cartData: ICartData) => ({
+        url: 'basket/delete',
+        method: 'DELETE',
+        body: cartData,
       }),
-      invalidatesTags: ["Cart"],
+      invalidatesTags: ['Cart'],
     }),
   }),
 });
@@ -39,20 +44,20 @@ export const cartApi = createApi({
 export interface ICart {
   code: number;
   message: string;
-  data: Data[];
+  data: Daum[];
 }
 
-export interface Data {
+export interface Daum {
   basketId: number;
   productId: number;
   brand: string;
   logo: string;
   name: string;
-  rate: string;
-  phone: string;
-  datail: string;
-  price: string;
-  img: string;
+  price: number;
+}
+
+export interface ICartData {
+  productId: number;
 }
 
 export const { useGetCartQuery, useAddCartMutation, useDeleteCartMutation } =
