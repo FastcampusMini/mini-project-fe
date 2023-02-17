@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Nav from "../../components/Nav";
-import { joinNames } from "../../libs/utils";
+import Nav from "@components/Nav";
+import { joinNames } from "@libs/utils";
 
 interface IUser {
   email: string;

@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import CartElement from "../../components/MyCart/CartElement";
-import EmptyCart from "../../components/MyCart/EmptyCart";
-import Back from "../../components/ui/Navigation/Back";
+import CartElement from "@components/MyCart/CartElement";
+import EmptyCart from "@components/MyCart/EmptyCart";
+import Back from "@components/ui/Navigation/Back";
 import {
   useGetCartQuery,
   useDeleteCartMutation,

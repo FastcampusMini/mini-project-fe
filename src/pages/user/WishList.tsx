@@ -1,8 +1,8 @@
 import React from "react";
-import WishListElement from "../../components/WishList/WishListElement";
+import WishListElement from "@components/WishList/WishListElement";
 import { FaHeartBroken } from "react-icons/fa";
-import EmptyCart from "./../../components/MyCart/EmptyCart";
-import Back from "./../../components/Navigation/Back";
+import EmptyCart from "@components/MyCart/EmptyCart";
+import Back from "@components/ui/Navigation/Back";
 import { useGetCartQuery, useAddCartMutation } from "../../store/api/cartApi";
 import { ICart } from "./MyCart";
 

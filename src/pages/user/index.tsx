@@ -1,10 +1,10 @@
-import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { IoIosArrowForward } from 'react-icons/io';
-import { BsFillBookmarkHeartFill, BsFillCartCheckFill } from 'react-icons/bs';
-import { FaUserTimes } from 'react-icons/fa';
-import { MdAccountBalanceWallet } from 'react-icons/md';
-import Navigation from '../../components/ui/Navigation';
+import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
+import { BsFillBookmarkHeartFill, BsFillCartCheckFill } from "react-icons/bs";
+import { FaUserTimes } from "react-icons/fa";
+import { MdAccountBalanceWallet } from "react-icons/md";
+import Navigation from "@components/ui/Navigation";
 
 const User = () => {
   const navigate = useNavigate();
@@ -16,8 +16,7 @@ const User = () => {
         </h1>
         <div
           className='flex items-center gap-1 font-semibold text-gray cursor-pointer mb-10 hover:text-yellow'
-          onClick={() => navigate('/user/edit')}
-        >
+          onClick={() => navigate("/user/edit")}>
           <p>내 프로필 보기</p>
           <IoIosArrowForward />
         </div>
@@ -25,29 +24,25 @@ const User = () => {
         <div>
           <div
             className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+            onClick={() => navigate("/user/wishlist")}>
             <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
             <span>관심상품</span>
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/mycart')}
-          >
+            onClick={() => navigate("/user/mycart")}>
             <BsFillCartCheckFill className='text-yellow text-2xl ' />
             <span>장바구니</span>
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/signup')}
-          >
+            onClick={() => navigate("/signup")}>
             <MdAccountBalanceWallet className='text-yellow text-2xl' />
             <span>신청한 상품 내역</span>
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
-            onClick={() => navigate('/signup')}
-          >
+            onClick={() => navigate("/signup")}>
             <FaUserTimes className='text-yellow text-2xl' />
             <span>회원탈퇴</span>
           </div>

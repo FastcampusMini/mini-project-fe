@@ -1,8 +1,8 @@
 import React from "react";
-import LoanProduct from "../../components/LoanProductCard";
+import LoanProduct from "@components/LoanProductCard";
 import { TotalLoans } from "./TotalLoans";
-import FNB from "../../components/FNB/index";
-import Nav from "../../components/Nav";
+import FNB from "@components/FNB/index";
+import Nav from "@components/Nav";
 
 const Main = () => {
   return (
