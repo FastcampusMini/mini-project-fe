@@ -1,44 +1,72 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import ConfrimBtn from '../../components/ui/ConfirmBtn';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { UseFormRegister } from 'react-hook-form';
+import SignInField from '../../components/SignIn/SignInField';
+interface ISignInForm {
+  email: string;
+  password: string;
+}
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
+
+  const schema = yup.object().shape({
+    email: yup.string().email('이메일 형식이 맞지 않습니다.').required('이메일은 필수 입력입니다.'),
+    password: yup.string().required('비밀번호는 필수 입력입니다.').min(8, '8자리 이상 비밀번호를 사용하세요.').max(25),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, isDirty, isValid, errors },
+  } = useForm<ISignInForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
+
+  const onSubmit = (data, event) => {
+    console.log('data', data);
+    console.log('event', event);
+  };
 
   return (
     <>
       <div>
-        <p className='text-right mb-7 text-lg font-semibold cursor-pointer'>취소</p>
+        <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
+          취소
+        </p>
         <h1 className='text-3xl mb-10'>
           핀크 이용을 위해 <br />
           <span className='font-semibold'>본인확인</span>을 해주세요
         </h1>
-        <form className='flex flex-col'>
-          <input
-            className='text-gray border px-6 py-3 rounded-md mb-8'
-            type='text'
-            placeholder='메일'
-            {...register('email')}
+        <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
+          <SignInField
+            text={'example@email.com'}
+            name={'email'}
+            register={register}
+            errorMsg={errors.email}
+            isDirty={isDirty}
           />
-          <input
-            className='text-gray border px-6 py-3 rounded-md'
-            type='text'
-            placeholder='비밀번호'
-            {...register('password')}
+          <SignInField
+            text={'********'}
+            name={'password'}
+            inputType='password'
+            register={register}
+            errorMsg={errors.password}
+            isDirty={isDirty}
           />
-          <div
-            className='flex items-center justify-center gap-1 my-10 font-semibold text-gray cursor-pointer'
-            onClick={() => navigate('/signup')}
-          >
-            <p>회원가입을 아직 안하셨나요?</p>
-            <IoIosArrowForward />
-          </div>
+          <ConfrimBtn isValid={isValid} isSubmitting={isSubmitting} />
         </form>
+        <div
+          className='flex items-center justify-center gap-1 my-8 font-semibold text-gray cursor-pointer hover:text-yellow'
+          onClick={() => navigate('/signup')}
+        >
+          <p>회원가입을 아직 안하셨나요?</p>
+          <IoIosArrowForward />
+        </div>
       </div>
-      <ConfrimBtn />
     </>
   );
 };
