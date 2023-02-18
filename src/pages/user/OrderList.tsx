@@ -1,13 +1,13 @@
-import React from "react";
-import { AiOutlineFileSearch } from "react-icons/ai";
-import EmptyCart from "../../components/MyCart/EmptyCart";
-import Back from "../../components/ui/Navigation/Back";
-import OrderListElement from "./../../components/OrderList/OrderListElement";
-import { useGetCartQuery } from "../../store/api/cartApi";
-import { ICart } from "./MyCart";
+import React from 'react';
+import { AiOutlineFileSearch } from 'react-icons/ai';
+import EmptyCart from '../../components/MyCart/EmptyCart';
+import Back from '../../components/ui/Navigation/Back';
+import OrderListElement from './../../components/OrderList/OrderListElement';
+import { useGetCartQuery } from '../../store/api/cartApiSlice';
+import { ICart } from './MyCart';
 
 const OrderList = () => {
-  const { data: cart, isLoading } = useGetCartQuery("");
+  const { data: cart, isLoading } = useGetCartQuery('');
   if (isLoading) {
     return <>Loading</>;
   }

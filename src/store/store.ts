@@ -1,5 +1,5 @@
-import { cartApi } from "./api/cartApi";
-import { configureStore } from "@reduxjs/toolkit";
+import { cartApi } from './api/cartApiSlice';
+import { configureStore } from '@reduxjs/toolkit';
 
 const store = configureStore({
   reducer: {

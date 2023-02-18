@@ -3,7 +3,10 @@ import WishListElement from '../../components/WishList/WishListElement';
 import { FaHeartBroken } from 'react-icons/fa';
 import EmptyCart from './../../components/MyCart/EmptyCart';
 import Back from '../../components/ui/Navigation/Back';
-import { useGetCartQuery, useAddCartMutation } from '../../store/api/cartApi';
+import {
+  useGetCartQuery,
+  useAddCartMutation,
+} from '../../store/api/cartApiSlice';
 import { ICart } from './MyCart';
 
 const WishList = () => {
@@ -18,7 +21,7 @@ const WishList = () => {
       <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
         관심상품
       </h1>
-      {cart?.length === 0 || !cart ? (
+      {cart?.data?.length === 0 || !cart ? (
         <EmptyCart>
           <FaHeartBroken className='text-7xl' />
           <p className='flex flex-col gap-3 text-center font-extrabold text-lg'>
@@ -32,7 +35,7 @@ const WishList = () => {
         </EmptyCart>
       ) : null}
 
-      {cart?.map((value: ICart, i: number) => (
+      {cart?.data?.map((value: ICart, i: number) => (
         <WishListElement cartData={value} addCart={addCart} key={i} />
       ))}
     </article>

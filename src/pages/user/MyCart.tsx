@@ -1,19 +1,21 @@
-import React from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
 import Back from '@components/ui/Navigation/Back';
 import {
+  cartApi,
   useGetCartQuery,
   useDeleteCartMutation,
-} from '../../store/api/cartApi';
+} from '../../store/api/cartApiSlice';
+import ConfirmModal from './../../components/ui/ConfirmModal';
 
+console.log('api', cartApi);
 const Mycart = () => {
   const { data: cart, isLoading } = useGetCartQuery('');
   console.log('cart', cart);
-
   const [deleteCart] = useDeleteCartMutation();
+
   if (isLoading) {
     return <>Loading</>;
   }
@@ -34,6 +36,7 @@ const Mycart = () => {
             </p>
           </EmptyCart>
         ) : null}
+        {/* key 값 변경하기 */}
         {cart?.data?.map((value: ICart, i: number) => (
           <CartElement cartData={value} deleteCart={deleteCart} key={i} />
         ))}

@@ -8,9 +8,11 @@ export const cartApi = createApi({
     prepareHeaders: (headers) => {
       headers.set(
         'Authorization',
-        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2NjQ3Njk3LCJleHAiOjE2NzY2NDk0OTcsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.1A1svRtVD2sItvJf01Wp_VzB5Wha3V_jf8i7CCirMgM`,
+        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2NzEwMjg2LCJleHAiOjE2NzY3MTIwODYsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.PcPpjo6bHgr6P8p8sJDwbOlddph1BU0rSOiLkYuOBwU`,
       );
       headers.set('Content-Type', 'application/json');
+      console.log(headers);
+      return headers;
     },
   }),
   tagTypes: ['Cart'],
@@ -30,7 +32,7 @@ export const cartApi = createApi({
       invalidatesTags: ['Cart'],
     }),
     deleteCart: builder.mutation({
-      query: (cartData: ICartData) => ({
+      query: (cartData: ICartDataDelete) => ({
         url: 'basket/delete',
         method: 'DELETE',
         body: cartData,
@@ -58,6 +60,10 @@ export interface Daum {
 
 export interface ICartData {
   productId: number;
+}
+
+export interface ICartDataDelete {
+  basketId: number;
 }
 
 export const { useGetCartQuery, useAddCartMutation, useDeleteCartMutation } =

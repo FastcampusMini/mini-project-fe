@@ -1,11 +1,24 @@
-import React from 'react';
+import { useState } from 'react';
 import { TiDeleteOutline } from 'react-icons/ti';
 import Card from './Card';
+import ConfirmModal from '../ui/ConfirmModal';
 
 // key 값 변경 될 수도 있음
 const CartElement = ({ cartData, deleteCart }) => {
+  const [modal, setModal] = useState(false);
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
+      {modal && (
+        <ConfirmModal
+          title='삭제하시겠습니까?'
+          description=''
+          onConfirm={async () => {
+            await deleteCart(cartData.basketId);
+            setModal(false);
+          }}
+          onCancel={() => setModal(false)}
+        />
+      )}
       <Card data={cartData}>
         <div className='flex'>
           <div className='flex flex-col font-bold text-orange items-end gap-2 mx-4 mt-1 text-lg'>
@@ -14,8 +27,8 @@ const CartElement = ({ cartData, deleteCart }) => {
           </div>
           <div className='pointer-events-auto'>
             <TiDeleteOutline
-              onClick={async () => {
-                await deleteCart(cartData.basketId);
+              onClick={() => {
+                setModal(true);
               }}
               className='text-4xl text-[#E5E7EB] font-light cursor-pointer'
             />
