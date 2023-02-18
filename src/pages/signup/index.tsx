@@ -4,9 +4,10 @@ import TextField from '../../components/SignUp/TextField';
 import ConfirmBtn from '../../components/ui/ConfirmBtn';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { regex } from '../../libs/utils';
+import regex from '../../libs/regex';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
+import { signUp } from '../../api/authApi';
 interface ISignUpForm {
   name: string;
   email: string;
@@ -65,7 +66,12 @@ const SignUp = () => {
     { value: 7, label: '무직' },
   ];
 
-  const submitForm: SubmitHandler<ISignUpForm> = (data) => console.log(JSON.stringify(data));
+  const submitForm: SubmitHandler<ISignUpForm> = async ({ name, email, pw, phone, birth, job, salary }) => {
+    salary = salary * 10000;
+    console.log('salary:', salary);
+    // const respose = await signUp({ name, email, pw, phone, birth, job, salary });
+    // console.log(respose);
+  };
 
   return (
     <>

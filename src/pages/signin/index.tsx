@@ -1,18 +1,20 @@
 import React, { InputHTMLAttributes } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import ConfrimBtn from '../../components/ui/ConfirmBtn';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { UseFormRegister } from 'react-hook-form';
 import SignInField from '../../components/SignIn/SignInField';
+import { signIn } from '../../api/authApi';
+import { useCookies } from 'react-cookie';
 interface ISignInForm {
   email: string;
   password: string;
 }
 
 const SignIn = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie_name']);
   const navigate = useNavigate();
 
   const schema = yup.object().shape({
@@ -26,9 +28,30 @@ const SignIn = () => {
     formState: { isSubmitting, isDirty, isValid, errors },
   } = useForm<ISignInForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
 
-  const onSubmit = (data, event) => {
-    console.log('data', data);
-    console.log('event', event);
+  const handleCookie = (email: string, password: string, accessToken: string) => {
+    const expireDate = new Date();
+    expireDate.setMinutes(expireDate.getMinutes() + 30);
+    setCookie(
+      'cookie_name',
+      { email: email, password: password, accessToken: accessToken },
+      { path: '/', expires: expireDate }
+      // , secure: true, httpOnly: true
+    );
+  };
+
+  const login: SubmitHandler<ISignInForm> = async ({ email, password }, event) => {
+    event.preventDefault();
+    console.log('email', email);
+    console.log('password', password);
+    // console.log('event', event);
+    const { accessToken } = await signIn({ email, password });
+
+    if (accessToken) {
+      handleCookie(email, password, accessToken);
+    } else {
+      alert('로그인에 실패하셨습니다.');
+    }
+    navigate('/main');
   };
 
   return (
@@ -41,7 +64,7 @@ const SignIn = () => {
           핀크 이용을 위해 <br />
           <span className='font-semibold'>본인확인</span>을 해주세요
         </h1>
-        <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col' onSubmit={handleSubmit(login)}>
           <SignInField
             text={'example@email.com'}
             name={'email'}
