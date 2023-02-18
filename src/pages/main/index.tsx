@@ -8,7 +8,7 @@ const Main = () => {
   return (
     <>
       <main className='flex flex-col'>
-        <Nav />
+        <Nav left='arrow' right='arrow' />
         <div className='px-3 space-y-8'>
           <TotalLoans amount={3200} />
           <LoanProduct />

@@ -1,0 +1,17 @@
+{
+  "code": 200,
+  "message": "회원 탈퇴 성공.",
+  "data": {
+    "memberId": 9,
+    "email": "isaac",
+    "password": "{bcrypt}$2a$10$xyD12mAcjbFHn7oSlpge1uRpmrmsgv.6sI99vSGvQpkQX9pYG2AWW",
+    "name": "황이삭",
+    "birth": "123123123",
+    "phone": "123123123",
+    "salary": 220,
+    "job": "FE",
+    "deleteCheck": "withdraw",
+    "created_date": [2023, 2, 18, 7, 30, 16, 452495000],
+    "updated_date": [2023, 2, 18, 8, 22, 15, 781299000]
+  }
+}
