@@ -1,0 +1,5 @@
+{
+  "code": 200,
+  "message": "요청에 성공하였습니다.",
+  "data": "SignupReqDTO(email=isaac, password={bcrypt}$2a$10$VuQt6zBfEHKxRQ0IutDwhehUyKeG1K15xsZJInfK0QYLJyLPRx4Gi, name=황이삭, birth=123123123, phone=11112341234, salary=11110, job=dev)"
+}
