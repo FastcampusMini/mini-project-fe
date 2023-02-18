@@ -4,18 +4,15 @@ import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
 import Back from '@components/ui/Navigation/Back';
 import {
-  cartApi,
   useGetCartQuery,
   useDeleteCartMutation,
 } from '../../store/api/cartApiSlice';
-import ConfirmModal from './../../components/ui/ConfirmModal';
-
-console.log('api', cartApi);
+import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 const Mycart = () => {
   const { data: cart, isLoading } = useGetCartQuery('');
   console.log('cart', cart);
   const [deleteCart] = useDeleteCartMutation();
-
+  const [addOrderList] = useAddOrderListMutation();
   if (isLoading) {
     return <>Loading</>;
   }
@@ -38,7 +35,12 @@ const Mycart = () => {
         ) : null}
         {/* key 값 변경하기 */}
         {cart?.data?.map((value: ICart, i: number) => (
-          <CartElement cartData={value} deleteCart={deleteCart} key={i} />
+          <CartElement
+            cartData={value}
+            deleteCart={deleteCart}
+            addOrderList={addOrderList}
+            key={i}
+          />
         ))}
       </article>
     </>

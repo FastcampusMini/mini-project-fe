@@ -4,11 +4,11 @@ export const cartApi = createApi({
   reducerPath: 'cartApi',
   baseQuery: fetchBaseQuery({
     // env로
-    baseUrl: 'http://52.78.32.230:8080',
+    baseUrl: 'http://52.78.32.230:8080/api',
     prepareHeaders: (headers) => {
       headers.set(
         'Authorization',
-        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2NzEwMjg2LCJleHAiOjE2NzY3MTIwODYsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.PcPpjo6bHgr6P8p8sJDwbOlddph1BU0rSOiLkYuOBwU`,
+        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2NzM0MDg0LCJleHAiOjE2NzY3MzU4ODQsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.7MdcuzHcz53_OVN6mVWIVVTFGke-zr-Nai_e9BWnlbs`,
       );
       headers.set('Content-Type', 'application/json');
       console.log(headers);
@@ -24,7 +24,7 @@ export const cartApi = createApi({
     addCart: builder.mutation({
       query: (cartData: ICartData) => {
         return {
-          url: '/basket/add',
+          url: '/basket',
           method: 'POST',
           body: cartData,
         };
@@ -33,7 +33,7 @@ export const cartApi = createApi({
     }),
     deleteCart: builder.mutation({
       query: (cartData: ICartDataDelete) => ({
-        url: 'basket/delete',
+        url: 'basket',
         method: 'DELETE',
         body: cartData,
       }),

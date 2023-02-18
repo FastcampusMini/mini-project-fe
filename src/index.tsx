@@ -7,19 +7,15 @@ import './index.css';
 import router from './router';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
-import { cartApi } from './store/api/cartApiSlice';
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ApiProvider api={cartApi}>
-        <Provider store={store}>
-          <RouterProvider router={router} />
-        </Provider>
-      </ApiProvider>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>,
 );

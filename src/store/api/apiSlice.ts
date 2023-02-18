@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://cors-anywhere.herokuapp.com/http://52.78.32.230:8080',
+  baseUrl: 'http://52.78.32.230:8080',
   credentials: 'include',
   prepareHeaders: (headers) => {
     headers.set(
