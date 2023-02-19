@@ -36,12 +36,12 @@ const WishList = () => {
         </EmptyCart>
       ) : null}
 
-      {wishlist?.data?.map((value, i: number) => (
+      {wishlist?.data?.map((value) => (
         <WishListElement
           wishlistData={value}
           addBasketInWishList={addBasketInWishList}
           deleteWishList={deleteWishList}
-          key={i}
+          key={value.wishlistId}
         />
       ))}
     </article>

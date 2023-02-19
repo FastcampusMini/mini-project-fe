@@ -49,7 +49,7 @@ export interface IWishList {
 }
 
 export interface Daum {
-  basketId: number;
+  wishlistId: number;
   productId: number;
   brand: string;
   logo: string;

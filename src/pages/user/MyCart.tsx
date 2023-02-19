@@ -33,12 +33,12 @@ const Mycart = () => {
           </EmptyCart>
         ) : null}
         {/* key 값 변경하기 */}
-        {cart?.data?.map((value: ICart, i: number) => (
+        {cart?.data?.map((value: ICart) => (
           <CartElement
             cartData={value}
             deleteCart={deleteCart}
             addOrderList={addOrderList}
-            key={i}
+            key={value.basketId}
           />
         ))}
       </article>

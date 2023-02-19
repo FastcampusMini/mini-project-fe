@@ -25,8 +25,8 @@ const OrderList = () => {
           </p>
         </EmptyCart>
       ) : null}
-      {order?.data?.map((value, i: number) => (
-        <OrderListElement orderData={value} key={i} />
+      {order?.data?.map((value) => (
+        <OrderListElement orderData={value} key={value.orderId} />
       ))}
     </article>
   );
