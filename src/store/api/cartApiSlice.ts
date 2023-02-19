@@ -1,20 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { base } from './apiSlice';
 
 export const cartApi = createApi({
   reducerPath: 'cartApi',
-  baseQuery: fetchBaseQuery({
-    // env로
-    baseUrl: 'http://52.78.32.230:8080/api',
-    prepareHeaders: (headers) => {
-      headers.set(
-        'Authorization',
-        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODA0NjMxLCJleHAiOjE2NzY4MDY0MzEsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.hqqCJUNC8Yu-9CPJF1uHNyEDm9XEMkHAszP-hIiPnbc`,
-      );
-      headers.set('Content-Type', 'application/json');
-      console.log(headers);
-      return headers;
-    },
-  }),
+  baseQuery: base,
   tagTypes: ['Cart'],
   endpoints: (builder) => ({
     getCart: builder.query<ICart, String>({

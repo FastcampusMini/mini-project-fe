@@ -1,19 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { base } from './apiSlice';
 
 export const wishlistApi = createApi({
   reducerPath: 'wishlistApi',
-  baseQuery: fetchBaseQuery({
-    // env로
-    baseUrl: 'http://52.78.32.230:8080/api',
-    prepareHeaders: (headers) => {
-      headers.set(
-        'Authorization',
-        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODA0NjMxLCJleHAiOjE2NzY4MDY0MzEsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.hqqCJUNC8Yu-9CPJF1uHNyEDm9XEMkHAszP-hIiPnbc`,
-      );
-      headers.set('Content-Type', 'application/json');
-      return headers;
-    },
-  }),
+  baseQuery: base,
   tagTypes: ['WishList'],
   endpoints: (builder) => ({
     getWishList: builder.query<IWishList, String>({
