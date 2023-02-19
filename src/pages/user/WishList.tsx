@@ -1,13 +1,13 @@
-import React from 'react';
 import WishListElement from '../../components/WishList/WishListElement';
 import { FaHeartBroken } from 'react-icons/fa';
 import EmptyCart from './../../components/MyCart/EmptyCart';
-import Back from '../../components/ui/Navigation/Back';
+import Nav from '@/components/Nav';
 import {
   useGetWishListQuery,
   useDeleteWishListMutation,
 } from '@/store/api/wishlistApiSlice';
 import { useAddBasketInWishListMutation } from '@/store/api/cartApiSlice';
+import Navigation from '@components/ui/Navigation';
 
 const WishList = () => {
   const { data: wishlist, isLoading } = useGetWishListQuery('');
@@ -17,34 +17,37 @@ const WishList = () => {
     return <>Loading</>;
   }
   return (
-    <article>
-      <Back />
-      <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
-        관심상품
-      </h1>
-      {wishlist?.data?.length === 0 ? (
-        <EmptyCart>
-          <FaHeartBroken className='text-7xl' />
-          <p className='flex flex-col gap-3 text-center font-extrabold text-lg'>
-            관심 상품이 비어있네요!
-            <br />
-            <span className='text-sm'>
-              원하는 상품의 하트아이콘을 <br /> 눌러 관심상품 리스트를
-              만들어보세요.
-            </span>
-          </p>
-        </EmptyCart>
-      ) : null}
+    <>
+      <article>
+        <Nav left='arrow' />
+        <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
+          관심상품
+        </h1>
+        {wishlist?.data?.length === 0 ? (
+          <EmptyCart>
+            <FaHeartBroken className='text-7xl' />
+            <p className='flex flex-col gap-3 text-center font-extrabold text-lg'>
+              관심 상품이 비어있네요!
+              <br />
+              <span className='text-sm'>
+                원하는 상품의 하트아이콘을 <br /> 눌러 관심상품 리스트를
+                만들어보세요.
+              </span>
+            </p>
+          </EmptyCart>
+        ) : null}
 
-      {wishlist?.data?.map((value) => (
-        <WishListElement
-          wishlistData={value}
-          addBasketInWishList={addBasketInWishList}
-          deleteWishList={deleteWishList}
-          key={value.wishlistId}
-        />
-      ))}
-    </article>
+        {wishlist?.data?.map((value) => (
+          <WishListElement
+            wishlistData={value}
+            addBasketInWishList={addBasketInWishList}
+            deleteWishList={deleteWishList}
+            key={value.wishlistId}
+          />
+        ))}
+      </article>
+      <Navigation type='scroll' />
+    </>
   );
 };
 

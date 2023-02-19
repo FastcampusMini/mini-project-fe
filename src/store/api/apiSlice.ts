@@ -6,7 +6,7 @@ export const base = fetchBaseQuery({
     // 나중에 cookie에서 가져오는걸로 변경하기
     headers.set(
       'Authorization',
-      `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODE2NTY0LCJleHAiOjE2NzY4MTgzNjQsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.4PKFyMBGJM42QkTKAcfsr6sha_wfPuoZT20jlrfQzTo`,
+      `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODI3MDA0LCJleHAiOjE2NzY4Mjg4MDQsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.Ceawp6IB4iOeZo63kulo73gDq_udTVKEvZAlYW9D1HQ`,
     );
     headers.set('Content-Type', 'application/json');
     return headers;

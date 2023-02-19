@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
-import Back from '@components/ui/Navigation/Back';
+import Nav from '@/components/Nav';
 import {
   useGetCartQuery,
   useDeleteCartMutation,
 } from '../../store/api/cartApiSlice';
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
+import Navigation from '@components/ui/Navigation';
 const Mycart = () => {
   const { data: cart, isLoading } = useGetCartQuery('');
   const [deleteCart] = useDeleteCartMutation();
@@ -18,7 +18,7 @@ const Mycart = () => {
   return (
     <>
       <article>
-        <Back />
+        <Nav left='arrow' />
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           장바구니
         </h1>
@@ -32,7 +32,6 @@ const Mycart = () => {
             </p>
           </EmptyCart>
         ) : null}
-        {/* key 값 변경하기 */}
         {cart?.data?.map((value: ICart) => (
           <CartElement
             cartData={value}
@@ -42,6 +41,7 @@ const Mycart = () => {
           />
         ))}
       </article>
+      <Navigation type='scroll' />
     </>
   );
 };

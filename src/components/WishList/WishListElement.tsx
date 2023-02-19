@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BsCart2 } from 'react-icons/bs';
 import Card from '../MyCart/Card';
 import ConfirmModal from '../ui/ConfirmModal';
+import AlertModal from '../ui/Navigation/AlertModal';
 
 const WishListElement = ({
   wishlistData,
@@ -10,6 +11,7 @@ const WishListElement = ({
 }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
+  const [alertModal, setAlertModal] = useState(false);
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       {deleteModal && (
@@ -30,17 +32,24 @@ const WishListElement = ({
           title='장바구니에 담으시겠습니까?'
           description=''
           onConfirm={async () => {
-            await addBasketInWishList({
+            const res = await addBasketInWishList({
               productId: wishlistData.productId,
             });
-            await deleteWishList({
-              wishlistId: wishlistData.wishlistId,
-            });
-            setAddModal(false);
+            console.log(res);
+            if (res.data.code === 500) {
+              setAddModal(false);
+              setAlertModal(true);
+            } else {
+              await deleteWishList({
+                wishlistId: wishlistData.wishlistId,
+              });
+              setAddModal(false);
+            }
           }}
           onCancel={() => setAddModal(false)}
         />
       )}
+      {alertModal && <AlertModal setAlertModal={setAlertModal} />}
       <Card data={wishlistData}>
         <div className='flex'>
           <div className='flex flex-col font-bold text-orange items-end gap-2 mx-4 mt-1 text-lg'>
