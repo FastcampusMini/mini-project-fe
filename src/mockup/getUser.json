@@ -1,0 +1,13 @@
+{
+  "code": 200,
+  "message": "요청에 성공하였습니다.",
+  "data": {
+    "email": "isaac",
+    "password": "{bcrypt}$2a$10$xyD12mAcjbFHn7oSlpge1uRpmrmsgv.6sI99vSGvQpkQX9pYG2AWW",
+    "name": "황이삭",
+    "birth": "123123123",
+    "phone": "123123123",
+    "salary": 220,
+    "job": "FE"
+  }
+}

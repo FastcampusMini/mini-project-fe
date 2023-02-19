@@ -1,0 +1,11 @@
+{
+  "code": 200,
+  "message": "회원정보 수정 성공하였습니다.",
+  "data": {
+    "oldPassword": "isaac",
+    "newPassword": "{bcrypt}$2a$10$xyD12mAcjbFHn7oSlpge1uRpmrmsgv.6sI99vSGvQpkQX9pYG2AWW",
+    "phone": "123123123",
+    "salary": 220,
+    "job": "FE"
+  }
+}

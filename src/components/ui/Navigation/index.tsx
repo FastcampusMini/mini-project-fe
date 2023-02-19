@@ -1,11 +1,14 @@
-import React from "react";
-import { FaSearchDollar } from "react-icons/fa";
-import { AiFillHome } from "react-icons/ai";
-import { BsFillPersonFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { FaSearchDollar } from 'react-icons/fa';
+import { AiFillHome } from 'react-icons/ai';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+interface INavProps {
+  type?: string;
+}
 
-const index = ({ type }: any) => {
-  const isScroll = type === "scroll";
+const index = ({ type }: INavProps) => {
+  const isScroll = type === 'scroll';
   const navigate = useNavigate();
   return (
     <div
