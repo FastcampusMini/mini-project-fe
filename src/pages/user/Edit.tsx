@@ -121,11 +121,9 @@ const Edit = () => {
                   type='number'
                   placeholder={"연소득"}
                   {...register("salary", {
-                    validate: {
-                      positive: (value) =>
-                        Number(value) >= 1000
-                          ? true
-                          : "1000만원 이상 입력하세요",
+                    min: {
+                      value: 1000,
+                      message: "1000만원 이상 입력하세요",
                     },
                   })}
                 />

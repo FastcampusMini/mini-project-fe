@@ -9,17 +9,19 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import { cartApi } from "./store/api/cartApi";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ApiProvider api={cartApi}>
-        <Provider store={store}>
-          <RouterProvider router={router} />
-        </Provider>
-      </ApiProvider>
-    </QueryClientProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <ApiProvider api={cartApi}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </Provider>
+    </ApiProvider>
+  </QueryClientProvider>
+  // </React.StrictMode>,
 );
