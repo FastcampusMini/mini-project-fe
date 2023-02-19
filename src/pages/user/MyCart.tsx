@@ -1,17 +1,17 @@
-import React from "react";
-import axios from "axios";
-import { MdOutlineShoppingCart } from "react-icons/md";
-import CartElement from "@components/MyCart/CartElement";
-import EmptyCart from "@components/MyCart/EmptyCart";
-import Back from "@components/ui/Navigation/Back";
+import { useState } from 'react';
+import { MdOutlineShoppingCart } from 'react-icons/md';
+import CartElement from '@components/MyCart/CartElement';
+import EmptyCart from '@components/MyCart/EmptyCart';
+import Back from '@components/ui/Navigation/Back';
 import {
   useGetCartQuery,
   useDeleteCartMutation,
-} from "../../store/api/cartApi";
-
+} from '../../store/api/cartApiSlice';
+import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 const Mycart = () => {
-  const { data: cart, isLoading } = useGetCartQuery("");
+  const { data: cart, isLoading } = useGetCartQuery('');
   const [deleteCart] = useDeleteCartMutation();
+  const [addOrderList] = useAddOrderListMutation();
   if (isLoading) {
     return <>Loading</>;
   }
@@ -22,8 +22,7 @@ const Mycart = () => {
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           장바구니
         </h1>
-        {/* 나중에 변경하기 */}
-        {cart?.length === 0 || !cart ? (
+        {cart?.data?.length === 0 ? (
           <EmptyCart>
             <MdOutlineShoppingCart className='text-7xl' />
             <p className='text-center font-extrabold text-lg'>
@@ -33,9 +32,14 @@ const Mycart = () => {
             </p>
           </EmptyCart>
         ) : null}
-        {/* cart?.data?로 변경하기 */}
-        {cart?.map((value: ICart, i: number) => (
-          <CartElement cartData={value} deleteCart={deleteCart} key={i} />
+        {/* key 값 변경하기 */}
+        {cart?.data?.map((value: ICart) => (
+          <CartElement
+            cartData={value}
+            deleteCart={deleteCart}
+            addOrderList={addOrderList}
+            key={value.basketId}
+          />
         ))}
       </article>
     </>
@@ -48,11 +52,7 @@ export interface ICart {
   brand: string;
   logo: string;
   name: string;
-  rate: string;
-  phone: string;
-  datail: string;
-  price: string;
-  img: string;
+  price: number;
 }
 
 export default Mycart;

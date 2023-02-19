@@ -1,13 +1,13 @@
-import React from "react";
-import { AiOutlineFileSearch } from "react-icons/ai";
-import EmptyCart from "../../components/MyCart/EmptyCart";
-import Back from "../../components/ui/Navigation/Back";
-import OrderListElement from "./../../components/OrderList/OrderListElement";
-import { useGetCartQuery } from "../../store/api/cartApi";
-import { ICart } from "./MyCart";
+import React from 'react';
+import { AiOutlineFileSearch } from 'react-icons/ai';
+import EmptyCart from '../../components/MyCart/EmptyCart';
+import Back from '../../components/ui/Navigation/Back';
+import OrderListElement from './../../components/OrderList/OrderListElement';
+import { useGetOrderListQuery } from '@/store/api/orderApiSlice';
 
 const OrderList = () => {
-  const { data: cart, isLoading } = useGetCartQuery("");
+  const { data: order, isLoading } = useGetOrderListQuery('');
+  console.log('order', order);
   if (isLoading) {
     return <>Loading</>;
   }
@@ -17,7 +17,7 @@ const OrderList = () => {
       <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
         신청 내역
       </h1>
-      {cart?.length === 0 || !cart ? (
+      {order?.data === null ? (
         <EmptyCart>
           <AiOutlineFileSearch className='text-7xl' />
           <p className='text-center font-extrabold text-lg'>
@@ -25,8 +25,8 @@ const OrderList = () => {
           </p>
         </EmptyCart>
       ) : null}
-      {cart?.map((value: ICart, i: number) => (
-        <OrderListElement cartData={value} key={i} />
+      {order?.data?.map((value) => (
+        <OrderListElement orderData={value} key={value.orderId} />
       ))}
     </article>
   );
