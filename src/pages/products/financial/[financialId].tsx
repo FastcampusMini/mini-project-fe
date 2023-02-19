@@ -5,7 +5,6 @@ import ConfirmModal from "../../../components/ui/ConfirmModal";
 
 const Id = () => {
   const { financialId } = useParams()
-  // console.log('financialId : ',financialId)
   const [modal, setModal] = useState(false)
   const [detail, setDetail] = useState()
 
