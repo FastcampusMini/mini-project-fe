@@ -8,7 +8,7 @@ interface TSignUpFieldValues {
   checkPw: string;
   phone: string;
   job: string;
-  salary: string;
+  salary: number;
   birth: string;
 }
 
@@ -17,21 +17,19 @@ interface IProps {
   inputType?: string;
   name: Path<TSignUpFieldValues>;
   register: UseFormRegister<TSignUpFieldValues>;
-  errorMsg?: string;
+  errorMsg?: any;
 }
 
 const TextField = ({ text, name, inputType = 'text', register, errorMsg, ...others }: IProps) => {
-  // console.log('others:', others);
-
   return (
-    <div className='flex flex-col text-xl font-semibold mb-8 relative'>
+    <div className='flex flex-col text-xl font-semibold mb-5 relative'>
       <label className='mb-2' htmlFor={name}>
         {text}
       </label>
       {name === 'salary' ? (
         <div className='flex items-center justify-between gap-2'>
           <input
-            className='text-gray border px-6 py-3 rounded-md w-full'
+            className='text-black .placeholder-black40 border px-6 py-3 rounded-md w-full'
             type={inputType}
             placeholder={text}
             {...register(name)}
@@ -40,13 +38,17 @@ const TextField = ({ text, name, inputType = 'text', register, errorMsg, ...othe
         </div>
       ) : (
         <input
-          className='text-gray border px-6 py-3 rounded-md'
+          className='text-black .placeholder-black40 border px-6 py-3 rounded-md'
           type={inputType}
           placeholder={text}
           {...register(name)}
         />
       )}
-      {errorMsg && <span className='absolute bottom-[-1.5rem] text-sm text-yellow'>{errorMsg}</span>}
+      {errorMsg && (
+        <small role='alert' className='text-yellow mt-0 mb-1'>
+          {errorMsg.message}
+        </small>
+      )}
     </div>
   );
 };

@@ -1,11 +1,14 @@
-import React from "react";
-import { useForm, SubmitHandler, useController } from "react-hook-form";
-import TextField from "../../components/SignUp/TextField";
-import ConfirmBtn from "../../components/ui/ConfirmBtn";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { regex } from "../../libs/utils";
-import Select from "react-select";
+import React from 'react';
+import { useForm, SubmitHandler, useController } from 'react-hook-form';
+import TextField from '../../components/SignUp/TextField';
+import ConfirmBtn from '../../components/ui/ConfirmBtn';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import regex from '../../libs/regex';
+import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
+import { signUp } from '../../api/authApi';
+
 interface ISignUpForm {
   name: string;
   email: string;
@@ -14,28 +17,36 @@ interface ISignUpForm {
   phone: string;
   birth: string;
   job: string;
-  salary: string;
+  salary: number;
 }
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const schema = yup.object().shape({
-    name: yup.string().min(2).max(10).required(),
-    email: yup.string().email().required(),
-    pw: yup.string().matches(regex.pw).required(),
+    name: yup.string().required('이름은 필수 입력입니다.').min(2, '2글자 이상 입력해주세요.').max(10),
+    email: yup.string().email('이메일 형식이 맞지 않습니다.').required('이메일은 필수 입력입니다.'),
+    pw: yup
+      .string()
+      .required('비밀번호는 필수 입력입니다.')
+      .matches(regex.pw, '숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!'),
     checkPw: yup
       .string()
-      .oneOf([yup.ref("pw"), null])
-      .required(),
-    phone: yup.string().matches(regex.phone).required(),
-    job: yup.string().required("Please select job"),
-    salary: yup.string().matches(regex.salary).required(),
-    birth: yup.string().required(),
+      .oneOf([yup.ref('pw'), null], '비밀번호가 똑같지 않습니다!')
+      .required('비밀번호 확인은 필수 입력입니다.'),
+    phone: yup
+      .string()
+      .required('전화번호는 필수 입력입니다.')
+      .matches(regex.phone, '잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.'),
+    job: yup.string().required('직업은 필수 선택입니다.'),
+    salary: yup.number().required('연봉은 필수 입력입니다.').typeError('숫자만 입력하세요.'),
+    birth: yup.string().required('생년월일은 필수 입력입니다.'),
   });
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitting, isDirty, isValid, errors },
     control,
   } = useForm<ISignUpForm>({
     mode: "onChange",
@@ -56,12 +67,17 @@ const SignUp = () => {
     { value: 7, label: "무직" },
   ];
 
-  const submitForm: SubmitHandler<ISignUpForm> = (data) => console.log(data);
+  const submitForm: SubmitHandler<ISignUpForm> = async ({ name, email, pw, phone, birth, job, salary }) => {
+    salary = salary * 10000;
+    console.log('salary:', salary);
+    // const respose = await signUp({ name, email, pw, phone, birth, job, salary });
+    // console.log(respose);
+  };
 
   return (
     <>
       <div>
-        <p className='text-right mb-7 text-lg font-semibold cursor-pointer'>
+        <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
           취소
         </p>
         <h1 className='text-3xl mb-10'>
@@ -69,61 +85,24 @@ const SignUp = () => {
           <span>를 입력해 주세요</span>
         </h1>
         <form className='flex flex-col' onSubmit={handleSubmit(submitForm)}>
-          <TextField
-            text={"이름"}
-            name={"name"}
-            register={register}
-            errorMsg={errors.name && "2글자 이상 입력해주세요."}
-          />
-          <TextField
-            text={"이메일"}
-            name={"email"}
-            inputType='email'
-            register={register}
-            errorMsg={errors.email && "이메일 형식이 맞지 않습니다."}
-          />
-          <TextField
-            text={"비밀번호"}
-            name={"pw"}
-            inputType='password'
-            register={register}
-            errorMsg={
-              errors.pw &&
-              "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
-            }
-          />
+          <TextField text={'이름'} name={'name'} register={register} errorMsg={errors.name} />
+          <TextField text={'이메일'} name={'email'} inputType='email' register={register} errorMsg={errors.email} />
+          <TextField text={'비밀번호'} name={'pw'} inputType='password' register={register} errorMsg={errors.pw} />
           <TextField
             text={"비밀번호 확인"}
             name={"checkPw"}
             inputType='password'
             register={register}
-            errorMsg={errors.checkPw && "비밀번호가 똑같지 않습니다!"}
+            errorMsg={errors.checkPw}
           />
-          <TextField
-            text={"전화번호"}
-            name={"phone"}
-            register={register}
-            errorMsg={errors.phone && "올바른 형식이 아닙니다!"}
-          />
-          <TextField
-            text={"생년원일"}
-            name={"birth"}
-            inputType='date'
-            register={register}
-            errorMsg={errors.birth && "생년월일을 입력해주세요."}
-          />
-          {/* <TextField
-            text={'직업'}
-            name={'job'}
-            register={register}
-            errorMsg={errors.job && '올바른 형식이 아닙니다!'}
-          /> */}
-          <div className='flex flex-col text-xl font-semibold mb-8 relative'>
+          <TextField text={'전화번호'} name={'phone'} register={register} errorMsg={errors.phone} />
+          <TextField text={'생년원일'} name={'birth'} inputType='date' register={register} errorMsg={errors.birth} />
+          <div className='flex flex-col text-xl font-semibold mb-5 relative'>
             <label className='mb-2' htmlFor='job'>
-              '직업'
+              직업
             </label>
             <Select
-              placeholder='Select job'
+              placeholder='직업을 선택해주세요.'
               isClearable
               options={options}
               value={
@@ -133,18 +112,13 @@ const SignUp = () => {
               {...restjobField}
             />
             {errors.job && (
-              <span className='absolute bottom-[-1.5rem] text-sm text-yellow'>
-                '올바른 형식이 아닙니다!'
-              </span>
+              <small role='alert' className='text-yellow mt-0 mb-1'>
+                직업을 선택해주세요.
+              </small>
             )}
           </div>
-          <TextField
-            text={"연소득"}
-            name={"salary"}
-            register={register}
-            errorMsg={errors.salary && "숫자만 입력해 주세요"}
-          />
-          <ConfirmBtn type='scroll' />
+          <TextField text={'연소득'} name={'salary'} register={register} errorMsg={errors.salary} />
+          <ConfirmBtn type='scroll' isSubmitting={isSubmitting} isValid={isValid} />
         </form>
       </div>
     </>
