@@ -8,6 +8,7 @@ import regex from '../../libs/regex';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../api/authApi';
+
 interface ISignUpForm {
   name: string;
   email: string;
@@ -48,22 +49,22 @@ const SignUp = () => {
     formState: { isSubmitting, isDirty, isValid, errors },
     control,
   } = useForm<ISignUpForm>({
-    mode: 'onChange',
-    reValidateMode: 'onChange',
+    mode: "onChange",
+    reValidateMode: "onChange",
     resolver: yupResolver(schema),
   });
 
-  const { field } = useController({ name: 'job', control });
+  const { field } = useController({ name: "job", control });
   const { value: jobValue, onChange: jobOnChange, ...restjobField } = field;
 
   const options = [
-    { value: 1, label: '사무직' },
-    { value: 2, label: '개발자' },
-    { value: 3, label: '기획자' },
-    { value: 4, label: '마케터' },
-    { value: 5, label: '디자이너' },
-    { value: 6, label: '학생' },
-    { value: 7, label: '무직' },
+    { value: 1, label: "사무직" },
+    { value: 2, label: "개발자" },
+    { value: 3, label: "기획자" },
+    { value: 4, label: "마케터" },
+    { value: 5, label: "디자이너" },
+    { value: 6, label: "학생" },
+    { value: 7, label: "무직" },
   ];
 
   const submitForm: SubmitHandler<ISignUpForm> = async ({ name, email, pw, phone, birth, job, salary }) => {
@@ -88,8 +89,8 @@ const SignUp = () => {
           <TextField text={'이메일'} name={'email'} inputType='email' register={register} errorMsg={errors.email} />
           <TextField text={'비밀번호'} name={'pw'} inputType='password' register={register} errorMsg={errors.pw} />
           <TextField
-            text={'비밀번호 확인'}
-            name={'checkPw'}
+            text={"비밀번호 확인"}
+            name={"checkPw"}
             inputType='password'
             register={register}
             errorMsg={errors.checkPw}
@@ -104,7 +105,9 @@ const SignUp = () => {
               placeholder='직업을 선택해주세요.'
               isClearable
               options={options}
-              value={jobValue && options.find((option) => option.label === jobValue)}
+              value={
+                jobValue && options.find((option) => option.label === jobValue)
+              }
               onChange={(option) => jobOnChange(option && option.label)}
               {...restjobField}
             />
