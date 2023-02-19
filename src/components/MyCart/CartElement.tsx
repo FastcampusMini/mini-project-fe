@@ -2,11 +2,15 @@ import { useState } from 'react';
 import { TiDeleteOutline } from 'react-icons/ti';
 import Card from './Card';
 import ConfirmModal from '../ui/ConfirmModal';
+import { useGetOrderListQuery } from '@/store/api/orderApiSlice';
+import AlertModal from '../ui/Navigation/AlertModal';
 
 // key 값 변경 될 수도 있음
 const CartElement = ({ cartData, deleteCart, addOrderList }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
+  const [alertModal, setAlertModal] = useState(false);
+  const { data: order } = useGetOrderListQuery('');
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       {deleteModal && (
@@ -25,13 +29,24 @@ const CartElement = ({ cartData, deleteCart, addOrderList }) => {
           title='신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await addOrderList({ products_id_list: [cartData.productId] });
-            await deleteCart({ basketId: cartData.basketId });
-            setAddModal(false);
+            order?.data?.map(async (value) => {
+              if (
+                value.purchasedProductList[0].originalProductId ===
+                cartData.productId
+              ) {
+                setAddModal(false);
+                setAlertModal(true);
+              } else {
+                await addOrderList({ products_id_list: [cartData.productId] });
+                await deleteCart({ basketId: cartData.basketId });
+                setAddModal(false);
+              }
+            });
           }}
           onCancel={() => setAddModal(false)}
         />
       )}
+      {alertModal && <AlertModal setAlertModal={setAlertModal} />}
       <Card data={cartData}>
         <div className='flex'>
           <div className='flex flex-col font-bold text-orange items-end gap-2 mx-4 mt-1 text-lg'>

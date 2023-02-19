@@ -35,7 +35,6 @@ const WishListElement = ({
             const res = await addBasketInWishList({
               productId: wishlistData.productId,
             });
-            console.log(res);
             if (res.data.code === 500) {
               setAddModal(false);
               setAlertModal(true);
