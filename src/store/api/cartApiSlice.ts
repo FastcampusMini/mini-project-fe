@@ -8,7 +8,7 @@ export const cartApi = createApi({
     prepareHeaders: (headers) => {
       headers.set(
         'Authorization',
-        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2NzM0MDg0LCJleHAiOjE2NzY3MzU4ODQsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.7MdcuzHcz53_OVN6mVWIVVTFGke-zr-Nai_e9BWnlbs`,
+        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2Nzk1NTMwLCJleHAiOjE2NzY3OTczMzAsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.DfuiGutxEACIKt_321ZlT2kBW-0jvctF_uOXdnkWPtI`,
       );
       headers.set('Content-Type', 'application/json');
       console.log(headers);
@@ -33,10 +33,20 @@ export const cartApi = createApi({
     }),
     deleteCart: builder.mutation({
       query: (cartData: ICartDataDelete) => ({
-        url: 'basket',
+        url: '/basket',
         method: 'DELETE',
         body: cartData,
       }),
+      invalidatesTags: ['Cart'],
+    }),
+    addBasketInWishList: builder.mutation({
+      query: (wishListData: ICartData) => {
+        return {
+          url: '/wishlists/addBasket',
+          method: 'POST',
+          body: wishListData,
+        };
+      },
       invalidatesTags: ['Cart'],
     }),
   }),
@@ -66,5 +76,9 @@ export interface ICartDataDelete {
   basketId: number;
 }
 
-export const { useGetCartQuery, useAddCartMutation, useDeleteCartMutation } =
-  cartApi;
+export const {
+  useGetCartQuery,
+  useAddCartMutation,
+  useDeleteCartMutation,
+  useAddBasketInWishListMutation,
+} = cartApi;

@@ -4,14 +4,15 @@ import { FaHeartBroken } from 'react-icons/fa';
 import EmptyCart from './../../components/MyCart/EmptyCart';
 import Back from '../../components/ui/Navigation/Back';
 import {
-  useGetCartQuery,
-  useAddCartMutation,
-} from '../../store/api/cartApiSlice';
-import { ICart } from './MyCart';
+  useGetWishListQuery,
+  useDeleteWishListMutation,
+} from '@/store/api/wishlistApiSlice';
+import { useAddBasketInWishListMutation } from '@/store/api/cartApiSlice';
 
 const WishList = () => {
-  const { data: cart, isLoading } = useGetCartQuery('');
-  const [addCart] = useAddCartMutation();
+  const { data: wishlist, isLoading } = useGetWishListQuery('');
+  const [addBasketInWishList] = useAddBasketInWishListMutation();
+  const [deleteWishList] = useDeleteWishListMutation();
   if (isLoading) {
     return <>Loading</>;
   }
@@ -21,7 +22,7 @@ const WishList = () => {
       <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
         관심상품
       </h1>
-      {cart?.data?.length === 0 || !cart ? (
+      {wishlist?.data?.length === 0 ? (
         <EmptyCart>
           <FaHeartBroken className='text-7xl' />
           <p className='flex flex-col gap-3 text-center font-extrabold text-lg'>
@@ -35,8 +36,13 @@ const WishList = () => {
         </EmptyCart>
       ) : null}
 
-      {cart?.data?.map((value: ICart, i: number) => (
-        <WishListElement cartData={value} addCart={addCart} key={i} />
+      {wishlist?.data?.map((value, i: number) => (
+        <WishListElement
+          wishlistData={value}
+          addBasketInWishList={addBasketInWishList}
+          deleteWishList={deleteWishList}
+          key={i}
+        />
       ))}
     </article>
   );
