@@ -8,7 +8,7 @@ export const cartApi = createApi({
     prepareHeaders: (headers) => {
       headers.set(
         'Authorization',
-        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2Nzk1NTMwLCJleHAiOjE2NzY3OTczMzAsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.DfuiGutxEACIKt_321ZlT2kBW-0jvctF_uOXdnkWPtI`,
+        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODA0NjMxLCJleHAiOjE2NzY4MDY0MzEsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.hqqCJUNC8Yu-9CPJF1uHNyEDm9XEMkHAszP-hIiPnbc`,
       );
       headers.set('Content-Type', 'application/json');
       console.log(headers);

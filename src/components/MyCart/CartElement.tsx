@@ -14,7 +14,7 @@ const CartElement = ({ cartData, deleteCart, addOrderList }) => {
           title='삭제하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await deleteCart(cartData.basketId);
+            await deleteCart({ basketId: cartData.basketId });
             setDeleteModal(false);
           }}
           onCancel={() => setDeleteModal(false)}
@@ -25,7 +25,8 @@ const CartElement = ({ cartData, deleteCart, addOrderList }) => {
           title='신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await addOrderList([cartData.productId]);
+            await addOrderList({ products_id_list: [cartData.productId] });
+            await deleteCart({ basketId: cartData.basketId });
             setAddModal(false);
           }}
           onCancel={() => setAddModal(false)}

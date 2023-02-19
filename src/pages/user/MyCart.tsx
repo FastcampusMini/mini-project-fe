@@ -10,7 +10,6 @@ import {
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 const Mycart = () => {
   const { data: cart, isLoading } = useGetCartQuery('');
-  console.log('cart', cart);
   const [deleteCart] = useDeleteCartMutation();
   const [addOrderList] = useAddOrderListMutation();
   if (isLoading) {

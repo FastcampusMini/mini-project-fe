@@ -17,7 +17,9 @@ const WishListElement = ({
           title='삭제하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await deleteWishList(wishlistData.wishlistId);
+            await deleteWishList({
+              wishlistId: wishlistData.wishlistId,
+            });
             setDeleteModal(false);
           }}
           onCancel={() => setDeleteModal(false)}
@@ -28,8 +30,12 @@ const WishListElement = ({
           title='장바구니에 담으시겠습니까?'
           description=''
           onConfirm={async () => {
-            await addBasketInWishList(wishlistData.productId);
-            await deleteWishList(wishlistData.wishlistId);
+            await addBasketInWishList({
+              productId: wishlistData.productId,
+            });
+            await deleteWishList({
+              wishlistId: wishlistData.wishlistId,
+            });
             setAddModal(false);
           }}
           onCancel={() => setAddModal(false)}

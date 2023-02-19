@@ -17,7 +17,7 @@ const OrderList = () => {
       <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
         신청 내역
       </h1>
-      {order?.data.length === 0 ? (
+      {order?.data === null ? (
         <EmptyCart>
           <AiOutlineFileSearch className='text-7xl' />
           <p className='text-center font-extrabold text-lg'>

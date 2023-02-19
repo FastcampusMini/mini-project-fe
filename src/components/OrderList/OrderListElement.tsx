@@ -9,7 +9,7 @@ const OrderListElement = ({ orderData }) => {
         <div className='flex items-center'>
           <img
             className='w-16'
-            src='https://ai.esmplus.com/heehyohoo/project/hana.png'
+            src={orderData.purchasedProductList[0].purchasedProductLogo}
             alt='bank_logo'
           />
           <div className='flex flex-col mx-4 gap-1'>

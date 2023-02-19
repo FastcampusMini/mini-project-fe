@@ -8,7 +8,7 @@ export const orderApi = createApi({
     prepareHeaders: (headers) => {
       headers.set(
         'Authorization',
-        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2NzM0MjA4LCJleHAiOjE2NzY3MzYwMDgsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.chjOt-JocyyZ9qCCgFKn7zyFeGllRmSz-qKlrxxxxJw`,
+        `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODA0NjMxLCJleHAiOjE2NzY4MDY0MzEsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.hqqCJUNC8Yu-9CPJF1uHNyEDm9XEMkHAszP-hIiPnbc`,
       );
       headers.set('Content-Type', 'application/json');
       return headers;
