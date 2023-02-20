@@ -12,17 +12,34 @@ export const signUp = async ({ name, email, pw, phone, birth, job, salary }) => 
 };
 
 /** 로그인 api */
-export const signIn = async ({ email, password }) => {
+export const logIn = async ({ email, password }) => {
   try {
     const response = await instance.post('/login', { email, password });
-    const { accessToken } = response.data;
-    return accessToken;
+    return response;
   } catch (error) {
     if (error.response.status === 400) {
       alert(error.response.data);
     } else {
       console.log(error);
     }
+  }
+};
+
+// 타임아웃 지정해줘야함!!
+
+/** 로그아웃 api */
+export const logOut = async ({ refreshtoken }) => {
+  try {
+    const response = await instance.post(
+      '/logout',
+      { token: refreshtoken },
+      {
+        headers: { Authorization: `Bearer ${refreshtoken}` },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
   }
 };
 

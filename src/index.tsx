@@ -7,8 +7,6 @@ import "./index.css";
 import router from "./router";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
-import { cartApi } from "./store/api/cartApi";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
