@@ -9,12 +9,10 @@ import { CookiesProvider } from "react-cookie";
 function App() {
   return (
     <CookiesProvider>
-      <Provider store={store}>
-        <DevLinks />
-        <main className='max-w-screen-sm h-screen overflow-y-scroll px-10 pt-10 border-gray shadow-md mx-auto relative'>
-          <Outlet />
-        </main>
-      </Provider>
+      <DevLinks />
+      <main className='max-w-screen-sm h-screen overflow-y-scroll px-10 pt-10 border-gray shadow-md mx-auto relative'>
+        <Outlet />
+      </main>
     </CookiesProvider>
   );
 }

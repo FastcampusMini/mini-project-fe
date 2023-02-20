@@ -5,30 +5,18 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { ax } from "@/libs/axiosClient";
 import { useMutation } from "@tanstack/react-query";
-
-interface ILoginInfo {
-  email: string;
-  password: string;
-}
+import useLogin from "../../libs/hooks/useLogin";
 
 const Home = () => {
-  const { mutateAsync, isLoading } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: (loginInfo: ILoginInfo) => ax.postLogin(loginInfo),
-    onSuccess: () => {
-      console.log("로그인 성공(useMutation)");
-    },
-    onError: () => {
-      console.log("로그인 에러!");
-    },
-  });
+  const { mutate, mutateAsync, isLoading } = useLogin();
 
   const handleClick = () => {
-    console.log("로그인 클릭!");
-    ax.postLogin({
-      email: "testt",
-      password: "testt",
-    });
+    // console.log("로그인 클릭!");
+    // ax.postLogin({
+    //   email: "testt",
+    //   password: "testt",
+    // });
+    mutate({ email: "testt", password: "testt" });
   };
   return (
     <div className='flex flex-col justify-center h-screen'>

@@ -15,3 +15,8 @@ interface IUserEditPayload {
   salary: number;
   job: string;
 }
+
+interface ILoginInput {
+  email: string;
+  password: string;
+}

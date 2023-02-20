@@ -15,10 +15,10 @@ const modifyPayload = (payload: IUserEditPayload): IUserEditPayload => {
 const HEADERS = {
   "Content-Type": "application/json",
 };
-const HEADERS_withToken = {
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${token.accessToken}`,
-};
+// const HEADERS_withToken = {
+//   "Content-Type": "application/json",
+//   Authorization: `Bearer ${token.accessToken}`,
+// };
 
 // 에러핸들링은 react-query 훅으로 합니다.
 class Axios {
@@ -41,7 +41,7 @@ class Axios {
     console.log(result.message);
     token.accessToken = result.data;
     console.log("업데이트 accessToken", token.accessToken);
-    return result;
+    return result.data;
   }
   async getProducts(accessToken: string) {
     if (!accessToken) throw Error(`[에러]accessToken = ${accessToken} 입니다`);
