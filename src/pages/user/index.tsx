@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import { BsFillBookmarkHeartFill, BsFillCartCheckFill } from 'react-icons/bs';
 import { FaUserTimes } from 'react-icons/fa';
@@ -15,6 +15,7 @@ import { authState, DELETE_TOKEN } from '@/features/authSlice/authSlice';
 const User = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const { accessToken } = useSelector((state: any) => state.authToken);

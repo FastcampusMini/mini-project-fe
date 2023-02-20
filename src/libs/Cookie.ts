@@ -10,6 +10,7 @@ export const setRefreshToken = (refreshToken: string) => {
   return cookies.set('refresh_token', refreshToken, {
     sameSite: true,
     path: '/',
+    secure: true,
     expires: new Date(expireDate),
   });
 };

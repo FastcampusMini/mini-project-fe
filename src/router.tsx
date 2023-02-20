@@ -1,20 +1,22 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
-import Home from "./pages/home";
-import Main from "./pages/main";
-import Financial from "./pages/products/financial";
-import FinancialId from "./pages/products/financial/[financialId]";
-import SignIn from "./pages/signin";
-import SignUp from "./pages/signup";
-import User from "./pages/user";
-import Edit from "./pages/user/Edit";
-import MyCart from "./pages/user/MyCart";
-import WishList from "./pages/user/WishList";
-import OrderList from "./pages/user/OrderList";
+import { createBrowserRouter } from 'react-router-dom';
+import App from './App';
+import Home from './pages/home';
+import Main from './pages/main';
+import Financial from './pages/products/financial';
+import FinancialId from './pages/products/financial/[financialId]';
+import SignIn from './pages/signin';
+import SignUp from './pages/signup';
+import User from './pages/user';
+import Edit from './pages/user/Edit';
+import MyCart from './pages/user/MyCart';
+import WishList from './pages/user/WishList';
+import OrderList from './pages/user/OrderList';
+import { ProtectedRoute } from './pages/ProtectedRoute';
+import { SuccessRoute } from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
@@ -22,46 +24,86 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "main",
-        element: <Main />,
+        path: 'main',
+        element: (
+          <ProtectedRoute>
+            <Main />
+          </ProtectedRoute>
+        ),
       },
 
       {
-        path: "signin",
-        element: <SignIn />,
+        path: 'signin',
+        element: (
+          <SuccessRoute>
+            <SignIn />
+          </SuccessRoute>
+        ),
       },
       {
-        path: "signup",
-        element: <SignUp />,
+        path: 'signup',
+        element: (
+          <SuccessRoute>
+            <SignUp />
+          </SuccessRoute>
+        ),
       },
       {
-        path: "user/mycart",
-        element: <MyCart />,
+        path: 'user/mycart',
+        element: (
+          <ProtectedRoute>
+            <MyCart />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: "user/edit",
-        element: <Edit />,
+        path: 'user/edit',
+        element: (
+          <ProtectedRoute>
+            <Edit />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: "user/wishlist",
-        element: <WishList />,
+        path: 'user/wishlist',
+        element: (
+          <ProtectedRoute>
+            <WishList />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: "user/orderlist",
-        element: <OrderList />,
+        path: 'user/orderlist',
+        element: (
+          <ProtectedRoute>
+            <OrderList />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: "user",
-        element: <User />,
+        path: 'user',
+        element: (
+          <ProtectedRoute>
+            <User />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: "products/financial/:financialId",
-        element: <FinancialId />,
+        path: 'products/financial/:financialId',
+        element: (
+          <ProtectedRoute>
+            <FinancialId />
+          </ProtectedRoute>
+        ),
       },
 
       {
-        path: "products/financial",
-        element: <Financial />,
+        path: 'products/financial',
+        element: (
+          <ProtectedRoute>
+            <Financial />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

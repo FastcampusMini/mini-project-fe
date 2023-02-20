@@ -56,15 +56,9 @@ export const deleteAuth = async ({ password }) => {
 };
 
 /** 토큰 재발급 api*/
-export const requestToken = async (refreshToken: string, accessToken: string) => {
+export const requestToken = async (refreshToken: string) => {
   try {
-    const response = await instance.post(
-      '/refresh',
-      { token: refreshToken },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+    const response = await instance.post('/refresh', { refreshToken });
     return response.data;
   } catch (error) {
     console.log(error);
