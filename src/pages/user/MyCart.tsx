@@ -8,13 +8,13 @@ import {
 } from '../../store/api/cartApiSlice';
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 import Navigation from '@components/ui/Navigation';
+import SkeletonCartElement from '@/components/MyCart/SkeletonCartElement';
+
 const Mycart = () => {
-  const { data: cart, isLoading } = useGetCartQuery('');
+  const { data: cart, isLoading, isFetching } = useGetCartQuery('');
   const [deleteCart] = useDeleteCartMutation();
   const [addOrderList] = useAddOrderListMutation();
-  if (isLoading) {
-    return <>Loading</>;
-  }
+  console.log('cart', cart);
   return (
     <>
       <article>
@@ -40,6 +40,7 @@ const Mycart = () => {
             key={value.basketId}
           />
         ))}
+        {(isLoading || isFetching) && <SkeletonCartElement />}
       </article>
       <Navigation type='scroll' />
     </>
