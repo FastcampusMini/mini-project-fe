@@ -7,17 +7,6 @@ const OrderListElement = ({ orderData, deleteOrderList }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
-      {deleteModal && (
-        <ConfirmModal
-          title='신청취소 하시겠습니까?'
-          description=''
-          onConfirm={async () => {
-            await deleteOrderList({ orderId: orderData.orderId });
-            setDeleteModal(false);
-          }}
-          onCancel={() => setDeleteModal(false)}
-        />
-      )}
       <div className='flex justify-between py-5 pl-5 pr-2 border-solid border border-black/10 rounded-t-lg'>
         <div className='flex items-center'>
           <img
@@ -49,6 +38,17 @@ const OrderListElement = ({ orderData, deleteOrderList }) => {
           <div className='pointer-events-auto flex flex-col items-center'></div>
         </div>
       </div>
+      {deleteModal && (
+        <ConfirmModal
+          title='신청취소 하시겠습니까?'
+          description=''
+          onConfirm={async () => {
+            await deleteOrderList({ orderId: orderData.orderId });
+            setDeleteModal(false);
+          }}
+          onCancel={() => setDeleteModal(false)}
+        />
+      )}
     </section>
   );
 };

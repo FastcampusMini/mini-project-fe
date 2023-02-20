@@ -1,32 +1,41 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import ConfirmModal from "../../../components/ui/ConfirmModal";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import ConfirmModal from '../../../components/ui/ConfirmModal';
+import {
+  useAddOrderListMutation,
+  useGetOrderListQuery,
+} from '@/store/api/orderApiSlice';
+import AlertModal from '@/components/ui/AlertModal';
 
 const Id = () => {
+  const [addOrderList] = useAddOrderListMutation();
+  const { data: order, isLoading } = useGetOrderListQuery('');
   const { financialId } = useParams();
-  const [modal, setModal] = useState(false);
+  const [orderModal, setOrderModal] = useState(false);
+  const [alertModal, setAlertModal] = useState(false);
   const [detail, setDetail] = useState({
-    logo: "",
-    name: "",
+    logo: '',
+    name: '',
     rate: 1,
-    detail: "",
+    detail: '',
+    productId: 1,
   });
-
+  console.log('detail : ', detail);
   const headers = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     Authorization:
-      "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODI5NDE1LCJleHAiOjE2NzY4MzEyMTUsImVtYWlsIjoiaHMxIn0.WwFOTU8-BHkzFc7li33qvnw3PTVcgI_hwa0vlb6KU0Y",
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODk4MjIyLCJleHAiOjE2NzY5MDAwMjIsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.FvaUKKH13pzWR1F4ueVfzEQwRNU7HYgHmcQUHozjXzk',
   };
 
   useEffect(() => {
-    console.log("useEffect 실행");
+    console.log('useEffect 실행');
     getSearchResult();
-    console.log("detail : ", detail);
+    console.log('detail : ', detail);
   }, []);
 
   async function getSearchResult() {
-    console.log("getSearchResult 실행");
+    console.log('getSearchResult 실행');
     const BASEURI = `http://52.78.32.230:8080/api/products/details?products_id=${financialId}`;
     const res = await axios(BASEURI, {
       headers,
@@ -41,17 +50,18 @@ const Id = () => {
 
       <ul className='mb-12 flex flex-wrap gap-3'>
         {[
-          "20대 이상",
-          "파킹통장",
-          "세테크",
-          "청년",
-          "경기도",
-          "낮은이자",
-          "그 외 필터",
+          '20대 이상',
+          '파킹통장',
+          '세테크',
+          '청년',
+          '경기도',
+          '낮은이자',
+          '그 외 필터',
         ].map((data, i) => (
           <li
             key={i}
-            className='px-4 py-2 rounded-full bg-black5 text-black40 font-bold'>
+            className='px-4 py-2 rounded-full bg-black5 text-black40 font-bold'
+          >
             {data}
           </li>
         ))}
@@ -91,24 +101,41 @@ const Id = () => {
       <button
         type='button'
         className='mt-20 p-4 w-full rounded-[10px] bg-gray text-white text-lg font-bold'
-        onClick={() => setModal(true)}>
+        onClick={() => setOrderModal(true)}
+      >
         장바구니 담기
       </button>
       <button
         type='button'
         className='mt-6 mb-20 p-4 w-full rounded-[10px] bg-yellow text-white text-lg font-bold'
-        onClick={() => setModal(true)}>
+        onClick={() => setOrderModal(true)}
+      >
         신청하기
       </button>
 
-      {modal && (
+      {orderModal && (
         <ConfirmModal
           title='신청하시겠습니까?'
           description=''
-          onConfirm={() => setModal(false)}
-          onCancel={() => setModal(false)}
+          onConfirm={async () => {
+            const find = order?.data?.find((value) => {
+              return (
+                value.purchasedProductList[0].originalProductId ===
+                detail?.productId
+              );
+            });
+            if (find) {
+              setOrderModal(false);
+              setAlertModal(true);
+            } else {
+              await addOrderList({ products_id_list: [detail.productId] });
+              setOrderModal(false);
+            }
+          }}
+          onCancel={() => setOrderModal(false)}
         />
       )}
+      {alertModal && <AlertModal setAlertModal={setAlertModal} />}
     </div>
   );
 };
