@@ -11,7 +11,13 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import { cartApi } from "./store/api/cartApiSlice";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: Infinity,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>
