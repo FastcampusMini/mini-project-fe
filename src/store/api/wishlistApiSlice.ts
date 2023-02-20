@@ -1,32 +1,32 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { base } from './apiSlice';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { base } from "./origin_apiSlice";
 
 export const wishlistApi = createApi({
-  reducerPath: 'wishlistApi',
+  reducerPath: "wishlistApi",
   baseQuery: base,
-  tagTypes: ['WishList'],
+  tagTypes: ["WishList"],
   endpoints: (builder) => ({
     getWishList: builder.query<IWishList, String>({
-      query: () => '/wishlists',
-      providesTags: ['WishList'],
+      query: () => "/wishlists",
+      providesTags: ["WishList"],
     }),
     addWishList: builder.mutation({
       query: (wishListData: IWishListData) => {
         return {
-          url: '/wishlists',
-          method: 'POST',
+          url: "/wishlists",
+          method: "POST",
           body: wishListData,
         };
       },
-      invalidatesTags: ['WishList'],
+      invalidatesTags: ["WishList"],
     }),
     deleteWishList: builder.mutation({
       query: (wishListData: IWishListDataDelete) => ({
-        url: '/wishlists',
-        method: 'DELETE',
+        url: "/wishlists",
+        method: "DELETE",
         body: wishListData,
       }),
-      invalidatesTags: ['WishList'],
+      invalidatesTags: ["WishList"],
     }),
   }),
 });

@@ -6,16 +6,19 @@ import ConfrimBtn from '../../components/ui/ConfirmBtn';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import SignInField from '../../components/SignIn/SignInField';
-import { signIn } from '../../api/authApi';
-import { useCookies } from 'react-cookie';
+import { logIn } from '../../api/authApi';
+import { Cookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { setRefreshToken } from '@/libs/Cookie';
+import { SET_TOKEN } from '@/features/authSlice/authSlice';
 interface ISignInForm {
   email: string;
   password: string;
 }
 
 const SignIn = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['cookie_name']);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const schema = yup.object().shape({
     email: yup.string().email('이메일 형식이 맞지 않습니다.').required('이메일은 필수 입력입니다.'),
@@ -25,33 +28,27 @@ const SignIn = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting, isDirty, isValid, errors },
   } = useForm<ISignInForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
 
-  const handleCookie = (email: string, password: string, accessToken: string) => {
-    const expireDate = new Date();
-    expireDate.setMinutes(expireDate.getMinutes() + 30);
-    setCookie(
-      'cookie_name',
-      { email: email, password: password, accessToken: accessToken },
-      { path: '/', expires: expireDate }
-      // , secure: true, httpOnly: true
-    );
-  };
-
-  const login: SubmitHandler<ISignInForm> = async ({ email, password }, event) => {
+  // 백으로 유저 정보 전달하여 로그인 요청
+  const onValid: SubmitHandler<ISignInForm> = async ({ email, password }, event) => {
     event.preventDefault();
     console.log('email', email);
     console.log('password', password);
     // console.log('event', event);
-    const { accessToken } = await signIn({ email, password });
+    const response = await logIn({ email, password });
+    const { accessToken, refreshToken } = response.data;
 
-    if (accessToken) {
-      handleCookie(email, password, accessToken);
+    if (response.status === 200) {
+      // cookie에 refreshToken, store에 accessToken 저장
+      setRefreshToken(refreshToken);
+      dispatch(SET_TOKEN(accessToken));
+      navigate('/main');
     } else {
       alert('로그인에 실패하셨습니다.');
     }
-    navigate('/main');
   };
 
   return (
@@ -64,7 +61,7 @@ const SignIn = () => {
           핀크 이용을 위해 <br />
           <span className='font-semibold'>본인확인</span>을 해주세요
         </h1>
-        <form className='flex flex-col' onSubmit={handleSubmit(login)}>
+        <form className='flex flex-col' onSubmit={handleSubmit(onValid)}>
           <SignInField
             text={'example@email.com'}
             name={'email'}
