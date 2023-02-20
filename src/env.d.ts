@@ -81,3 +81,19 @@ interface ILoginInput {
   email: string;
   password: string;
 }
+
+interface ISuccess {
+  data: Data;
+}
+
+interface Data {
+  code: number;
+  message: string;
+  data: any;
+}
+
+interface IDuplicateError {
+  code: number;
+  message: string;
+  data: any;
+}

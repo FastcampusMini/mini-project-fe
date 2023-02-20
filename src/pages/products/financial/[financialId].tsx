@@ -7,13 +7,16 @@ import {
   useGetOrderListQuery,
 } from '@/store/api/orderApiSlice';
 import AlertModal from '@/components/ui/AlertModal';
+import { useAddCartMutation } from '@/store/api/cartApiSlice';
 
 const Id = () => {
   const [addOrderList] = useAddOrderListMutation();
+  const [addCart] = useAddCartMutation();
   const { data: order, isLoading } = useGetOrderListQuery('');
   const { financialId } = useParams();
   const [orderModal, setOrderModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
   const [detail, setDetail] = useState({
     logo: '',
     name: '',
@@ -25,7 +28,7 @@ const Id = () => {
   const headers = {
     'Content-Type': 'application/json',
     Authorization:
-      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODk4MjIyLCJleHAiOjE2NzY5MDAwMjIsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.FvaUKKH13pzWR1F4ueVfzEQwRNU7HYgHmcQUHozjXzk',
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2OTAwMTAxLCJleHAiOjE2NzY5MDE5MDEsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.aaT1VLyD4EVmdD4xQfAa3TujTYs9lwGaO_ZxvCUi4Vc',
   };
 
   useEffect(() => {
@@ -101,7 +104,7 @@ const Id = () => {
       <button
         type='button'
         className='mt-20 p-4 w-full rounded-[10px] bg-gray text-white text-lg font-bold'
-        onClick={() => setOrderModal(true)}
+        onClick={() => setAddModal(true)}
       >
         장바구니 담기
       </button>
@@ -133,6 +136,25 @@ const Id = () => {
             }
           }}
           onCancel={() => setOrderModal(false)}
+        />
+      )}
+      {addModal && (
+        <ConfirmModal
+          title='장바구니에 담으시겠습니까?'
+          description=''
+          onConfirm={async () => {
+            const res: any = await addCart({
+              productId: detail.productId,
+            });
+            console.log('res', res);
+            if (res.data.code === 500) {
+              setAddModal(false);
+              setAlertModal(true);
+            } else {
+              setAddModal(false);
+            }
+          }}
+          onCancel={() => setAddModal(false)}
         />
       )}
       {alertModal && <AlertModal setAlertModal={setAlertModal} />}
