@@ -76,3 +76,8 @@ interface PurchasedProductList {
   purchasedProductDetail: string;
   originalProductId: number;
 }
+
+interface ILoginInput {
+  email: string;
+  password: string;
+}

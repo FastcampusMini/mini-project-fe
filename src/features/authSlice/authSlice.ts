@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type authState = {
   authenticated: boolean; // 현재 로그인 여부 확인
-  accessToken: string | undefined; // Access Token 저장
+  accessToken: string; // Access Token 저장
   expireTime: number; //Access Token 만료시간
 };
 
