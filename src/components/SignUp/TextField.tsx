@@ -4,7 +4,7 @@ import Select from 'react-select';
 interface TSignUpFieldValues {
   name: string;
   email: string;
-  pw: string;
+  password: string;
   checkPw: string;
   phone: string;
   job: string;
