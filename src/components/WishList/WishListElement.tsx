@@ -2,13 +2,9 @@ import { useState } from 'react';
 import { BsCart2 } from 'react-icons/bs';
 import Card from '../MyCart/Card';
 import ConfirmModal from '../ui/ConfirmModal';
-import AlertModal from '../ui/Navigation/AlertModal';
+import AlertModal from '../ui/AlertModal';
 
-const WishListElement = ({
-  wishlistData,
-  addBasketInWishList,
-  deleteWishList,
-}) => {
+const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
@@ -32,7 +28,7 @@ const WishListElement = ({
           title='장바구니에 담으시겠습니까?'
           description=''
           onConfirm={async () => {
-            const res = await addBasketInWishList({
+            const res = await addCart({
               productId: wishlistData.productId,
             });
             if (res.data.code === 500) {

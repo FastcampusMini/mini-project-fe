@@ -6,14 +6,14 @@ import {
   useGetWishListQuery,
   useDeleteWishListMutation,
 } from '@/store/api/wishlistApiSlice';
-import { useAddBasketInWishListMutation } from '@/store/api/cartApiSlice';
+import { useAddCartMutation } from '@/store/api/cartApiSlice';
 import Navigation from '@components/ui/Navigation';
 
 const WishList = () => {
   const { data: wishlist, isLoading } = useGetWishListQuery('');
-  console.log('wishlist', wishlist);
-  const [addBasketInWishList] = useAddBasketInWishListMutation();
+  console.log('data', wishlist);
   const [deleteWishList] = useDeleteWishListMutation();
+  const [addCart] = useAddCartMutation();
   if (isLoading) {
     return <>Loading</>;
   }
@@ -41,7 +41,7 @@ const WishList = () => {
         {wishlist?.data?.map((value: Daum) => (
           <WishListElement
             wishlistData={value}
-            addBasketInWishList={addBasketInWishList}
+            addCart={addCart}
             deleteWishList={deleteWishList}
             key={value.wishlistId}
           />

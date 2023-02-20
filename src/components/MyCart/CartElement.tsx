@@ -3,7 +3,7 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import Card from './Card';
 import ConfirmModal from '../ui/ConfirmModal';
 import { useGetOrderListQuery } from '@/store/api/orderApiSlice';
-import AlertModal from '../ui/Navigation/AlertModal';
+import AlertModal from '../ui/AlertModal';
 
 // key 값 변경 될 수도 있음
 const CartElement = ({ cartData, deleteCart, addOrderList }) => {
@@ -29,19 +29,20 @@ const CartElement = ({ cartData, deleteCart, addOrderList }) => {
           title='신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            order?.data?.map(async (value) => {
-              if (
+            const find = order?.data?.find((value) => {
+              return (
                 value.purchasedProductList[0].originalProductId ===
                 cartData.productId
-              ) {
-                setAddModal(false);
-                setAlertModal(true);
-              } else {
-                await addOrderList({ products_id_list: [cartData.productId] });
-                await deleteCart({ basketId: cartData.basketId });
-                setAddModal(false);
-              }
+              );
             });
+            if (find) {
+              setAddModal(false);
+              setAlertModal(true);
+            } else {
+              await addOrderList({ products_id_list: [cartData.productId] });
+              await deleteCart({ basketId: cartData.basketId });
+              setAddModal(false);
+            }
           }}
           onCancel={() => setAddModal(false)}
         />

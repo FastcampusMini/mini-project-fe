@@ -28,22 +28,8 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ['Cart'],
     }),
-    addBasketInWishList: builder.mutation({
-      query: (wishListData: IProductId) => {
-        return {
-          url: '/wishlists/addBasket',
-          method: 'POST',
-          body: wishListData,
-        };
-      },
-      invalidatesTags: ['Cart'],
-    }),
   }),
 });
 
-export const {
-  useGetCartQuery,
-  useAddCartMutation,
-  useDeleteCartMutation,
-  useAddBasketInWishListMutation,
-} = cartApi;
+export const { useGetCartQuery, useAddCartMutation, useDeleteCartMutation } =
+  cartApi;
