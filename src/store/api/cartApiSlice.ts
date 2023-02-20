@@ -6,14 +6,14 @@ export const cartApi = createApi({
   baseQuery: base,
   tagTypes: ['Cart'],
   endpoints: (builder) => ({
-    getCart: builder.query<ICart, String>({
-      query: () => '/basket',
+    getCart: builder.query<IData, String>({
+      query: () => '/baskets',
       providesTags: ['Cart'],
     }),
     addCart: builder.mutation({
-      query: (cartData: ICartData) => {
+      query: (cartData: IProductId) => {
         return {
-          url: '/basket',
+          url: '/baskets',
           method: 'POST',
           body: cartData,
         };
@@ -21,15 +21,15 @@ export const cartApi = createApi({
       invalidatesTags: ['Cart'],
     }),
     deleteCart: builder.mutation({
-      query: (cartData: ICartDataDelete) => ({
-        url: '/basket',
+      query: (cartData: IBasketId) => ({
+        url: '/baskets',
         method: 'DELETE',
         body: cartData,
       }),
       invalidatesTags: ['Cart'],
     }),
     addBasketInWishList: builder.mutation({
-      query: (wishListData: ICartData) => {
+      query: (wishListData: IProductId) => {
         return {
           url: '/wishlists/addBasket',
           method: 'POST',
@@ -40,30 +40,6 @@ export const cartApi = createApi({
     }),
   }),
 });
-
-// 나중에 추가되는 데이터 있을 예정이니 다시 작성하기
-export interface ICart {
-  code: number;
-  message: string;
-  data: Daum[];
-}
-
-export interface Daum {
-  basketId: number;
-  productId: number;
-  brand: string;
-  logo: string;
-  name: string;
-  price: number;
-}
-
-export interface ICartData {
-  productId: number;
-}
-
-export interface ICartDataDelete {
-  basketId: number;
-}
 
 export const {
   useGetCartQuery,

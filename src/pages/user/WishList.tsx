@@ -11,6 +11,7 @@ import Navigation from '@components/ui/Navigation';
 
 const WishList = () => {
   const { data: wishlist, isLoading } = useGetWishListQuery('');
+  console.log('wishlist', wishlist);
   const [addBasketInWishList] = useAddBasketInWishListMutation();
   const [deleteWishList] = useDeleteWishListMutation();
   if (isLoading) {
@@ -37,7 +38,7 @@ const WishList = () => {
           </EmptyCart>
         ) : null}
 
-        {wishlist?.data?.map((value) => (
+        {wishlist?.data?.map((value: Daum) => (
           <WishListElement
             wishlistData={value}
             addBasketInWishList={addBasketInWishList}

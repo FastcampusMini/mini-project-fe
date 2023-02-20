@@ -2,11 +2,15 @@ import { AiOutlineFileSearch } from 'react-icons/ai';
 import EmptyCart from '../../components/MyCart/EmptyCart';
 import Nav from '@/components/Nav';
 import OrderListElement from './../../components/OrderList/OrderListElement';
-import { useGetOrderListQuery } from '@/store/api/orderApiSlice';
+import {
+  useDeleteOrderListMutation,
+  useGetOrderListQuery,
+} from '@/store/api/orderApiSlice';
 import Navigation from '@components/ui/Navigation';
 
 const OrderList = () => {
   const { data: order, isLoading } = useGetOrderListQuery('');
+  const [deleteOrderList] = useDeleteOrderListMutation();
   console.log('order', order);
   if (isLoading) {
     return <>Loading</>;
@@ -27,7 +31,11 @@ const OrderList = () => {
           </EmptyCart>
         ) : null}
         {order?.data?.map((value) => (
-          <OrderListElement orderData={value} key={value.orderId} />
+          <OrderListElement
+            orderData={value}
+            key={value.orderId}
+            deleteOrderList={deleteOrderList}
+          />
         ))}
       </article>
       <Navigation type='scroll' />

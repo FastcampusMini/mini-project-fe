@@ -32,7 +32,7 @@ const Mycart = () => {
             </p>
           </EmptyCart>
         ) : null}
-        {cart?.data?.map((value: ICart) => (
+        {cart?.data?.map((value: Daum) => (
           <CartElement
             cartData={value}
             deleteCart={deleteCart}
@@ -45,14 +45,5 @@ const Mycart = () => {
     </>
   );
 };
-
-export interface ICart {
-  basketId: number;
-  productId: number;
-  brand: string;
-  logo: string;
-  name: string;
-  price: number;
-}
 
 export default Mycart;
