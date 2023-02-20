@@ -18,22 +18,30 @@ const User = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const { accessToken } = useSelector((state: any) => state.authToken);
+  const token = useSelector((state: any) => state.authToken);
+  console.log('token:', token);
 
   const refreshToken: string = getCookieToken();
-  const logOutConfirm = () => {
-    setModalOpen(false);
-  };
 
-  const userlogOut = async (refreshtoken: string) => {
-    const response = await logOut({ refreshtoken });
+  const userlogOut = async (accessToken: string) => {
+    const response = await logOut(accessToken);
+    console.log('response:', response);
 
-    if (response.status) {
+    if (response.code === 200) {
+      alert(response.message);
+      // store에 저장된 Access Token 정보를 삭제
       dispatch(DELETE_TOKEN());
+      // Cookie에 저장된 Refresh Token 정보를 삭제
       removeCookieToken();
       return navigate('/');
     } else {
       // 뭐하지..
     }
+  };
+
+  const logOutConfirm = () => {
+    setModalOpen(false);
+    userlogOut(accessToken);
   };
 
   return (
@@ -43,7 +51,7 @@ const User = () => {
           <ConfirmModal
             title='로그아웃 하시겠습니까?'
             description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae aperiam magnam error provident iste,'
-            onConfirm={() => setModalOpen(false)}
+            onConfirm={logOutConfirm}
             onCancel={() => setModalOpen(false)}
           />
         )}

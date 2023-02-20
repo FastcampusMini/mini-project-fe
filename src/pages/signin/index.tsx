@@ -37,17 +37,17 @@ const SignIn = () => {
     event.preventDefault();
     console.log('email', email);
     console.log('password', password);
-    // console.log('event', event);
     const response = await logIn({ email, password });
-    const { accessToken, refreshToken } = response.data;
+    console.log(response);
 
-    if (response.status === 200) {
+    if (response.code === 200) {
       // cookie에 refreshToken, store에 accessToken 저장
+      const { accessToken, refreshToken } = response.data;
       setRefreshToken(refreshToken);
       dispatch(SET_TOKEN(accessToken));
       navigate('/main');
     } else {
-      alert('로그인에 실패하셨습니다.');
+      alert(response.message);
     }
   };
 
