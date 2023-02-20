@@ -7,3 +7,11 @@ interface IProduct {
   productId: number;
   rate: number;
 }
+
+interface IUserEditPayload {
+  oldPassword: string;
+  newPassword: string;
+  phone: string;
+  salary: number;
+  job: string;
+}

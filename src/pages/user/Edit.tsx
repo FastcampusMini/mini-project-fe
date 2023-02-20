@@ -3,19 +3,40 @@ import Nav from "@components/Nav";
 import { joinNames } from "@libs/utils";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useForm } from "react-hook-form";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { ax, token } from "@/libs/axiosClient";
+import { useNavigate } from "react-router-dom";
 
 const phonReg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 interface IEditUserForm {
-  job: string;
+  job?: string;
   oldPassword: string;
-  newPassword: string;
-  newPassword2: string;
-  phone: string;
-  salary: string;
+  newPassword?: string;
+  newPassword2?: string;
+  phone?: string;
+  salary?: string;
 }
 
 const Edit = () => {
-  const [isMale, setIsMale] = useState(true);
+  const navigate = useNavigate();
+  // 유저 정보가져오기
+  const { data: userInfo, refetch } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => ax.getUser(token.accessToken),
+    onSuccess: (data) => {},
+    enabled: false,
+  });
+
+  // 수정요청
+  const { mutateAsync, isLoading } = useMutation({
+    mutationKey: ["userEdit"],
+    mutationFn: (payload: IUserEditPayload) =>
+      ax.patchUserEdit(token.accessToken, payload),
+    onSuccess: () => {
+      navigate("/main", { state: "CONFIRMED" });
+    },
+  });
+
   const {
     register,
     formState: { errors },
@@ -27,9 +48,11 @@ const Edit = () => {
     setValue,
     clearErrors,
     getFieldState,
-  } = useForm<IEditUserForm>();
-  // console.log(watch());
+  } = useForm<IEditUserForm>({
+    defaultValues: async () => ax.getUser(token.accessToken),
+  });
 
+  // 비밀번호 두개 일치
   useEffect(() => {
     if (watch().newPassword !== watch().newPassword2) {
       setError("newPassword", { message: "비밀번호가 일치하지 않습니다" });
@@ -39,8 +62,19 @@ const Edit = () => {
     console.log("errors>>", errors.newPassword);
   }, [watch().newPassword, watch().newPassword2]);
 
-  const onValid = () => {
-    console.log("유효! ", getValues());
+  const onValid = async (data) => {
+    console.log(token.accessToken);
+
+    const payload = {
+      oldPassword: getValues().oldPassword,
+      newPassword: getValues().newPassword,
+      phone: getValues().phone,
+      salary: Number(getValues().salary),
+      job: getValues().job,
+    };
+    console.log("유효! ", data);
+    const result = await mutateAsync(payload as any);
+    console.log(result);
   };
   const onInvalid = () => {
     console.log(getValues());
@@ -80,12 +114,16 @@ const Edit = () => {
                 <input
                   type='text'
                   className='border border-gray rounded-md w-full h-12 px-4'
-                  {...register("newPassword")}
+                  {...register("newPassword", {
+                    required: "필수입니다.",
+                  })}
                 />
                 <input
                   type='text'
                   className='border border-gray rounded-md w-full h-12 px-4'
-                  {...register("newPassword2")}
+                  {...register("newPassword2", {
+                    required: "필수입니다.",
+                  })}
                 />
                 <span className='text-sm text-orange'>
                   {errors.newPassword ? "일치하지 않았습니다" : ""}
@@ -100,17 +138,27 @@ const Edit = () => {
                 type='text'
                 className='border border-gray rounded-md w-full h-12 px-4'
                 {...register("phone", {
-                  // onChange: (event) => {
-                  //   const _value = getValues().phone;
-                  //   console.log(_value);
-                  //   setValue("phone", _value.replace(/[^0-9]/g, ""));
-                  // },
+                  required: "필수입니다.",
                   pattern: phonReg,
-                  setValueAs: (value) => value.replaceAll("-", ""),
+                  setValueAs: (value) => value?.replaceAll("-", ""),
                 })}
               />
               <span className='text-sm text-orange'>
-                {errors.phone && "유효하지 않은 번호입니다"}
+                {errors.phone && "유효한 번호를 입력해주세요"}
+              </span>
+            </div>
+
+            <div>
+              <span className='font-semibold flex my-2 text-lg'>직업</span>
+              <input
+                type='text'
+                className='border border-gray rounded-md w-full h-12 px-4'
+                {...register("job", {
+                  required: "필수입니다.",
+                })}
+              />
+              <span className='text-sm text-orange'>
+                {errors.oldPassword?.message}
               </span>
             </div>
             <div>
@@ -121,6 +169,8 @@ const Edit = () => {
                   type='number'
                   placeholder={"연소득"}
                   {...register("salary", {
+                    required: "필수입니다.",
+                    valueAsNumber: true,
                     min: {
                       value: 1000,
                       message: "1000만원 이상 입력하세요",

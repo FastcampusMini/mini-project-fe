@@ -1,3 +1,5 @@
+import { ax, token } from "@/libs/axiosClient";
+import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { BiChevronRight } from "react-icons/bi";
 import { Link } from "react-router-dom";
@@ -25,10 +27,7 @@ const LoanProductCard = ({ product }: LoanProductCardProps) => {
           <div className='flex h-36 justify-between px-4'>
             <div className='flex items-center'>
               {product.logo ? (
-                <img
-                  src={extractSrcFromTag(product.logo)}
-                  className='w-8 h-8'
-                />
+                <img src={product.logo} className='w-8 h-8' />
               ) : (
                 <div className='w-8 h-8 rounded-full bg-gray ml-4'></div>
               )}

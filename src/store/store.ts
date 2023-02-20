@@ -1,5 +1,16 @@
 import { cartApi } from "./api/cartApi";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+
+const login = createSlice({
+  name: "loginReducer",
+  initialState: {},
+  reducers: {
+    loginReducer: (loginInput, action) => {
+      const _loginInput = { ...loginInput };
+      return _loginInput;
+    },
+  },
+});
 
 const store = configureStore({
   reducer: {
