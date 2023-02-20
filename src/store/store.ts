@@ -1,7 +1,18 @@
 import { cartApi } from "./api/cartApiSlice";
 import { orderApi } from "./api/orderApiSlice";
 import { wishlistApi } from "./api/wishlistApiSlice";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+
+const login = createSlice({
+  name: "loginReducer",
+  initialState: {},
+  reducers: {
+    loginReducer: (loginInput, action) => {
+      const _loginInput = { ...loginInput };
+      return _loginInput;
+    },
+  },
+});
 import authReducer from "../features/authSlice/authSlice";
 
 const store = configureStore({

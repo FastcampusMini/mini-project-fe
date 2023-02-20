@@ -1,10 +1,12 @@
 import React from "react";
 import { BiChevronRight } from "react-icons/bi";
 
-export const TotalLoans = ({ amount }: { amount: number }) => {
+export const TotalLoans = ({ amount, onClick }) => {
   return (
     <>
-      <div className='w-full h-auto shadow-md rounded-lg border border-black/10'>
+      <div
+        className='w-full h-auto shadow-md rounded-lg border border-black/10'
+        onClick={onClick}>
         <div className='px-4 pt-8'>
           <span className='font-semibold text-black/50'>
             신청 가능한 대출금 총합

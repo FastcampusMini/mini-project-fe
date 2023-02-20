@@ -1,82 +1,94 @@
+import store from "@/store/store";
 import axios from "axios";
 
 const BASE_URL = "http://52.78.32.230:8080";
+export const token = {
+  accessToken:
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODAxMDc5LCJleHAiOjE2NzY4MDI4NzksImVtYWlsIjoiaXNhYWNjIn0.MV2ui0xaJ0df_OBeBs0yvhZYDDQPJPrftivbLNJ5he8",
+};
 
+const modifyPayload = (payload: IUserEditPayload): IUserEditPayload => {
+  const _payload = {};
+  payload.newPassword;
+  return payload;
+};
+const HEADERS = {
+  "Content-Type": "application/json",
+};
+const HEADERS_withToken = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${token.accessToken}`,
+};
+
+// 에러핸들링은 react-query 훅으로 합니다.
 class Axios {
   axiosClient;
   constructor() {
     this.axiosClient = axios.create({
       baseURL: BASE_URL,
+      headers: HEADERS,
     });
   }
-  async postLogin() {
-    const result = await this.axiosClient
-      .post("/login")
-      .then((res) => res.data);
-    console.log(result);
-    return result;
-  }
-  async getArticles() {
-    const result = await this.axiosClient
-      .get("/articles")
-      .then((res) => res.data);
 
-    if (!result.success) console.log(result.message);
-    return result.data.articles;
-  }
-  async postArticle(newArticle) {
+  async postLogin({ email, password }) {
     const result = await this.axiosClient
-      .post("/articles", newArticle, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+      .post("/login", {
+        email,
+        password,
       })
       .then((res) => res.data);
 
-    if (!result.success) console.log(result.message);
+    console.log(result.message);
+    token.accessToken = result.data;
+    console.log("업데이트 accessToken", token.accessToken);
+    return result;
+  }
+  async getProducts(accessToken: string) {
+    if (!accessToken) throw Error(`[에러]accessToken = ${accessToken} 입니다`);
+    const result = await this.axiosClient
+      .get("/api/products", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          // page: 1,
+        },
+      })
+      .then((response) => response.data);
 
+    console.log(`getProducts:"${result.message}" ${accessToken}`);
     return result.data;
   }
 
-  async patchArticlesLike(articleId) {
+  // 유저 정보수정
+  async patchUserEdit(accessToken: string, payload: IUserEditPayload) {
+    if (!accessToken) throw Error(`[에러]accessToken = ${accessToken} 입니다`);
+    console.log("payload >>", payload);
+    const _payload = modifyPayload(payload);
     const result = await this.axiosClient
-      .patch(`/articles/${articleId}/like`, {
+      .patch("/api/user", payload, {
         headers: {
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then((res) => res.data);
-    if (!result.success) console.log(result.message);
+      .then((response) => response.data);
+
+    console.log(result);
     return result;
   }
+  async getUser(accessToken: string) {
+    if (!accessToken) throw Error(`[에러]accessToken = ${accessToken} 입니다`);
 
-  async getComments(articleId?) {
     const result = await this.axiosClient
-      .get(`/comments/${articleId}`)
-      .then((res) => res.data);
-
-    if (!result.success) console.log(result.message);
-    return result.data.comments;
-  }
-  async postComments(newComment) {
-    const _result = await this.axiosClient
-      .post("/comments", newComment, {
+      .get("/api/user", {
         headers: {
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
       })
-      .then((res) => res.data);
+      .then((response) => response.data);
 
-    if (!_result.success) console.log(_result.message);
-
-    return _result;
-  }
-  async patchCommentsLike(commentId) {
-    const _result = await this.axiosClient
-      .patch(`/comments/${commentId}/like`)
-      .then((res) => res.data);
-    if (!_result.success) console.log(_result.message);
-    return _result;
+    console.log(`getUser ${result.message}`);
+    return result.data;
   }
 }
 
