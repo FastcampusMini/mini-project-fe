@@ -10,8 +10,10 @@ interface IToken {
 
 const useToken = (): IToken => {
   const queryClient = useQueryClient();
-
-  return queryClient.getQueryData(["token"]);
+  if (queryClient.getQueryData(["token"]))
+    return queryClient.getQueryData(["token"]);
+  console.log("캐싱된 token 이 없습니다.");
+  return { accessToken: "", refreshToken: "" };
 };
 
 export default useToken;
