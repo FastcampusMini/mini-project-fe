@@ -5,7 +5,6 @@ import FNB from "@components/FNB/index";
 import Nav from "@components/Nav";
 import { token, ax } from "@/libs/axiosClient";
 import { useQuery } from "@tanstack/react-query";
-import { Data } from "../../store/api/cartApi";
 import { paginaton } from "@/libs/utils";
 import SkeletonLoanProductCard from "@/components/SkeletonLoanProductCard";
 import { useLocation, useParams } from "react-router-dom";

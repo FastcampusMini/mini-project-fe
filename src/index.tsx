@@ -8,6 +8,8 @@ import router from "./router";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
+import { cartApi } from "./store/api/cartApiSlice";
 
 const queryClient = new QueryClient();
 
