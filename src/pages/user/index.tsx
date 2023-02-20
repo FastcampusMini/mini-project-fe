@@ -17,24 +17,24 @@ const User = () => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { accessToken } = useSelector((state) => state.authToken);
+  // const { accessToken } = useSelector((state) => state.authToken);
 
-  const refreshToken: string = getCookieToken();
+  // const refreshToken: string = getCookieToken();
   const logOutConfirm = () => {
     setModalOpen(false);
   };
 
-  const userlogOut = async (refreshtoken: string) => {
-    const response = await logOut({ token: refreshtoken });
+  // const userlogOut = async (refreshtoken: string) => {
+  //   const response = await logOut({ token: refreshtoken });
 
-    if (response.status) {
-      dispatch(DELETE_TOKEN());
-      removeCookieToken();
-      return navigate('/');
-    } else {
-      // 뭐하지..
-    }
-  };
+  //   if (response.status) {
+  //     dispatch(DELETE_TOKEN());
+  //     removeCookieToken();
+  //     return navigate('/');
+  //   } else {
+  //     // 뭐하지..
+  //   }
+  // };
 
   return (
     <>
