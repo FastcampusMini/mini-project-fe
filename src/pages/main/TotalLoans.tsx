@@ -1,5 +1,7 @@
-import React from "react";
-import { BiChevronRight } from "react-icons/bi";
+import React from 'react';
+import { BiChevronRight } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const TotalLoans = ({ amount, onClick }) => {
   return (
@@ -14,22 +16,25 @@ export const TotalLoans = ({ amount, onClick }) => {
           <div className='flex justify-between items-center h-20 mb-3'>
             <h3 className='font-bold text-3xl'>{amount}원</h3>
             <div className='flex gap-3'>
-              <button className='border border-gray px-6 py-1 rounded-md text-black/50 font-semibold hover:bg-black/5'>
-                내역
-              </button>
-              <button className='border border-gray px-6 py-1 rounded-md text-black/50 font-semibold hover:bg-black/5'>
-                충전
-              </button>
+              <Link to='/user'>
+                <button className='border border-gray px-6 py-1 rounded-md text-black/50 font-semibold hover:bg-black/5'>
+                  내 정보
+                </button>
+              </Link>
             </div>
           </div>
         </div>
-
-        <div className='flex border-t border-t-black/10 px-5 justify-between h-14 items-center'>
-          <span className='font-semibold text-black/60 text-lg'>
-            가입한 상품
-          </span>
-          <BiChevronRight size='30' className='text-black/60 cursor-pointer' />
-        </div>
+        <Link to='/user/orderlist'>
+          <div className='flex border-t border-t-black/10 px-5 justify-between h-14 items-center'>
+            <span className='font-semibold text-black/60 text-lg'>
+              가입한 상품
+            </span>
+            <BiChevronRight
+              size='30'
+              className='text-black/60 cursor-pointer'
+            />
+          </div>
+        </Link>
       </div>
     </>
   );

@@ -7,7 +7,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { ax, token } from "@/libs/axiosClient";
 import { useNavigate } from "react-router-dom";
 import useToken from "@/libs/hooks/useToken";
-import useGetUser from "../../libs/hooks/useGetUser";
 
 const phonReg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 interface IEditUserForm {
@@ -22,18 +21,6 @@ interface IEditUserForm {
 const Edit = () => {
   const { accessToken }: any = useToken();
   const navigate = useNavigate();
-  // 유저 정보가져오기
-  const { data: userInfo, refetch } = useGetUser();
-
-  // 수정요청
-  // const { mutateAsync, isLoading } = useMutation({
-  //   mutationKey: ["userEdit"],
-  //   mutationFn: (payload: IUserEditPayload) =>
-  //     ax.patchUserEdit(accessToken, payload),
-  //   onSuccess: () => {
-  //     navigate("/main", { state: "CONFIRMED" });
-  //   },
-  // });
 
   const {
     register,
@@ -46,9 +33,7 @@ const Edit = () => {
     setValue,
     clearErrors,
     getFieldState,
-  } = useForm<IEditUserForm>({
-    defaultValues: async () => ax.getUser(accessToken),
-  });
+  } = useForm<IEditUserForm>();
 
   // 비밀번호 두개 일치
   useEffect(() => {
@@ -59,9 +44,9 @@ const Edit = () => {
     }
     console.log("errors>>", errors.newPassword);
   }, [watch().newPassword, watch().newPassword2]);
+
   const onValid = async (data) => {
     console.log(token.accessToken);
-
     const payload = {
       oldPassword: getValues().oldPassword,
       newPassword: getValues().newPassword,
