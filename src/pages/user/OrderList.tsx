@@ -7,14 +7,12 @@ import {
   useGetOrderListQuery,
 } from '@/store/api/orderApiSlice';
 import Navigation from '@components/ui/Navigation';
+import SkeletonOrderListElement from '@/components/OrderList/SkeletonOrderListElement';
 
 const OrderList = () => {
-  const { data: order, isLoading } = useGetOrderListQuery('');
+  const { data: order, isLoading, isFetching } = useGetOrderListQuery('');
   const [deleteOrderList] = useDeleteOrderListMutation();
   console.log('order', order);
-  if (isLoading) {
-    return <>Loading</>;
-  }
   return (
     <>
       <article>
@@ -37,6 +35,7 @@ const OrderList = () => {
             deleteOrderList={deleteOrderList}
           />
         ))}
+        {(isLoading || isFetching) && <SkeletonOrderListElement />}
       </article>
       <Navigation type='scroll' />
     </>

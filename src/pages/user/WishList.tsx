@@ -8,15 +8,13 @@ import {
 } from '@/store/api/wishlistApiSlice';
 import { useAddCartMutation } from '@/store/api/cartApiSlice';
 import Navigation from '@components/ui/Navigation';
+import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
 
 const WishList = () => {
-  const { data: wishlist, isLoading } = useGetWishListQuery('');
+  const { data: wishlist, isLoading, isFetching } = useGetWishListQuery('');
   console.log('data', wishlist);
   const [deleteWishList] = useDeleteWishListMutation();
   const [addCart] = useAddCartMutation();
-  if (isLoading) {
-    return <>Loading</>;
-  }
   return (
     <>
       <article>
@@ -37,7 +35,6 @@ const WishList = () => {
             </p>
           </EmptyCart>
         ) : null}
-
         {wishlist?.data?.map((value: Daum) => (
           <WishListElement
             wishlistData={value}
@@ -46,6 +43,7 @@ const WishList = () => {
             key={value.wishlistId}
           />
         ))}
+        {(isLoading || isFetching) && <SkeletonWishListElement />}
       </article>
       <Navigation type='scroll' />
     </>
