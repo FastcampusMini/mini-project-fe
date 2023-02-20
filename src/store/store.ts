@@ -1,8 +1,8 @@
-import { cartApi } from "./api/cartApiSlice";
-import { orderApi } from "./api/orderApiSlice";
-import { wishlistApi } from "./api/wishlistApiSlice";
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../features/authSlice/authSlice";
+import { cartApi } from './api/cartApiSlice';
+import { orderApi } from './api/orderApiSlice';
+import { wishlistApi } from './api/wishlistApiSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../features/authSlice/authSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,11 +12,7 @@ const store = configureStore({
     authToken: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([
-      cartApi.middleware,
-      orderApi.middleware,
-      wishlistApi.middleware,
-    ]),
+    getDefaultMiddleware().concat([cartApi.middleware, orderApi.middleware, wishlistApi.middleware]),
 });
 
 export default store;

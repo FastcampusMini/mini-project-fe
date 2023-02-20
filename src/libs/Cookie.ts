@@ -5,7 +5,7 @@ const cookies = new Cookies();
 /** refresh Token을 Cookie에 저장하기 위한 함수 */
 export const setRefreshToken = (refreshToken: string) => {
   const today = new Date();
-  const expireDate = today.setDate(today.getDate() + 30);
+  const expireDate = today.setDate(today.getDate() + 1);
 
   return cookies.set('refresh_token', refreshToken, {
     sameSite: true,
