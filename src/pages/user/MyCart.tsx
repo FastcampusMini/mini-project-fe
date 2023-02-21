@@ -11,7 +11,9 @@ import Navigation from '@components/ui/Navigation';
 import SkeletonCartElement from '@/components/MyCart/SkeletonCartElement';
 
 const Mycart = () => {
-  const { data: cart, isLoading, isFetching } = useGetCartQuery('');
+  const { data: cart, isLoading, isFetching, isError } = useGetCartQuery('');
+  const query = useGetCartQuery('');
+  console.log('query', query);
   const [deleteCart] = useDeleteCartMutation();
   const [addOrderList] = useAddOrderListMutation();
   console.log('cart', cart);
@@ -40,7 +42,7 @@ const Mycart = () => {
             key={value.basketId}
           />
         ))}
-        {(isLoading || isFetching) && <SkeletonCartElement />}
+        {(isLoading || isFetching || isError) && <SkeletonCartElement />}
       </article>
       <Navigation type='scroll' />
     </>

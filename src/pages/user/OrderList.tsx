@@ -10,7 +10,12 @@ import Navigation from '@components/ui/Navigation';
 import SkeletonOrderListElement from '@/components/OrderList/SkeletonOrderListElement';
 
 const OrderList = () => {
-  const { data: order, isLoading, isFetching } = useGetOrderListQuery('');
+  const {
+    data: order,
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetOrderListQuery('');
   const [deleteOrderList] = useDeleteOrderListMutation();
   console.log('order', order);
   return (
@@ -35,7 +40,7 @@ const OrderList = () => {
             deleteOrderList={deleteOrderList}
           />
         ))}
-        {(isLoading || isFetching) && <SkeletonOrderListElement />}
+        {(isLoading || isFetching || isError) && <SkeletonOrderListElement />}
       </article>
       <Navigation type='scroll' />
     </>

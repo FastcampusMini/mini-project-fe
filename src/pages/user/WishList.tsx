@@ -11,7 +11,12 @@ import Navigation from '@components/ui/Navigation';
 import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
 
 const WishList = () => {
-  const { data: wishlist, isLoading, isFetching } = useGetWishListQuery('');
+  const {
+    data: wishlist,
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetWishListQuery('');
   console.log('data', wishlist);
   const [deleteWishList] = useDeleteWishListMutation();
   const [addCart] = useAddCartMutation();
@@ -43,7 +48,7 @@ const WishList = () => {
             key={value.wishlistId}
           />
         ))}
-        {(isLoading || isFetching) && <SkeletonWishListElement />}
+        {(isLoading || isFetching || isError) && <SkeletonWishListElement />}
       </article>
       <Navigation type='scroll' />
     </>
