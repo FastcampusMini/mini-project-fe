@@ -10,7 +10,7 @@ const useLogin = (options?) => {
     (loginInfo: ILoginInput) => ax.postLogin(loginInfo),
     Object.assign(
       {
-        cacheTime: 1000 * 30,
+        cacheTime: 1000,
         onSuccess: (data) => {
           queryClient.setQueryData(['token'], () => data);
         },
