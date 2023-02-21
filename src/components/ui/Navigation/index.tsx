@@ -16,18 +16,19 @@ const index = ({ type }: INavProps) => {
         isScroll
           ? `max-w-screen-sm sticky mx-[-2.5rem]`
           : `absolute w-full left-0`
-      } `}>
+      } `}
+    >
       <FaSearchDollar
         className='hover:text-yellow'
-        onClick={() => navigate("/main")}
+        onClick={() => navigate('/main')}
       />
       <AiFillHome
         className='hover:text-yellow'
-        onClick={() => navigate("/main")}
+        onClick={() => navigate('/main')}
       />
       <BsFillPersonFill
         className='hover:text-yellow'
-        onClick={() => navigate("/user")}
+        onClick={() => navigate('/user')}
       />
     </div>
   );

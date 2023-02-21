@@ -2,21 +2,33 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
+import {
+  useAddOrderListMutation,
+  useGetOrderListQuery,
+} from '@/store/api/orderApiSlice';
+import AlertModal from '@/components/ui/AlertModal';
+import { useAddCartMutation } from '@/store/api/cartApiSlice';
 
 const Id = () => {
+  const [addOrderList] = useAddOrderListMutation();
+  const [addCart] = useAddCartMutation();
+  const { data: order, isLoading } = useGetOrderListQuery('');
   const { financialId } = useParams();
-  const [modal, setModal] = useState(false);
+  const [orderModal, setOrderModal] = useState(false);
+  const [alertModal, setAlertModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
   const [detail, setDetail] = useState({
     logo: '',
     name: '',
     rate: 1,
     detail: '',
+    productId: 1,
   });
-
+  console.log('detail : ', detail);
   const headers = {
     'Content-Type': 'application/json',
     Authorization:
-      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODI5NDE1LCJleHAiOjE2NzY4MzEyMTUsImVtYWlsIjoiaHMxIn0.WwFOTU8-BHkzFc7li33qvnw3PTVcgI_hwa0vlb6KU0Y',
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2OTEwNjExLCJleHAiOjE2NzY5MTI0MTEsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.EnUPTf68p9ka8nBCs6YTzEsm4ns-LSb43bW_7z6lb9E',
   };
 
   useEffect(() => {
@@ -51,7 +63,8 @@ const Id = () => {
         ].map((data, i) => (
           <li
             key={i}
-            className='px-4 py-2 rounded-full bg-black5 text-black40 font-bold'>
+            className='px-4 py-2 rounded-full bg-black5 text-black40 font-bold'
+          >
             {data}
           </li>
         ))}
@@ -91,24 +104,60 @@ const Id = () => {
       <button
         type='button'
         className='mt-20 p-4 w-full rounded-[10px] bg-gray text-white text-lg font-bold'
-        onClick={() => setModal(true)}>
+        onClick={() => setAddModal(true)}
+      >
         장바구니 담기
       </button>
       <button
         type='button'
         className='mt-6 mb-20 p-4 w-full rounded-[10px] bg-yellow text-white text-lg font-bold'
-        onClick={() => setModal(true)}>
+        onClick={() => setOrderModal(true)}
+      >
         신청하기
       </button>
 
-      {modal && (
+      {orderModal && (
         <ConfirmModal
           title='신청하시겠습니까?'
           description=''
-          onConfirm={() => setModal(false)}
-          onCancel={() => setModal(false)}
+          onConfirm={async () => {
+            const find = order?.data?.find((value) => {
+              return (
+                value.purchasedProductList[0].originalProductId ===
+                detail?.productId
+              );
+            });
+            if (find) {
+              setOrderModal(false);
+              setAlertModal(true);
+            } else {
+              await addOrderList({ products_id_list: [detail.productId] });
+              setOrderModal(false);
+            }
+          }}
+          onCancel={() => setOrderModal(false)}
         />
       )}
+      {addModal && (
+        <ConfirmModal
+          title='장바구니에 담으시겠습니까?'
+          description=''
+          onConfirm={async () => {
+            const res: any = await addCart({
+              productId: detail.productId,
+            });
+            console.log('res', res);
+            if (res.data.code === 500) {
+              setAddModal(false);
+              setAlertModal(true);
+            } else {
+              setAddModal(false);
+            }
+          }}
+          onCancel={() => setAddModal(false)}
+        />
+      )}
+      {alertModal && <AlertModal setAlertModal={setAlertModal} />}
     </div>
   );
 };
