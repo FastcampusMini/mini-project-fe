@@ -1,10 +1,10 @@
-import store from "@/store/store";
-import axios from "axios";
+import store from '@/store/store';
+import axios from 'axios';
 
-const BASE_URL = "http://52.78.32.230:8080";
+const BASE_URL = 'http://52.78.32.230:8080';
 export const token = {
   accessToken:
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODAxMDc5LCJleHAiOjE2NzY4MDI4NzksImVtYWlsIjoiaXNhYWNjIn0.MV2ui0xaJ0df_OBeBs0yvhZYDDQPJPrftivbLNJ5he8",
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODAxMDc5LCJleHAiOjE2NzY4MDI4NzksImVtYWlsIjoiaXNhYWNjIn0.MV2ui0xaJ0df_OBeBs0yvhZYDDQPJPrftivbLNJ5he8',
 };
 
 const modifyPayload = (payload: IUserEditPayload): IUserEditPayload => {
@@ -13,7 +13,7 @@ const modifyPayload = (payload: IUserEditPayload): IUserEditPayload => {
   return payload;
 };
 const HEADERS = {
-  "Content-Type": "application/json",
+  'Content-Type': 'application/json',
 };
 // const HEADERS_withToken = {
 //   "Content-Type": "application/json",
@@ -30,9 +30,10 @@ class Axios {
     });
   }
 
+  // 로그인 요청
   async postLogin({ email, password }) {
     const result = await this.axiosClient
-      .post("/login", {
+      .post('/login', {
         email,
         password,
       })
@@ -40,18 +41,20 @@ class Axios {
 
     console.log(result.message);
     token.accessToken = result.data;
-    console.log("업데이트 accessToken", token.accessToken);
+    console.log('업데이트 accessToken', token.accessToken);
     return result.data;
   }
-  async getProducts(accessToken: string) {
+  // 전체 상품 가져오기
+  async getProducts(accessToken: string, page: number) {
     if (!accessToken) throw Error(`[에러]accessToken = ${accessToken} 입니다`);
+    if (page < 1) return;
     const result = await this.axiosClient
-      .get("/api/products", {
+      .get('/api/products', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          // page: 1,
+          page,
         },
       })
       .then((response) => response.data);
@@ -59,14 +62,32 @@ class Axios {
     console.log(`getProducts:"${result.message}" ${accessToken}`);
     return result.data;
   }
+  // 추천 상품 가져오기
+  async getRecommendsProducts(accessToken: string, page: number) {
+    if (!accessToken) throw Error(`[에러]accessToken = ${accessToken} 입니다`);
+    if (page < 1) return;
+    const result = await this.axiosClient
+      .get('/api/products/recommends', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          page,
+        },
+      })
+      .then((response) => response.data);
+
+    console.log(`getRecommendsProducts(${result.message}) ${result.data}`);
+    return result.data;
+  }
 
   // 유저 정보수정
   async patchUserEdit(accessToken: string, payload: IUserEditPayload) {
     if (!accessToken) throw Error(`[에러]accessToken = ${accessToken} 입니다`);
-    console.log("payload >>", payload);
+    console.log('payload >>', payload);
     const _payload = modifyPayload(payload);
     const result = await this.axiosClient
-      .patch("/api/user", payload, {
+      .patch('/api/user', payload, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -76,11 +97,12 @@ class Axios {
     console.log(result);
     return result;
   }
+  // 유저 정보 가져오기
   async getUser(accessToken: string) {
     if (!accessToken) throw Error(`[에러]accessToken = ${accessToken} 입니다`);
 
     const result = await this.axiosClient
-      .get("/api/user", {
+      .get('/api/user', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
