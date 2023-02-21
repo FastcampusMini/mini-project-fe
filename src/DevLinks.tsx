@@ -6,19 +6,26 @@ import useLogin from './libs/hooks/useLogin';
 import { ax } from './libs/axiosClient';
 import useToken from './libs/hooks/useToken';
 import orderData from '@libs/mockup/getSearch.json';
+import useGetOrders from './libs/hooks/useGetOrders';
+import { useMutation } from '@tanstack/react-query';
+import Search from './components/Search';
 
 const DevLinks = () => {
   const [toggle, setToggle] = useState(false);
   const { register, handleSubmit, getValues } = useForm();
-  const { mutate: login, isLoading } = useLogin();
+  const { mutate: login } = useLogin();
   const { accessToken, refreshToken } = useToken();
   const onValid = () => {
     const { email, password } = getValues();
     login({ email, password });
   };
+  const { data: orderdata } = useGetOrders(accessToken);
 
-  const handleTest = () => {
-    const { email, password } = getValues();
+  const [name, setName] = useState('');
+  const handleTest = async () => {
+    const { email, password, other } = getValues();
+    console.log('orderdata', orderdata);
+    setName(other);
   };
 
   return (
@@ -52,11 +59,20 @@ const DevLinks = () => {
             placeholder='pw'
           />
           <button className='hover:bg-gray'>Login</button>
-          <div className='border hover:bg-orange rounded' onClick={handleTest}>
+          <input
+            type='text'
+            {...register('other')}
+            className='border'
+            placeholder='other'
+          />
+
+          <div
+            className='border hover:bg-orange hover:cursor-pointer rounded'
+            onClick={handleTest}>
             handleTEST
           </div>
         </form>
-
+        <Search name={name} accessToken={accessToken} />
         <ul>
           <li>
             <Link className='hover:bg-black/10' to='/'>

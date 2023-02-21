@@ -2,7 +2,7 @@ import React from 'react';
 import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 
 interface TSignInFieldValues {
-  email: string;
+  email?: string;
   password: string;
 }
 

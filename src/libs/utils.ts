@@ -15,3 +15,14 @@ export function paginaton<T>(arr?: T[], size: number = 10, page: number = 1) {
   if (!arr.slice) console.log('왜애러야', arr);
   return arr.slice(_first, _second);
 }
+
+// 페이지네이션 데이터
+export const combinePagesContent = (pages) => {
+  let result = [];
+  if (pages?.length) {
+    for (let page of pages) {
+      result = [...result, ...page?.content];
+    }
+  }
+  return result;
+};
