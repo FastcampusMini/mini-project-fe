@@ -6,12 +6,12 @@ export const orderApi = createApi({
   baseQuery: base,
   tagTypes: ['Order'],
   endpoints: (builder) => ({
-    getOrderList: builder.query<IOrder, String>({
+    getOrderList: builder.query<IOrderData, String>({
       query: () => '/orders',
       providesTags: ['Order'],
     }),
     addOrderList: builder.mutation({
-      query: (orderData: IOrderData) => {
+      query: (orderData: IProductsId) => {
         return {
           url: '/orders',
           method: 'POST',
@@ -21,7 +21,7 @@ export const orderApi = createApi({
       invalidatesTags: ['Order'],
     }),
     deleteOrderList: builder.mutation({
-      query: (orderData: IOrderDataDelete) => ({
+      query: (orderData: IOrderId) => ({
         url: '/orders',
         method: 'DELETE',
         body: orderData,
@@ -30,38 +30,6 @@ export const orderApi = createApi({
     }),
   }),
 });
-
-// 나중에 추가되는 데이터 있을 예정이니 다시 작성하기
-export interface IOrder {
-  code: number;
-  message: string;
-  data: Daum[];
-}
-
-export interface Daum {
-  orderId: number;
-  purchaseDate: number[];
-  purchasedProductList: PurchasedProductList[];
-}
-
-export interface PurchasedProductList {
-  purchasedProductId: number;
-  purchasedProductPrice: number;
-  purchasedProductBrand: string;
-  purchasedProductLogo: string;
-  purchasedProductName: string;
-  purchasedProductRate: number;
-  purchasedProductDetail: string;
-  originalProductId: number;
-}
-
-export interface IOrderData {
-  products_id_list: number[];
-}
-
-export interface IOrderDataDelete {
-  orderId: number;
-}
 
 export const {
   useGetOrderListQuery,

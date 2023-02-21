@@ -1,57 +1,77 @@
-import React, { useEffect, useState } from "react";
-import LoanProduct from "@components/LoanProductCard";
-import { TotalLoans } from "./TotalLoans";
-import FNB from "@components/FNB/index";
-import Nav from "@components/Nav";
-import { token, ax } from "@/libs/axiosClient";
-import { useQuery } from "@tanstack/react-query";
-import { paginaton } from "@/libs/utils";
-import SkeletonLoanProductCard from "@/components/SkeletonLoanProductCard";
-import { useLocation, useParams } from "react-router-dom";
-import Confirmed from "./_Confirmed";
-import useGetProducts from "../../libs/hooks/useGetProducts";
+import React, { useEffect, useState } from 'react';
+import LoanProduct from '@components/LoanProductCard';
+import { TotalLoans } from './TotalLoans';
+import FNB from '@components/FNB/index';
+import Nav from '@components/Nav';
+import { ax } from '@/libs/axiosClient';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 
-interface IProduct {
-  brand: string;
-  detail: string;
-  logo: string;
-  name: string;
-  price: number;
-  productId: number;
-  rate: number;
-}
-interface IGetProductsReturn {
-  code: number;
-  data: IProduct[];
-  message: string;
-}
+import SkeletonLoanProductCard from '@/components/SkeletonLoanProductCard';
+import { useLocation, useParams } from 'react-router-dom';
+import Confirmed from './_Confirmed';
+import useGetProducts from '../../libs/hooks/useGetProducts';
+import useToken from '@/libs/hooks/useToken';
+import useGetRecommendProducts from '@/libs/hooks/useGetRecommendsProducts';
+import useGetUser from '@/libs/hooks/useGetUser';
+
+const joiningPagesContent = (pages) => {
+  let result = [];
+  if (pages?.length) {
+    for (let page of pages) {
+      result = [...result, ...page?.content];
+    }
+  }
+  return result;
+};
 const Main = () => {
-  const { state } = useLocation();
-  const [page, setPage] = useState(1);
-  const [size, setSize] = useState(5);
+  const [products, setProducts] = useState([]);
+  const { accessToken } = useToken(); // 토큰가져오기
+  // const { data, fetchNextPage } = useInfiniteQuery(
+  //   [products],
+  //   ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
+  //   {
+  //     getNextPageParam: (lastPage) => 2,
+  //     onSuccess: (data) => console.log('테스트onSucc ', data),
+  //   }
+  // );
+  const {
+    isLoading: fetchingRecommends,
+    fetchNextPage,
+    dataPack,
+  } = useGetProducts(accessToken, {
+    // onSuccess: (data) => {
+    //   console.log(data);
+    //   let result = [];
+    //   for (let page of data.pages) {
+    //     result = [...result, ...page?.content];
+    //   }
+    //   setProducts(result);
+    // },
+  });
 
-  const { data, isLoading, refetch } = useGetProducts(token.accessToken);
+  // 유저 정보가져오기
+  const { data: userInfo, isLoading: fetchingUser } = useGetUser(accessToken);
 
   const handleTotal = () => {
-    console.log("clicked");
-    setSize((prev) => prev + 1);
+    console.log('clicked');
+    fetchNextPage();
   };
+
   return (
     <>
       <Confirmed />
       <main className='flex flex-col'>
         <Nav left='arrow' right='arrow' />
-        <div className='px-3 space-y-8'>
-          <TotalLoans amount={3200} onClick={handleTotal} />
-
-          {isLoading ? (
+        <div className='px-3 flex flex-col gap-5'>
+          {fetchingUser ? (
             <SkeletonLoanProductCard />
           ) : (
-            paginaton(data, size, page)?.map((product) => (
-              <LoanProduct key={product.productId} product={product} />
-            ))
+            <TotalLoans userInfo={userInfo} onClick={handleTotal} />
           )}
-          {/* <LoanProduct product={data[0]} /> */}
+
+          {dataPack?.map((product) => (
+            <LoanProduct key={product.id} product={product} />
+          ))}
         </div>
       </main>
     </>

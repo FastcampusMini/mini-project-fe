@@ -1,18 +1,18 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import { ax } from "../axiosClient";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import React from 'react';
+import { ax } from '../axiosClient';
 
 const useLogin = (options?) => {
   const queryClient = useQueryClient();
 
   const output = useMutation(
-    ["login"],
+    ['login'],
     (loginInfo: ILoginInput) => ax.postLogin(loginInfo),
     Object.assign(
       {
-        cacheTime: 1000 * 30,
+        cacheTime: 1000,
         onSuccess: (data) => {
-          queryClient.setQueryData(["token"], () => data);
+          queryClient.setQueryData(['token'], () => data);
         },
       },
       options

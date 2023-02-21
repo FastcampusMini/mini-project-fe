@@ -1,24 +1,24 @@
-import { useState } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
-import Back from '@components/ui/Navigation/Back';
+import Nav from '@/components/Nav';
 import {
   useGetCartQuery,
   useDeleteCartMutation,
 } from '../../store/api/cartApiSlice';
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
+import Navigation from '@components/ui/Navigation';
+import SkeletonCartElement from '@/components/MyCart/SkeletonCartElement';
+
 const Mycart = () => {
-  const { data: cart, isLoading } = useGetCartQuery('');
+  const { data: cart, isLoading, isFetching } = useGetCartQuery('');
   const [deleteCart] = useDeleteCartMutation();
   const [addOrderList] = useAddOrderListMutation();
-  if (isLoading) {
-    return <>Loading</>;
-  }
+  console.log('cart', cart);
   return (
     <>
       <article>
-        <Back />
+        <Nav left='arrow' />
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           장바구니
         </h1>
@@ -32,8 +32,7 @@ const Mycart = () => {
             </p>
           </EmptyCart>
         ) : null}
-        {/* key 값 변경하기 */}
-        {cart?.data?.map((value: ICart) => (
+        {cart?.data?.map((value: Daum) => (
           <CartElement
             cartData={value}
             deleteCart={deleteCart}
@@ -41,18 +40,11 @@ const Mycart = () => {
             key={value.basketId}
           />
         ))}
+        {(isLoading || isFetching) && <SkeletonCartElement />}
       </article>
+      <Navigation type='scroll' />
     </>
   );
 };
-
-export interface ICart {
-  basketId: number;
-  productId: number;
-  brand: string;
-  logo: string;
-  name: string;
-  price: number;
-}
 
 export default Mycart;

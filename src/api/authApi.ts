@@ -28,13 +28,21 @@ export const logIn = async ({ email, password }) => {
 /** 로그아웃 api */
 export const logOut = async (accessToken: string) => {
   try {
-    const response = await instance.post(
-      '/logout',
-      { token: accessToken },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+    const response = await instance.post('/logout', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/** 유저 정보 api */
+export const getUserInfo = async (accessToken: string) => {
+  try {
+    const response = await instance.get('/api/user', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
