@@ -1,8 +1,8 @@
-import { ax, token } from "@/libs/axiosClient";
-import { useMutation } from "@tanstack/react-query";
-import React from "react";
-import { BiChevronRight } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { ax } from '@/libs/axiosClient';
+import { useMutation } from '@tanstack/react-query';
+import React from 'react';
+import { BiChevronRight } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 interface LoanProductCardProps {
   product: IProduct;
