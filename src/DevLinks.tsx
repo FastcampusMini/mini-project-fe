@@ -6,6 +6,7 @@ import useLogin from './libs/hooks/useLogin';
 import { ax } from './libs/axiosClient';
 import useToken from './libs/hooks/useToken';
 import orderData from '@libs/mockup/getSearch.json';
+import useGetOrders from './libs/hooks/useGetOrders';
 
 const DevLinks = () => {
   const [toggle, setToggle] = useState(false);
@@ -16,9 +17,11 @@ const DevLinks = () => {
     const { email, password } = getValues();
     login({ email, password });
   };
-
-  const handleTest = () => {
+  // const { data: orderdata } = useGetOrders(accessToken);
+  // console.log('orderdata', orderdata);
+  const handleTest = async () => {
     const { email, password } = getValues();
+    ax.getUser(accessToken);
   };
 
   return (

@@ -3,7 +3,11 @@ import { BiChevronRight } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-export const TotalLoans = ({ amount, onClick }) => {
+interface IProps {
+  userInfo?: IUserInfo;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+}
+export const TotalLoans = ({ userInfo, onClick }: IProps) => {
   return (
     <>
       <div
@@ -14,7 +18,9 @@ export const TotalLoans = ({ amount, onClick }) => {
             신청 가능한 대출금 총합
           </span>
           <div className='flex justify-between items-center h-20 mb-3'>
-            <h3 className='font-bold text-3xl'>{amount}원</h3>
+            <h3 className='font-bold text-3xl'>
+              {userInfo?.availableAmount}원
+            </h3>
             <div className='flex gap-3'>
               <Link to='/user'>
                 <button className='border border-gray px-6 py-1 rounded-md text-black/50 font-semibold hover:bg-black/5'>
@@ -25,7 +31,7 @@ export const TotalLoans = ({ amount, onClick }) => {
           </div>
         </div>
         <Link to='/user/orderlist'>
-          <div className='flex border-t border-t-black/10 px-5 justify-between h-14 items-center'>
+          <div className='flex border-t border-t-black/10 px-5 justify-between h-14 items-center hover:bg-black5'>
             <span className='font-semibold text-black/60 text-lg'>
               가입한 상품
             </span>

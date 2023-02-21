@@ -2,23 +2,10 @@ import store from '@/store/store';
 import axios from 'axios';
 
 const BASE_URL = 'http://52.78.32.230:8080';
-export const token = {
-  accessToken:
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2ODAxMDc5LCJleHAiOjE2NzY4MDI4NzksImVtYWlsIjoiaXNhYWNjIn0.MV2ui0xaJ0df_OBeBs0yvhZYDDQPJPrftivbLNJ5he8',
-};
 
-const modifyPayload = (payload: IUserEditPayload): IUserEditPayload => {
-  const _payload = {};
-  payload.newPassword;
-  return payload;
-};
 const HEADERS = {
   'Content-Type': 'application/json',
 };
-// const HEADERS_withToken = {
-//   "Content-Type": "application/json",
-//   Authorization: `Bearer ${token.accessToken}`,
-// };
 
 // 에러핸들링은 react-query 훅으로 합니다.
 class Axios {
@@ -38,17 +25,18 @@ class Axios {
         password,
       })
       .then((res) => res.data);
-    token.accessToken = result.data;
-    console.log(`${result.message}>>`, token.accessToken);
+    console.log(`postLogin${result.message}>>`, result.data);
     return result.data;
   }
 
   // 유저 정보수정
-  async patchUserEdit(accessToken: string, payload: IUserEditPayload) {
+  async patchUserEdit(
+    accessToken: string,
+    payload: IUserEditPayload
+  ): Promise<IPatchUserEditReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
-    console.log('payload >>', payload);
-    const _payload = modifyPayload(payload);
+    if (!payload) throw Error(`[에러]payload = "${payload}" 입니다`);
     const result = await this.axiosClient
       .patch('/api/user', payload, {
         headers: {
@@ -57,11 +45,11 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(result);
-    return result;
+    console.log(`patchUserEdit>>${result?.message}`, result);
+    return result.data;
   }
   // 유저 정보 가져오기
-  async getUser(accessToken: string) {
+  async getUser(accessToken: string): Promise<IGetUserReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
 
@@ -73,12 +61,12 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`getUser ${result.message}`);
+    console.log(`getUser ${result.mesage}`, result);
     return result.data;
   }
 
   // Refresh token
-  async postRefresh(refreshToken: string) {
+  async postRefresh(refreshToken: string): Promise<IPostRefreshReturn> {
     if (!refreshToken) throw Error(`[에러]refreshToken="${refreshToken}" `);
     const result = await this.axiosClient
       .post(
@@ -94,23 +82,25 @@ class Axios {
       )
       .then((response) => response.data);
     console.log(`postRefresh >>`, result);
-    return result;
+    return result.data;
   }
 
   // Logout
-  async postLogout(accessToken: string) {
+  async postLogout(accessToken: string): Promise<void> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
-
     const result = await this.axiosClient
-      .post('/logout', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      .post(
+        '/logout',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
       .then((response) => response.data);
     console.log(`postLogout >>`, result);
-    return result.data;
   }
 
   // 회원가입하기
@@ -122,7 +112,10 @@ class Axios {
     return result;
   }
   // 회원탈퇴하기
-  async deleteUser(accessToken: string, { email, password }: ILoginInput) {
+  async deleteUser(
+    accessToken: string,
+    { email, password }: ILoginInput
+  ): Promise<IDeleteUserReturn> {
     const result = await this.axiosClient
       .delete('/api/user', {
         headers: {
@@ -135,14 +128,17 @@ class Axios {
       })
       .then((response) => response.data);
     console.log(`deleteUser >>`, result);
-    return result;
+    return result.data;
   }
   ////////////// 상품관련
   // 전체 상품 가져오기
-  async getProducts(accessToken: string, page: number) {
+  async getProducts(
+    accessToken: string,
+    page: number | string
+  ): Promise<IGetProductsReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
-    if (page < 1) return;
+    if (Number(page) < 1) return;
     const result = await this.axiosClient
       .get('/api/products', {
         headers: {
@@ -158,10 +154,13 @@ class Axios {
     return result.data;
   }
   // 추천 상품 가져오기
-  async getRecommendsProducts(accessToken: string, page: number) {
+  async getRecommendsProducts(
+    accessToken: string,
+    page: number | string
+  ): Promise<IGetProductsReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
-    if (page < 1) return;
+    if (Number(page) < 1) return;
     const result = await this.axiosClient
       .get('/api/products/recommends', {
         headers: {
@@ -234,7 +233,7 @@ class Axios {
   ): Promise<void> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
-
+    if (!orderId) throw Error(`[에러]orderId = "${orderId}" 입니다`);
     const result = await this.axiosClient
       .delete('/api/orders', {
         headers: {

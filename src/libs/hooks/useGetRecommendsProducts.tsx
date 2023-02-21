@@ -9,7 +9,8 @@ const useGetRecommendProducts = (accessToken, options?) => {
     Object.assign(
       {
         getNextPageParam: (lastPage, allPages) => {
-          if (lastPage.pageNumber >= lastPage.totalPages) return;
+          if (!lastPage) return;
+          if (lastPage?.pageNumber >= lastPage.totalPages) return;
           return lastPage.pageNumber + 1;
         },
       },
