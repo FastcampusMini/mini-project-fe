@@ -26,83 +26,83 @@ const router = createBrowserRouter([
       {
         path: 'main',
         element: (
-          <ProtectedRoute>
-            <Main />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Main />
+          // </ProtectedRoute>
         ),
       },
 
       {
         path: 'signin',
         element: (
-          <SuccessRoute>
-            <SignIn />
-          </SuccessRoute>
+          // <SuccessRoute>
+          <SignIn />
+          // </SuccessRoute>
         ),
       },
       {
         path: 'signup',
         element: (
-          <SuccessRoute>
-            <SignUp />
-          </SuccessRoute>
+          // <SuccessRoute>
+          <SignUp />
+          // </SuccessRoute>
         ),
       },
       {
         path: 'user/mycart',
         element: (
-          <ProtectedRoute>
-            <MyCart />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <MyCart />
+          // </ProtectedRoute>
         ),
       },
       {
         path: 'user/edit',
         element: (
-          <ProtectedRoute>
-            <Edit />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Edit />
+          // </ProtectedRoute>
         ),
       },
       {
         path: 'user/wishlist',
         element: (
-          <ProtectedRoute>
-            <WishList />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <WishList />
+          // </ProtectedRoute>
         ),
       },
       {
         path: 'user/orderlist',
         element: (
-          <ProtectedRoute>
-            <OrderList />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <OrderList />
+          // </ProtectedRoute>
         ),
       },
       {
         path: 'user',
         element: (
-          <ProtectedRoute>
-            <User />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <User />
+          // </ProtectedRoute>
         ),
       },
       {
         path: 'products/financial/:financialId',
         element: (
-          <ProtectedRoute>
-            <FinancialId />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <FinancialId />
+          // </ProtectedRoute>
         ),
       },
 
       {
         path: 'products/financial',
         element: (
-          <ProtectedRoute>
-            <Financial />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Financial />
+          // </ProtectedRoute>
         ),
       },
     ],

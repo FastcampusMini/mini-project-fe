@@ -25,7 +25,7 @@ export default function CheckToken(key: string) {
           const accessToken = response.data.accessToken;
           dispatch(SET_TOKEN(accessToken));
           setIsAuth('Success');
-          alert(response.message);
+          // alert(response.message);
         } else {
           dispatch(DELETE_TOKEN());
           removeCookieToken();

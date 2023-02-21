@@ -25,18 +25,24 @@ export const logIn = async ({ email, password }) => {
   }
 };
 
-// 타임아웃 지정해줘야함!!
-
 /** 로그아웃 api */
 export const logOut = async (accessToken: string) => {
   try {
-    const response = await instance.post(
-      '/logout',
-      { token: accessToken },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+    const response = await instance.post('/logout', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/** 유저 정보 api */
+export const getUserInfo = async (accessToken: string) => {
+  try {
+    const response = await instance.get('/api/user', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
     return response.data;
   } catch (error) {
     console.log(error);
@@ -44,12 +50,13 @@ export const logOut = async (accessToken: string) => {
 };
 
 /** 회원탈퇴 api */
-export const deleteAuth = async ({ password }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['cookie_name']);
+export const deleteAuth = async (accessToken: string, password: string) => {
   try {
-    const response = await instance.delete('/user', {
-      headers: { Authorization: `Bearer ${cookies.cookie_name.accessToken}` },
+    const response = await instance.delete('/api/user', {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      data: { password },
     });
+    return response.data;
   } catch (error) {
     console.log(error);
   }
