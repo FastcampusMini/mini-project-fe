@@ -6,9 +6,9 @@ export const ProtectedRoute = ({ children }) => {
   const location = useLocation();
 
   const { isAuth } = CheckToken(location.key);
-  if (isAuth === 'Failed') {
-    return <Navigate to='/signin' replace />;
-  }
+  // if (isAuth === 'Failed') {
+  //   return <Navigate to='/signin' replace />;
+  // }
 
   return children;
   // 로그인한 사용자가 있는지 확인
@@ -20,8 +20,8 @@ export const ProtectedRoute = ({ children }) => {
 export const SuccessRoute = ({ children }) => {
   const location = useLocation();
   const { isAuth } = CheckToken(location.key);
-  if (isAuth === 'Success') {
-    return <Navigate to='/main' replace />;
-  }
+  // if (isAuth === 'Success') {
+  //   return <Navigate to='/main' replace />;
+  // }
   return children;
 };

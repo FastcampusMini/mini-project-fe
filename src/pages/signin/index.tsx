@@ -49,6 +49,7 @@ const SignIn = () => {
     } else {
       alert(response.message);
     }
+    setValue('password', '');
   };
 
   return (

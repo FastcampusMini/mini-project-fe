@@ -17,6 +17,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import SignInField from '@/components/SignIn/SignInField';
+import DeleteAccountModal from '@/components/User/DeleteAccountModal';
 
 // interface IGetUserInfo {
 //   code: number;
@@ -36,7 +37,6 @@ import SignInField from '@/components/SignIn/SignInField';
 
 interface IDeleteForm {
   password: string;
-  accessToken: string;
 }
 
 const User = () => {
@@ -79,7 +79,8 @@ const User = () => {
 
   // 백으로 password 전달해서 회원탈퇴
   const onValid: SubmitHandler<IDeleteForm> = async ({ password }, event) => {
-    event.preventDefault();
+    // event.preventDefault();
+    console.log('accessToken:', accessToken);
 
     console.log('password:', password);
 
@@ -87,7 +88,7 @@ const User = () => {
     console.log(response);
 
     if (response.code === 200) {
-      dispatch(DELETE_TOKEN(accessToken));
+      dispatch(DELETE_TOKEN());
       removeCookieToken();
       setDeleteModal(false);
       alert(response.message);
@@ -104,10 +105,10 @@ const User = () => {
     setOutModal(false);
   };
 
-  // const deleteConfirm = (accessToken: string) => {
-  //   handleSubmit(onValid);
-  //   console.log('delete');
-  // };
+  const deleteConfirm = () => {
+    console.log('delete');
+    // handleSubmit(onValid);
+  };
 
   const deleteMsg = '탈퇴하시면 더 이상 서비스를\n이용하실 수 없어요.';
 
@@ -117,14 +118,7 @@ const User = () => {
         {outModal && (
           <ConfirmModal title='로그아웃 하시겠어요?' onConfirm={logOutConfirm} onCancel={() => setOutModal(false)} />
         )}
-        {deleteModal && (
-          <ConfirmModal
-            title='정말 탈퇴 하시겠어요?'
-            description={deleteMsg}
-            onConfirm={handleSubmit(onValid)}
-            onCancel={() => setDeleteModal(false)}
-          />
-        )}
+        {deleteModal && <DeleteAccountModal onCancel={() => setDeleteModal(false)} />}
         <h1 className='text-3xl mt-10 mb-5'>
           안녕하세요! <span className='font-semibold'>홍혜원님</span>
         </h1>
