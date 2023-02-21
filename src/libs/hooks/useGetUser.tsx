@@ -4,9 +4,13 @@ import { ax } from '../axiosClient';
 import useToken from './useToken';
 
 const useGetUser = (accessToken, options?) => {
-  return useQuery<IUserInfo>(['user'], () => ax.getUser(accessToken), {
-    ...options,
-  });
+  return useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken),
+    {
+      ...options,
+    }
+  );
 };
 
 export default useGetUser;

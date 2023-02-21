@@ -16,14 +16,12 @@ const ConfirmModal = ({ onCancel, onConfirm, title, description }) => {
         <div className='w-full flex gap-4 h-auto'>
           <button
             onClick={onCancel}
-            className='rounded h-14 w-1/2 text-white bg-black40 hover:bg-black60'
-          >
+            className='rounded h-14 w-1/2 text-white bg-black40 hover:bg-black60'>
             취소
           </button>
           <button
             onClick={onConfirm}
-            className='border rounded h-14 w-1/2 text-white bg-light-orange hover:bg-orange'
-          >
+            className='border rounded h-14 w-1/2 text-white bg-light-orange hover:bg-orange'>
             확인
           </button>
         </div>

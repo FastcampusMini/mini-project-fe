@@ -72,10 +72,10 @@ const SignUp = () => {
     const response = await signUp({ name, email, password, phone, birth, job, salary });
     console.log(response);
     if (response.code === 200) {
-      alert('response.message');
+      alert(response.message);
       navigate('/signin');
     } else {
-      alert('response.message');
+      alert(response.message);
     }
   };
 

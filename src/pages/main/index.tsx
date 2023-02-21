@@ -14,38 +14,43 @@ import useToken from '@/libs/hooks/useToken';
 import useGetRecommendProducts from '@/libs/hooks/useGetRecommendsProducts';
 import useGetUser from '@/libs/hooks/useGetUser';
 
+const joiningPagesContent = (pages) => {
+  let result = [];
+  if (pages?.length) {
+    for (let page of pages) {
+      result = [...result, ...page?.content];
+    }
+  }
+  return result;
+};
 const Main = () => {
   const [products, setProducts] = useState([]);
   const { accessToken } = useToken(); // 토큰가져오기
-  const { data, fetchNextPage } = useInfiniteQuery(
-    [products],
-    ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
-    {
-      getNextPageParam: (lastPage) => 2,
-      onSuccess: (data) => console.log('테스트onSucc ', data),
-    }
-  );
-  // const {
-  //   isLoading: fetchingRecommends,
-  //   fetchNextPage,
-  //   hasNextPage,
-  // } = useGetProducts(accessToken, {
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //     // let result = [];
-  //     // for (let page of data.pages) {
-  //     //   result = [...result, ...page?.content];
-  //     // }
-  //     // setProducts(result);
-  //   },
-  // });
+  // const { data, fetchNextPage } = useInfiniteQuery(
+  //   [products],
+  //   ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
+  //   {
+  //     getNextPageParam: (lastPage) => 2,
+  //     onSuccess: (data) => console.log('테스트onSucc ', data),
+  //   }
+  // );
+  const {
+    isLoading: fetchingRecommends,
+    fetchNextPage,
+    dataPack,
+  } = useGetProducts(accessToken, {
+    // onSuccess: (data) => {
+    //   console.log(data);
+    //   let result = [];
+    //   for (let page of data.pages) {
+    //     result = [...result, ...page?.content];
+    //   }
+    //   setProducts(result);
+    // },
+  });
 
   // 유저 정보가져오기
-  // const { data: userInfo, isLoading: fetchingUser } = useGetUser(accessToken);
-
-  const { data: userInfo } = useQuery<IUserInfo>(['user'], () =>
-    ax.getUser(accessToken)
-  );
+  const { data: userInfo, isLoading: fetchingUser } = useGetUser(accessToken);
 
   const handleTotal = () => {
     console.log('clicked');
@@ -58,13 +63,13 @@ const Main = () => {
       <main className='flex flex-col'>
         <Nav left='arrow' right='arrow' />
         <div className='px-3 flex flex-col gap-5'>
-          {/* {fetchingUser ? (
+          {fetchingUser ? (
             <SkeletonLoanProductCard />
           ) : (
             <TotalLoans userInfo={userInfo} onClick={handleTotal} />
-          )} */}
+          )}
 
-          {products?.map((product) => (
+          {dataPack?.map((product) => (
             <LoanProduct key={product.id} product={product} />
           ))}
         </div>

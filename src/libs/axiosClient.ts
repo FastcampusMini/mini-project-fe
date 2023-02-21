@@ -150,7 +150,7 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`getProducts:"${result.message}"`, result);
+    // console.log(`getProducts:"${result.message}"`, result);
     return result.data;
   }
   // 추천 상품 가져오기
@@ -254,7 +254,7 @@ class Axios {
     { name, page }: ISearchInput
   ): Promise<ISearchedData> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
-    if (page < 1) return;
+    if (Number(page) < 1) return;
 
     const result = await this.axiosClient
       .get('/search', {
