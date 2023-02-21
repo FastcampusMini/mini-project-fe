@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 // ratio 는 0~1 사이 값, 0.5는 절반정도
 const useScroll = () => {
@@ -11,8 +11,8 @@ const useScroll = () => {
     console.log(state.x, state.y);
   };
   useEffect(() => {
-    window.addEventListener("scroll", onScroll); // scorll할 때 onScroll 이벤트 핸들러 지정
-    return () => window.removeEventListener("scroll", onScroll); // clean up
+    window.addEventListener('scroll', onScroll); // scorll할 때 onScroll 이벤트 핸들러 지정
+    return () => window.removeEventListener('scroll', onScroll); // clean up
   }, []);
   return state;
 };

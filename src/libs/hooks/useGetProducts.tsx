@@ -1,20 +1,22 @@
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { ax, token } from "../axiosClient";
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import React from 'react';
+import { ax, token } from '../axiosClient';
 
-const useGetProducts = (accessToken) => {
-  const queryPack = useQuery<IProduct[]>({
-    queryKey: ["products"],
-    queryFn: () => ax.getProducts(accessToken),
-    onSuccess: (data) => {
-      // console.log("onSuccess", data);
-    },
-    onError: () => {
-      console.log("react-query 에러감지! 로그인해야합니다");
-    },
-    staleTime: Infinity,
-  });
-  return queryPack;
+const useGetProducts = (accessToken, options?) => {
+  console.log('useGetProducts 실행');
+  return useInfiniteQuery(
+    ['products'],
+    ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
+    Object.assign(
+      {
+        getNextPageParam: (lastPage, allPages) => {
+          if (lastPage.pageNumber === lastPage.totalPages) return;
+          return lastPage.pageNumber + 1;
+        },
+      },
+      options
+    )
+  );
 };
 
 export default useGetProducts;
