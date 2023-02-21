@@ -1,0 +1,222 @@
+{
+  "code": 200,
+  "message": "요청에 성공하였습니다.",
+  "data": [
+    {
+      "orderId": 43,
+      "purchaseDate": [2023, 2, 21, 5, 48, 39, 798125000],
+      "purchasedProductList": [
+        {
+          "purchasedProductId": 48,
+          "purchasedProductPrice": 1000,
+          "purchasedProductBrand": "우리은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/wori.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 1
+        },
+        {
+          "purchasedProductId": 49,
+          "purchasedProductPrice": 2000,
+          "purchasedProductBrand": "국민은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/kb.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 2
+        },
+        {
+          "purchasedProductId": 50,
+          "purchasedProductPrice": 3000,
+          "purchasedProductBrand": "하나은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/hana.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 3
+        }
+      ]
+    },
+    {
+      "orderId": 44,
+      "purchaseDate": [2023, 2, 21, 5, 49, 2, 113999000],
+      "purchasedProductList": [
+        {
+          "purchasedProductId": 51,
+          "purchasedProductPrice": 1000,
+          "purchasedProductBrand": "우리은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/wori.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 1
+        },
+        {
+          "purchasedProductId": 52,
+          "purchasedProductPrice": 2000,
+          "purchasedProductBrand": "국민은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/kb.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 2
+        },
+        {
+          "purchasedProductId": 53,
+          "purchasedProductPrice": 3000,
+          "purchasedProductBrand": "하나은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/hana.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 3
+        }
+      ]
+    },
+    {
+      "orderId": 45,
+      "purchaseDate": [2023, 2, 21, 5, 50, 12, 212056000],
+      "purchasedProductList": [
+        {
+          "purchasedProductId": 54,
+          "purchasedProductPrice": 1000,
+          "purchasedProductBrand": "우리은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/wori.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 1
+        },
+        {
+          "purchasedProductId": 55,
+          "purchasedProductPrice": 2000,
+          "purchasedProductBrand": "국민은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/kb.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 2
+        },
+        {
+          "purchasedProductId": 56,
+          "purchasedProductPrice": 3000,
+          "purchasedProductBrand": "하나은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/hana.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 3
+        }
+      ]
+    },
+    {
+      "orderId": 46,
+      "purchaseDate": [2023, 2, 21, 5, 50, 12, 510926000],
+      "purchasedProductList": [
+        {
+          "purchasedProductId": 57,
+          "purchasedProductPrice": 1000,
+          "purchasedProductBrand": "우리은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/wori.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 1
+        },
+        {
+          "purchasedProductId": 58,
+          "purchasedProductPrice": 2000,
+          "purchasedProductBrand": "국민은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/kb.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 2
+        },
+        {
+          "purchasedProductId": 59,
+          "purchasedProductPrice": 3000,
+          "purchasedProductBrand": "하나은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/hana.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 3
+        }
+      ]
+    },
+    {
+      "orderId": 47,
+      "purchaseDate": [2023, 2, 21, 5, 50, 13, 20629000],
+      "purchasedProductList": [
+        {
+          "purchasedProductId": 60,
+          "purchasedProductPrice": 1000,
+          "purchasedProductBrand": "우리은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/wori.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 1
+        },
+        {
+          "purchasedProductId": 61,
+          "purchasedProductPrice": 2000,
+          "purchasedProductBrand": "국민은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/kb.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 2
+        },
+        {
+          "purchasedProductId": 62,
+          "purchasedProductPrice": 3000,
+          "purchasedProductBrand": "하나은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/hana.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 3
+        }
+      ]
+    },
+    {
+      "orderId": 48,
+      "purchaseDate": [2023, 2, 21, 5, 50, 21, 254831000],
+      "purchasedProductList": [
+        {
+          "purchasedProductId": 63,
+          "purchasedProductPrice": 1000,
+          "purchasedProductBrand": "우리은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/wori.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 1
+        },
+        {
+          "purchasedProductId": 64,
+          "purchasedProductPrice": 2000,
+          "purchasedProductBrand": "국민은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/kb.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 2
+        },
+        {
+          "purchasedProductId": 65,
+          "purchasedProductPrice": 3000,
+          "purchasedProductBrand": "하나은행",
+          "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/hana.png",
+          "purchasedProductName": "부동산담보대출",
+          "purchasedProductRate": 7.7,
+          "purchasedProductDetail": "02-123-1234",
+          "originalProductId": 3
+        }
+      ]
+    }
+  ]
+}

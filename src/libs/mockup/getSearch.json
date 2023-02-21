@@ -1,0 +1,102 @@
+{
+  "code": 200,
+  "message": "요청에 성공하였습니다.",
+  "data": {
+    "content": [
+      {
+        "price": 1000,
+        "brand": "우리은행",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/wori.png",
+        "name": "부동산담보대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 1
+      },
+      {
+        "price": 2000,
+        "brand": "국민은행",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/kb.png",
+        "name": "부동산담보대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 2
+      },
+      {
+        "price": 3000,
+        "brand": "하나은행",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/hana.png",
+        "name": "부동산담보대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 3
+      },
+      {
+        "price": 4000,
+        "brand": "신한은행",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/shinhan.png",
+        "name": "부동산담보대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 4
+      },
+      {
+        "price": 5000,
+        "brand": "카카오뱅크",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/kakao.png",
+        "name": "부동산담보대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 5
+      },
+      {
+        "price": 5000,
+        "brand": "기업은행",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/ibk.png",
+        "name": "부동산담보대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 6
+      },
+      {
+        "price": 5000,
+        "brand": "k뱅크",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/kbank.png",
+        "name": "부동산담보대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 7
+      },
+      {
+        "price": 5000,
+        "brand": "농협은행",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/nh.png",
+        "name": "무직자 소액대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 8
+      },
+      {
+        "price": 5000,
+        "brand": "SC제일은행",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/SC.png",
+        "name": "무직자 소액대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 9
+      },
+      {
+        "price": 5000,
+        "brand": "토스",
+        "logo": "https://ai.esmplus.com/heehyohoo/project/toss.png",
+        "name": "무직자 소액대출",
+        "rate": 7.7,
+        "detail": "02-123-1234",
+        "productId": 10
+      }
+    ],
+    "totalPages": 15,
+    "totalElements": 150,
+    "pageNumber": 1,
+    "size": 10
+  }
+}

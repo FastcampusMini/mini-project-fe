@@ -81,3 +81,28 @@ interface ILoginInput {
   email: string;
   password: string;
 }
+interface IToken {
+  accessToken: string;
+  refreshToken: string;
+}
+interface IPostLoginReturn {
+  code: number;
+  message: string;
+  data: IToken | null;
+}
+
+interface IRegisterInput {
+  birth?: string;
+  email: string;
+  job?: string;
+  name?: string;
+  password: string;
+  phone?: string;
+  salary: number;
+}
+
+interface IPostRegisterReturn {
+  code: number;
+  message: string;
+  data: string;
+}
