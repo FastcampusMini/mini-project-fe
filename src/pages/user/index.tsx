@@ -8,7 +8,11 @@ import Navigation from '@components/ui/Navigation';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getCookieToken, removeCookieToken, setRefreshToken } from '../../libs/Cookie';
+import {
+  getCookieToken,
+  removeCookieToken,
+  setRefreshToken,
+} from '../../libs/Cookie';
 import { deleteAuth, getUserInfo, logOut } from '@/api/authApi';
 import { authState, DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import { useQuery } from '@tanstack/react-query';
@@ -51,7 +55,11 @@ const User = () => {
   // console.log('token:', token);
 
   const schema = yup.object().shape({
-    password: yup.string().required('비밀번호는 필수 입력입니다.').min(8, '8자리 이상 비밀번호를 사용하세요.').max(25),
+    password: yup
+      .string()
+      .required('비밀번호는 필수 입력입니다.')
+      .min(8, '8자리 이상 비밀번호를 사용하세요.')
+      .max(25),
   });
 
   const {
@@ -59,7 +67,11 @@ const User = () => {
     handleSubmit,
     setValue,
     formState: { isSubmitting, isDirty, isValid, errors },
-  } = useForm<IDeleteForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
+  } = useForm<IDeleteForm>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
   const refreshToken: string = getCookieToken();
 
@@ -115,7 +127,11 @@ const User = () => {
     <>
       <div className='relative'>
         {outModal && (
-          <ConfirmModal title='로그아웃 하시겠어요?' onConfirm={logOutConfirm} onCancel={() => setOutModal(false)} />
+          <ConfirmModal
+            title='로그아웃 하시겠어요?'
+            onConfirm={logOutConfirm}
+            onCancel={() => setOutModal(false)}
+          />
         )}
         {deleteModal && (
           <ConfirmModal
@@ -130,8 +146,7 @@ const User = () => {
         </h1>
         <div
           className='flex items-center gap-1 font-semibold text-gray cursor-pointer mb-10 hover:text-yellow'
-          onClick={() => navigate('/user/edit')}
-        >
+          onClick={() => navigate('/user/edit')}>
           <p>내 프로필 보기</p>
           <IoIosArrowForward />
         </div>
@@ -139,29 +154,25 @@ const User = () => {
         <div>
           <div
             className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+            onClick={() => navigate('/user/wishlist')}>
             <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
             <span>관심상품</span>
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/mycart')}
-          >
+            onClick={() => navigate('/user/mycart')}>
             <BsFillCartCheckFill className='text-yellow text-2xl ' />
             <span>장바구니</span>
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5 border-b border-black5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/signup')}
-          >
+            onClick={() => navigate('/signup')}>
             <MdAccountBalanceWallet className='text-yellow text-2xl' />
             <span>신청한 상품 내역</span>
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
-            onClick={() => setOutModal(true)}
-          >
+            onClick={() => setOutModal(true)}>
             <FaUserTimes className='text-yellow text-2xl' />
             <span>로그아웃</span>
           </div>
@@ -169,8 +180,7 @@ const User = () => {
             className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
             onClick={() => {
               setDeleteModal(true);
-            }}
-          >
+            }}>
             <FaUserTimes className='text-yellow text-2xl' />
             <span>회원탈퇴</span>
           </div>
