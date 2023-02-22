@@ -15,11 +15,15 @@ export const TotalLoans = ({ userInfo, onClick }: IProps) => {
         onClick={onClick}>
         <div className='px-4 pt-8'>
           <span className='font-semibold text-black/50'>
+            <span className='text-orange font-bold text-lg'>
+              {userInfo.name ? `${userInfo.name}님 ` : ''}
+            </span>
             신청 가능한 대출금 총합
           </span>
           <div className='flex justify-between items-center h-20 mb-3'>
             <h3 className='font-bold text-3xl'>
-              {userInfo?.availableAmount}원
+              {userInfo?.availableAmount}
+              <span className='text-2xl'>만 원</span>
             </h3>
             <div className='flex gap-3'>
               <Link to='/user'>

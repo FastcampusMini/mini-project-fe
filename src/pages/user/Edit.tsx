@@ -111,7 +111,7 @@ const Edit = () => {
               </div>
             </div>
             <div>
-              <span className='font-semibold flex my-2 text-lg'></span>
+              <span className='font-semibold flex my-2 text-lg'>전화번호</span>
               <input
                 placeholder="'-'빼고 입력하세요"
                 type='text'

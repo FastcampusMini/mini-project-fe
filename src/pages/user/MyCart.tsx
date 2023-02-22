@@ -42,7 +42,7 @@ const Mycart = () => {
         ))}
         {(isLoading || isFetching) && <SkeletonCartElement />}
       </article>
-      <Navigation type='scroll' />
+      <Navigation />
     </>
   );
 };
