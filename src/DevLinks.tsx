@@ -47,8 +47,9 @@ const DevLinks = () => {
           )}>
           test
         </h1>
-        <div className='w-24'>
+        <div className='w-auto'>
           <input
+            className={!accessToken && 'text-red'}
             type='text'
             value={!accessToken ? 'No accessToken' : accessToken}
             ref={textRef}
