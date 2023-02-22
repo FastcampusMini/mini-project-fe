@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
-import { BsFillBookmarkHeartFill, BsFillCartCheckFill } from 'react-icons/bs';
+import { BsFillBookmarkHeartFill, BsFillCartCheckFill, BsFillTelephoneFill } from 'react-icons/bs';
 import { FaUserTimes, FaUserMinus } from 'react-icons/fa';
-import { MdAccountBalanceWallet } from 'react-icons/md';
+import { MdAccountBalanceWallet, MdEmail, MdOutlineWork } from 'react-icons/md';
 import Navigation from '@components/ui/Navigation';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import { useSelector } from 'react-redux';
@@ -79,7 +79,7 @@ const User = () => {
             onClick={() => navigate('/user/wishlist')}
           >
             <div className='flex items-center gap-4'>
-              <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
+              <MdEmail className='text-yellow text-2xl' />
               <span>이메일</span>
             </div>
             <div className='text-black/40'>{email}</div>
@@ -89,7 +89,7 @@ const User = () => {
             onClick={() => navigate('/user/wishlist')}
           >
             <div className='flex items-center gap-4'>
-              <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
+              <BsFillTelephoneFill className='text-yellow text-2xl' />
               <span>전화번호</span>
             </div>
             <div className='text-black/40'>{phone}</div>
@@ -99,7 +99,7 @@ const User = () => {
             onClick={() => navigate('/user/wishlist')}
           >
             <div className='flex items-center gap-4'>
-              <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
+              <MdOutlineWork className='text-yellow text-2xl' />
               <span>직업</span>
             </div>
             <div className='text-black/40'>{job}</div>
