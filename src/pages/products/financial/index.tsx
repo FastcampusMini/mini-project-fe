@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import useGetProducts from '@/libs/hooks/useGetProducts';
 import { CgSearch } from 'react-icons/cg';
 import ProductCard from '../../../components/FinancialProdCard';
 
@@ -20,23 +22,25 @@ const Financial = () => {
     isChecked: false,
   };
   // 내게 맞는 상품 보기 체크했을때 로그인 안된 상태라면 로그인 창으로 이동
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const { accessToken } = useSelector((state: any) => state.authToken);
 
   const [products, setProducts] = useState([]);
 
   const [keyword, setKeyword] = useState([]);
+  // const [availableChecked, setAvaliableChecked] = useState(false)
   const [page, setPage] = useState(1);
-
+  
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    console.log(data.searchTarget, data.searchKeyword, data.isChecked);
-    getSearchResult(data);
-  };
+    console.log(data.searchTarget, data.searchKeyword, data.isChecked)
+    getSearchResult(data)
+  };  
 
   const getSearchResult = async (data) => {
     const BASEURI = `http://52.78.32.230:8080/search`;
-    const { searchTarget, searchKeyword, isChecked } = data;
-    const reqURI = `${BASEURI}?searchTarget=${searchTarget}&searchKeyword=${searchKeyword}&isChecked=${isChecked}&page=${page}`;
+    const { searchTarget, searchKeyword, isChecked } = data
+    const reqURI = `${BASEURI}?searchTarget=${searchTarget}&searchKeyword=${searchKeyword}&isChecked=${isChecked}&page=${page}`
     const res = await axios(reqURI);
     console.log(reqURI);
     console.log(res);
@@ -47,11 +51,11 @@ const Financial = () => {
 
   const addKeyword = (e) => {
     const clicked = e.target.value;
-    setKeyword(e.target.value);
-
+    setKeyword(e.target.value)
+    
     // getSearchResult(data)
   };
-
+  
   // const [selected, setSelected] = useState('');
   // const handleChangeSelect = (e) => {
   //   setSelected(e.target.value)
@@ -78,12 +82,12 @@ const Financial = () => {
 
   return (
     <div>
-      <h2 className='mt-8 sm:mb-8 text-3xl font-bold'>태그로 찾기</h2>
+      {/* <h2 className='mt-8 sm:mb-8 text-3xl font-bold'>태그로 찾기</h2>
       <div className='mb-16 flex flex-wrap gap-3'>
         {['대출', '소액', '신용', '부동산'].map((data, i) => (
           <Button key={i} data={data} addKeyword={addKeyword} isOn={false} />
         ))}
-      </div>
+      </div> */}
 
       <h2 className='mt-8 text-3xl font-bold'>상품 검색</h2>
       <div className='mb-16'>
@@ -105,20 +109,14 @@ const Financial = () => {
             <label htmlFor='available2' className=''>
               오름차순
             </label>
-            <input
-              type='checkbox'
-              id='available2'
-              className='ml-2'
+            <input type='checkbox' id='available2' className='ml-2' 
               // {...register('isChecked')}
               // onChange={handleChangechecked}
             />
             <label htmlFor='available3' className=''>
               내림차순
             </label>
-            <input
-              type='checkbox'
-              id='available3'
-              className='ml-2'
+            <input type='checkbox' id='available3' className='ml-2' 
               // {...register('isChecked')}
               // onChange={handleChangechecked}
             />
@@ -141,6 +139,19 @@ const Financial = () => {
             </select>
           </div>
 
+          <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
+            <select {...register('sortDirection')} 
+              className='pl-3 py-3 outline-none focus:outline-none'
+              // onChange={handleChangeSelect} 
+              // value={selected}
+            >
+              {/* <option hidden>선택하세요</option> */}
+              <option value={''}>정렬</option>
+              <option value={'ASC'}>오름차순</option>
+              <option value={'DESC'}>내림차순</option>
+            </select>
+          </div>
+
           <div className='relative grow'>
             <input
               type='text'
@@ -160,16 +171,16 @@ const Financial = () => {
       </div>
 
       <div className='mb-16'>
-        {products.length > 0 ? (
-          products.map((data) => (
+        {products.length > 0 
+        ? (products.map((data) => (
             <ProductCard key={data.productId} data={data} />
-          ))
-        ) : (
-          <div className='my-40 flex justify-center items-center text-black40 font-bold text-lg'>
+          ))) 
+        : (<div className='my-40 flex justify-center items-center text-black40 font-bold text-lg'>
             등록된 상품이 없습니다.
-          </div>
-        )}
+          </div>)
+        }
       </div>
+      <button onClick={handleTotal} className='mb-20 p-4 w-full rounded-[10px] bg-light-orange text-lg text-white'>10개 더보기</button>
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import useToken from '@/libs/hooks/useToken';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
 import {
   useAddOrderListMutation,
@@ -10,6 +12,9 @@ import AlertModal from '@/components/ui/AlertModal';
 import { useAddCartMutation } from '@/store/api/cartApiSlice';
 
 const Id = () => {
+  const { accessToken } = useSelector((state: any) => state.authToken);
+  // const { accessToken } = useToken();
+  console.log(accessToken)
   const [addOrderList] = useAddOrderListMutation();
   const [addCart] = useAddCartMutation();
   const { data: order, isLoading } = useGetOrderListQuery('');
@@ -28,18 +33,18 @@ const Id = () => {
   const headers = {
     'Content-Type': 'application/json',
     Authorization:
-      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2OTEwNjExLCJleHAiOjE2NzY5MTI0MTEsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.EnUPTf68p9ka8nBCs6YTzEsm4ns-LSb43bW_7z6lb9E',
+      `Bearer ${accessToken}`,
   };
 
   useEffect(() => {
-    console.log('useEffect 실행');
+    // console.log('useEffect 실행');
     getSearchResult();
     console.log('detail : ', detail);
   }, []);
 
   async function getSearchResult() {
     console.log('getSearchResult 실행');
-    const BASEURI = `http://52.78.32.230:8080/api/products/details?products_id=${financialId}`;
+    const BASEURI = `http://43.200.194.5:8080/api/products/details?products_id=${financialId}`;
     const res = await axios(BASEURI, {
       headers,
     });
