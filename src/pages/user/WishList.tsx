@@ -50,7 +50,7 @@ const WishList = () => {
         ))}
         {(isLoading || isFetching || isError) && <SkeletonWishListElement />}
       </article>
-      <Navigation type='scroll' />
+      <Navigation />
     </>
   );
 };

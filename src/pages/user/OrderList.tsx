@@ -42,7 +42,7 @@ const OrderList = () => {
         ))}
         {(isLoading || isFetching || isError) && <SkeletonOrderListElement />}
       </article>
-      <Navigation type='scroll' />
+      <Navigation />
     </>
   );
 };

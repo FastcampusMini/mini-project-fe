@@ -8,6 +8,7 @@ const useGetProducts = (accessToken, options?) => {
     console.log('accessToken이 없습니다');
     return;
   }
+
   const [dataPack, setDataPack] = useState([]);
   const result = useInfiniteQuery(
     ['products', accessToken],
