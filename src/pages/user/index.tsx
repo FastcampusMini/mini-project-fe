@@ -13,6 +13,8 @@ import { logOut } from '@/api/authApi';
 import { DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import DeleteAccountModal from '@/components/User/DeleteAccountModal';
 import useGetUser from '@/libs/hooks/useGetUser';
+import { ax } from '@/libs/axiosClient';
+import { useQuery } from '@tanstack/react-query';
 
 const User = () => {
   const navigate = useNavigate();
@@ -23,7 +25,11 @@ const User = () => {
 
   const { accessToken } = useSelector((state: any) => state.authToken);
 
-  const { data: userInfo, isLoading: fetchingUser } = useGetUser(accessToken);
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
+    ax.getUser(accessToken)
+  );
+
+  //useGetUser(accessToken);
 
   if (fetchingUser) return;
 
