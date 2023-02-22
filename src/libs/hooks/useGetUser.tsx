@@ -8,7 +8,10 @@ import useToken from './useToken';
  * refetch() 로 다시 요청할수 있습니다.
  *  */
 const useGetUser = (accessToken, options?) => {
-  if (!accessToken) return;
+  if (!accessToken) {
+    console.log('accessToken이 없습니다');
+    return;
+  }
 
   return useQuery<IUserInfo>(
     ['user', accessToken],

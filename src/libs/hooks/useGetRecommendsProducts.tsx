@@ -4,6 +4,10 @@ import { ax } from '../axiosClient';
 import { combinePagesContent } from '../utils';
 
 const useGetRecommendProducts = (accessToken, options?) => {
+  if (!accessToken) {
+    console.log('accessToken이 없습니다');
+    return;
+  }
   const [dataPack, setDataPack] = useState([]);
   return useInfiniteQuery(
     ['products'],
