@@ -1,21 +1,23 @@
-import { useSelector } from 'react-redux';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '@reduxjs/toolkit/dist/query/core/apiState';
 // import { setCredentials, logOut } from "../../features/authSlice/authSlice";
-import store from './../store';
+import { ax } from '@/libs/axiosClient';
+import { getCookieToken } from '@/libs/Cookie';
+import { requestToken } from '@/api/authApi';
 
 export const base = fetchBaseQuery({
   baseUrl: 'http://43.200.194.5:8080/api',
-  prepareHeaders: (headers, getState) => {
-    // const { accessToken } = useSelector((state: any) => state.authToken);
-    // /refresh를 이용해 cookie에 있는 refreshtoken으로 accesstoken 재발급
-    // 이 accesstoken으로 함수 실행
-    // 만약 refreshtoken도 만료됐다면 다시 로그인하도록
-    const token = store.getState().authToken;
-    console.log(token);
+  prepareHeaders: async (headers, { getState }) => {
+    const {
+      authToken: { accessToken },
+    }: any = getState();
+    let token: string;
+    if (!accessToken) {
+      const refresh = await requestToken(getCookieToken());
+      token = refresh.data.accessToken;
+    }
     headers.set(
       'Authorization',
-      `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc3MDc1NjUzLCJleHAiOjE2NzcwNzc0NTMsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.ucpM1CUGvL9yz84mItRmCUlXkm9KBkMVOO7HY4GNBdI`,
+      accessToken ? `Bearer ${accessToken}` : `Bearer ${token}`,
     );
     headers.set('Content-Type', 'application/json');
     return headers;
