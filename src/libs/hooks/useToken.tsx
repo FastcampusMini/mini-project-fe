@@ -11,10 +11,12 @@ interface IToken {
 type TUseLogin = () => IToken;
 const useToken: TUseLogin = () => {
   const queryClient = useQueryClient();
-  if (queryClient.getQueryData(['token']))
+  if (queryClient.getQueryData(['token'])) {
     return queryClient.getQueryData(['token']);
-  console.log('캐싱된 token 이 없습니다.');
-  return { accessToken: '', refreshToken: '' };
+  } else {
+    console.log('캐싱된 token 이 없습니다.');
+    return { accessToken: '', refreshToken: '' };
+  }
 };
 
 export default useToken;

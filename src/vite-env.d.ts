@@ -1,5 +1,13 @@
 /// <reference types="vite/client" />
-
+interface IUserInfo {
+  availableAmount: number;
+  birth: string;
+  email: string;
+  job: string;
+  name: string;
+  phone: string;
+  salary: number;
+}
 interface purchasedProduct {
   purchasedProductId: number;
   purchasedProductPrice: number;
@@ -63,3 +71,62 @@ type IBasketsData = {
   productId: number;
   rate: number;
 }[];
+
+// 유저정보수정 리턴 데이터
+interface IPatchUserEditReturn {
+  oldPassword: string;
+  newPassword: string;
+  phone: string;
+  salary: number;
+  job: string;
+}
+
+// getUser 리턴
+interface IGetUserReturn {
+  email: string;
+  password: string;
+  name: string;
+  birth: string;
+  phone: string;
+  salary: number;
+  job: string;
+  availableAmount: number;
+}
+
+// postRefresh 리턴
+interface IPostRefreshReturn {
+  accessToken: string;
+  refreshToken: string;
+}
+
+// deleteUser 리턴
+interface IDeleteUserReturn {
+  memberId: number;
+  email: string;
+  password: string;
+  name: string;
+  birth: string;
+  phone: string;
+  salary: number;
+  job: string;
+  deleteCheck: string;
+  created_date: number[];
+  updated_date: number[];
+}
+
+// getProducts 리턴
+interface IGetProductsReturn {
+  content: {
+    price: number;
+    brand: string;
+    logo: string;
+    name: string;
+    rate: number;
+    detail: string;
+    productId: number;
+  }[];
+  totalPages: number;
+  totalElements: number;
+  pageNumber: number;
+  size: number;
+}

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Nav from "@components/Nav";
-import { joinNames } from "@libs/utils";
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import { useForm } from "react-hook-form";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { ax, token } from "@/libs/axiosClient";
-import { useNavigate } from "react-router-dom";
-import useToken from "@/libs/hooks/useToken";
+import React, { useEffect, useState } from 'react';
+import Nav from '@components/Nav';
+import { joinNames } from '@libs/utils';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import { useForm } from 'react-hook-form';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { ax } from '@/libs/axiosClient';
+import { useNavigate } from 'react-router-dom';
+import useToken from '@/libs/hooks/useToken';
 
 const phonReg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 interface IEditUserForm {
@@ -38,15 +38,13 @@ const Edit = () => {
   // 비밀번호 두개 일치
   useEffect(() => {
     if (watch().newPassword !== watch().newPassword2) {
-      setError("newPassword", { message: "비밀번호가 일치하지 않습니다" });
+      setError('newPassword', { message: '비밀번호가 일치하지 않습니다' });
     } else {
-      clearErrors("newPassword");
+      clearErrors('newPassword');
     }
-    console.log("errors>>", errors.newPassword);
   }, [watch().newPassword, watch().newPassword2]);
 
   const onValid = async (data) => {
-    console.log(token.accessToken);
     const payload = {
       oldPassword: getValues().oldPassword,
       newPassword: getValues().newPassword,
@@ -54,13 +52,13 @@ const Edit = () => {
       salary: Number(getValues().salary),
       job: getValues().job,
     };
-    console.log("유효! ", data);
+    console.log('유효! ', data);
     // const result = await mutateAsync(payload as any);
     // console.log(result);
   };
   const onInvalid = () => {
     console.log(getValues());
-    console.log("errors>>", errors);
+    console.log('errors>>', errors);
   };
   return (
     <>
@@ -80,8 +78,8 @@ const Edit = () => {
               <input
                 type='text'
                 className='border border-black border-[2px] rounded-md w-full h-12 px-4'
-                {...register("oldPassword", {
-                  required: "필수입니다.",
+                {...register('oldPassword', {
+                  required: '필수입니다.',
                 })}
               />
               <span className='text-sm text-orange'>
@@ -96,19 +94,19 @@ const Edit = () => {
                 <input
                   type='text'
                   className='border border-gray rounded-md w-full h-12 px-4'
-                  {...register("newPassword", {
-                    required: "필수입니다.",
+                  {...register('newPassword', {
+                    required: '필수입니다.',
                   })}
                 />
                 <input
                   type='text'
                   className='border border-gray rounded-md w-full h-12 px-4'
-                  {...register("newPassword2", {
-                    required: "필수입니다.",
+                  {...register('newPassword2', {
+                    required: '필수입니다.',
                   })}
                 />
                 <span className='text-sm text-orange'>
-                  {errors.newPassword ? "일치하지 않았습니다" : ""}
+                  {errors.newPassword ? '일치하지 않았습니다' : ''}
                 </span>
               </div>
             </div>
@@ -119,14 +117,14 @@ const Edit = () => {
               <input
                 type='text'
                 className='border border-gray rounded-md w-full h-12 px-4'
-                {...register("phone", {
-                  required: "필수입니다.",
+                {...register('phone', {
+                  required: '필수입니다.',
                   pattern: phonReg,
-                  setValueAs: (value) => value?.replaceAll("-", ""),
+                  setValueAs: (value) => value?.replaceAll('-', ''),
                 })}
               />
               <span className='text-sm text-orange'>
-                {errors.phone && "유효한 번호를 입력해주세요"}
+                {errors.phone && '유효한 번호를 입력해주세요'}
               </span>
             </div>
 
@@ -135,8 +133,8 @@ const Edit = () => {
               <input
                 type='text'
                 className='border border-gray rounded-md w-full h-12 px-4'
-                {...register("job", {
-                  required: "필수입니다.",
+                {...register('job', {
+                  required: '필수입니다.',
                 })}
               />
               <span className='text-sm text-orange'>
@@ -149,13 +147,13 @@ const Edit = () => {
                 <input
                   className='border border-gray px-6 py-3 rounded-md w-full'
                   type='number'
-                  placeholder={"연소득"}
-                  {...register("salary", {
-                    required: "필수입니다.",
+                  placeholder={'연소득'}
+                  {...register('salary', {
+                    required: '필수입니다.',
                     valueAsNumber: true,
                     min: {
                       value: 1000,
-                      message: "1000만원 이상 입력하세요",
+                      message: '1000만원 이상 입력하세요',
                     },
                   })}
                 />

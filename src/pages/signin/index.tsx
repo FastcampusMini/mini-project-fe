@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { setRefreshToken } from '@/libs/Cookie';
 import { SET_TOKEN } from '@/features/authSlice/authSlice';
 interface ISignInForm {
-  email: string;
+  email?: string;
   password: string;
 }
 
@@ -49,6 +49,7 @@ const SignIn = () => {
     } else {
       alert(response.message);
     }
+    setValue('password', '');
   };
 
   return (

@@ -13,7 +13,7 @@ const initialState: authState = {
   expireTime: null,
 };
 
-export const TOKEN_TIME_OUT = 60 * 30;
+export const TOKEN_TIME_OUT = 1800 * 1000;
 
 export const authSlice = createSlice({
   name: 'authToken',

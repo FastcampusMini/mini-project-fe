@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler, useController } from 'react-hook-form';
-import TextField from '../../components/SignUp/TextField';
+import SignUpField from '../../components/SignUp/SignUpField';
 import ConfirmBtn from '../../components/ui/ConfirmBtn';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +8,7 @@ import regex from '../../libs/regex';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../api/authApi';
+import SalaryField from '@/components/SignUp/SalaryField';
 
 interface ISignUpForm {
   name: string;
@@ -39,7 +40,11 @@ const SignUp = () => {
       .required('전화번호는 필수 입력입니다.')
       .matches(regex.phone, '잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.'),
     job: yup.string().required('직업은 필수 선택입니다.'),
-    salary: yup.number().required('연봉은 필수 입력입니다.').typeError('숫자만 입력하세요.'),
+    salary: yup
+      .number()
+      .required('연봉은 필수 입력입니다.')
+      .min(1000, '1000만원 이상 입력해 주세요')
+      .typeError('숫자만 입력하세요.'),
     birth: yup.string().required('생년월일은 필수 입력입니다.'),
   });
 
@@ -72,10 +77,10 @@ const SignUp = () => {
     const response = await signUp({ name, email, password, phone, birth, job, salary });
     console.log(response);
     if (response.code === 200) {
-      alert('response.message');
+      alert(response.message);
       navigate('/signin');
     } else {
-      alert('response.message');
+      alert(response.message);
     }
   };
 
@@ -90,24 +95,24 @@ const SignUp = () => {
           <span>를 입력해 주세요</span>
         </h1>
         <form className='flex flex-col' onSubmit={handleSubmit(submitForm)}>
-          <TextField text={'이름'} name={'name'} register={register} errorMsg={errors.name} />
-          <TextField text={'이메일'} name={'email'} inputType='email' register={register} errorMsg={errors.email} />
-          <TextField
+          <SignUpField text={'이름'} name={'name'} register={register} errorMsg={errors.name} />
+          <SignUpField text={'이메일'} name={'email'} inputType='email' register={register} errorMsg={errors.email} />
+          <SignUpField
             text={'비밀번호'}
             name={'password'}
             inputType='password'
             register={register}
             errorMsg={errors.password}
           />
-          <TextField
+          <SignUpField
             text={'비밀번호 확인'}
             name={'checkPw'}
             inputType='password'
             register={register}
             errorMsg={errors.checkPw}
           />
-          <TextField text={'전화번호'} name={'phone'} register={register} errorMsg={errors.phone} />
-          <TextField text={'생년원일'} name={'birth'} inputType='date' register={register} errorMsg={errors.birth} />
+          <SignUpField text={'전화번호'} name={'phone'} register={register} errorMsg={errors.phone} />
+          <SignUpField text={'생년원일'} name={'birth'} inputType='date' register={register} errorMsg={errors.birth} />
           <div className='flex flex-col text-xl font-semibold mb-5 relative'>
             <label className='mb-2' htmlFor='job'>
               직업
@@ -126,7 +131,7 @@ const SignUp = () => {
               </small>
             )}
           </div>
-          <TextField text={'연소득'} name={'salary'} register={register} errorMsg={errors.salary} />
+          <SalaryField text={'연소득'} name={'salary'} register={register} errorMsg={errors.salary} />
           <ConfirmBtn type='scroll' isSubmitting={isSubmitting} isValid={isValid} />
         </form>
       </div>

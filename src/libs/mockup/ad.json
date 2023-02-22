@@ -1,0 +1,74 @@
+[
+  {
+    "orderId": 52,
+    "purchaseDate": [2023, 2, 21, 9, 43, 45, 197054000],
+    "purchasedProductList": [
+      {
+        "purchasedProductId": 75,
+        "purchasedProductPrice": 1000,
+        "purchasedProductBrand": "우리은행",
+        "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/wori.png",
+        "purchasedProductName": "부동산담보대출",
+        "purchasedProductRate": 7.7,
+        "purchasedProductDetail": "02-123-1234",
+        "originalProductId": 1
+      },
+      {
+        "purchasedProductId": 76,
+        "purchasedProductPrice": 2000,
+        "purchasedProductBrand": "국민은행",
+        "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/kb.png",
+        "purchasedProductName": "부동산담보대출",
+        "purchasedProductRate": 7.7,
+        "purchasedProductDetail": "02-123-1234",
+        "originalProductId": 2
+      },
+      {
+        "purchasedProductId": 77,
+        "purchasedProductPrice": 3000,
+        "purchasedProductBrand": "하나은행",
+        "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/hana.png",
+        "purchasedProductName": "부동산담보대출",
+        "purchasedProductRate": 7.7,
+        "purchasedProductDetail": "02-123-1234",
+        "originalProductId": 3
+      }
+    ]
+  },
+  {
+    "orderId": 53,
+    "purchaseDate": [2023, 2, 21, 9, 43, 56, 653965000],
+    "purchasedProductList": [
+      {
+        "purchasedProductId": 78,
+        "purchasedProductPrice": 4000,
+        "purchasedProductBrand": "신한은행",
+        "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/shinhan.png",
+        "purchasedProductName": "부동산담보대출",
+        "purchasedProductRate": 7.7,
+        "purchasedProductDetail": "02-123-1234",
+        "originalProductId": 4
+      },
+      {
+        "purchasedProductId": 79,
+        "purchasedProductPrice": 5000,
+        "purchasedProductBrand": "카카오뱅크",
+        "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/kakao.png",
+        "purchasedProductName": "부동산담보대출",
+        "purchasedProductRate": 7.7,
+        "purchasedProductDetail": "02-123-1234",
+        "originalProductId": 5
+      },
+      {
+        "purchasedProductId": 80,
+        "purchasedProductPrice": 5000,
+        "purchasedProductBrand": "기업은행",
+        "purchasedProductLogo": "https://ai.esmplus.com/heehyohoo/project/ibk.png",
+        "purchasedProductName": "부동산담보대출",
+        "purchasedProductRate": 7.7,
+        "purchasedProductDetail": "02-123-1234",
+        "originalProductId": 6
+      }
+    ]
+  }
+]
