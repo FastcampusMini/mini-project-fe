@@ -24,7 +24,7 @@ const Mycart = () => {
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           장바구니
         </h1>
-        {cart?.data?.length === 0 ? (
+        {cart?.data?.length === 0 || isError ? (
           <EmptyCart>
             <MdOutlineShoppingCart className='text-7xl' />
             <p className='text-center font-extrabold text-lg'>
@@ -34,8 +34,8 @@ const Mycart = () => {
             </p>
           </EmptyCart>
         ) : null}
-        <div className='h-[calc(100vh-200px)] scrollbar-thin pr-5 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
-          <div className='max-w-screen-sm h-screen'>
+        <div className='h-[calc(100vh-270px)] scrollbar-thin pr-5 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
+          <div className='max-w-screen-sm h-fit'>
             {cart?.data?.map((value: Daum) => (
               <CartElement
                 cartData={value}
@@ -44,11 +44,11 @@ const Mycart = () => {
                 key={value.basketId}
               />
             ))}
+            {(isLoading || isFetching) && <SkeletonCartElement />}
           </div>
         </div>
-        {(isLoading || isFetching || isError) && <SkeletonCartElement />}
       </article>
-      {/* <Navigation /> */}
+      <Navigation />
     </>
   );
 };
