@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
@@ -12,8 +13,6 @@ import SkeletonCartElement from '@/components/MyCart/SkeletonCartElement';
 
 const Mycart = () => {
   const { data: cart, isLoading, isFetching, isError } = useGetCartQuery('');
-  const query = useGetCartQuery('');
-  console.log('query', query);
   const [deleteCart] = useDeleteCartMutation();
   const [addOrderList] = useAddOrderListMutation();
   console.log('cart', cart);

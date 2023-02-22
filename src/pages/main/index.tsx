@@ -15,6 +15,7 @@ import useGetRecommendProducts from '@/libs/hooks/useGetRecommendsProducts';
 import useGetUser from '@/libs/hooks/useGetUser';
 import ReactLoading from 'react-loading';
 import { useSelector } from 'react-redux';
+import { access } from 'fs';
 
 const Main = () => {
   const [products, setProducts] = useState([]);
@@ -44,7 +45,10 @@ const Main = () => {
   });
 
   // 유저 정보가져오기
-  const { data: userInfo, isLoading: fetchingUser } = useGetUser(accessToken);
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken),
+  );
 
   const handleTotal = () => {
     console.log('clicked');
