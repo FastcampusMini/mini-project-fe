@@ -34,14 +34,17 @@ const DevLinks = () => {
 
   return (
     <>
-      <div className={joinNames('fixed border  h-screen space-y-8 z-10 overflow-hidden', toggle ? 'w-6' : 'w-auto')}>
+      <div
+        className={joinNames(
+          'fixed border  h-screen space-y-8 z-10 overflow-hidden',
+          toggle ? 'w-6' : 'w-auto'
+        )}>
         <h1
           onClick={() => setToggle(!toggle)}
           className={joinNames(
             'cursor-pointer font-bold w-auto',
             toggle ? 'bg-yellow text-black' : 'bg-black text-white'
-          )}
-        >
+          )}>
           test
         </h1>
         <div className='w-auto'>
@@ -51,7 +54,6 @@ const DevLinks = () => {
             type='text'
             value={!accessToken ? 'No accessToken' : accessToken}
             ref={textRef}
-            onChange={() => {}}
           />
           <div
             className='hover:bg-gray cursor-pointer active:bg-yellow border rounded'
@@ -62,8 +64,7 @@ const DevLinks = () => {
               textRef.current.select();
               document.execCommand('copy');
               cogoToast.info(`복사: ${accessToken}`);
-            }}
-          >
+            }}>
             Copy!
           </div>
         </div>
