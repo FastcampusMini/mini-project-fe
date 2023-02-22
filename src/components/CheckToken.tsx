@@ -8,9 +8,7 @@ import { useSelector } from 'react-redux';
 
 export default function CheckToken(key: string) {
   const [isAuth, setIsAuth] = useState('Loaded');
-  const { authenticated, expireTime } = useSelector(
-    (state: any) => state.authToken
-  );
+  const { authenticated, expireTime } = useSelector((state: any) => state.authToken);
   const refreshToken = getCookieToken();
   const dispatch = useDispatch();
 
@@ -28,13 +26,12 @@ export default function CheckToken(key: string) {
           const accessToken = response.data.accessToken;
           dispatch(SET_TOKEN(accessToken));
           setIsAuth('Success');
-          // cogoToast.info(response.message);
-          // alert();
+          cogoToast.info(response.message);
         } else {
           dispatch(DELETE_TOKEN());
           removeCookieToken();
           setIsAuth('Failed');
-          // alert(response.message);
+          cogoToast.info(response.message);
         }
       }
     };

@@ -87,9 +87,7 @@ const Financial = () => {
 
       <h2 className='mt-8 text-3xl font-bold'>상품 검색</h2>
       <div className='mb-16'>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className='flex flex-wrap gap-3 rounded-[10px]'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-wrap gap-3 rounded-[10px]'>
           <div className='w-full sm:text-right text-left'>
             <label htmlFor='available' className=''>
               내가 가입할 수 있는 상품만 보기
@@ -150,9 +148,7 @@ const Financial = () => {
               // onChange={handleChangeWord}
               {...register('searchKeyword')}
             />
-            <button
-              className='absolute top-0 bottom-0 right-4 text-black40'
-              type='submit'>
+            <button className='absolute top-0 bottom-0 right-4 text-black40' type='submit'>
               <CgSearch size='26'></CgSearch>
             </button>
           </div>
@@ -161,9 +157,7 @@ const Financial = () => {
 
       <div className='mb-16'>
         {products.length > 0 ? (
-          products.map((data) => (
-            <ProductCard key={data.productId} data={data} />
-          ))
+          products.map((data) => <ProductCard key={data.productId} data={data} />)
         ) : (
           <div className='my-40 flex justify-center items-center text-black40 font-bold text-lg'>
             등록된 상품이 없습니다.
@@ -184,13 +178,10 @@ const Button = ({ data, addKeyword, isOn }) => {
     <button
       type='button'
       className={`px-6 py-2 rounded-full text-lg text-black40
-        ${
-          isActive
-            ? 'border-2 border-yellow text-yellow font-bold'
-            : 'border border-light-gray'
-        }`}
+        ${isActive ? 'border-2 border-yellow text-yellow font-bold' : 'border border-light-gray'}`}
       onClick={btnToggle}
-      value={data}>
+      value={data}
+    >
       {data}
     </button>
   );
