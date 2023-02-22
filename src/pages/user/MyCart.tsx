@@ -33,7 +33,7 @@ const Mycart = () => {
             </p>
           </EmptyCart>
         ) : null}
-        <div className='h-[calc(100vh-270px)] scrollbar-thin pr-5 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
+        <div className='h-[calc(100vh-270px)] scrollbar pr-8 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
           <div className='max-w-screen-sm h-fit'>
             {cart?.data?.map((value: Daum) => (
               <CartElement

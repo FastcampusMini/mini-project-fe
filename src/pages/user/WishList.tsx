@@ -40,15 +40,21 @@ const WishList = () => {
             </p>
           </EmptyCart>
         ) : null}
-        {wishlist?.data?.map((value: Daum) => (
-          <WishListElement
-            wishlistData={value}
-            addCart={addCart}
-            deleteWishList={deleteWishList}
-            key={value.wishlistId}
-          />
-        ))}
-        {(isLoading || isFetching || isError) && <SkeletonWishListElement />}
+        <div className='h-[calc(100vh-270px)] scrollbar pr-8 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
+          <div className='max-w-screen-sm h-fit'>
+            {wishlist?.data?.map((value: Daum) => (
+              <WishListElement
+                wishlistData={value}
+                addCart={addCart}
+                deleteWishList={deleteWishList}
+                key={value.wishlistId}
+              />
+            ))}
+            {(isLoading || isFetching || isError) && (
+              <SkeletonWishListElement />
+            )}
+          </div>
+        </div>
       </article>
       <Navigation />
     </>
