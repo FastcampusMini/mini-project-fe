@@ -57,7 +57,7 @@ export type FetchBaseQueryError =
     };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:5173', // baseUrl 통일예정
+  baseUrl: 'http://43.200.194.5:8080', // baseUrl 통일예정
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     // const token = getState().auth.token;

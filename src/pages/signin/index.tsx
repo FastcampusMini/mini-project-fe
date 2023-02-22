@@ -11,6 +11,7 @@ import { Cookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { setRefreshToken } from '@/libs/Cookie';
 import { SET_TOKEN } from '@/features/authSlice/authSlice';
+import cogoToast from 'cogo-toast';
 interface ISignInForm {
   email?: string;
   password: string;
@@ -30,7 +31,11 @@ const SignIn = () => {
     handleSubmit,
     setValue,
     formState: { isSubmitting, isDirty, isValid, errors },
-  } = useForm<ISignInForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
+  } = useForm<ISignInForm>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
   // 백으로 유저 정보 전달하여 로그인 요청
   const onValid: SubmitHandler<ISignInForm> = async ({ email, password }, event) => {
@@ -45,9 +50,10 @@ const SignIn = () => {
       const { accessToken, refreshToken } = response.data;
       setRefreshToken(refreshToken);
       dispatch(SET_TOKEN(accessToken));
+      cogoToast.info(response.message);
       navigate('/main');
     } else {
-      alert(response.message);
+      cogoToast.info(response.message);
     }
     setValue('password', '');
   };

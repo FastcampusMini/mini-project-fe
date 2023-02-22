@@ -40,7 +40,7 @@ const Financial = () => {
     const res = await axios(reqURI);
     console.log(reqURI);
     console.log(res);
-    if (res.data.code === 200) {
+    if (res.data?.code === 200) {
       setProducts(res.data.data.content);
     }
   };

@@ -11,14 +11,14 @@ import * as yup from 'yup';
 import SignInField from '../SignIn/SignInField';
 
 interface IProps {
-  onCancel: () => void;
+  setDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IDeleteForm {
   password: string;
 }
 
-const DeleteAccountModal = ({ onCancel }: IProps) => {
+const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,7 +31,11 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
     handleSubmit,
     setValue,
     formState: { isSubmitting, isDirty, isValid, errors },
-  } = useForm<IDeleteForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
+  } = useForm<IDeleteForm>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
   const { accessToken } = useSelector((state: any) => state.authToken);
 
@@ -46,10 +50,11 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
     if (response.code === 200) {
       dispatch(DELETE_TOKEN(accessToken));
       removeCookieToken();
-      alert(response.message);
+      setDeleteModal(false);
+      // alert(response.message);
       navigate('/');
     } else {
-      alert(response.message);
+      // alert(response.message);
     }
 
     setValue('password', '');
@@ -83,7 +88,7 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
         <div className='w-full flex gap-4 h-auto'>
           <button
             type='button'
-            onClick={onCancel}
+            onClick={() => setDeleteModal(false)}
             className='rounded h-14 w-1/2 text-white bg-black40 hover:bg-black60'
           >
             취소

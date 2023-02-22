@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { joinNames } from './libs/utils';
 import { useForm } from 'react-hook-form';
@@ -9,74 +9,69 @@ import orderData from '@libs/mockup/getSearch.json';
 import useGetOrders from './libs/hooks/useGetOrders';
 import { useMutation } from '@tanstack/react-query';
 import Search from './components/Search';
+import { useSelector } from 'react-redux';
+import cogoToast from 'cogo-toast';
 
 const DevLinks = () => {
+  const textRef = useRef(null);
   const [toggle, setToggle] = useState(false);
   const { register, handleSubmit, getValues } = useForm();
-  const { mutate: login } = useLogin();
-  const { accessToken, refreshToken } = useToken();
+  // const { mutate: login } = useLogin();
+  const { accessToken } = useSelector((state: any) => state.authToken);
+  // const { accessToken, refreshToken } = useToken();
   const onValid = () => {
     const { email, password } = getValues();
-    login({ email, password });
+    console.log('email', email, 'pw', password);
+    // login({ email, password });
   };
-  const { data: orderdata } = useGetOrders(accessToken);
+  // const { data: orderdata } = useGetOrders(accessToken);
 
   const [name, setName] = useState('');
   const handleTest = async () => {
     const { email, password, other } = getValues();
-    console.log('orderdata', orderdata);
     setName(other);
   };
 
   return (
     <>
-      <div
-        className={joinNames(
-          'fixed border  h-screen space-y-8 z-10 overflow-hidden',
-          toggle ? 'w-6' : 'w-auto'
-        )}>
+      <div className={joinNames('fixed border  h-screen space-y-8 z-10 overflow-hidden', toggle ? 'w-6' : 'w-auto')}>
         <h1
           onClick={() => setToggle(!toggle)}
           className={joinNames(
             'cursor-pointer font-bold w-auto',
             toggle ? 'bg-yellow text-black' : 'bg-black text-white'
-          )}>
+          )}
+        >
           test
         </h1>
-        <form
-          onSubmit={handleSubmit(onValid)}
-          className='border flex flex-col w-full'>
+        <div className='w-auto'>
           <input
+            className={!accessToken ? 'text-red' : ''}
+            onChange={() => {}}
             type='text'
-            {...register('email')}
-            className='border'
-            placeholder='email'
+            value={!accessToken ? 'No accessToken' : accessToken}
+            ref={textRef}
+            onChange={() => {}}
           />
-          <input
-            type='text'
-            {...register('password')}
-            className='border'
-            placeholder='pw'
-          />
-          <button className='hover:bg-gray'>Login</button>
-          <input
-            type='text'
-            {...register('other')}
-            className='border'
-            placeholder='other'
-          />
-
           <div
-            className='border hover:bg-orange hover:cursor-pointer rounded'
-            onClick={handleTest}>
-            handleTEST
+            className='hover:bg-gray cursor-pointer active:bg-yellow border rounded'
+            onClick={() => {
+              if (!accessToken) {
+                return cogoToast.error('accessToken 이 없습니다');
+              }
+              textRef.current.select();
+              document.execCommand('copy');
+              cogoToast.info(`복사: ${accessToken}`);
+            }}
+          >
+            Copy!
           </div>
-        </form>
-        <Search name={name} accessToken={accessToken} />
+        </div>
+
         <ul>
           <li>
             <Link className='hover:bg-black/10' to='/'>
-              / (home)
+              / (home )
             </Link>
           </li>
           <li>
