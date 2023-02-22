@@ -71,7 +71,7 @@ const DevLinks = () => {
         <ul>
           <li>
             <Link className='hover:bg-black/10' to='/'>
-              / (home)
+              / (home )
             </Link>
           </li>
           <li>
