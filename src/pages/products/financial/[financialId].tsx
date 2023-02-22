@@ -103,7 +103,14 @@ const Id = () => {
 
       <button
         type='button'
-        className='mt-20 p-4 w-full rounded-[10px] bg-gray text-white text-lg font-bold'
+        className='mt-20 p-4 w-full rounded-[10px] bg-light-gray text-black40 text-lg font-bold'
+        onClick={() => setAddModal(true)}
+      >
+        관심상품 등록
+      </button>
+      <button
+        type='button'
+        className='mt-6 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
         onClick={() => setAddModal(true)}
       >
         장바구니 담기

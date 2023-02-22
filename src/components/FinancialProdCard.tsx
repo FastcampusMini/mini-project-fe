@@ -1,4 +1,5 @@
 import React from 'react'
+import { AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom'
 
 const FinancialProdCard = ({ data }) => {
@@ -14,6 +15,7 @@ const FinancialProdCard = ({ data }) => {
         </span>
         <span>{data.brand}</span>
         {/* <p className="text-xl">문의 {data.detail}</p> */}
+        {/* <button><AiOutlineHeart size='30' /></button> */}
       <h3 className="mt-1 mb-5 pl-16 w-full text-2xl font-bold">{data.name}</h3>
       </div>
       <div className="mb-8 w-full text-2xl text-orange font-bold">
