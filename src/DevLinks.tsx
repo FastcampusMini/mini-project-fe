@@ -50,6 +50,7 @@ const DevLinks = () => {
         <div className='w-auto'>
           <input
             className={!accessToken && 'text-red'}
+            onChange={() => {}}
             type='text'
             value={!accessToken ? 'No accessToken' : accessToken}
             ref={textRef}
