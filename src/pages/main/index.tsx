@@ -51,7 +51,10 @@ const Main = () => {
   );
 
   // 유저 정보가져오기
-  const { data: userInfo, isLoading: fetchingUser } = useGetUser(accessToken);
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
+    ax.getUser(accessToken)
+  );
+
   const ref = useRef();
   const yScroll = useYScroll(ref);
   useEffect(() => {
@@ -70,15 +73,12 @@ const Main = () => {
         ref={ref}
         onClick={() => {
           console.log(yScroll);
-        }}>
+        }}
+      >
         <Nav left='arrow' right='arrow' />
         <div className='px-3 flex flex-col gap-5'>
           {fetchingUser ? (
-            <ReactLoading
-              className='relative bottom-2 mx-auto my-auto'
-              type='spinningBubbles'
-              color='#000'
-            />
+            <ReactLoading className='relative bottom-2 mx-auto my-auto' type='spinningBubbles' color='#000' />
           ) : (
             <TotalLoans userInfo={userInfo} onClick={handleTotal} />
           )}
