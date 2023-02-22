@@ -34,17 +34,21 @@ const Mycart = () => {
             </p>
           </EmptyCart>
         ) : null}
-        {cart?.data?.map((value: Daum) => (
-          <CartElement
-            cartData={value}
-            deleteCart={deleteCart}
-            addOrderList={addOrderList}
-            key={value.basketId}
-          />
-        ))}
+        <div className='h-[calc(100vh-200px)] scrollbar-thin pr-5 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
+          <div className='max-w-screen-sm h-screen'>
+            {cart?.data?.map((value: Daum) => (
+              <CartElement
+                cartData={value}
+                deleteCart={deleteCart}
+                addOrderList={addOrderList}
+                key={value.basketId}
+              />
+            ))}
+          </div>
+        </div>
         {(isLoading || isFetching || isError) && <SkeletonCartElement />}
       </article>
-      <Navigation type='scroll' />
+      {/* <Navigation /> */}
     </>
   );
 };
