@@ -21,8 +21,15 @@ const SignIn = () => {
   const dispatch = useDispatch();
 
   const schema = yup.object().shape({
-    email: yup.string().email('이메일 형식이 맞지 않습니다.').required('이메일은 필수 입력입니다.'),
-    password: yup.string().required('비밀번호는 필수 입력입니다.').min(8, '8자리 이상 비밀번호를 사용하세요.').max(25),
+    email: yup
+      .string()
+      .email('이메일 형식이 맞지 않습니다.')
+      .required('이메일은 필수 입력입니다.'),
+    password: yup
+      .string()
+      .required('비밀번호는 필수 입력입니다.')
+      .min(8, '8자리 이상 비밀번호를 사용하세요.')
+      .max(25),
   });
 
   const {
@@ -30,10 +37,17 @@ const SignIn = () => {
     handleSubmit,
     setValue,
     formState: { isSubmitting, isDirty, isValid, errors },
-  } = useForm<ISignInForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
+  } = useForm<ISignInForm>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
   // 백으로 유저 정보 전달하여 로그인 요청
-  const onValid: SubmitHandler<ISignInForm> = async ({ email, password }, event) => {
+  const onValid: SubmitHandler<ISignInForm> = async (
+    { email, password },
+    event
+  ) => {
     event.preventDefault();
     console.log('email', email);
     console.log('password', password);
@@ -47,7 +61,7 @@ const SignIn = () => {
       dispatch(SET_TOKEN(accessToken));
       navigate('/main');
     } else {
-      alert(response.message);
+      // alert(response.message);
     }
     setValue('password', '');
   };
@@ -55,7 +69,9 @@ const SignIn = () => {
   return (
     <>
       <div>
-        <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
+        <p
+          className='text-right mb-7 text-lg font-semibold cursor-pointer'
+          onClick={() => navigate('/')}>
           취소
         </p>
         <h1 className='text-3xl mb-10'>
@@ -82,8 +98,7 @@ const SignIn = () => {
         </form>
         <div
           className='flex items-center justify-center gap-1 my-8 font-semibold text-gray cursor-pointer hover:text-yellow'
-          onClick={() => navigate('/signup')}
-        >
+          onClick={() => navigate('/signup')}>
           <p>회원가입을 아직 안하셨나요?</p>
           <IoIosArrowForward />
         </div>

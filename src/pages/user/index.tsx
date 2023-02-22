@@ -8,7 +8,11 @@ import Navigation from '@components/ui/Navigation';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getCookieToken, removeCookieToken, setRefreshToken } from '../../libs/Cookie';
+import {
+  getCookieToken,
+  removeCookieToken,
+  setRefreshToken,
+} from '../../libs/Cookie';
 import { deleteAuth, getUserInfo, logOut } from '@/api/authApi';
 import { authState, DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import { useQuery } from '@tanstack/react-query';
@@ -51,7 +55,11 @@ const User = () => {
   // console.log('token:', token);
 
   const schema = yup.object().shape({
-    password: yup.string().required('비밀번호는 필수 입력입니다.').min(8, '8자리 이상 비밀번호를 사용하세요.').max(25),
+    password: yup
+      .string()
+      .required('비밀번호는 필수 입력입니다.')
+      .min(8, '8자리 이상 비밀번호를 사용하세요.')
+      .max(25),
   });
 
   const {
@@ -59,7 +67,11 @@ const User = () => {
     handleSubmit,
     setValue,
     formState: { isSubmitting, isDirty, isValid, errors },
-  } = useForm<IDeleteForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
+  } = useForm<IDeleteForm>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
   const refreshToken: string = getCookieToken();
 
@@ -68,12 +80,12 @@ const User = () => {
     console.log('response:', response);
 
     if (response.code === 200) {
-      alert(response.message);
+      // alert(response.message);
       dispatch(DELETE_TOKEN());
       removeCookieToken();
       return navigate('/');
     } else {
-      alert(response.message);
+      // alert(response.message);
     }
   };
 
@@ -91,10 +103,10 @@ const User = () => {
       dispatch(DELETE_TOKEN());
       removeCookieToken();
       setDeleteModal(false);
-      alert(response.message);
+      // alert(response.message);
       navigate('/');
     } else {
-      alert(response.message);
+      // alert(response.message);
     }
 
     setValue('password', '');
@@ -116,9 +128,15 @@ const User = () => {
     <>
       <div className='relative'>
         {outModal && (
-          <ConfirmModal title='로그아웃 하시겠어요?' onConfirm={logOutConfirm} onCancel={() => setOutModal(false)} />
+          <ConfirmModal
+            title='로그아웃 하시겠어요?'
+            onConfirm={logOutConfirm}
+            onCancel={() => setOutModal(false)}
+          />
         )}
-        {deleteModal && <DeleteAccountModal onCancel={() => setDeleteModal(false)} />}
+        {deleteModal && (
+          <DeleteAccountModal onCancel={() => setDeleteModal(false)} />
+        )}
         <h1 className='text-3xl mt-10 mb-5'>
           안녕하세요! <span className='font-semibold'>홍혜원님</span>
         </h1>
@@ -150,8 +168,7 @@ const User = () => {
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
-            onClick={() => setOutModal(true)}
-          >
+            onClick={() => setOutModal(true)}>
             <FaUserTimes className='text-yellow text-2xl' />
             <span>로그아웃</span>
           </div>
@@ -159,8 +176,7 @@ const User = () => {
             className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
             onClick={() => {
               setDeleteModal(true);
-            }}
-          >
+            }}>
             <FaUserTimes className='text-yellow text-2xl' />
             <span>회원탈퇴</span>
           </div>

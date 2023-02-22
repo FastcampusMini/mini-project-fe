@@ -7,6 +7,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { ax } from '@/libs/axiosClient';
 import { useNavigate } from 'react-router-dom';
 import useToken from '@/libs/hooks/useToken';
+import cogoToast from 'cogo-toast';
 
 const phonReg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 interface IEditUserForm {
@@ -19,9 +20,12 @@ interface IEditUserForm {
 }
 
 const Edit = () => {
-  const { accessToken }: any = useToken();
+  // const { accessToken }: any = useToken();
   const navigate = useNavigate();
-
+  const { mutate } = useMutation({
+    mutationFn: ({ accessToken, payload }: any) =>
+      ax.patchUserEdit(accessToken, payload),
+  });
   const {
     register,
     formState: { errors },
@@ -45,6 +49,7 @@ const Edit = () => {
   }, [watch().newPassword, watch().newPassword2]);
 
   const onValid = async (data) => {
+    cogoToast.success('유효한 양식입니다.');
     const payload = {
       oldPassword: getValues().oldPassword,
       newPassword: getValues().newPassword,
@@ -55,8 +60,10 @@ const Edit = () => {
     console.log('유효! ', data);
     // const result = await mutateAsync(payload as any);
     // console.log(result);
+    reset();
   };
   const onInvalid = () => {
+    cogoToast.info('양식을 다시 확인해주세요');
     console.log(getValues());
     console.log('errors>>', errors);
   };
@@ -111,10 +118,9 @@ const Edit = () => {
               </div>
             </div>
             <div>
-              <span className='font-semibold flex my-2 text-lg'>
-                전화번호('-'빼고 입력하세요)
-              </span>
+              <span className='font-semibold flex my-2 text-lg'></span>
               <input
+                placeholder="'-'빼고 입력하세요"
                 type='text'
                 className='border border-gray rounded-md w-full h-12 px-4'
                 {...register('phone', {
@@ -147,7 +153,7 @@ const Edit = () => {
                 <input
                   className='border border-gray px-6 py-3 rounded-md w-full'
                   type='number'
-                  placeholder={'연소득'}
+                  placeholder={'1000 이상'}
                   {...register('salary', {
                     required: '필수입니다.',
                     valueAsNumber: true,
