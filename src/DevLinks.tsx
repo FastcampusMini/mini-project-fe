@@ -49,7 +49,7 @@ const DevLinks = () => {
         </h1>
         <div className='w-auto'>
           <input
-            className={!accessToken && 'text-red'}
+            className={!accessToken ? 'text-red' : ''}
             onChange={() => {}}
             type='text'
             value={!accessToken ? 'No accessToken' : accessToken}
