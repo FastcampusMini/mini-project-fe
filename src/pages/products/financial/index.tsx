@@ -3,44 +3,63 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import useGetProducts from '@/libs/hooks/useGetProducts';
 import { CgSearch } from 'react-icons/cg';
 import ProductCard from '../../../components/FinancialProdCard';
+import ConfirmModal from '@/components/ui/ConfirmModal';
 
 interface ISearchData {
   searchTarget?: string;
   searchKeyword?: string | number;
+  sortDirection?: string;
   keyword?: string | number;
   isChecked?: boolean;
 }
 
 const Financial = () => {
   const initailData = {
-    searchTarget: null,
-    searchKeyword: null,
-    keyword: null,
-    isChecked: false,
+    searchTarget: '',
+    searchKeyword: '',
+    keyword: '',
+    sortDirection: '',
+    isChecked: '',
   };
   // 내게 맞는 상품 보기 체크했을때 로그인 안된 상태라면 로그인 창으로 이동
   const navigate = useNavigate()
+  const [modal, setModal] = useState(false);
+  
   const { accessToken } = useSelector((state: any) => state.authToken);
 
   const [products, setProducts] = useState([]);
 
   const [keyword, setKeyword] = useState([]);
-  // const [availableChecked, setAvaliableChecked] = useState(false)
   const [page, setPage] = useState(1);
+
+  // const handleChecked = ({ target }) => {
+  //   if(target.checked && accessToken){
+  //     setAvailableChecked(true)
+  //   } else {
+  //     setAvailableChecked(false)
+  //   }
+  //   console.log(availableChecked)
+  // };
   
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    console.log(data.searchTarget, data.searchKeyword, data.isChecked)
+    console.log(data)
+    console.log(data.searchTarget, data.searchKeyword, data.sortDirection, data.isChecked)
     getSearchResult(data)
-  };  
+  };
 
   const getSearchResult = async (data) => {
-    const BASEURI = `http://52.78.32.230:8080/search`;
-    const { searchTarget, searchKeyword, isChecked } = data
-    const reqURI = `${BASEURI}?searchTarget=${searchTarget}&searchKeyword=${searchKeyword}&isChecked=${isChecked}&page=${page}`
+    const BASEURI = `http://43.200.194.5:8080/search`;
+    const { searchTarget, searchKeyword, sortDirection, isChecked }:ISearchData = data
+    if(isChecked && !accessToken) {
+      console.log('액세스토큰X')
+      setModal(true)
+      return
+    }
+    const reqURI = `
+    ${BASEURI}?searchTarget=${searchTarget}&searchKeyword=${searchKeyword}&sortDirection=${sortDirection}&isChecked=${isChecked}&page=${page}`
     const res = await axios(reqURI);
     console.log(reqURI);
     console.log(res);
@@ -49,32 +68,11 @@ const Financial = () => {
     }
   };
 
-  const addKeyword = (e) => {
-    const clicked = e.target.value;
-    setKeyword(e.target.value)
-    
-    // getSearchResult(data)
-  };
-  
-  // const [selected, setSelected] = useState('');
-  // const handleChangeSelect = (e) => {
-  //   setSelected(e.target.value)
-  //   console.log(e.target.value)
-  //   // setKeyword(e.target.options[e.target.selectedIndex].text)
-  // }
-  // const handleChangeWord = (e) => {
-  //   setKeyword(e.target.value)
-  //   console.log(e.target.value)
-  // }
-  // const [isChecked, setIsChecked] = useState('');
-  // const handleChangechecked = (e) => {
-  //   // if(accessToken) {
-  //     // setIsChecked(e.target.checked)
-  //     // console.log(e.target.checked)
-  //   // } else {
-  //   //   navigate('/')
-  //   // }
-  // }
+  // const addKeyword = (e) => {
+  //   const clicked = e.target.value;
+  //   setKeyword(e.target.value)    
+  //   // getSearchResult(data)
+  // };
 
   useEffect(() => {
     getSearchResult(initailData);
@@ -97,29 +95,13 @@ const Financial = () => {
           <div className='w-full sm:text-right text-left'>
             <label htmlFor='available' className=''>
               내가 가입할 수 있는 상품만 보기
-            </label>
             <input
               type='checkbox'
               id='available'
               className='ml-2'
               {...register('isChecked')}
-              // onChange={handleChangechecked}
             />
-            {/* ////////////////////////////////////////////////////////// */}
-            <label htmlFor='available2' className=''>
-              오름차순
             </label>
-            <input type='checkbox' id='available2' className='ml-2' 
-              // {...register('isChecked')}
-              // onChange={handleChangechecked}
-            />
-            <label htmlFor='available3' className=''>
-              내림차순
-            </label>
-            <input type='checkbox' id='available3' className='ml-2' 
-              // {...register('isChecked')}
-              // onChange={handleChangechecked}
-            />
           </div>
 
           <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
@@ -180,31 +162,47 @@ const Financial = () => {
           </div>)
         }
       </div>
-      <button onClick={handleTotal} className='mb-20 p-4 w-full rounded-[10px] bg-light-orange text-lg text-white'>10개 더보기</button>
+      <button 
+        // onClick={handleTotal} 
+        className='mb-20 p-4 w-full rounded-[10px] bg-light-orange text-lg text-white'>
+        더보기
+      </button>
+
+      <>
+        {modal && (
+          <ConfirmModal
+            title='로그인이 필요한 서비스입니다.' 
+            description='로그인 화면으로 이동하시겠습니까?'
+            onConfirm={() => navigate('/')}
+            onCancel={() => setModal(false)}
+          />
+        )}
+      </>
+
     </div>
   );
 };
 
-const Button = ({ data, addKeyword, isOn }) => {
-  const [isActive, setIsActive] = useState(isOn);
-  const btnToggle = (e) => {
-    setIsActive((prev) => !prev);
-    addKeyword(e);
-  };
-  return (
-    <button
-      type='button'
-      className={`px-6 py-2 rounded-full text-lg text-black40
-        ${
-          isActive
-            ? 'border-2 border-yellow text-yellow font-bold'
-            : 'border border-light-gray'
-        }`}
-      onClick={btnToggle}
-      value={data}>
-      {data}
-    </button>
-  );
-};
+// const Button = ({ data, addKeyword, isOn }) => {
+//   const [isActive, setIsActive] = useState(isOn);
+//   const btnToggle = (e) => {
+//     setIsActive((prev) => !prev);
+//     addKeyword(e);
+//   };
+//   return (
+//     <button
+//       type='button'
+//       className={`px-6 py-2 rounded-full text-lg text-black40
+//         ${
+//           isActive
+//             ? 'border-2 border-yellow text-yellow font-bold'
+//             : 'border border-light-gray'
+//         }`}
+//       onClick={btnToggle}
+//       value={data}>
+//       {data}
+//     </button>
+//   );
+// };
 
 export default Financial;

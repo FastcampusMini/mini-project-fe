@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useToken from '@/libs/hooks/useToken';
-import ConfirmModal from '../../../components/ui/ConfirmModal';
+import ConfirmModal from '@/components/ui/ConfirmModal';
 import {
   useAddOrderListMutation,
   useGetOrderListQuery,
