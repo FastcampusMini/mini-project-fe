@@ -9,7 +9,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../api/authApi';
 import SalaryField from '@/components/SignUp/SalaryField';
-
+import cogoToast from 'cogo-toast';
 interface ISignUpForm {
   name: string;
   email: string;
@@ -25,7 +25,11 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const schema = yup.object().shape({
-    name: yup.string().required('이름은 필수 입력입니다.').min(2, '2글자 이상 입력해주세요.').max(10),
+    name: yup
+      .string()
+      .required('이름은 필수 입력입니다.')
+      .min(2, '2글자 이상 입력해주세요.')
+      .max(10, '10글자 이하로 입력해주세요.'),
     email: yup.string().email('이메일 형식이 맞지 않습니다.').required('이메일은 필수 입력입니다.'),
     password: yup
       .string()
@@ -38,7 +42,7 @@ const SignUp = () => {
     phone: yup
       .string()
       .required('전화번호는 필수 입력입니다.')
-      .matches(regex.phone, '잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.'),
+      .matches(regex.phone, '잘못된 휴대폰 번호입니다. 숫자와 - 를 포함해서 입력하세요.'),
     job: yup.string().required('직업은 필수 선택입니다.'),
     salary: yup
       .number()
@@ -73,7 +77,7 @@ const SignUp = () => {
   ];
 
   const submitForm: SubmitHandler<ISignUpForm> = async ({ name, email, password, phone, birth, job, salary }) => {
-    salary = salary * 10000;
+    // salary = salary * 10000;
     const response = await signUp({
       name,
       email,
@@ -85,74 +89,67 @@ const SignUp = () => {
     });
     console.log(response);
     if (response.code === 200) {
-      // alert(response.message);
+      cogoToast.info(response.message);
+      alert(response.message);
       navigate('/signin');
     } else {
-      // alert(response.message);
+      cogoToast.info(response.message);
     }
   };
 
   return (
-    <>
-      <div>
-        <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
-          취소
-        </p>
-        <h1 className='text-3xl mb-10'>
-          <span className='font-semibold'>회원 정보</span>
-          <span>를 입력해 주세요</span>
-        </h1>
+    <div>
+      <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
+        취소
+      </p>
+      <h1 className='text-3xl mb-10'>
+        <span className='font-semibold'>회원 정보</span>
+        <span>를 입력해 주세요</span>
+      </h1>
 
-        <form className='flex flex-col' onSubmit={handleSubmit(submitForm)}>
-          <div className='px-3 h-[calc(100vh-270px)] overflow-y-scroll scrollbar-thumb-black/20 scrollbar-track-black/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
-            <SignUpField text={'이름'} name={'name'} register={register} errorMsg={errors.name} />
-            <SignUpField text={'이메일'} name={'email'} inputType='email' register={register} errorMsg={errors.email} />
-            <SignUpField
-              text={'비밀번호'}
-              name={'password'}
-              inputType='password'
-              register={register}
-              errorMsg={errors.password}
+      <form className='flex flex-col' onSubmit={handleSubmit(submitForm)}>
+        <div className='px-3 h-[calc(100vh-270px)] overflow-y-scroll scrollbar-thumb-black/20 scrollbar-track-black/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
+          <SignUpField text={'이름'} name={'name'} register={register} errorMsg={errors.name} />
+          <SignUpField text={'이메일'} name={'email'} inputType='email' register={register} errorMsg={errors.email} />
+          <SignUpField
+            text={'비밀번호'}
+            name={'password'}
+            inputType='password'
+            register={register}
+            errorMsg={errors.password}
+          />
+          <SignUpField
+            text={'비밀번호 확인'}
+            name={'checkPw'}
+            inputType='password'
+            register={register}
+            errorMsg={errors.checkPw}
+          />
+          <SignUpField text={'전화번호'} name={'phone'} register={register} errorMsg={errors.phone} />
+          <SignUpField text={'생년원일'} name={'birth'} inputType='date' register={register} errorMsg={errors.birth} />
+          <div className='flex flex-col text-xl font-semibold mb-5 relative'>
+            <label className='mb-2' htmlFor='job'>
+              직업
+            </label>
+            <Select
+              placeholder='직업을 선택해주세요.'
+              isClearable
+              options={options}
+              value={jobValue && options.find((option) => option.label === jobValue)}
+              onChange={(option) => jobOnChange(option && option.label)}
+              {...restjobField}
             />
-            <SignUpField
-              text={'비밀번호 확인'}
-              name={'checkPw'}
-              inputType='password'
-              register={register}
-              errorMsg={errors.checkPw}
-            />
-            <SignUpField text={'전화번호'} name={'phone'} register={register} errorMsg={errors.phone} />
-            <SignUpField
-              text={'생년원일'}
-              name={'birth'}
-              inputType='date'
-              register={register}
-              errorMsg={errors.birth}
-            />
-            <div className='flex flex-col text-xl font-semibold mb-5 relative'>
-              <label className='mb-2' htmlFor='job'>
-                직업
-              </label>
-              <Select
-                placeholder='직업을 선택해주세요.'
-                isClearable
-                options={options}
-                value={jobValue && options.find((option) => option.label === jobValue)}
-                onChange={(option) => jobOnChange(option && option.label)}
-                {...restjobField}
-              />
-              {errors.job && (
-                <small role='alert' className='text-yellow mt-0 mb-1'>
-                  직업을 선택해주세요.
-                </small>
-              )}
-            </div>
-            <SalaryField text={'연소득'} name={'salary'} register={register} errorMsg={errors.salary} />
-            <ConfirmBtn isSubmitting={isSubmitting} isValid={isValid} />
+            {errors.job && (
+              <small role='alert' className='text-yellow mt-0 mb-1'>
+                직업을 선택해주세요.
+              </small>
+            )}
           </div>
-        </form>
-      </div>
-    </>
+          <SalaryField text={'연소득'} name={'salary'} register={register} errorMsg={errors.salary} />
+          <ConfirmBtn isSubmitting={isSubmitting} isValid={isValid} />
+        </div>
+      </form>
+    </div>
   );
 };
 

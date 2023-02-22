@@ -1,7 +1,7 @@
 import { requestToken } from '@/api/authApi';
 import { DELETE_TOKEN, SET_TOKEN } from '@/features/authSlice/authSlice';
 import { getCookieToken, removeCookieToken } from '@/libs/Cookie';
-// import cogoToast from 'cogo-toast';
+import cogoToast from 'cogo-toast';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -26,13 +26,12 @@ export default function CheckToken(key: string) {
           const accessToken = response.data.accessToken;
           dispatch(SET_TOKEN(accessToken));
           setIsAuth('Success');
-          // cogoToast.info(response.message);
-          // alert();
+          cogoToast.info(response.message);
         } else {
           dispatch(DELETE_TOKEN());
           removeCookieToken();
           setIsAuth('Failed');
-          // alert(response.message);
+          cogoToast.info(response.message);
         }
       }
     };
