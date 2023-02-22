@@ -11,23 +11,19 @@ import * as yup from 'yup';
 import SignInField from '../SignIn/SignInField';
 
 interface IProps {
-  onCancel: () => void;
+  setDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IDeleteForm {
   password: string;
 }
 
-const DeleteAccountModal = ({ onCancel }: IProps) => {
+const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const schema = yup.object().shape({
-    password: yup
-      .string()
-      .required('비밀번호는 필수 입력입니다.')
-      .min(8, '8자리 이상 비밀번호를 사용하세요.')
-      .max(25),
+    password: yup.string().required('비밀번호는 필수 입력입니다.').min(8, '8자리 이상 비밀번호를 사용하세요.').max(25),
   });
 
   const {
@@ -54,6 +50,7 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
     if (response.code === 200) {
       dispatch(DELETE_TOKEN(accessToken));
       removeCookieToken();
+      setDeleteModal(false);
       // alert(response.message);
       navigate('/');
     } else {
@@ -91,8 +88,9 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
         <div className='w-full flex gap-4 h-auto'>
           <button
             type='button'
-            onClick={onCancel}
-            className='rounded h-14 w-1/2 text-white bg-black40 hover:bg-black60'>
+            onClick={() => setDeleteModal(false)}
+            className='rounded h-14 w-1/2 text-white bg-black40 hover:bg-black60'
+          >
             취소
           </button>
           <button
@@ -100,10 +98,9 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
             onClick={handleSubmit(onValid)}
             disabled={isSubmitting}
             className={`border rounded h-14 w-1/2 text-white ${
-              isValid
-                ? `bg-light-orange hover:bg-orange`
-                : `bg-black40 hover:bg-black60`
-            }  `}>
+              isValid ? `bg-light-orange hover:bg-orange` : `bg-black40 hover:bg-black60`
+            }  `}
+          >
             확인
           </button>
         </div>
