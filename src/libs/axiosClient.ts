@@ -1,7 +1,7 @@
 import store from '@/store/store';
 import axios from 'axios';
 
-const BASE_URL = 'http://52.78.32.230:8080';
+const BASE_URL = 'http://43.200.194.5:8080';
 
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -251,7 +251,7 @@ class Axios {
   // 검색
   async getSearch(
     accessToken,
-    { name, page }: ISearchInput
+    { name, page = 1 }: ISearchInput
   ): Promise<ISearchedData> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (Number(page) < 1) return;

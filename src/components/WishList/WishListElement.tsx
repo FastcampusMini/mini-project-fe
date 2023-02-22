@@ -21,16 +21,14 @@ const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
               onClick={() => {
                 setDeleteModal(true);
               }}
-              className='w-24 h-9 rounded border-2 border-black40 text-sm font-semibold mb-2 text-[#333333]'
-            >
+              className='w-24 h-9 rounded border-2 border-black40 text-sm font-semibold mb-2 text-[#333333]'>
               삭제
             </button>
             <button
               onClick={() => {
                 setAddModal(true);
               }}
-              className='w-24 h-9 rounded border-2 border-orange text-sm font-semibold mb-2 text-orange'
-            >
+              className='w-24 h-9 rounded border-2 border-orange text-sm font-semibold mb-2 text-orange'>
               <span className='flex items-center justify-center gap-1.5'>
                 <BsCart2 className='text-base' />
                 담기
@@ -60,7 +58,7 @@ const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
             const res = await addCart({
               productId: wishlistData.productId,
             });
-            if (res.data.code === 500) {
+            if (res.data?.code === 500) {
               setAddModal(false);
               setAlertModal(true);
             } else {
