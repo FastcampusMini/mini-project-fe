@@ -8,7 +8,8 @@ const Search = ({ name, accessToken }) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
       ['searchResults', name],
-      ({ pageParam }) => ax.getSearch(accessToken, { name, page: pageParam }),
+      ({ pageParam = 1 }) =>
+        ax.getSearch(accessToken, { name, page: pageParam }),
       {
         getNextPageParam: (lastPage) => {
           return (

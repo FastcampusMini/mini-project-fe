@@ -23,7 +23,11 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
   const dispatch = useDispatch();
 
   const schema = yup.object().shape({
-    password: yup.string().required('비밀번호는 필수 입력입니다.').min(8, '8자리 이상 비밀번호를 사용하세요.').max(25),
+    password: yup
+      .string()
+      .required('비밀번호는 필수 입력입니다.')
+      .min(8, '8자리 이상 비밀번호를 사용하세요.')
+      .max(25),
   });
 
   const {
@@ -31,7 +35,11 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
     handleSubmit,
     setValue,
     formState: { isSubmitting, isDirty, isValid, errors },
-  } = useForm<IDeleteForm>({ mode: 'onChange', reValidateMode: 'onChange', resolver: yupResolver(schema) });
+  } = useForm<IDeleteForm>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(schema),
+  });
 
   const { accessToken } = useSelector((state: any) => state.authToken);
 
@@ -46,10 +54,10 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
     if (response.code === 200) {
       dispatch(DELETE_TOKEN(accessToken));
       removeCookieToken();
-      alert(response.message);
+      // alert(response.message);
       navigate('/');
     } else {
-      alert(response.message);
+      // alert(response.message);
     }
 
     setValue('password', '');
@@ -84,8 +92,7 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
           <button
             type='button'
             onClick={onCancel}
-            className='rounded h-14 w-1/2 text-white bg-black40 hover:bg-black60'
-          >
+            className='rounded h-14 w-1/2 text-white bg-black40 hover:bg-black60'>
             취소
           </button>
           <button
@@ -93,9 +100,10 @@ const DeleteAccountModal = ({ onCancel }: IProps) => {
             onClick={handleSubmit(onValid)}
             disabled={isSubmitting}
             className={`border rounded h-14 w-1/2 text-white ${
-              isValid ? `bg-light-orange hover:bg-orange` : `bg-black40 hover:bg-black60`
-            }  `}
-          >
+              isValid
+                ? `bg-light-orange hover:bg-orange`
+                : `bg-black40 hover:bg-black60`
+            }  `}>
             확인
           </button>
         </div>

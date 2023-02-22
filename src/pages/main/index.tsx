@@ -13,19 +13,13 @@ import useGetProducts from '../../libs/hooks/useGetProducts';
 import useToken from '@/libs/hooks/useToken';
 import useGetRecommendProducts from '@/libs/hooks/useGetRecommendsProducts';
 import useGetUser from '@/libs/hooks/useGetUser';
+import ReactLoading from 'react-loading';
+import { useSelector } from 'react-redux';
 
-const joiningPagesContent = (pages) => {
-  let result = [];
-  if (pages?.length) {
-    for (let page of pages) {
-      result = [...result, ...page?.content];
-    }
-  }
-  return result;
-};
 const Main = () => {
   const [products, setProducts] = useState([]);
-  const { accessToken } = useToken(); // 토큰가져오기
+  const { accessToken } = useSelector((state: any) => state.authToken);
+  // const { accessToken } = useToken(); // 토큰가져오기
   // const { data, fetchNextPage } = useInfiniteQuery(
   //   [products],
   //   ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
@@ -64,13 +58,18 @@ const Main = () => {
         <Nav left='arrow' right='arrow' />
         <div className='px-3 flex flex-col gap-5'>
           {fetchingUser ? (
-            <SkeletonLoanProductCard />
+            <ReactLoading
+              className='relative bottom-2 mx-auto my-auto'
+              type='spinningBubbles'
+              color='#000'
+            />
           ) : (
+            // <SkeletonLoanProductCard />
             <TotalLoans userInfo={userInfo} onClick={handleTotal} />
           )}
 
-          {dataPack?.map((product) => (
-            <LoanProduct key={product.id} product={product} />
+          {dataPack?.map((product: IProduct) => (
+            <LoanProduct key={product.productId} product={product} />
           ))}
         </div>
       </main>

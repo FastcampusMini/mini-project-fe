@@ -63,8 +63,7 @@ const Id = () => {
         ].map((data, i) => (
           <li
             key={i}
-            className='px-4 py-2 rounded-full bg-black5 text-black40 font-bold'
-          >
+            className='px-4 py-2 rounded-full bg-black5 text-black40 font-bold'>
             {data}
           </li>
         ))}
@@ -104,22 +103,19 @@ const Id = () => {
       <button
         type='button'
         className='mt-20 p-4 w-full rounded-[10px] bg-light-gray text-black40 text-lg font-bold'
-        onClick={() => setAddModal(true)}
-      >
+        onClick={() => setAddModal(true)}>
         관심상품 등록
       </button>
       <button
         type='button'
         className='mt-6 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
-        onClick={() => setAddModal(true)}
-      >
+        onClick={() => setAddModal(true)}>
         장바구니 담기
       </button>
       <button
         type='button'
         className='mt-6 mb-20 p-4 w-full rounded-[10px] bg-yellow text-white text-lg font-bold'
-        onClick={() => setOrderModal(true)}
-      >
+        onClick={() => setOrderModal(true)}>
         신청하기
       </button>
 
@@ -154,7 +150,7 @@ const Id = () => {
               productId: detail.productId,
             });
             console.log('res', res);
-            if (res.data.code === 500) {
+            if (res.data?.code === 500) {
               setAddModal(false);
               setAlertModal(true);
             } else {
