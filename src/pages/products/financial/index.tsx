@@ -1,79 +1,141 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate} from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { CgSearch } from 'react-icons/cg';
 import ProductCard from '../../../components/FinancialProdCard';
 
+interface ISearchData {
+  searchTarget?: string;
+  searchKeyword?: string | number;
+  keyword?: string | number;
+  isChecked?: boolean;
+}
+
 const Financial = () => {
-  // name : {...register("해당inputName")}, handleSubmit : onsubmit={handleSubmit(onSubmit)}
-  // const {register, handleSubmit} = useForm()
-  const [keyword, setKeyword] = useState([]);
-  const [searchName, setSearchName] = useState('');
+  const initailData = {
+    searchTarget: null,
+    searchKeyword: null,
+    keyword: null,
+    isChecked: false,
+  }
+  // 내게 맞는 상품 보기 체크했을때 로그인 안된 상태라면 로그인 창으로 이동
+  const navigate = useNavigate()
+
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState();
+  
+  const [keyword, setKeyword] = useState([]);
+  const [page, setPage] = useState(1);
+  
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data.searchTarget, data.searchKeyword, data.isChecked)
+    getSearchResult(data)
+  };  
 
-  useEffect(() => {
-    getSearchResult(keyword);
-  }, [keyword]);
-
-  const getSearchResult = async (keyword) => {
-    const page = 1;
-    const BASEURI = `http://52.78.32.230:8080/search?name=${keyword}&page=${page}`;
-    const res = await axios(BASEURI);
-    setProducts(res.data.data.content);
-    console.log(BASEURI);
+  const getSearchResult = async (data) => {
+    const BASEURI = `http://52.78.32.230:8080/search`;
+    const { searchTarget, searchKeyword, isChecked } = data
+    const reqURI = `${BASEURI}?searchTarget=${searchTarget}&searchKeyword=${searchKeyword}&isChecked=${isChecked}&page=${page}`
+    const res = await axios(reqURI);
+    console.log(reqURI);
+    console.log(res);
+    if(res.data.code === 200) {
+      setProducts(res.data.data.content);
+    }
   };
 
   const addKeyword = (e) => {
     const clicked = e.target.value;
-    // let newKeyword = []
-    // newKeyword = keyword.includes(clicked) ? keyword.filter((item) => item != clicked) : [...keyword, clicked]
-    keyword.indexOf(clicked) > -1
-      ? setKeyword(keyword.filter((item) => item != clicked))
-      : setKeyword([...keyword, clicked]);
-    // setKeyword(newKeyword)
+    setKeyword(e.target.value)
+    
+    // getSearchResult(data)
   };
+  
+  // const [selected, setSelected] = useState('');
+  // const handleChangeSelect = (e) => {
+  //   setSelected(e.target.value)
+  //   console.log(e.target.value)
+  //   // setKeyword(e.target.options[e.target.selectedIndex].text)
+  // }
+  // const handleChangeWord = (e) => {
+  //   setKeyword(e.target.value)
+  //   console.log(e.target.value)
+  // }
+  // const [isChecked, setIsChecked] = useState('');
+  // const handleChangechecked = (e) => {
+  //   // if(accessToken) {
+  //     // setIsChecked(e.target.checked)
+  //     // console.log(e.target.checked)
+  //   // } else {
+  //   //   navigate('/')
+  //   // }
+  // }
+
+  useEffect(() => {
+    getSearchResult(initailData)
+  }, []);
 
   return (
     <div>
-      <h2 className='mt-8 sm:mb-8 text-3xl font-bold'>상품 검색</h2>
+      <h2 className='mt-8 sm:mb-8 text-3xl font-bold'>태그로 찾기</h2>
+      <div className='mb-16 flex flex-wrap gap-3'>
+        {['대출', '소액', '신용', '부동산'].map((data, i) => (
+          <Button key={i} data={data} addKeyword={addKeyword} isOn={false} />
+        ))}
+      </div>
+
+      <h2 className='mt-8 text-3xl font-bold'>상품 검색</h2>
       <div className='mb-16'>
-        <form className='flex flex-wrap gap-3 rounded-[10px]'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-wrap gap-3 rounded-[10px]'>
           <div className='w-full sm:text-right text-left'>
-            <label htmlFor='check1' className=''>
+            <label htmlFor='available' className=''>
               내가 가입할 수 있는 상품만 보기
             </label>
-            <input type='checkbox' id='check1' className='ml-2' />
-          </div>
+            <input type='checkbox' id='available' className='ml-2' 
+              {...register('isChecked')}
+              // onChange={handleChangechecked}
+            />
+            {/* ////////////////////////////////////////////////////////// */}
+            <label htmlFor='available2' className=''>
+              오름차순
+            </label>
+            <input type='checkbox' id='available2' className='ml-2' 
+              // {...register('isChecked')}
+              // onChange={handleChangechecked}
+            />
+            <label htmlFor='available3' className=''>
+              내림차순
+            </label>
+            <input type='checkbox' id='available3' className='ml-2' 
+              // {...register('isChecked')}
+              // onChange={handleChangechecked}
+            />
 
-          <div className='pr-3 py-2 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
-            <select className='pl-3 outline-none focus:outline-none'>
-              <option hidden>상품 유형</option>
-              <option value={''}>전체</option>
-              <option value={''}>대출</option>
-              <option value={''}>예금</option>
-            </select>
           </div>
 
           <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
-            <select className='pl-3 py-2 outline-none focus:outline-none'>
-              <option hidden>연봉</option>
-              <option value={''}>전체</option>
-              <option value={''}>2000 미만</option>
-              <option value={''}>3000 미만</option>
-              <option value={''}>4000 미만</option>
-              <option value={''}>5000 이상</option>
+            <select {...register('searchTarget')} 
+              className='pl-3 py-3 outline-none focus:outline-none'
+              // onChange={handleChangeSelect} 
+              // value={selected}
+            >
+              {/* <option hidden>선택하세요</option> */}
+              <option value={''} defaultChecked={true}>전체</option>
+              <option value={'name'}>상품명</option>
+              <option value={'brand'}>은행명</option>
+              <option value={'price'}>대출한도</option>
             </select>
           </div>
 
           <div className='relative grow'>
             <input
               type='text'
-              required
-              className='pl-4 pr-4 py-3 w-full h-full rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus-within:border-yellow focus-within:border-2 valid:border-2 valid:border-yellow'
+              // required
+              className='pl-4 pr-4 py-3 w-full rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus-within:border-yellow focus-within:border-2 valid:border-2'
               placeholder='원하는 상품을 검색하세요'
-              defaultValue={''}
-              onChange={(e) => setSearchName(e.target.value)}
+              // onChange={handleChangeWord}
+              {...register('searchKeyword')}
             />
             <button
               className='absolute top-0 bottom-0 right-4 text-black40'
@@ -81,17 +143,9 @@ const Financial = () => {
               <CgSearch size='26'></CgSearch>
             </button>
           </div>
-        </form>
-      </div>
 
-      <h2 className='my-8 text-3xl font-bold'>키워드로 찾기</h2>
-      <div className='mb-16 flex flex-wrap gap-3'>
-        {['대출', '소액', '세테크', '부동산'].map((data, i) => (
-          // i !== 0
-          // ? <Button key={i} data={data} addKeyword={addKeyword} isOn={false} />
-          // : <Button key={i} data={data} addKeyword={addKeyword} isOn={true} />
-          <Button key={i} data={data} addKeyword={addKeyword} isOn={false} />
-        ))}
+          
+        </form>
       </div>
 
       <div className='mb-16'>
@@ -109,7 +163,7 @@ const Financial = () => {
   );
 };
 
-const Button = ({ data, addKeyword, isOn }) => {
+const Button = ({ data, addKeyword, isOn}) => {
   const [isActive, setIsActive] = useState(isOn);
   const btnToggle = (e) => {
     setIsActive((prev) => !prev);
@@ -117,6 +171,7 @@ const Button = ({ data, addKeyword, isOn }) => {
   };
   return (
     <button
+      type='button' 
       className={`px-6 py-2 rounded-full text-lg text-black40
         ${
           isActive
