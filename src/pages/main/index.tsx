@@ -12,8 +12,8 @@ import { combinePagesContent } from '@/libs/utils';
 import Slider from './Slider';
 
 const Main = () => {
-  const [dataPack, setDataPack] = useState([]);
-  const [recDataPack, setRecDataPack] = useState([]);
+  const [loanProducts, setLoanProducts] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   const { accessToken } = useSelector((state: any) => state.authToken); // 토큰가져오기
   // 상품 가져오기
@@ -36,7 +36,7 @@ const Main = () => {
       },
       onSuccess: (data) => {
         // console.log(data.pages[0].content);
-        setDataPack(combinePagesContent(data.pages));
+        setLoanProducts(combinePagesContent(data.pages));
       },
     }
   );
@@ -58,7 +58,7 @@ const Main = () => {
         },
         onSuccess: (data) => {
           // console.log(data.pages[0].content);
-          setRecDataPack(combinePagesContent(data.pages));
+          setRecommendedProducts(combinePagesContent(data.pages));
         },
       }
     );
@@ -76,9 +76,6 @@ const Main = () => {
       console.log('무한스크롤', yScroll);
     }
   }, [yScroll]);
-  const handleTotal = () => {
-    console.log('clicked');
-  };
 
   return (
     <>
@@ -93,14 +90,17 @@ const Main = () => {
               color='#000'
             />
           ) : (
-            <TotalLoans userInfo={userInfo} onClick={handleTotal} />
+            <TotalLoans userInfo={userInfo} />
           )}
           <h3 className='mt-3 font-bold text-2xl'>추천상품</h3>
-          {recDataPack && (
-            <Slider products={recDataPack} fetchNextPage={fetchNextRecPage} />
+          {recommendedProducts && (
+            <Slider
+              products={recommendedProducts}
+              fetchNextPage={fetchNextRecPage}
+            />
           )}
           <h3 className='mt-3 font-bold text-2xl'>대출상품</h3>
-          {dataPack?.map((product: IProduct) => (
+          {loanProducts?.map((product: IProduct) => (
             <LoanProduct key={product.productId} product={product} />
           ))}
         </div>
