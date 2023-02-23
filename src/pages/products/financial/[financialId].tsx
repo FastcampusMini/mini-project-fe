@@ -5,34 +5,61 @@ import ConfirmModal from '../../../components/ui/ConfirmModal';
 import { useAddOrderListMutation, useGetOrderListQuery } from '@/store/api/orderApiSlice';
 import AlertModal from '@/components/ui/AlertModal';
 import { useAddCartMutation } from '@/store/api/cartApiSlice';
+import {
+  useAddWishListMutation,
+  useDeleteWishListMutation,
+  useGetWishListQuery,
+} from '@/store/api/wishlistApiSlice';
 
 const Id = () => {
   const [addOrderList] = useAddOrderListMutation();
   const [addCart] = useAddCartMutation();
-  const { data: order, isLoading } = useGetOrderListQuery('');
+  const [addWishList] = useAddWishListMutation();
+  const [deleteWishList] = useDeleteWishListMutation();
+  const { data: wishList } = useGetWishListQuery('');
+  const { data: order } = useGetOrderListQuery('');
   const { financialId } = useParams();
   const [orderModal, setOrderModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
-  const [detail, setDetail] = useState({
-    logo: '',
-    name: '',
-    rate: 1,
-    detail: '',
-    productId: 1,
-  });
+  const [like, setLike] = useState(false);
+  const [detail, setDetail] = useState<Daum>();
   console.log('detail : ', detail);
   const headers = {
     'Content-Type': 'application/json',
     Authorization:
-      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2OTEwNjExLCJleHAiOjE2NzY5MTI0MTEsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.EnUPTf68p9ka8nBCs6YTzEsm4ns-LSb43bW_7z6lb9E',
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc3MDcxMzEwLCJleHAiOjE2NzcwNzMxMTAsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.feqq__n-_TGXZqQG3G0BxtwQvfl-nfOS4_DoJfcf0pA',
   };
 
   useEffect(() => {
-    console.log('useEffect 실행');
+    // console.log('useEffect 실행');
     getSearchResult();
-    console.log('detail : ', detail);
+    // console.log('detail : ', detail);
   }, []);
+
+  useEffect(() => {
+    {
+      wishList?.data?.map((value: Daum) => {
+        if (value.productId === detail?.productId) setLike(true);
+      });
+    }
+  }, [wishList, detail]);
+
+  useEffect(() => {
+    if (like) {
+      addWishList({
+        productId: detail?.productId,
+      });
+    } else if (!like && detail) {
+      const find = wishList?.data?.find((value) => {
+        return value?.productId === detail?.productId;
+      });
+      console.log('find', find);
+      deleteWishList({
+        wishlistId: find?.wishlistId,
+      });
+    }
+  }, [like]);
 
   async function getSearchResult() {
     console.log('getSearchResult 실행');
@@ -45,7 +72,20 @@ const Id = () => {
 
   return (
     <div className='pt-16'>
-      <img className='w-32' src={detail?.logo} alt='cartItem_logo' />
+      <div className='flex justify-between items-center'>
+        <img className='w-32' src={detail?.logo} alt='cartItem_logo' />
+        <div
+          onClick={() => {
+            setLike(!like);
+          }}
+        >
+          {like ? (
+            <div className='text-6xl cursor-pointer'>❤️</div>
+          ) : (
+            <div className='text-6xl cursor-pointer'>🤍</div>
+          )}
+        </div>
+      </div>
       <h2 className='my-8 text-3xl font-bold'>{detail?.name}</h2>
 
       <ul className='mb-12 flex flex-wrap gap-3'>
@@ -81,14 +121,6 @@ const Id = () => {
         <li>- 연체발생시점에 정상이자율이 없는 경우 아래와 같이 적용.</li>
         <li>- 상환능력에 비해 신용카드 사용액이 과도할 경우 귀하의 개인신용평점이 하락할 수 있습니다.</li>
       </ul>
-
-      <button
-        type='button'
-        className='mt-20 p-4 w-full rounded-[10px] bg-light-gray text-black40 text-lg font-bold'
-        onClick={() => setAddModal(true)}
-      >
-        관심상품 등록
-      </button>
       <button
         type='button'
         className='mt-6 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'

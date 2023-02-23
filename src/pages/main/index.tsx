@@ -11,6 +11,8 @@ import { useLocation, useParams } from 'react-router-dom';
 import Confirmed from './_Confirmed';
 import ReactLoading from 'react-loading';
 import { useSelector } from 'react-redux';
+import { access } from 'fs';
+import { useScroll } from 'framer-motion';
 import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
 
