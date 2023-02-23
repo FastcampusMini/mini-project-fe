@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Card from './Card';
 import ConfirmModal from '../ui/ConfirmModal';
-import { useGetOrderListQuery } from '@/store/api/orderApiSlice';
 import AlertModal from '../ui/AlertModal';
 import { useGetCartQuery } from '@/store/api/cartApiSlice';
 
@@ -16,7 +15,6 @@ const CartElement = ({
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
-  const { data: order } = useGetOrderListQuery('');
   const { data: cartAll } = useGetCartQuery('');
   const orderList = [];
   console.log('cartAll', cartAll);

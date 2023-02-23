@@ -21,14 +21,12 @@ const Id = () => {
   const [addWishList] = useAddWishListMutation();
   const [deleteWishList] = useDeleteWishListMutation();
   const { data: wishList } = useGetWishListQuery('');
-  const { data: order } = useGetOrderListQuery('');
   const { financialId } = useParams();
   const [orderModal, setOrderModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [like, setLike] = useState(false);
   const [detail, setDetail] = useState<IProduct>();
-  const [find, setFind] = useState<any>();
 
   useEffect(() => {
     {
@@ -162,11 +160,13 @@ const Id = () => {
           title='장바구니에 담으시겠습니까?'
           description=''
           onConfirm={async () => {
-            const res: any = await addCart({
+            const res = await addCart({
               productId: detail?.productId,
-            });
-            console.log('뭘까', res);
-            if (res.data?.code === 500) {
+            })
+              .unwrap()
+              .then((payload) => payload.code)
+              .catch((error) => console.error('rejected', error));
+            if (res === 500) {
               setAddModal(false);
               setAlertModal(true);
             } else {

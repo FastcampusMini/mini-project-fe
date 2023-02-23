@@ -21,7 +21,7 @@ const OrderListElement = ({ orderData, deleteOrderList }) => {
         </button>
       </div>
       <div className='flex flex-col gap-3'>
-        {orderData?.purchasedProductList?.map((value: any) => (
+        {orderData?.purchasedProductList?.map((value: PurchasedProductList) => (
           <OrderListCard
             orderList={value}
             setDeleteModal={setDeleteModal}
