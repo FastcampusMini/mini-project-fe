@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
@@ -7,7 +8,6 @@ import {
   useDeleteCartMutation,
 } from '../../store/api/cartApiSlice';
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
-import Navigation from '@components/ui/Navigation';
 import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,16 @@ const Mycart = () => {
   const { data: cart, isLoading, isFetching, isError } = useGetCartQuery('');
   const [deleteCart] = useDeleteCartMutation();
   const [addOrderList] = useAddOrderListMutation();
+  const [isValid, setIsValid] = useState(false);
+  const [allOrderModal, setAllOrderModal] = useState(false);
   console.log('cart', cart);
+  useEffect(() => {
+    if (cart?.data?.length !== 0) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [cart]);
   return (
     <>
       <article>
@@ -28,12 +37,14 @@ const Mycart = () => {
         </h1>
         <div className='h-[calc(100vh-270px)] scrollbar pr-5 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
           <div className='max-w-screen-sm h-fit'>
-            {cart?.data?.map((value: Daum) => (
+            {cart?.data?.map((value: DaumData) => (
               <CartElement
                 cartData={value}
                 deleteCart={deleteCart}
                 addOrderList={addOrderList}
                 key={value.basketId}
+                allOrderModal={allOrderModal}
+                setAllOrderModal={setAllOrderModal}
               />
             ))}
             {cart?.data?.length === 0 ? (
@@ -50,7 +61,17 @@ const Mycart = () => {
           </div>
         </div>
       </article>
-      <Navigation />
+      <button
+        type='submit'
+        className={`block text-center text-3xl ${
+          isValid ? `bg-yellow` : `bg-gray`
+        } text-white py-6 rounded-t-3xl border-t border-gray cursor-pointer bottom-0 absolute w-full left-0`}
+        onClick={() => {
+          setAllOrderModal(true);
+        }}
+      >
+        총 {cart?.data?.length}개 전체상품 신청하기
+      </button>
       {isError && navigate('/signin')}
     </>
   );

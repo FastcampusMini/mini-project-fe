@@ -26,7 +26,7 @@ const Id = () => {
   const [alertModal, setAlertModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [like, setLike] = useState(false);
-  const [detail, setDetail] = useState<Daum>();
+  const [detail, setDetail] = useState<IProduct>();
   console.log('detail : ', detail);
   const headers = {
     'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const Id = () => {
 
   useEffect(() => {
     {
-      wishList?.data?.map((value: Daum) => {
+      wishList?.data?.map((value: DaumData) => {
         if (value.productId === detail?.productId) setLike(true);
       });
     }
@@ -161,10 +161,12 @@ const Id = () => {
           description=''
           onConfirm={async () => {
             const find = order?.data?.find((value) => {
-              return (
-                value.purchasedProductList[0].originalProductId ===
-                detail?.productId
-              );
+              for (let i = 0; i < value.purchasedProductList.length; i++) {
+                return (
+                  value.purchasedProductList[i].originalProductId ===
+                  detail?.productId
+                );
+              }
             });
             if (find) {
               setOrderModal(false);

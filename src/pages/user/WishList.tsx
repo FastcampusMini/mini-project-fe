@@ -31,7 +31,7 @@ const WishList = () => {
         </h1>
         <div className='h-[calc(100vh-270px)] scrollbar pr-6 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
           <div className='max-w-screen-sm h-fit'>
-            {wishlist?.data?.map((value: Daum) => (
+            {wishlist?.data?.map((value: DaumData) => (
               <WishListElement
                 wishlistData={value}
                 addCart={addCart}

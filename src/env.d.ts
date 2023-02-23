@@ -19,10 +19,10 @@ interface IUserEditPayload {
 interface IData {
   code: number;
   message: string;
-  data: Daum[];
+  data: DaumData[];
 }
 
-interface Daum {
+interface DaumData {
   wishlistId?: number;
   basketId?: number;
   productId: number;
@@ -57,10 +57,10 @@ interface IOrderId {
 interface IOrderData {
   code: number;
   message: string;
-  data: Daum[];
+  data: DaumOrder[];
 }
 
-interface Daum {
+interface DaumOrder {
   orderId: number;
   purchaseDate: number[];
   purchasedProductList: PurchasedProductList[];
