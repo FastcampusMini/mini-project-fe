@@ -28,7 +28,7 @@ const SalaryField = ({ text, name, inputType = 'text', register, errorMsg, ...ot
       </label>
       <div className='flex items-center justify-between gap-2'>
         <input
-          className='text-black .placeholder-black40 border px-6 py-3 rounded-md w-full'
+          className='text-black .placeholder-black40 border border-black/20 px-6 py-3 rounded-md w-full focus:outline-yellow'
           type={inputType}
           placeholder={text}
           {...register(name)}
