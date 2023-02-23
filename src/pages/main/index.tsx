@@ -9,13 +9,8 @@ import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import SkeletonLoanProductCard from '@/components/SkeletonLoanProductCard';
 import { useLocation, useParams } from 'react-router-dom';
 import Confirmed from './_Confirmed';
-import useGetProducts from '../../libs/hooks/useGetProducts';
-import useToken from '@/libs/hooks/useToken';
-import useGetRecommendProducts from '@/libs/hooks/useGetRecommendsProducts';
-import useGetUser from '@/libs/hooks/useGetUser';
 import ReactLoading from 'react-loading';
 import { useSelector } from 'react-redux';
-import { useScroll } from 'framer-motion';
 import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
 
@@ -33,7 +28,7 @@ const Main = () => {
   // );
   const { isLoading: fetchingRecommends, fetchNextPage } = useInfiniteQuery(
     ['products', accessToken],
-    ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
+    ({ pageParam = 1 }) => ax.getRecommendsProducts(accessToken, pageParam),
     {
       getNextPageParam: (lastPage) => {
         try {
@@ -51,34 +46,40 @@ const Main = () => {
   );
 
   // 유저 정보가져오기
-  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
-    ax.getUser(accessToken)
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken)
   );
 
-  const ref = useRef();
+  const ref = useRef(null);
   const yScroll = useYScroll(ref);
   useEffect(() => {
-    console.log(yScroll);
+    if (yScroll > 0.95 && !fetchingRecommends) {
+      fetchNextPage();
+      console.log('무한스크롤', yScroll);
+    }
   }, [yScroll]);
   const handleTotal = () => {
     console.log('clicked');
-
-    // fetchNextPage();
   };
+
   return (
     <>
       <Confirmed />
       <main
-        className='flex flex-col overflow-y-scroll'
+        className='flex flex-col overflow-y-scroll  h-full pb-16'
         ref={ref}
         onClick={() => {
           console.log(yScroll);
-        }}
-      >
+        }}>
         <Nav left='arrow' right='arrow' />
         <div className='px-3 flex flex-col gap-5'>
           {fetchingUser ? (
-            <ReactLoading className='relative bottom-2 mx-auto my-auto' type='spinningBubbles' color='#000' />
+            <ReactLoading
+              className='relative bottom-2 mx-auto my-auto'
+              type='spinningBubbles'
+              color='#000'
+            />
           ) : (
             <TotalLoans userInfo={userInfo} onClick={handleTotal} />
           )}

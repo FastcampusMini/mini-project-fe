@@ -23,7 +23,7 @@ const LoanProductCard = ({ product }: LoanProductCardProps) => {
   return (
     <>
       <Link to={`/products/financial/${product.productId}`}>
-        <div className='w-full h-auto shadow-md rounded-lg border border-black/10'>
+        <div className='w-full h-auto shadow-md rounded-lg border border-black/10 hover:scale-95 transition-all'>
           <div className='flex h-36 justify-between px-4'>
             <div className='flex items-center'>
               {product.logo ? (
