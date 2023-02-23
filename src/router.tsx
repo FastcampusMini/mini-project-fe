@@ -13,6 +13,7 @@ import WishList from './pages/user/WishList';
 import OrderList from './pages/user/OrderList';
 import { ProtectedRoute } from './pages/ProtectedRoute';
 import { SuccessRoute } from './pages/ProtectedRoute';
+import NotFound from './pages/NotFound';
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);
 

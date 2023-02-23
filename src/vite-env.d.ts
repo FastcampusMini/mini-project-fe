@@ -79,11 +79,15 @@ type IBasketsData = {
 
 // 유저정보수정 리턴 데이터
 interface IPatchUserEditReturn {
-  oldPassword: string;
-  newPassword: string;
-  phone: string;
-  salary: number;
-  job: string;
+  code: number;
+  message: string;
+  data: {
+    oldPassword: string;
+    newPassword: string;
+    phone: string;
+    salary: number;
+    job: string;
+  };
 }
 
 // getUser 리턴
