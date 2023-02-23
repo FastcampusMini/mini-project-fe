@@ -72,24 +72,9 @@ const CartElement = ({
           title='신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            const find = order?.data?.find((value) => {
-              for (let i = 0; i < value.purchasedProductList.length; i++) {
-                return (
-                  value.purchasedProductList[i].originalProductId ===
-                  cartData.productId
-                );
-              }
-            });
-            console.log('find', find);
-            if (find) {
-              setAddModal(false);
-              setAlertModal(true);
-            } else {
-              console.log('신청왜안돼');
-              await addOrderList({ products_id_list: [cartData.productId] });
-              await deleteCart({ basketId: cartData.basketId });
-              setAddModal(false);
-            }
+            await addOrderList({ products_id_list: [cartData.productId] });
+            await deleteCart({ basketId: cartData.basketId });
+            setAddModal(false);
           }}
           onCancel={() => setAddModal(false)}
         />
@@ -99,25 +84,11 @@ const CartElement = ({
           title='전체 상품을 신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            const find = order?.data?.find((value) => {
-              for (let i = 0; i < value.purchasedProductList.length; i++) {
-                return (
-                  value.purchasedProductList[i].originalProductId ===
-                  cartData.productId
-                );
-              }
+            await addOrderList({ products_id_list: [...orderList] });
+            cartAll.data.map(async (value) => {
+              await deleteCart({ basketId: value.basketId });
             });
-            console.log('find', find);
-            if (find) {
-              setAllOrderModal(false);
-              setAlertModal(true);
-            } else {
-              await addOrderList({ products_id_list: [...orderList] });
-              cartAll.data.map(async (value) => {
-                await deleteCart({ basketId: value.basketId });
-              });
-              setAllOrderModal(false);
-            }
+            setAllOrderModal(false);
           }}
           onCancel={() => setAllOrderModal(false)}
         />

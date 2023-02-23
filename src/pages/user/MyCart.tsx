@@ -10,6 +10,8 @@ import {
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
 import { useNavigate } from 'react-router-dom';
+import { CgProfile } from 'react-icons/cg';
+import { AiFillHome } from 'react-icons/ai';
 
 const Mycart = () => {
   const navigate = useNavigate();
@@ -18,7 +20,6 @@ const Mycart = () => {
   const [addOrderList] = useAddOrderListMutation();
   const [isValid, setIsValid] = useState(false);
   const [allOrderModal, setAllOrderModal] = useState(false);
-  console.log('cart', cart);
   useEffect(() => {
     if (cart?.data?.length !== 0) {
       setIsValid(true);
@@ -28,9 +29,19 @@ const Mycart = () => {
   }, [cart]);
   return (
     <>
-      <article>
+      <article className='p-8'>
         <div className='flex justify-between'>
           <Nav left='arrow' />
+          <div className='flex gap-4'>
+            <CgProfile
+              onClick={() => navigate('/user')}
+              className='text-3xl cursor-pointer text-gray hover:text-yellow'
+            />
+            <AiFillHome
+              onClick={() => navigate('/main')}
+              className='text-3xl cursor-pointer text-gray hover:text-yellow'
+            />
+          </div>
         </div>
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           장바구니
@@ -62,9 +73,8 @@ const Mycart = () => {
         </div>
       </article>
       <button
-        type='submit'
         className={`block text-center text-3xl ${
-          isValid ? `bg-yellow` : `bg-gray`
+          isValid ? `bg-yellow` : `bg-gray cursor-not-allowed`
         } text-white py-6 rounded-t-3xl border-t border-gray cursor-pointer bottom-0 absolute w-full left-0`}
         onClick={() => {
           setAllOrderModal(true);
@@ -72,7 +82,7 @@ const Mycart = () => {
       >
         총 {cart?.data?.length}개 전체상품 신청하기
       </button>
-      {isError && navigate('/signin')}
+      {isError && navigate('/')}
     </>
   );
 };

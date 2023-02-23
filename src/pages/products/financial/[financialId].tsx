@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios, { Axios } from 'axios';
 import { ax } from '@libs/axiosClient';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import {
   useAddOrderListMutation,
@@ -18,7 +17,7 @@ import {
 
 const Id = () => {
   const [addOrderList] = useAddOrderListMutation();
-  const [addCart, { error }] = useAddCartMutation();
+  const [addCart] = useAddCartMutation();
   const [addWishList] = useAddWishListMutation();
   const [deleteWishList] = useDeleteWishListMutation();
   const { data: wishList } = useGetWishListQuery('');
@@ -29,6 +28,7 @@ const Id = () => {
   const [addModal, setAddModal] = useState(false);
   const [like, setLike] = useState(false);
   const [detail, setDetail] = useState<IProduct>();
+  const [find, setFind] = useState<any>();
 
   useEffect(() => {
     {
@@ -151,21 +151,8 @@ const Id = () => {
           title='신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            const find = order?.data?.find((value) => {
-              for (let i = 0; i < value.purchasedProductList.length; i++) {
-                return (
-                  value.purchasedProductList[i].originalProductId ===
-                  detail?.productId
-                );
-              }
-            });
-            if (find) {
-              setOrderModal(false);
-              setAlertModal(true);
-            } else {
-              await addOrderList({ products_id_list: [detail.productId] });
-              setOrderModal(false);
-            }
+            await addOrderList({ products_id_list: [detail.productId] });
+            setOrderModal(false);
           }}
           onCancel={() => setOrderModal(false)}
         />
@@ -175,13 +162,11 @@ const Id = () => {
           title='장바구니에 담으시겠습니까?'
           description=''
           onConfirm={async () => {
-            const res = await addCart({
+            const res: any = await addCart({
               productId: detail?.productId,
-            })
-              .unwrap()
-              .then((payload) => payload.code)
-              .catch((error) => console.error('rejected', error));
-            if (res === 500) {
+            });
+            console.log('뭘까', res);
+            if (res.data?.code === 500) {
               setAddModal(false);
               setAlertModal(true);
             } else {
