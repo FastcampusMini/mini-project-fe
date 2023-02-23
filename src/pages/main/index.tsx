@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import LoanProduct from '@components/LoanProductCard';
+import LoanProductCard from '@components/LoanProductCard';
 import { TotalLoans } from './TotalLoans';
 import Nav from '@components/Nav';
 import { ax } from '@/libs/axiosClient';
@@ -11,7 +11,7 @@ import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
 import Slider from './Slider';
 import SlideCard from './SlideCard';
-import { MdOutlineAccountCircle } from 'react-icons/md';
+import { MdChecklistRtl, MdOutlineAccountCircle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
@@ -87,7 +87,7 @@ const Main = () => {
     <>
       {fetchingUser && (
         <ReactLoading
-          className='relative bottom-2 mx-auto my-auto'
+          className='absolute bottom-2 mx-auto my-auto left-1/2 top-1/2'
           type='spinningBubbles'
           color='#000'
         />
@@ -104,42 +104,59 @@ const Main = () => {
               <strong>낮게!</strong>
             </p>
             <p className='mt-4 text-lg text-black60 font-semibold'>
-              대출 가능 :{' '}
+              {userInfo?.name ? userInfo?.name : '(익명)'}님 대출 가능한 금액 :{' '}
               <strong className='text-black80'>
                 {userInfo?.availableAmount}
               </strong>
               만 원
             </p>
           </div>
-
-          <div className='flex gap-3'>
-            <MdOutlineAccountCircle
-              onClick={() => navigate('/user')}
-              size={40}
-              className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
-            />
-            <AiOutlineShoppingCart
-              onClick={() => navigate('/user/mycart')}
-              size={40}
-              className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
-            />
+          <div className='space-y-2'>
+            <span className='text-black40 text-sm font-semibold'>
+              {userInfo?.email}
+            </span>
+            <div className='flex gap-3'>
+              <MdOutlineAccountCircle
+                onClick={() => navigate('/user')}
+                size={40}
+                className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
+              />
+              <AiOutlineShoppingCart
+                onClick={() => navigate('/user/mycart')}
+                size={40}
+                className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
+              />
+              <MdChecklistRtl
+                onClick={() => navigate('/user/wishlist')}
+                size={40}
+                className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
+              />
+            </div>
           </div>
         </div>
         <div className='bg-yellow w-[640px] h-96 absolute -z-40'>
           {/*배경 */}
         </div>
+        <h3 className='my-3 font-bold text-2xl mx-10'>추천상품</h3>
         <div className='flex flex-col gap-5'>
-          {recommendedProducts && (
+          {!!recommendedProducts.length && (
             <Slider
               products={recommendedProducts}
               fetchNextPage={fetchNextRecPage}
             />
           )}
+
           <div className='mx-10'>
             <h3 className='my-3 font-bold text-2xl'>대출상품</h3>
-            {loanProducts?.map((product: IProduct) => (
-              <LoanProduct key={product?.productId} product={product} />
-            ))}
+
+            <div className='grid grid-cols-2 gap-5 '>
+              {loanProducts?.map((product: IProduct) => (
+                <LoanProductCard key={product?.productId} product={product} />
+              ))}
+              {/* {[1, 2, 3, 4, 5, 6, 7].map((el) => (
+                <div className='bg-gray border h-20'>{el}</div>
+              ))} */}
+            </div>
           </div>
         </div>
       </main>

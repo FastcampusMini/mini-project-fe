@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Nav from '@components/Nav';
-import { joinNames } from '@libs/utils';
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { useForm, useController } from 'react-hook-form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { ax } from '@/libs/axiosClient';
 import { useNavigate } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
 import ConfirmBtn from '../../components/ui/ConfirmBtn';
-import Select from 'react-select';
+import { useSelector } from 'react-redux';
 
 const phonReg = /^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/;
 const options = [
@@ -31,6 +29,7 @@ interface IEditUserForm {
 }
 
 const Edit = () => {
+  const { accessToken } = useSelector((state: any) => state.authToken); // 토큰가져오기
   const {
     register,
     formState: { isSubmitting, isValid, errors },
@@ -45,7 +44,7 @@ const Edit = () => {
   } = useForm<IEditUserForm>();
 
   const navigate = useNavigate();
-  const { mutate } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: ({ accessToken, payload }: any) =>
       ax.patchUserEdit(accessToken, payload),
   });
@@ -67,9 +66,15 @@ const Edit = () => {
       salary: getValues().salary,
       job: getValues().job,
     };
-    console.log('유효! ', getValues());
-    // const result = await mutateAsync(payload as any);
-    cogoToast.success('유효한 양식입니다.');
+    // console.log('onValid ', getValues());
+    const result = await mutateAsync({ accessToken, payload });
+    if (result.code === 200) {
+      cogoToast.success(result.message);
+      navigate('/user');
+    } else {
+      console.log(result);
+    }
+
     // console.log(result);
     reset();
   };
@@ -81,7 +86,7 @@ const Edit = () => {
 
   return (
     <div className=''>
-      <Nav right='cancel' />
+      <Nav right='cancel' addClass='mt-5 mx-10' />
       <section className=''>
         <div className='px-5'>
           <h1 className='text-3xl mb-10'>
@@ -138,7 +143,6 @@ const Edit = () => {
                 {...register('phone', {
                   required: '필수입니다.',
                   pattern: phonReg,
-                  setValueAs: (value) => value?.replaceAll('-', ''),
                 })}
               />
               <span className='text-sm text-orange'>

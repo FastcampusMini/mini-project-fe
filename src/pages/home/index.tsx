@@ -17,13 +17,13 @@ const Home = () => {
       </div>
       <div className='flex flex-col items-center gap-4'>
         <button
-          className='border w-11/12 h-16 bg-yellow rounded-full text-white text-xl flex items-center justify-center px-5 hover:brightness-105'
+          className='border w-10/12 h-16 bg-yellow rounded-full text-white text-xl flex items-center justify-center px-5 hover:brightness-105'
           onClick={() => navigate('/signin')}>
           Sign in
         </button>
 
         <button
-          className='border w-11/12 h-16 bg-yellow/5 rounded-full text-yellow text-xl flex items-center justify-center px-5 hover:brightness-95'
+          className='border w-10/12 h-16 bg-yellow/5 rounded-full text-yellow text-xl flex items-center justify-center px-5 hover:brightness-95'
           onClick={() => navigate('/signup')}>
           Sign up
         </button>

@@ -35,7 +35,7 @@ export default function Slider({ products, fetchNextPage }: IProps) {
       className='relative overflow-hidden flex flex-col pb-5'
       ref={componentRef}>
       <div
-        className='flex transition-transform duration-500 ease-in-out w-auto h-auto gap-3'
+        className='flex transition-transform duration-500 ease-in-out w-auto h-auto gap-3 pt-3'
         style={{ transform: `translateX(${position}px)` }}>
         {products.map((product: IProduct, index) => (
           <SlideCard product={product} />
@@ -45,12 +45,12 @@ export default function Slider({ products, fetchNextPage }: IProps) {
         <BsChevronLeft
           onClick={slidePrev}
           size={40}
-          className='bg-light-gray/50 cursor-pointer rounded-full p-1 hover:bg-light-gray'
+          className='bg-light-gray/50 cursor-pointer rounded-full text-white p-1 hover:bg-light-gray hover:text-black20'
         />
         <BsChevronRight
           onClick={slideNext}
           size={40}
-          className='bg-light-gray/50 cursor-pointer rounded-full p-1 hover:bg-light-gray'
+          className='bg-light-gray/50 cursor-pointer rounded-full text-white p-1 hover:bg-light-gray hover:text-black20'
         />
       </div>
     </div>

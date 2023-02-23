@@ -3,15 +3,7 @@ import { useCookies } from 'react-cookie';
 import { instance } from './axios';
 
 /** 회원가입 api */
-export const signUp = async ({
-  name,
-  email,
-  password,
-  phone,
-  birth,
-  job,
-  salary,
-}) => {
+export const signUp = async ({ name, email, password, phone, birth, job, salary }) => {
   try {
     const response = await instance.post(
       '/register',
@@ -34,11 +26,15 @@ export const logIn = async ({ email, password }) => {
 };
 
 /** 로그아웃 api */
-export const logOut = async (accessToken: string) => {
+export const logOut = async (accessToken: string, refreshToken: string) => {
   try {
-    const response = await instance.post('/logout', {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    const response = await instance.post(
+      '/logout',
+      { refreshToken },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
     return response.data;
   } catch (error) {
     console.log(error);

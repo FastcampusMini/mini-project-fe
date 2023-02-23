@@ -26,24 +26,12 @@ const SignUpField = ({ text, name, inputType = 'text', register, errorMsg, ...ot
       <label className='mb-2' htmlFor={name}>
         {text}
       </label>
-      {name === 'salary' ? (
-        <div className='flex items-center justify-between gap-2'>
-          <input
-            className='text-black .placeholder-black40 border px-6 py-3 rounded-md w-full'
-            type={inputType}
-            placeholder={text}
-            {...register(name)}
-          />
-          <span className='basis-1/12 shrink-0'>만원</span>
-        </div>
-      ) : (
-        <input
-          className='text-black .placeholder-black40 border px-6 py-3 rounded-md'
-          type={inputType}
-          placeholder={text}
-          {...register(name)}
-        />
-      )}
+      <input
+        className='text-black .placeholder-black40 border border-black/20 px-6 py-3 rounded-md focus:outline-yellow'
+        type={inputType}
+        placeholder={text}
+        {...register(name)}
+      />
       {errorMsg && (
         <small role='alert' className='text-yellow mt-0 mb-1'>
           {errorMsg.message}
