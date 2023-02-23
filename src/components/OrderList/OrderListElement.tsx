@@ -5,6 +5,10 @@ const OrderListElement = ({ orderData, deleteOrderList }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
+      <div className='ml-2 mb-2 text-lg font-bold'>
+        {orderData.purchaseDate[0]}. {orderData.purchaseDate[1]}.{' '}
+        {orderData.purchaseDate[2]} 주문
+      </div>
       <div className='flex justify-between py-5 pl-5 border-solid border border-black/10 rounded-t-lg'>
         <div className='flex items-center'>
           <img
