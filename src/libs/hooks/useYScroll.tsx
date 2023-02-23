@@ -1,22 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { throttle } from 'lodash';
 
-function useYScroll(ref) {
+const useYScroll = (ref, wait = 100) => {
   const [yScroll, setYScroll] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop } = ref.current;
-      setYScroll(scrollTop);
-    };
+  const handleScroll = useMemo(() => {
+    return throttle(() => {
+      const { scrollTop, scrollHeight, clientHeight } = ref.current;
+      const scrollRatio = scrollTop / (scrollHeight - clientHeight);
+      setYScroll(scrollRatio);
+    }, wait);
+  }, [ref, wait]);
 
-    ref?.current?.addEventListener('scroll', handleScroll);
+  useEffect(() => {
+    ref.current.addEventListener('scroll', handleScroll);
 
     return () => {
       ref?.current?.removeEventListener('scroll', handleScroll);
+      handleScroll.cancel();
     };
-  }, [ref]);
+  }, [ref, handleScroll]);
 
   return yScroll;
-}
-
+};
 export default useYScroll;
