@@ -10,9 +10,14 @@ import { useSelector } from 'react-redux';
 import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
 import Slider from './Slider';
+import SlideCard from './SlideCard';
+import { MdOutlineAccountCircle } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 const Main = () => {
   const [loanProducts, setLoanProducts] = useState([]);
+  const navigate = useNavigate();
   const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   const { accessToken } = useSelector((state: any) => state.authToken); // 토큰가져오기
@@ -80,30 +85,62 @@ const Main = () => {
 
   return (
     <>
-      <Confirmed />
-      <main className='flex flex-col overflow-y-scroll  h-full pb-16' ref={ref}>
-        <Nav left='arrow' right='arrow' />
-        <div className='px-3 flex flex-col gap-5'>
-          {fetchingUser ? (
-            <ReactLoading
-              className='relative bottom-2 mx-auto my-auto'
-              type='spinningBubbles'
-              color='#000'
+      {fetchingUser && (
+        <ReactLoading
+          className='relative bottom-2 mx-auto my-auto'
+          type='spinningBubbles'
+          color='#000'
+        />
+      )}
+      <main
+        className='flex flex-col overflow-y-scroll  h-full pb-16 relative'
+        ref={ref}>
+        <Nav left='arrow' right='arrow' addClass='mt-5' />
+        <div className='flex justify-between px-10 mb-5'>
+          <div className=''>
+            <h1 className='font-bold text-4xl'>Let's Get a Loan!</h1>
+            <p className='text-black60'>
+              대출자격은 더 <strong>넓게!</strong> 금리는 더{' '}
+              <strong>낮게!</strong>
+            </p>
+            <p className='mt-4 text-lg text-black60 font-semibold'>
+              대출 가능 :{' '}
+              <strong className='text-black80'>
+                {userInfo?.availableAmount}
+              </strong>
+              만 원
+            </p>
+          </div>
+
+          <div className='flex gap-3'>
+            <MdOutlineAccountCircle
+              onClick={() => navigate('/user')}
+              size={40}
+              className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
             />
-          ) : (
-            <TotalLoans userInfo={userInfo} />
-          )}
-          <h3 className='mt-3 font-bold text-2xl'>추천상품</h3>
+            <AiOutlineShoppingCart
+              onClick={() => navigate('/user/mycart')}
+              size={40}
+              className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
+            />
+          </div>
+        </div>
+        <div className='bg-yellow w-[640px] h-96 absolute -z-40'>
+          {/*배경 */}
+        </div>
+        <div className='flex flex-col gap-5'>
           {recommendedProducts && (
             <Slider
               products={recommendedProducts}
               fetchNextPage={fetchNextRecPage}
             />
           )}
-          <h3 className='mt-3 font-bold text-2xl'>대출상품</h3>
-          {loanProducts?.map((product: IProduct) => (
-            <LoanProduct key={product.productId} product={product} />
-          ))}
+          <div className='mx-10'>
+            <h3 className='my-3 font-bold text-2xl'>대출상품</h3>
+            {loanProducts?.map((product: IProduct) => (
+              <LoanProduct key={product?.productId} product={product} />
+            ))}
+          </div>
         </div>
       </main>
     </>

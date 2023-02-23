@@ -10,7 +10,7 @@ function App() {
   return (
     <CookiesProvider>
       <DevLinks />
-      <main className='max-w-screen-sm h-screen overflow-y-hidden px-10 pt-10 border-gray shadow-md mx-auto relative border rounded-3xl'>
+      <main className='max-w-screen-sm h-screen overflow-y-hidden border-gray shadow-md mx-auto relative border'>
         <Outlet />
       </main>
     </CookiesProvider>
