@@ -22,8 +22,7 @@ const Search = ({ name, accessToken, searchTarget, searchKeyword, sortTarget, so
       }
     );
   if (!accessToken) {
-    console.log('액세스토큰 없음')
-    // return
+    return
     // return <div>No accessToken</div>;
   }
 

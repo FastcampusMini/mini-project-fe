@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {ax} from '@libs/axiosClient'
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useToken from '@/libs/hooks/useToken';
@@ -14,8 +15,6 @@ import {
 } from '@/store/api/wishlistApiSlice';
 
 const Id = () => {
-  const { accessToken } = useSelector((state: any) => state.authToken);
-  console.log(accessToken)
   const [addOrderList] = useAddOrderListMutation();
   const [addCart] = useAddCartMutation();
   const [addWishList] = useAddWishListMutation();
@@ -27,11 +26,7 @@ const Id = () => {
   const [alertModal, setAlertModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [like, setLike] = useState(false);
-  const [detail, setDetail] = useState<Daum>();
-
-  useEffect(() => {
-    getSearchResult();
-  }, []);
+  const [detail, setDetail] = useState<IProduct>();
 
   useEffect(() => {
     {
@@ -57,11 +52,15 @@ const Id = () => {
     }
   }, [like]);
 
-  async function getSearchResult() {
-    const BASEURI = `http://43.200.194.5:8080/api/products/details?products_id=${financialId}`;
-    const res = await axios(BASEURI);
-    setDetail(res.data.data);
-  }
+  useEffect(() => {
+    const getDetails = async (financialId: string | number) => {
+      const res = await ax.getProductsDetails(financialId)
+      setDetail(res);
+      console.log(res)
+    }
+    console.log(detail)
+    getDetails(financialId)
+  }, [])
 
   return (
     <div className='pt-16'>
