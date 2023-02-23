@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
-import { BsFillBookmarkHeartFill, BsFillCartCheckFill, BsFillTelephoneFill } from 'react-icons/bs';
+import {
+  BsFillBookmarkHeartFill,
+  BsFillCartCheckFill,
+  BsFillTelephoneFill,
+} from 'react-icons/bs';
 import { FaUserTimes, FaUserMinus } from 'react-icons/fa';
 import { MdAccountBalanceWallet, MdEmail, MdOutlineWork } from 'react-icons/md';
 import Navigation from '@components/ui/Navigation';
@@ -12,7 +16,6 @@ import { removeCookieToken } from '../../libs/Cookie';
 import { logOut } from '@/api/authApi';
 import { DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import DeleteAccountModal from '@/components/User/DeleteAccountModal';
-import useGetUser from '@/libs/hooks/useGetUser';
 import { ax } from '@/libs/axiosClient';
 import { useQuery } from '@tanstack/react-query';
 
@@ -25,8 +28,9 @@ const User = () => {
 
   const { accessToken } = useSelector((state: any) => state.authToken);
 
-  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
-    ax.getUser(accessToken)
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken)
   );
 
   //useGetUser(accessToken);
@@ -72,18 +76,18 @@ const User = () => {
 
         <div
           className='flex items-center gap-1 font-semibold text-gray cursor-pointer mb-6 mt-5 hover:text-yellow'
-          onClick={() => navigate('/user/edit')}
-        >
+          onClick={() => navigate('/user/edit')}>
           <p>내 프로필 수정하기</p>
           <IoIosArrowForward />
         </div>
 
-        <p className='text-lg font-semibold border-t pt-3 border-black5'>나의 프로필</p>
+        <p className='text-lg font-semibold border-t pt-3 border-black5'>
+          나의 프로필
+        </p>
         <div className='mb-6'>
           <div
             className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+            onClick={() => navigate('/user/wishlist')}>
             <div className='flex items-center gap-4'>
               <MdEmail className='text-yellow text-2xl' />
               <span>이메일</span>
@@ -92,8 +96,7 @@ const User = () => {
           </div>
           <div
             className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+            onClick={() => navigate('/user/wishlist')}>
             <div className='flex items-center gap-4'>
               <BsFillTelephoneFill className='text-yellow text-2xl' />
               <span>전화번호</span>
@@ -102,8 +105,7 @@ const User = () => {
           </div>
           <div
             className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+            onClick={() => navigate('/user/wishlist')}>
             <div className='flex items-center gap-4'>
               <MdOutlineWork className='text-yellow text-2xl' />
               <span>직업</span>
@@ -116,21 +118,19 @@ const User = () => {
         <div className='mb-6'>
           <div
             className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+            onClick={() => navigate('/user/wishlist')}>
             <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
             <span>관심상품</span>
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/mycart')}
-          >
+            onClick={() => navigate('/user/mycart')}>
             <BsFillCartCheckFill className='text-yellow text-2xl ' />
             <span>장바구니</span>
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/signup')}
+            onClick={() => navigate('/user/orderlist')}
           >
             <MdAccountBalanceWallet className='text-yellow text-2xl' />
             <span>신청한 상품 내역</span>
@@ -141,8 +141,7 @@ const User = () => {
         <div>
           <div
             className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
-            onClick={() => setOutModal(true)}
-          >
+            onClick={() => setOutModal(true)}>
             <FaUserMinus className='text-yellow text-2xl' />
             <span>로그아웃</span>
           </div>
@@ -150,8 +149,7 @@ const User = () => {
             className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
             onClick={() => {
               setDeleteModal(true);
-            }}
-          >
+            }}>
             <FaUserTimes className='text-yellow text-2xl' />
             <span>회원탈퇴</span>
           </div>

@@ -8,8 +8,10 @@ import {
 } from '@/store/api/orderApiSlice';
 import Navigation from '@components/ui/Navigation';
 import SkeletonOrderListElement from '@/components/OrderList/SkeletonOrderListElement';
+import { useNavigate } from 'react-router-dom';
 
 const OrderList = () => {
+  const navigate = useNavigate();
   const {
     data: order,
     isLoading,
@@ -25,15 +27,7 @@ const OrderList = () => {
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           신청 내역
         </h1>
-        {order?.data === null ? (
-          <EmptyCart>
-            <AiOutlineFileSearch className='text-7xl' />
-            <p className='text-center font-extrabold text-lg'>
-              신청내역이 없습니다.
-            </p>
-          </EmptyCart>
-        ) : null}
-        <div className='h-[calc(100vh-270px)] scrollbar pr-8 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
+        <div className='h-[calc(100vh-270px)] scrollbar pr-6 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
           <div className='max-w-screen-sm h-fit'>
             {order?.data?.map((value) => (
               <OrderListElement
@@ -42,13 +36,20 @@ const OrderList = () => {
                 deleteOrderList={deleteOrderList}
               />
             ))}
-            {(isLoading || isFetching || isError) && (
-              <SkeletonOrderListElement />
-            )}
+            {order?.data === null ? (
+              <EmptyCart>
+                <AiOutlineFileSearch className='text-7xl' />
+                <p className='text-center font-extrabold text-lg'>
+                  신청내역이 없습니다.
+                </p>
+              </EmptyCart>
+            ) : null}
+            {(isLoading || isFetching) && <SkeletonOrderListElement />}
           </div>
         </div>
       </article>
       <Navigation />
+      {isError && navigate('/signin')}
     </>
   );
 };
