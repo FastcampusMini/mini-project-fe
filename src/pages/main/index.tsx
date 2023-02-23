@@ -15,6 +15,7 @@ import useGetRecommendProducts from '@/libs/hooks/useGetRecommendsProducts';
 import useGetUser from '@/libs/hooks/useGetUser';
 import ReactLoading from 'react-loading';
 import { useSelector } from 'react-redux';
+import { access } from 'fs';
 import { useScroll } from 'framer-motion';
 import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
@@ -47,12 +48,13 @@ const Main = () => {
       onSuccess: (data) => {
         setDataPack(combinePagesContent(data.pages));
       },
-    }
+    },
   );
 
   // 유저 정보가져오기
-  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
-    ax.getUser(accessToken)
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken),
   );
 
   const ref = useRef();
@@ -78,7 +80,11 @@ const Main = () => {
         <Nav left='arrow' right='arrow' />
         <div className='px-3 flex flex-col gap-5'>
           {fetchingUser ? (
-            <ReactLoading className='relative bottom-2 mx-auto my-auto' type='spinningBubbles' color='#000' />
+            <ReactLoading
+              className='relative bottom-2 mx-auto my-auto'
+              type='spinningBubbles'
+              color='#000'
+            />
           ) : (
             <TotalLoans userInfo={userInfo} onClick={handleTotal} />
           )}

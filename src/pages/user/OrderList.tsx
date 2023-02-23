@@ -10,7 +10,12 @@ import Navigation from '@components/ui/Navigation';
 import SkeletonOrderListElement from '@/components/OrderList/SkeletonOrderListElement';
 
 const OrderList = () => {
-  const { data: order, isLoading, isFetching } = useGetOrderListQuery('');
+  const {
+    data: order,
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetOrderListQuery('');
   const [deleteOrderList] = useDeleteOrderListMutation();
   console.log('order', order);
   return (
@@ -28,14 +33,20 @@ const OrderList = () => {
             </p>
           </EmptyCart>
         ) : null}
-        {order?.data?.map((value) => (
-          <OrderListElement
-            orderData={value}
-            key={value.orderId}
-            deleteOrderList={deleteOrderList}
-          />
-        ))}
-        {(isLoading || isFetching) && <SkeletonOrderListElement />}
+        <div className='h-[calc(100vh-270px)] scrollbar pr-8 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
+          <div className='max-w-screen-sm h-fit'>
+            {order?.data?.map((value) => (
+              <OrderListElement
+                orderData={value}
+                key={value.orderId}
+                deleteOrderList={deleteOrderList}
+              />
+            ))}
+            {(isLoading || isFetching || isError) && (
+              <SkeletonOrderListElement />
+            )}
+          </div>
+        </div>
       </article>
       <Navigation />
     </>
