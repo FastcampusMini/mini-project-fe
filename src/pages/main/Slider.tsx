@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { MdRecommend } from 'react-icons/md';
+import SlideCard from './SlideCard';
 interface IProps {
   products: IProduct[];
   fetchNextPage: any;
@@ -30,37 +31,25 @@ export default function Slider({ products, fetchNextPage }: IProps) {
   };
 
   return (
-    <div className='relative overflow-hidden flex flex-col' ref={componentRef}>
+    <div
+      className='relative overflow-hidden flex flex-col pb-5'
+      ref={componentRef}>
       <div
-        className='flex transition-transform duration-500 ease-in-out w-full h-auto'
+        className='flex transition-transform duration-500 ease-in-out w-auto h-auto gap-3'
         style={{ transform: `translateX(${position}px)` }}>
         {products.map((product: IProduct, index) => (
-          <div
-            onClick={() => navigate(`/products/financial/${product.productId}`)}
-            key={index}
-            className={`w-[${
-              width / 4
-            }px] flex-shrink-0 p-4 bg-gray-200 shadow-lg rounded-lg m-2 flex items-center gap-3 relative hover:cursor-pointer hover:scale-95 transition-all`}>
-            <img src={product.logo} alt='' className='w-4 h-4' />
-            <div className='flex flex-col'>
-              <span className='font-semibold'>{product.name}</span>
-              <span className='text-sm font-semibold text-red'>
-                {product.price}만({product.rate}%)
-              </span>
-            </div>
-            <MdRecommend size={20} className='absolute left-0 top-3' />
-          </div>
+          <SlideCard product={product} />
         ))}
       </div>
-      <div className='flex absolute top-7 w-full justify-between'>
+      <div className='flex absolute bottom-0 w-full justify-between px-4'>
         <BsChevronLeft
           onClick={slidePrev}
-          size={30}
+          size={40}
           className='bg-light-gray/50 cursor-pointer rounded-full p-1 hover:bg-light-gray'
         />
         <BsChevronRight
           onClick={slideNext}
-          size={30}
+          size={40}
           className='bg-light-gray/50 cursor-pointer rounded-full p-1 hover:bg-light-gray'
         />
       </div>
