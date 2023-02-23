@@ -27,7 +27,12 @@ type IGetOrders = {
 
 // getSearch 의 인자중 하나
 interface ISearchInput {
-  name: string | number;
+  name?: string | number;
+  searchTarget?: string;
+  searchKeyword?: string | number;
+  sortTarget?: string; 
+  sortDirection?: string; 
+  isChecked?: boolean;
   page?: string | number;
 }
 

@@ -106,3 +106,11 @@ interface IPostRegisterReturn {
   message: string;
   data: string;
 }
+
+interface ISearchData {
+  searchTarget?: string;
+  searchKeyword?: string | number;
+  sortTarget?: string;
+  sortDirection?: string;
+  isChecked?: boolean;
+}

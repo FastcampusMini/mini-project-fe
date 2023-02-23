@@ -2,137 +2,61 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import {ax} from '@libs/axiosClient'
+import { useSelector } from 'react-redux';
 import { CgSearch } from 'react-icons/cg';
+import Search from '@/components/Search';
 import ProductCard from '../../../components/FinancialProdCard';
-
-interface ISearchData {
-  searchTarget?: string;
-  searchKeyword?: string | number;
-  keyword?: string | number;
-  isChecked?: boolean;
-}
+import ConfirmModal from '@/components/ui/ConfirmModal';
+import Navigation from '@components/ui/Navigation';
 
 const Financial = () => {
-  const initailData = {
-    searchTarget: null,
-    searchKeyword: null,
-    keyword: null,
-    isChecked: false,
-  };
-  // 내게 맞는 상품 보기 체크했을때 로그인 안된 상태라면 로그인 창으로 이동
-  const navigate = useNavigate();
+  const [searchTarget, setSearchTarget] = useState()
+  const [searchKeyword, setSearchKeyword] = useState()
+  const [sortTarget, setSortTarget] = useState()
+  const [sortDirection, setSortDirection] = useState()
+  const [isChecked, setIsChecked] = useState()
 
-  const [products, setProducts] = useState([]);
-
-  const [keyword, setKeyword] = useState([]);
-  const [page, setPage] = useState(1);
-
+  const navigate = useNavigate()
+  const [modal, setModal] = useState(false);  
+  const { accessToken } = useSelector((state: any) => state.authToken);
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    console.log(data.searchTarget, data.searchKeyword, data.isChecked);
-    getSearchResult(data);
+
+  const onSubmit = async (data:any) => {
+    console.log(data)
+    setSearchTarget(data.searchTarget)
+    setSearchKeyword(data.searchKeyword)
+    setSortTarget(data.searchTarget)
+    setSortDirection(data.sortDirection)
+    setIsChecked(data.isChecked)
   };
-
-  const getSearchResult = async (data) => {
-    const BASEURI = `http://43.200.194.5:8080/search`;
-    const { searchTarget, searchKeyword, isChecked } = data;
-    const reqURI = `${BASEURI}?searchTarget=${searchTarget}&searchKeyword=${searchKeyword}&isChecked=${isChecked}&page=${page}`;
-    const res = await axios(reqURI);
-    console.log(reqURI);
-    console.log(res);
-    if (res.data?.code === 200) {
-      setProducts(res.data.data.content);
-    }
-  };
-
-  const addKeyword = (e) => {
-    const clicked = e.target.value;
-    setKeyword(e.target.value);
-
-    // getSearchResult(data)
-  };
-
-  // const [selected, setSelected] = useState('');
-  // const handleChangeSelect = (e) => {
-  //   setSelected(e.target.value)
-  //   console.log(e.target.value)
-  //   // setKeyword(e.target.options[e.target.selectedIndex].text)
-  // }
-  // const handleChangeWord = (e) => {
-  //   setKeyword(e.target.value)
-  //   console.log(e.target.value)
-  // }
-  // const [isChecked, setIsChecked] = useState('');
-  // const handleChangechecked = (e) => {
-  //   // if(accessToken) {
-  //     // setIsChecked(e.target.checked)
-  //     // console.log(e.target.checked)
-  //   // } else {
-  //   //   navigate('/')
-  //   // }
-  // }
-
-  useEffect(() => {
-    getSearchResult(initailData);
-  }, []);
 
   return (
     <div>
-      <h2 className='mt-8 sm:mb-8 text-3xl font-bold'>태그로 찾기</h2>
-      <div className='mb-16 flex flex-wrap gap-3'>
-        {['대출', '소액', '신용', '부동산'].map((data, i) => (
-          <Button key={i} data={data} addKeyword={addKeyword} isOn={false} />
-        ))}
-      </div>
-
       <h2 className='mt-8 text-3xl font-bold'>상품 검색</h2>
       <div className='mb-16'>
         <form
-          onSubmit={handleSubmit(onSubmit)}
           className='flex flex-wrap gap-3 rounded-[10px]'
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className='w-full sm:text-right text-left'>
             <label htmlFor='available' className=''>
               내가 가입할 수 있는 상품만 보기
-            </label>
             <input
               type='checkbox'
               id='available'
               className='ml-2'
               {...register('isChecked')}
-              // onChange={handleChangechecked}
+              name='isChecked'
             />
-            {/* ////////////////////////////////////////////////////////// */}
-            <label htmlFor='available2' className=''>
-              오름차순
             </label>
-            <input
-              type='checkbox'
-              id='available2'
-              className='ml-2'
-              // {...register('isChecked')}
-              // onChange={handleChangechecked}
-            />
-            <label htmlFor='available3' className=''>
-              내림차순
-            </label>
-            <input
-              type='checkbox'
-              id='available3'
-              className='ml-2'
-              // {...register('isChecked')}
-              // onChange={handleChangechecked}
-            />
           </div>
-
           <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
             <select
-              {...register('searchTarget')}
               className='pl-3 py-3 outline-none focus:outline-none'
-              // onChange={handleChangeSelect}
-              // value={selected}
-            >
-              {/* <option hidden>선택하세요</option> */}
+              {...register('searchTarget')}
+              name='searchTarget'
+              >
               <option value={''} defaultChecked={true}>
                 전체
               </option>
@@ -141,15 +65,25 @@ const Financial = () => {
               <option value={'price'}>대출한도</option>
             </select>
           </div>
-
+          <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
+            <select 
+              className='pl-3 py-3 outline-none focus:outline-none'
+              {...register('sortDirection')} 
+              name='sortDirection'
+            >
+              <option value={''}>정렬</option>
+              <option value={'ASC'}>오름차순</option>
+              <option value={'DESC'}>내림차순</option>
+            </select>
+          </div>
           <div className='relative grow'>
             <input
               type='text'
               // required
               className='pl-4 pr-4 py-3 w-full rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus-within:border-yellow focus-within:border-2 valid:border-2'
               placeholder='원하는 상품을 검색하세요'
-              // onChange={handleChangeWord}
               {...register('searchKeyword')}
+              name='searchKeyword'
             />
             <button
               className='absolute top-0 bottom-0 right-4 text-black40'
@@ -160,42 +94,25 @@ const Financial = () => {
           </div>
         </form>
       </div>
-
       <div className='mb-16'>
-        {products.length > 0 ? (
-          products.map((data) => (
-            <ProductCard key={data.productId} data={data} />
-          ))
-        ) : (
-          <div className='my-40 flex justify-center items-center text-black40 font-bold text-lg'>
-            등록된 상품이 없습니다.
-          </div>
-        )}
+        <div className='h-[calc(100vh-360px)] scrollbar pr-8 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
+          {
+            <Search name='' searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} accessToken={accessToken} />
+          }
+        </div>
       </div>
+      <Navigation />
+      <>
+        {modal && (
+          <ConfirmModal
+            title='로그인이 필요한 서비스입니다.' 
+            description='로그인 화면으로 이동하시겠습니까?'
+            onConfirm={() => navigate('/signin')}
+            onCancel={() => setModal(false)}
+          />
+        )}
+      </>
     </div>
-  );
-};
-
-const Button = ({ data, addKeyword, isOn }) => {
-  const [isActive, setIsActive] = useState(isOn);
-  const btnToggle = (e) => {
-    setIsActive((prev) => !prev);
-    addKeyword(e);
-  };
-  return (
-    <button
-      type='button'
-      className={`px-6 py-2 rounded-full text-lg text-black40
-        ${
-          isActive
-            ? 'border-2 border-yellow text-yellow font-bold'
-            : 'border border-light-gray'
-        }`}
-      onClick={btnToggle}
-      value={data}
-    >
-      {data}
-    </button>
   );
 };
 

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios, { Axios } from 'axios';
+import { ax } from '@libs/axiosClient';
 import { useParams } from 'react-router-dom';
-import ConfirmModal from '../../../components/ui/ConfirmModal';
+import { useSelector } from 'react-redux';
+import ConfirmModal from '@/components/ui/ConfirmModal';
 import {
   useAddOrderListMutation,
   useGetOrderListQuery,
@@ -27,18 +29,6 @@ const Id = () => {
   const [addModal, setAddModal] = useState(false);
   const [like, setLike] = useState(false);
   const [detail, setDetail] = useState<IProduct>();
-  console.log('detail : ', detail);
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization:
-      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc3MDcxMzEwLCJleHAiOjE2NzcwNzMxMTAsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.feqq__n-_TGXZqQG3G0BxtwQvfl-nfOS4_DoJfcf0pA',
-  };
-
-  useEffect(() => {
-    // console.log('useEffect 실행');
-    getSearchResult();
-    // console.log('detail : ', detail);
-  }, []);
 
   useEffect(() => {
     {
@@ -64,14 +54,15 @@ const Id = () => {
     }
   }, [like]);
 
-  async function getSearchResult() {
-    console.log('getSearchResult 실행');
-    const BASEURI = `http://43.200.194.5:8080/api/products/details?products_id=${financialId}`;
-    const res = await axios(BASEURI, {
-      headers,
-    });
-    setDetail(res.data.data);
-  }
+  useEffect(() => {
+    const getDetails = async (financialId: string | number) => {
+      const res = await ax.getProductsDetails(financialId);
+      setDetail(res);
+      console.log(res);
+    };
+    console.log(detail);
+    getDetails(financialId);
+  }, []);
 
   return (
     <div className='pt-16'>
