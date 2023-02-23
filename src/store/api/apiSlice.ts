@@ -5,16 +5,18 @@ import { getCookieToken } from '@/libs/Cookie';
 import { requestToken } from '@/api/authApi';
 
 export const base = fetchBaseQuery({
-  baseUrl: 'http://43.200.194.5:8080/api',
+  baseUrl: 'https://kingtaeyoon.shop/api',
   prepareHeaders: async (headers, { getState }) => {
     const {
       authToken: { accessToken },
     }: any = getState();
+    console.log('accessToken', accessToken);
     let token: string;
     if (!accessToken) {
       const refresh = await requestToken(getCookieToken());
       token = refresh.data.accessToken;
     }
+    console.log('token', token);
     headers.set(
       'Authorization',
       accessToken ? `Bearer ${accessToken}` : `Bearer ${token}`,

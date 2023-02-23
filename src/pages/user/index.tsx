@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
-import { BsFillBookmarkHeartFill, BsFillCartCheckFill, BsFillTelephoneFill } from 'react-icons/bs';
+import {
+  BsFillBookmarkHeartFill,
+  BsFillCartCheckFill,
+  BsFillTelephoneFill,
+} from 'react-icons/bs';
 import { FaUserTimes, FaUserMinus } from 'react-icons/fa';
 import { MdAccountBalanceWallet, MdEmail, MdOutlineWork } from 'react-icons/md';
 import Navigation from '@components/ui/Navigation';
@@ -25,8 +29,9 @@ const User = () => {
 
   const { accessToken } = useSelector((state: any) => state.authToken);
 
-  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
-    ax.getUser(accessToken)
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken),
   );
 
   //useGetUser(accessToken);
@@ -78,7 +83,9 @@ const User = () => {
           <IoIosArrowForward />
         </div>
 
-        <p className='text-lg font-semibold border-t pt-3 border-black5'>나의 프로필</p>
+        <p className='text-lg font-semibold border-t pt-3 border-black5'>
+          나의 프로필
+        </p>
         <div className='mb-6'>
           <div
             className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
@@ -130,7 +137,7 @@ const User = () => {
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/signup')}
+            onClick={() => navigate('/user/orderlist')}
           >
             <MdAccountBalanceWallet className='text-yellow text-2xl' />
             <span>신청한 상품 내역</span>
