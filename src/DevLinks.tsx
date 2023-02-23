@@ -4,7 +4,6 @@ import { joinNames } from './libs/utils';
 import { useForm } from 'react-hook-form';
 import { ax } from './libs/axiosClient';
 import orderData from '@libs/mockup/getSearch.json';
-import useGetOrders from './libs/hooks/useGetOrders';
 import { useMutation } from '@tanstack/react-query';
 import Search from './components/Search';
 import { useSelector } from 'react-redux';

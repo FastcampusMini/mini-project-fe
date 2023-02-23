@@ -35,7 +35,8 @@ const Main = () => {
         }
       },
       onSuccess: (data) => {
-        // console.log(data.pages[0].content);
+        // combinePagesContent : data.pages 페이지안에서 content 배열을 하나로 합쳐서 반환한다.
+        // 그 반환값을 loanProducts 상태에 저장한다.
         setLoanProducts(combinePagesContent(data.pages));
       },
     }
