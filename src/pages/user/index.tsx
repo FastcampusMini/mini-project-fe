@@ -130,7 +130,8 @@ const User = () => {
           </div>
           <div
             className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/signup')}>
+            onClick={() => navigate('/user/orderlist')}
+          >
             <MdAccountBalanceWallet className='text-yellow text-2xl' />
             <span>신청한 상품 내역</span>
           </div>

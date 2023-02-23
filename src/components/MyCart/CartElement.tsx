@@ -15,31 +15,32 @@ const CartElement = ({ cartData, deleteCart, addOrderList }) => {
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       <Card data={cartData}>
         <div className='flex'>
-          <div className='flex flex-col font-bold text-orange items-end gap-2 mx-4 mt-1 text-lg'>
+          <div className='flex flex-col font-bold text-orange items-end gap-4 mx-4 mt-1 text-lg'>
             <span>최저 {cartData.rate}%</span>
             <span>{cartData.price}만원</span>
           </div>
-          <div className='pointer-events-auto'>
-            <TiDeleteOutline
+          <div className='pointer-events-auto flex flex-col items-center'>
+            <button
               onClick={() => {
                 setDeleteModal(true);
               }}
-              className='text-4xl text-[#E5E7EB] font-light cursor-pointer'
-            />
+              className='w-24 h-9 rounded border-2 border-black40 text-sm font-semibold mb-2 text-[#333333]'
+            >
+              삭제
+            </button>
+            <button
+              onClick={() => {
+                setAddModal(true);
+              }}
+              className='w-24 h-9 rounded border-2 border-orange text-sm font-semibold mb-2 text-orange'
+            >
+              <span className='flex items-center justify-center gap-1.5'>
+                신청하기
+              </span>
+            </button>
           </div>
         </div>
       </Card>
-      <div className='flex items-center justify-between px-3 py-1 border border-t-0 border-black5 rounded-b-lg bg-[#f3f3f3] '>
-        <p className='font-semibold text-black60'>{cartData.detail}</p>
-        <button
-          onClick={() => {
-            setAddModal(true);
-          }}
-          className='bg-light-orange px-6 py-3 text-white font-bold rounded'
-        >
-          신청하기
-        </button>
-      </div>
       {deleteModal && (
         <ConfirmModal
           title='삭제하시겠습니까?'

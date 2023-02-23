@@ -13,7 +13,7 @@ const ICON_SIZE = 28;
 const Nav = ({ left, right }: INavProps) => {
   const navigate = useNavigate();
   return (
-    <nav className='mb-6 flex justify-between px-6'>
+    <nav className='mb-10 flex justify-between px-3'>
       {left === 'arrow' ? (
         <AiOutlineArrowLeft
           size={ICON_SIZE}
