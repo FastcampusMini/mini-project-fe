@@ -1,13 +1,23 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import { setCredentials, logOut } from "../../features/authSlice/authSlice";
+import { ax } from '@/libs/axiosClient';
+import { getCookieToken } from '@/libs/Cookie';
+import { requestToken } from '@/api/authApi';
 
 export const base = fetchBaseQuery({
   baseUrl: 'http://43.200.194.5:8080/api',
-  prepareHeaders: (headers) => {
-    // 나중에 cookie에서 가져오는걸로 변경하기
+  prepareHeaders: async (headers, { getState }) => {
+    const {
+      authToken: { accessToken },
+    }: any = getState();
+    let token: string;
+    if (!accessToken) {
+      const refresh = await requestToken(getCookieToken());
+      token = refresh.data.accessToken;
+    }
     headers.set(
       'Authorization',
-      `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJGYXN0Q2FtcHVzIiwiaWF0IjoxNjc2OTEyNjIzLCJleHAiOjE2NzY5MTQ0MjMsImVtYWlsIjoibmlrZUBuYXZlci5jb20ifQ.584EJsgERN8gPGJpoMaLxr9Pmn7UlXEm8ob16wTMExE`
+      accessToken ? `Bearer ${accessToken}` : `Bearer ${token}`,
     );
     headers.set('Content-Type', 'application/json');
     return headers;

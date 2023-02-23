@@ -8,6 +8,7 @@ import { ax } from '@/libs/axiosClient';
 import { useNavigate } from 'react-router-dom';
 import useToken from '@/libs/hooks/useToken';
 import cogoToast from 'cogo-toast';
+import ConfirmBtn from '../../components/ui/ConfirmBtn';
 
 const phonReg = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 interface IEditUserForm {
@@ -23,12 +24,11 @@ const Edit = () => {
   // const { accessToken }: any = useToken();
   const navigate = useNavigate();
   const { mutate } = useMutation({
-    mutationFn: ({ accessToken, payload }: any) =>
-      ax.patchUserEdit(accessToken, payload),
+    mutationFn: ({ accessToken, payload }: any) => ax.patchUserEdit(accessToken, payload),
   });
   const {
     register,
-    formState: { errors },
+    formState: { isSubmitting, isValid, errors },
     watch,
     handleSubmit,
     reset,
@@ -67,36 +67,31 @@ const Edit = () => {
     console.log(getValues());
     console.log('errors>>', errors);
   };
+
   return (
     <>
       <Nav left='arrow' right='arrow' />
-      <section className='flex flex-col relative h-auto pb-20 justify-between'>
+      <section>
         <div className='px-5'>
           <h1 className='text-3xl mb-10'>
             <strong>추가정보</strong> 변경하기
           </h1>
-          <form
-            className='flex flex-col gap-4'
-            onSubmit={handleSubmit(onValid, onInvalid)}>
+          <form className='flex flex-col gap-4' onSubmit={handleSubmit(onValid, onInvalid)}>
             <div>
               <span className='font-semibold flex my-2 text-lg'>
                 기존 비밀번호 <span className=' text-red'>*</span>
               </span>
               <input
                 type='text'
-                className='border border-black border-[2px] rounded-md w-full h-12 px-4'
+                className='border-black border-[2px] rounded-md w-full h-12 px-4'
                 {...register('oldPassword', {
                   required: '필수입니다.',
                 })}
               />
-              <span className='text-sm text-orange'>
-                {errors.oldPassword?.message}
-              </span>
+              <span className='text-sm text-orange'>{errors.oldPassword?.message}</span>
             </div>
             <div>
-              <span className='font-semibold flex my-2 text-lg'>
-                새 비밀번호
-              </span>
+              <span className='font-semibold flex my-2 text-lg'>새 비밀번호</span>
               <div className='space-y-2'>
                 <input
                   type='text'
@@ -112,13 +107,11 @@ const Edit = () => {
                     required: '필수입니다.',
                   })}
                 />
-                <span className='text-sm text-orange'>
-                  {errors.newPassword ? '일치하지 않았습니다' : ''}
-                </span>
+                <span className='text-sm text-orange'>{errors.newPassword ? '일치하지 않았습니다' : ''}</span>
               </div>
             </div>
             <div>
-              <span className='font-semibold flex my-2 text-lg'></span>
+              <span className='font-semibold flex my-2 text-lg'>전화번호</span>
               <input
                 placeholder="'-'빼고 입력하세요"
                 type='text'
@@ -129,9 +122,7 @@ const Edit = () => {
                   setValueAs: (value) => value?.replaceAll('-', ''),
                 })}
               />
-              <span className='text-sm text-orange'>
-                {errors.phone && '유효한 번호를 입력해주세요'}
-              </span>
+              <span className='text-sm text-orange'>{errors.phone && '유효한 번호를 입력해주세요'}</span>
             </div>
 
             <div>
@@ -143,9 +134,7 @@ const Edit = () => {
                   required: '필수입니다.',
                 })}
               />
-              <span className='text-sm text-orange'>
-                {errors.oldPassword?.message}
-              </span>
+              <span className='text-sm text-orange'>{errors.oldPassword?.message}</span>
             </div>
             <div>
               <span className='font-semibold flex my-2 text-lg'>연소득</span>
@@ -165,13 +154,9 @@ const Edit = () => {
                 />
                 <span className='basis-1/12 shrink-0'>만원</span>
               </div>
-              <span className='text-sm text-orange'>
-                {errors.salary?.message}
-              </span>
+              <span className='text-sm text-orange'>{errors.salary?.message}</span>
             </div>
-            <button className='w-full h-16 bg-yellow text-white font-semibold text-lg text-xl bottom-0 mt-10 mb-5'>
-              확인
-            </button>
+            <ConfirmBtn isSubmitting={isSubmitting} isValid={isValid} />
           </form>
         </div>
       </section>

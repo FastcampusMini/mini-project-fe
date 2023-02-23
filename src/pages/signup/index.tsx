@@ -9,7 +9,7 @@ import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../../api/authApi';
 import SalaryField from '@/components/SignUp/SalaryField';
-
+import cogoToast from 'cogo-toast';
 interface ISignUpForm {
   name: string;
   email: string;
@@ -29,7 +29,7 @@ const SignUp = () => {
       .string()
       .required('이름은 필수 입력입니다.')
       .min(2, '2글자 이상 입력해주세요.')
-      .max(10),
+      .max(10, '10글자 이하로 입력해주세요.'),
     email: yup
       .string()
       .email('이메일 형식이 맞지 않습니다.')
@@ -39,7 +39,7 @@ const SignUp = () => {
       .required('비밀번호는 필수 입력입니다.')
       .matches(
         regex.password,
-        '숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!'
+        '숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!',
       ),
     checkPw: yup
       .string()
@@ -50,7 +50,7 @@ const SignUp = () => {
       .required('전화번호는 필수 입력입니다.')
       .matches(
         regex.phone,
-        '잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.'
+        '잘못된 휴대폰 번호입니다. 숫자와 - 를 포함해서 입력하세요.',
       ),
     job: yup.string().required('직업은 필수 선택입니다.'),
     salary: yup
@@ -94,7 +94,7 @@ const SignUp = () => {
     job,
     salary,
   }) => {
-    salary = salary * 10000;
+    // salary = salary * 10000;
     const response = await signUp({
       name,
       email,
@@ -106,26 +106,29 @@ const SignUp = () => {
     });
     console.log(response);
     if (response.code === 200) {
-      // alert(response.message);
+      cogoToast.info(response.message);
+      alert(response.message);
       navigate('/signin');
     } else {
-      // alert(response.message);
+      cogoToast.info(response.message);
     }
   };
 
   return (
-    <>
-      <div>
-        <p
-          className='text-right mb-7 text-lg font-semibold cursor-pointer'
-          onClick={() => navigate('/')}>
-          취소
-        </p>
-        <h1 className='text-3xl mb-10'>
-          <span className='font-semibold'>회원 정보</span>
-          <span>를 입력해 주세요</span>
-        </h1>
-        <form className='flex flex-col' onSubmit={handleSubmit(submitForm)}>
+    <div>
+      <p
+        className='text-right mb-7 text-lg font-semibold cursor-pointer'
+        onClick={() => navigate('/')}
+      >
+        취소
+      </p>
+      <h1 className='text-3xl mb-10'>
+        <span className='font-semibold'>회원 정보</span>
+        <span>를 입력해 주세요</span>
+      </h1>
+
+      <form className='flex flex-col' onSubmit={handleSubmit(submitForm)}>
+        <div className='px-3 h-[calc(100vh-270px)] overflow-y-scroll scrollbar-thumb-black/20 scrollbar-track-black/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
           <SignUpField
             text={'이름'}
             name={'name'}
@@ -192,14 +195,10 @@ const SignUp = () => {
             register={register}
             errorMsg={errors.salary}
           />
-          <ConfirmBtn
-            type='scroll'
-            isSubmitting={isSubmitting}
-            isValid={isValid}
-          />
-        </form>
-      </div>
-    </>
+          <ConfirmBtn isSubmitting={isSubmitting} isValid={isValid} />
+        </div>
+      </form>
+    </div>
   );
 };
 

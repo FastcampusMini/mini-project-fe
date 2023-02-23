@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import LoanProduct from '@components/LoanProductCard';
 import { TotalLoans } from './TotalLoans';
 import FNB from '@components/FNB/index';
@@ -13,6 +13,12 @@ import useGetProducts from '../../libs/hooks/useGetProducts';
 import useToken from '@/libs/hooks/useToken';
 import useGetRecommendProducts from '@/libs/hooks/useGetRecommendsProducts';
 import useGetUser from '@/libs/hooks/useGetUser';
+import ReactLoading from 'react-loading';
+import { useSelector } from 'react-redux';
+import { access } from 'fs';
+import { useScroll } from 'framer-motion';
+import useYScroll from '@/libs/hooks/useYScroll';
+import { combinePagesContent } from '@/libs/utils';
 
 const joiningPagesContent = (pages) => {
   let result = [];
@@ -24,8 +30,9 @@ const joiningPagesContent = (pages) => {
   return result;
 };
 const Main = () => {
-  const [products, setProducts] = useState([]);
-  const { accessToken } = useToken(); // 토큰가져오기
+  const [dataPack, setDataPack] = useState([]);
+  const { accessToken } = useSelector((state: any) => state.authToken); // 토큰가져오기
+
   // const { data, fetchNextPage } = useInfiniteQuery(
   //   [products],
   //   ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
@@ -34,33 +41,51 @@ const Main = () => {
   //     onSuccess: (data) => console.log('테스트onSucc ', data),
   //   }
   // );
-  const {
-    isLoading: fetchingRecommends,
-    fetchNextPage,
-    dataPack,
-  } = useGetProducts(accessToken, {
-    // onSuccess: (data) => {
-    //   console.log(data);
-    //   let result = [];
-    //   for (let page of data.pages) {
-    //     result = [...result, ...page?.content];
-    //   }
-    //   setProducts(result);
-    // },
-  });
+  const { isLoading: fetchingRecommends, fetchNextPage } = useInfiniteQuery(
+    ['products', accessToken],
+    ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
+    {
+      getNextPageParam: (lastPage) => {
+        try {
+          if (!lastPage) return;
+          if (lastPage.pageNumber === lastPage.totalPages) return;
+          return lastPage.pageNumber + 1;
+        } catch (err) {
+          throw Error(err);
+        }
+      },
+      onSuccess: (data) => {
+        setDataPack(combinePagesContent(data.pages));
+      },
+    },
+  );
 
   // 유저 정보가져오기
-  const { data: userInfo, isLoading: fetchingUser } = useGetUser(accessToken);
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken),
+  );
 
+  const ref = useRef();
+  const yScroll = useYScroll(ref);
+  useEffect(() => {
+    console.log(yScroll);
+  }, [yScroll]);
   const handleTotal = () => {
     console.log('clicked');
-    fetchNextPage();
-  };
 
+    // fetchNextPage();
+  };
   return (
     <>
       <Confirmed />
-      <main className='flex flex-col'>
+      <main
+        className='flex flex-col overflow-y-scroll'
+        ref={ref}
+        onClick={() => {
+          console.log(yScroll);
+        }}
+      >
         <Nav left='arrow' right='arrow' />
         <div className='px-3 flex flex-col gap-5'>
           {fetchingUser ? (
