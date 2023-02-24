@@ -41,30 +41,29 @@ const Mycart = () => {
           </div>
         </div>
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>장바구니</h1>
-        <div className='h-[calc(100vh-270px)] scrollbar pr-5 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
-          <div className='max-w-screen-sm h-fit'>
-            {cart?.data?.map((value: DaumData) => (
-              <CartElement
-                cartData={value}
-                deleteCart={deleteCart}
-                addOrderList={addOrderList}
-                key={value.basketId}
-                allOrderModal={allOrderModal}
-                setAllOrderModal={setAllOrderModal}
-              />
-            ))}
-            {cart?.data?.length === 0 ? (
-              <EmptyCart>
-                <MdOutlineShoppingCart className='text-7xl' />
-                <p className='text-center font-extrabold text-lg'>
-                  장바구니에
-                  <br />
-                  담긴 상품이 없습니다.
-                </p>
-              </EmptyCart>
-            ) : null}
-            {(isLoading || isFetching) && <SkeletonWishListElement />}
-          </div>
+
+        <div className='max-w-screen-sm h-fit'>
+          {cart?.data?.map((value: DaumData) => (
+            <CartElement
+              cartData={value}
+              deleteCart={deleteCart}
+              addOrderList={addOrderList}
+              key={value.basketId}
+              allOrderModal={allOrderModal}
+              setAllOrderModal={setAllOrderModal}
+            />
+          ))}
+          {cart?.data?.length === 0 ? (
+            <EmptyCart>
+              <MdOutlineShoppingCart className='text-7xl' />
+              <p className='text-center font-extrabold text-lg'>
+                장바구니에
+                <br />
+                담긴 상품이 없습니다.
+              </p>
+            </EmptyCart>
+          ) : null}
+          {(isLoading || isFetching) && <SkeletonWishListElement />}
         </div>
       </article>
       <button
