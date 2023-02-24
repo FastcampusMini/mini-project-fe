@@ -47,7 +47,7 @@ const Main = () => {
         // 그 반환값을 loanProducts 상태에 저장한다.
         setLoanProducts(combinePagesContent(data.pages));
       },
-    }
+    },
   );
   // 추천 상품 가져오기
   const { isLoading: fetchingRecommends, fetchNextPage: fetchNextRecPage } =
@@ -69,12 +69,12 @@ const Main = () => {
           if (!data.pages) console.log('data가없어요', data.pages);
           setRecommendedProducts(combinePagesContent(data.pages));
         },
-      }
+      },
     );
   // 유저 정보가져오기
   const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
     ['user', accessToken],
-    () => ax.getUser(accessToken)
+    () => ax.getUser(accessToken),
   );
 
   const ref = useRef(null);
@@ -105,8 +105,9 @@ const Main = () => {
         onClick={scrollToTop}
       />
       <main
-        className='flex flex-col overflow-y-scroll  h-full pb-16 relative'
-        ref={ref}>
+        className='flex flex-col overflow-y-scroll scrollbar-none h-full pb-16 relative'
+        ref={ref}
+      >
         <Nav left='arrow' right='arrow' addClass='mt-5' />
         <div className='flex justify-between px-10 mb-5'>
           <div className=''>
@@ -172,7 +173,7 @@ const Main = () => {
               {loanProductsPages?.pages.map((page) =>
                 page?.content.map((product) => (
                   <LoanProductCard key={product?.productId} product={product} />
-                ))
+                )),
               )}
               {/* <LoanProductCard product={loanProducts[0]} /> */}
             </div>
