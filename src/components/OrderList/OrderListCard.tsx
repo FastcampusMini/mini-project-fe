@@ -1,6 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 const OrderListCard = ({ orderList }) => {
+  const navigate = useNavigate();
   return (
-    <div className='flex justify-between py-5 pl-5 border-solid border border-black/10 rounded-t-lg'>
+    <div
+      className='flex justify-between py-5 pl-5 border-solid border border-black/10 rounded-t-lg cursor-pointer'
+      onClick={() =>
+        navigate(`/products/financial/${orderList.originalProductId}`)
+      }
+    >
       <div className='flex items-center'>
         <img
           className='w-16'
