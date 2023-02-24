@@ -1,4 +1,4 @@
-const AlertModal = ({ setAlertModal }) => {
+const AlertModal = ({ setAlertModal, content }) => {
   return (
     <div className='fixed w-screen h-screen bg-black40 left-0 top-0 flex justify-center items-center z-10'>
       <div className='flex flex-col justify-between w-96 h-auto bg-white rounded-xl'>
@@ -7,7 +7,7 @@ const AlertModal = ({ setAlertModal }) => {
             알림
           </h1>
           <p className='text-black60 text-lg text-center font-semibold pt-6 pb-10'>
-            이미 존재하는 상품입니다.
+            {content}
           </p>
         </div>
 

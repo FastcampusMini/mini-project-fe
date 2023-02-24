@@ -16,6 +16,7 @@ import {
 import Nav from '@components/Nav';
 import Navigation from '@components/ui/Navigation';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import PageChangeModal from '@/components/ui/PageChangeModal';
 
 const Id = () => {
   const [addOrderList] = useAddOrderListMutation();
@@ -28,6 +29,9 @@ const Id = () => {
   const [orderModal, setOrderModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
   const [basketModal, setBasketModal] = useState(false);
+  const [basketPageChange, setBasketPageChange] = useState(false);
+  const [orderPageChange, setOrderPageChange] = useState(false);
+  const [overAmount, setOverAmount] = useState(false);
   const [like, setLike] = useState(false);
   const [detail, setDetail] = useState<IProduct>();
 
@@ -80,7 +84,8 @@ const Id = () => {
               className='h-fit p-2 bg-white rounded-[10px] shadow-md text-4xl cursor-pointer hover:scale-110 transition-transform'
               onClick={() => {
                 setLike(!like);
-              }}>
+              }}
+            >
               {like ? (
                 // <div className='text-6xl cursor-pointer'>❤️</div>
                 <AiFillHeart className='text-orange' />
@@ -104,7 +109,8 @@ const Id = () => {
             ].map((data, i) => (
               <li
                 key={i}
-                className='px-4 py-2 rounded-full border border-yellow bg-white/100 text-yellow font-bold'>
+                className='px-4 py-2 rounded-full border border-yellow bg-white/100 text-yellow font-bold'
+              >
                 {data}
               </li>
             ))}
@@ -142,7 +148,8 @@ const Id = () => {
           <button
             type='button'
             className='mt-16 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
-            onClick={() => setBasketModal(true)}>
+            onClick={() => setBasketModal(true)}
+          >
             장바구니 담기
           </button>
           <button
@@ -157,9 +164,20 @@ const Id = () => {
               title='신청하시겠습니까?'
               description=''
               onConfirm={async () => {
-                await addOrderList({ products_id_list: [detail.productId] });
-                await deleteCart({ basketId: detail.basketId });
-                setOrderModal(false);
+                const res = await addOrderList({
+                  products_id_list: [detail.productId],
+                })
+                  .unwrap()
+                  .then((payload) => payload.code)
+                  .catch((error) => console.error('rejected', error));
+                if (res === 500) {
+                  setOrderModal(false);
+                  setOverAmount(true);
+                } else {
+                  await deleteCart({ basketId: detail.basketId });
+                  setOrderModal(false);
+                  setOrderPageChange(true);
+                }
               }}
               onCancel={() => setOrderModal(false)}
             />
@@ -180,12 +198,40 @@ const Id = () => {
                   setAlertModal(true);
                 } else {
                   setBasketModal(false);
+                  setBasketPageChange(true);
                 }
               }}
               onCancel={() => setBasketModal(false)}
             />
           )}
-          {alertModal && <AlertModal setAlertModal={setAlertModal} />}
+          {alertModal && (
+            <AlertModal
+              setAlertModal={setAlertModal}
+              content='이미 존재하는 상품입니다.'
+            />
+          )}
+          {overAmount && (
+            <AlertModal
+              setAlertModal={setOverAmount}
+              content='대출 가능 금액을 초과하였습니다.'
+            />
+          )}
+          {basketPageChange && (
+            <PageChangeModal
+              setPageChange={setBasketPageChange}
+              content='상품이 장바구니에 담겼습니다.'
+              button='장바구니 페이지로 이동하기'
+              route='/user/myCart'
+            />
+          )}
+          {orderPageChange && (
+            <PageChangeModal
+              setPageChange={setOrderPageChange}
+              content='신청이 완료되었습니다.'
+              button='신청 페이지로 이동하기'
+              route='/user/orderlist'
+            />
+          )}
         </div>
       </div>
       <Navigation />

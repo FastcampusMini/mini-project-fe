@@ -20,7 +20,7 @@ interface IProps {
   errorMsg?: any;
 }
 
-const SalaryField = ({ text, name, inputType = 'text', register, errorMsg, ...others }: IProps) => {
+const SalaryField = ({ text, name, inputType = 'text', register, errorMsg }: IProps) => {
   return (
     <div className='flex flex-col text-xl font-semibold mb-5 relative'>
       <label className='mb-2' htmlFor={name}>
