@@ -4,13 +4,14 @@ import { combinePagesContent } from '../libs/utils';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import ProductCard from '@components/FinancialProdCard';
 
-const Search = ({ searchTarget, searchKeyword, sortTarget, sortDirection, isChecked}) => {
+const Search = ({accessToken, searchTarget, searchKeyword, sortTarget, sortDirection, isChecked }) => {
+  console.log(searchTarget, searchKeyword, sortTarget, sortDirection, isChecked)
   const [dataPack, setDataPack] = useState([]);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
       ['searchResults', searchTarget, searchKeyword, sortTarget, sortDirection, isChecked],
       ({ pageParam = 1 }) =>
-        ax.getSearch({ searchTarget, searchKeyword, sortTarget, sortDirection, isChecked, page: pageParam }),
+        ax.getSearch(accessToken, { searchTarget, searchKeyword, sortTarget, sortDirection, isChecked, page: pageParam }),
       {
         getNextPageParam: (lastPage) => {
           return (
@@ -21,11 +22,14 @@ const Search = ({ searchTarget, searchKeyword, sortTarget, sortDirection, isChec
         onSuccess: (data) => setDataPack(combinePagesContent(data.pages)),
       }
     );
+    if (!accessToken) {
+      return
+      // return <div>No accessToken</div>;
+    }
 
   if (!data) {
     console.log('no Data')
-    console.log(data)
-    return <div>Loading...</div>;
+    return <div>상품 정보가 없습니다.</div>;
   }
   
   return (
