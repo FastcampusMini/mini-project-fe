@@ -1,6 +1,4 @@
-import React from 'react';
-
-const OrderListCard = ({ orderList, setDeleteModal }) => {
+const OrderListCard = ({ orderList }) => {
   return (
     <div className='flex justify-between py-5 pl-5 border-solid border border-black/10 rounded-t-lg'>
       <div className='flex items-center'>

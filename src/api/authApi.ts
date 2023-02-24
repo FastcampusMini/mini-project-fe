@@ -3,7 +3,15 @@ import { useCookies } from 'react-cookie';
 import { instance } from './axios';
 
 /** 회원가입 api */
-export const signUp = async ({ name, email, password, phone, birth, job, salary }) => {
+export const signUp = async ({
+  name,
+  email,
+  password,
+  phone,
+  birth,
+  job,
+  salary,
+}) => {
   try {
     const response = await instance.post(
       '/register',

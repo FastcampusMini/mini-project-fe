@@ -1,7 +1,7 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const base = fetchBaseQuery({
-  baseUrl: 'http://43.200.194.5:8080/api',
+  baseUrl: 'https://kingtaeyoon.shop',
   prepareHeaders: (headers) => {
     // 나중에 cookie에서 가져오는걸로 변경하기
     headers.set(

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AlertModal = ({ setAlertModal }) => {
   return (
     <div className='fixed w-screen h-screen bg-black40 left-0 top-0 flex justify-center items-center z-10'>

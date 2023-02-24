@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ax } from '@libs/axiosClient';
 import { useParams } from 'react-router-dom';
 import ConfirmModal from '@/components/ui/ConfirmModal';
-import {
-  useAddOrderListMutation,
-  useGetOrderListQuery,
-} from '@/store/api/orderApiSlice';
+import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 import AlertModal from '@/components/ui/AlertModal';
 import { useAddCartMutation } from '@/store/api/cartApiSlice';
 import {
@@ -47,7 +44,6 @@ const Id = () => {
       const find = wishList?.data?.find((value) => {
         return value?.productId === detail?.productId;
       });
-      console.log('find', find);
       deleteWishList({
         wishlistId: find?.wishlistId,
       });
@@ -135,42 +131,42 @@ const Id = () => {
         신청하기
       </button>
 
-      {orderModal && (
-        <ConfirmModal
-          title='신청하시겠습니까?'
-          description=''
-          onConfirm={async () => {
-            await addOrderList({ products_id_list: [detail.productId] });
-            setOrderModal(false);
-          }}
-          onCancel={() => setOrderModal(false)}
-        />
-      )}
-      {addModal && (
-        <ConfirmModal
-          title='장바구니에 담으시겠습니까?'
-          description=''
-          onConfirm={async () => {
-            const res = await addCart({
-              productId: detail?.productId,
-            })
-              .unwrap()
-              .then((payload) => payload.code)
-              .catch((error) => console.error('rejected', error));
-            if (res === 500) {
-              setAddModal(false);
-              setAlertModal(true);
-            } else {
-              setAddModal(false);
-            }
-          }}
-          onCancel={() => setAddModal(false)}
-        />
-      )}
-      {alertModal && <AlertModal setAlertModal={setAlertModal} />}      
-    </div>
-    </div>
-      <Navigation />  
+          {orderModal && (
+            <ConfirmModal
+              title='신청하시겠습니까?'
+              description=''
+              onConfirm={async () => {
+                await addOrderList({ products_id_list: [detail.productId] });
+                setOrderModal(false);
+              }}
+              onCancel={() => setOrderModal(false)}
+            />
+          )}
+          {addModal && (
+            <ConfirmModal
+              title='장바구니에 담으시겠습니까?'
+              description=''
+              onConfirm={async () => {
+                const res = await addCart({
+                  productId: detail?.productId,
+                })
+                  .unwrap()
+                  .then((payload) => payload.code)
+                  .catch((error) => console.error('rejected', error));
+                if (res === 500) {
+                  setAddModal(false);
+                  setAlertModal(true);
+                } else {
+                  setAddModal(false);
+                }
+              }}
+              onCancel={() => setAddModal(false)}
+            />
+          )}
+          {alertModal && <AlertModal setAlertModal={setAlertModal} />}
+        </div>
+      </div>
+      <Navigation />
     </>
   );
 };
