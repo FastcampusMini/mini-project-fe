@@ -73,7 +73,12 @@ const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
           onCancel={() => setAddModal(false)}
         />
       )}
-      {alertModal && <AlertModal setAlertModal={setAlertModal} />}
+      {alertModal && (
+        <AlertModal
+          setAlertModal={setAlertModal}
+          content='이미 존재하는 상품입니다.'
+        />
+      )}
     </section>
   );
 };

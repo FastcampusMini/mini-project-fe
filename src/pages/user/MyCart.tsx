@@ -82,7 +82,6 @@ const Mycart = () => {
       >
         총 {cart?.data?.length}개 전체상품 신청하기
       </button>
-      {isError && navigate('/')}
     </>
   );
 };

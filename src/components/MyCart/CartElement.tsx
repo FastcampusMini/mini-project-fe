@@ -14,6 +14,7 @@ const CartElement = ({
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
+  const [overAmount, setOverAmount] = useState(false);
   const { data: cartAll } = useGetCartQuery('');
   const orderList = [];
   cartAll.data.map((value) => {
@@ -66,9 +67,16 @@ const CartElement = ({
           title='신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await addOrderList({ products_id_list: [cartData.productId] });
-            await deleteCart({ basketId: cartData.basketId });
-            setAddModal(false);
+            const res = await addOrderList({
+              products_id_list: [cartData.productId],
+            });
+            if (res.data.code === 500) {
+              setAddModal(false);
+              setOverAmount(true);
+            } else {
+              await deleteCart({ basketId: cartData.basketId });
+              setAddModal(false);
+            }
           }}
           onCancel={() => setAddModal(false)}
         />
@@ -78,16 +86,34 @@ const CartElement = ({
           title='전체 상품을 신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await addOrderList({ products_id_list: [...orderList] });
-            cartAll.data.map(async (value) => {
-              await deleteCart({ basketId: value.basketId });
+            const res = await addOrderList({
+              products_id_list: [...orderList],
             });
-            setAllOrderModal(false);
+            if (res.data.code === 500) {
+              setAllOrderModal(false);
+              setOverAmount(true);
+            } else {
+              cartAll.data.map(async (value) => {
+                await deleteCart({ basketId: value.basketId });
+              });
+              setAllOrderModal(false);
+            }
           }}
           onCancel={() => setAllOrderModal(false)}
         />
       )}
-      {alertModal && <AlertModal setAlertModal={setAlertModal} />}
+      {alertModal && (
+        <AlertModal
+          setAlertModal={setAlertModal}
+          content='이미 존재하는 상품입니다.'
+        />
+      )}
+      {overAmount && (
+        <AlertModal
+          setAlertModal={setOverAmount}
+          content='대출 가능 금액을 초과하였습니다.'
+        />
+      )}
     </section>
   );
 };

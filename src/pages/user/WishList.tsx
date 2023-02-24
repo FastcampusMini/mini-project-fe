@@ -70,7 +70,6 @@ const WishList = () => {
         </div>
       </article>
       <Navigation />
-      {isError && navigate('/')}
     </>
   );
 };

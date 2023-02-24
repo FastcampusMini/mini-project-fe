@@ -63,7 +63,6 @@ const OrderList = () => {
         </div>
       </article>
       <Navigation />
-      {isError && navigate('/')}
     </>
   );
 };
