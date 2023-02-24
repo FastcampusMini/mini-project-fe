@@ -1,6 +1,5 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getCookieToken } from '@/libs/Cookie';
-import { requestToken } from '@/api/authApi';
 
 export const base = fetchBaseQuery({
   baseUrl: 'https://kingtaeyoon.shop/api',
@@ -10,7 +9,7 @@ export const base = fetchBaseQuery({
     }: any = getState();
     let token: string;
     if (!accessToken) {
-      const refresh = await requestToken(getCookieToken());
+      const refresh = await ax.postRefresh(getCookieToken());
       token = refresh.data.accessToken;
     }
     headers.set(

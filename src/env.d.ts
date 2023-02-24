@@ -6,6 +6,7 @@ interface IProduct {
   price: number;
   productId: number;
   rate: number;
+  basketId?: number;
 }
 
 interface IUserEditPayload {
