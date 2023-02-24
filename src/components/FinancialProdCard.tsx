@@ -4,27 +4,14 @@ import { Link } from 'react-router-dom'
 
 const FinancialProdCard = ({ data }) => {
   return (
-    <Link to={`/products/financial/${data.productId}`} className="flex flex-wrap mb-10 bg-white border border-light-gray rounded-[10px] overflow-hidden">
-      <div className="mt-8 flex flex-wrap w-full">
-        <span className="pl-8 flex text-xl text-[#888]">
-          <img
-            className="h-6 mr-2"
-            src={data.logo}
-            alt="cartItem_logo"
-          />        
-        </span>
-        <span>{data.brand}</span>
-      <h3 className="mt-1 mb-5 pl-16 w-full text-2xl font-bold">{data.name}</h3>
+    <Link to={`/products/financial/${data.productId}`} className='flex items-center py-8 shadow-md rounded-b-lg rounded-t-3xl border border-black/10 hover:scale-95 transition-all bg-white px-8 mt-6'>
+      <img src={data.logo} className="h-20 grow" />
+      <div className='w-full text-right'>
+        {/* <span className='text-black40'>{data.brand}</span> */}
+        <h3 className="font-bold text-black80 text-2xl">{data.name}</h3>
+        <b className="font-semibold text-yellow"><span className='text-black40 text-sm'>예상금리 </span>7.7%</b>
+        <b className="font-semibold text-lg text-orange"><span className='ml-6 text-black40 text-sm'>최대한도</span> ₩ {(data.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 만</b>
       </div>
-      <div className="mb-8 w-full text-2xl text-orange font-bold">
-        <div className='mt-1 pl-16 pr-8 flex justify-between items-center'>
-          <span className='text-sm text-black40'>예상금리</span> 최저 {data.rate}%
-        </div>
-        <div className='mt-1 pl-16 pr-8 flex justify-between items-center'>
-          <span className='text-sm text-black40'>최대 한도</span> {(data.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 만원
-        </div>
-      </div>
-      <div className="w-full py-4 px-8 bg-black5 text-lg text-[#888]">청년만 가입할 수 있는 적금입니다.</div>
     </Link>
   )
 }

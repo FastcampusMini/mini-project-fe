@@ -134,7 +134,7 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className='bg-yellow w-[640px] h-96 absolute -z-40'>
+        <div className='bg-yellow w-full h-96 absolute -z-40'>
           {/*배경 */}
         </div>
         <h3 className='my-3 font-bold text-2xl mx-10'>추천상품</h3>
