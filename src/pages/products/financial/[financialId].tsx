@@ -14,6 +14,9 @@ import {
   useDeleteWishListMutation,
   useGetWishListQuery,
 } from '@/store/api/wishlistApiSlice';
+import Nav from '@components/Nav';
+import Navigation from '@components/ui/Navigation';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 const Id = () => {
   const [addOrderList] = useAddOrderListMutation();
@@ -63,42 +66,38 @@ const Id = () => {
   }, []);
 
   return (
-    <div className='pt-16'>
-      <div className='flex justify-between items-center'>
-        <img className='w-32' src={detail?.logo} alt='cartItem_logo' />
+    <>
+    <div className='h-full overflow-y-scroll bg-yellow'>
+      <Nav left='arrow' addClass='mt-5' />
+    <div className='px-10 pb-16 relative top-5 bg-white rounded-t-3xl shadow-md'>
+      <div className='flex justify-between relative top-[-20px]'>
+        <img className='w-32 relative top-[-10px]' src={detail?.logo} alt='cartItem_logo' />
         <div
+          className='h-fit p-2 bg-white rounded-[10px] shadow-md text-4xl cursor-pointer hover:scale-110 transition-transform'
           onClick={() => {
             setLike(!like);
           }}
         >
           {like ? (
-            <div className='text-6xl cursor-pointer'>❤️</div>
+            // <div className='text-6xl cursor-pointer'>❤️</div>
+            <AiFillHeart className='text-orange' />
           ) : (
-            <div className='text-6xl cursor-pointer'>🤍</div>
+            // <div className='text-6xl cursor-pointer'>🤍</div>
+            <AiOutlineHeart className='text-gray' />
           )}
         </div>
       </div>
-      <h2 className='my-8 text-3xl font-bold'>{detail?.name}</h2>
-
+      <h2 className='mb-8 text-3xl font-bold'>{detail?.name}</h2>
       <ul className='mb-12 flex flex-wrap gap-3'>
-        {[
-          '20대 이상',
-          '파킹통장',
-          '세테크',
-          '청년',
-          '경기도',
-          '낮은이자',
-          '그 외 필터',
-        ].map((data, i) => (
+        {['20대 이상', '파킹통장', '세테크', '청년', '경기도', '낮은이자', '그 외 필터'].map((data, i) => (
           <li
             key={i}
-            className='px-4 py-2 rounded-full bg-black5 text-black40 font-bold'
+            className='px-4 py-2 rounded-full border border-yellow bg-white/100 text-yellow font-bold'
           >
             {data}
           </li>
         ))}
       </ul>
-
       <div className='py-2 flex justify-between text-lg'>
         <span className='text-black40 font-bold'>이율</span>
         <b className='text-orange'>최저 {detail?.rate} %</b>
@@ -107,11 +106,9 @@ const Id = () => {
         <span className='text-black40 font-bold'>문의</span>
         <b>{detail?.detail}</b>
       </div>
-
-      <div className='my-10 flex justify-center items-center h-48 rounded-[10px] border border-black20 text-black40 font-bold bg-black5 overflow-hidden'>
+      {/* <div className='my-10 flex justify-center items-center h-48 rounded-[10px] border border-black20 text-black40 font-bold bg-black5 overflow-hidden'>
         상품 이미지 준비중
-      </div>
-
+      </div> */}
       <h3 className='mt-10 mb-4 text-2xl font-bold'>상품 설명</h3>
       <div className='text-orange font-bold text-lg'>
         청년 대출을 만나보세요. 소득이 없거나 재직기간이 1년 미만인 직장인도 만
@@ -131,14 +128,14 @@ const Id = () => {
       </ul>
       <button
         type='button'
-        className='mt-6 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
+        className='mt-16 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
         onClick={() => setAddModal(true)}
       >
         장바구니 담기
       </button>
       <button
         type='button'
-        className='mt-6 mb-20 p-4 w-full rounded-[10px] bg-yellow text-white text-lg font-bold'
+        className='mt-6 mb-28 p-4 w-full rounded-[10px] bg-yellow text-white text-lg font-bold'
         onClick={() => setOrderModal(true)}
       >
         신청하기
@@ -176,8 +173,11 @@ const Id = () => {
           onCancel={() => setAddModal(false)}
         />
       )}
-      {alertModal && <AlertModal setAlertModal={setAlertModal} />}
+      {alertModal && <AlertModal setAlertModal={setAlertModal} />}      
     </div>
+    </div>
+      <Navigation />  
+    </>
   );
 };
 
