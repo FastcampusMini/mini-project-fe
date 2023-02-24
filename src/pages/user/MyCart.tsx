@@ -3,10 +3,7 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
 import Nav from '@/components/Nav';
-import {
-  useGetCartQuery,
-  useDeleteCartMutation,
-} from '../../store/api/cartApiSlice';
+import { useGetCartQuery, useDeleteCartMutation } from '../../store/api/cartApiSlice';
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
 import { useNavigate } from 'react-router-dom';
@@ -43,9 +40,8 @@ const Mycart = () => {
             />
           </div>
         </div>
-        <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
-          장바구니
-        </h1>
+        <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>장바구니</h1>
+
         <div className='max-w-screen-sm h-fit'>
           {cart?.data?.map((value: DaumData) => (
             <CartElement

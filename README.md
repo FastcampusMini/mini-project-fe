@@ -8,23 +8,31 @@ api 명세: https://documenter.getpostman.com/view/25760000/2s935so2bC
 - `react-icons` 아이콘 컴포넌트
 - `react-loading` 로딩 컴포넌트
 - `axios`
-- `@tanstack/react-query` :
+- `@tanstack/react-query`
 - `redux` - 토큰관리
 - `typescript`
 - `react-router-dom`
 
 ## 페이지 및 기능
 
-<!-- ![](readMeImages/2023-02-24-18-14-01.png) -->
+![](readMeImages/2023-02-24-18-14-01.png)
 
 - `/` Home 페이지
   - 로그인 페이지 이동 버튼
   - 회원가입 페이지 이동 버튼
-- `/main` 메인 페이지(금융상품 목록) - "GET : api/products"
+- `singup` 회원가입 페이지
+  - 입력 폼: 이메일/ 패스워드/ 이름/나이/직업/거주지역/특기/취미
+  - 회원가입 약관
+  - 회원가입 확인 버튼 - "POST : api/auth/signup"
+- `signin` 로그인 페이지
+  - 입력폼: 이메일 / 패스워드
+    - 로그인 버튼 - "POST : api/auth/signin"
+  - 회원가입 페이지 이동 버튼 (route /signup )
+- `/main` 메인 페이지(금융상품 목록) - "GET : api/products", "GET : api/products/recommends"
   - 신청 가능 대출금 총합
-  - 현재 신청 가능한 대출 상품들
-  - 현재 신청 가능한 청약 상품들
-- `user` 개인 페이지 - "GET : api/user"
+  - 대출 상품 목록 무한스크롤
+  - 추천 상품 목록 무한스크롤(슬라이더)
+- `/user` 개인 정보 페이지 - "GET : api/user"
   - 관심상품 리스트
   - 장바구니 상품 리스트
   - 신청한 대출상품 리스트
@@ -38,17 +46,9 @@ api 명세: https://documenter.getpostman.com/view/25760000/2s935so2bC
   - 구매한 상품 (카드형식 구매하기 버튼O)
   - 구매하기 버튼 - "POST api/products/financial/buy"
 - `user/wishlist` 관심상품 페이지 - "GET api/auth/user"
+
   - 구매한 상품(카드형식 구매하기 버튼X)
   - 장바구니로 추가하기 버튼 - - "PUT api/auth/user"
-- `singup` 회원가입 페이지
-  - 입력 폼: 이메일/ 패스워드/ 이름/나이/직업/거주지역/특기/취미
-  - 회원가입 약관
-  - 회원가입 확인 버튼 - "POST : api/auth/signup"
-- `signin` 로그인 페이지
-
-  - 입력폼: 이메일 / 패스워드
-    - 로그인 버튼 - "POST : api/auth/signin"
-  - 회원가입 페이지 이동 버튼 (route /signup )
 
 - `products/financial` 금융상품페이지 -"GET api/products/financial"
   - 검색 form

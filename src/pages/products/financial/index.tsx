@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { CgSearch } from 'react-icons/cg';
 import Search from '@/components/Search';
 import Nav from '@components/Nav';
@@ -8,6 +9,7 @@ import ConfirmModal from '@/components/ui/ConfirmModal';
 import Navigation from '@components/ui/Navigation';
 
 const Financial = () => {
+  const { accessToken } = useSelector((state: any) => state.authToken);
   const [searchTarget, setSearchTarget] = useState()
   const [searchKeyword, setSearchKeyword] = useState()
   const [sortTarget, setSortTarget] = useState()
@@ -28,7 +30,7 @@ const Financial = () => {
   };
 
   return (
-    <div className='h-full overflow-y-scroll'>
+    <div className='h-full overflow-y-scroll scrollbar-none'>
       <Nav left='arrow' right='arrow' addClass='mt-5' />
       <div className='px-10 relative'>
         <div className='bg-yellow w-full h-96 absolute top-[-88px] left-0 right-0 -z-40'>
@@ -97,7 +99,7 @@ const Financial = () => {
         </div>
         <div className='mb-24'>
           <div>
-            {<Search searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} />}
+            {<Search searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} accessToken={accessToken} />}
           </div>
         </div>              
         <>

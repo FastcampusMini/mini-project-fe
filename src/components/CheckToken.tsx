@@ -27,7 +27,7 @@ export default function CheckToken(key: string) {
           const accessToken = response.data.accessToken;
           dispatch(SET_TOKEN(accessToken));
           setIsAuth('Success');
-          cogoToast.info(response.message);
+          // cogoToast.info(response.message);
         } else {
           dispatch(DELETE_TOKEN());
           removeCookieToken();

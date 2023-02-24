@@ -97,7 +97,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className='px-8 py-10 h-full overflow-y-scroll scrollbar-none'>
+    <div className='px-8 py-12 h-full overflow-y-scroll scrollbar-none'>
       <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
         취소
       </p>
@@ -108,35 +108,63 @@ const SignUp = () => {
 
       <form className='flex flex-col' onSubmit={handleSubmit(submitForm)}>
         <div className='mb-10'>
-          <SignUpField text={'이름'} name={'name'} register={register} errorMsg={errors.name} />
-          <SignUpField text={'이메일'} name={'email'} inputType='email' register={register} errorMsg={errors.email} />
+          <SignUpField
+            text={'이름'}
+            message={'이름(실명을 입력해주세요.)'}
+            name={'name'}
+            register={register}
+            errorMsg={errors.name}
+          />
+          <SignUpField
+            text={'이메일'}
+            message={'이메일을 입력해주세요.'}
+            name={'email'}
+            inputType='email'
+            register={register}
+            errorMsg={errors.email}
+          />
           <SignUpField
             text={'비밀번호'}
+            message={'비밀번호는 8자 이상으로 숫자+영문자+특수문자 조합으로 입력해주세요!'}
             name={'password'}
             inputType='password'
             register={register}
             errorMsg={errors.password}
           />
           <SignUpField
-            text={'비밀번호 확인'}
+            message={'비밀번호 확인'}
             name={'checkPw'}
             inputType='password'
             register={register}
             errorMsg={errors.checkPw}
           />
-          <SignUpField text={'전화번호'} name={'phone'} register={register} errorMsg={errors.phone} />
-          <SignUpField text={'생년원일'} name={'birth'} inputType='date' register={register} errorMsg={errors.birth} />
-          <div className='flex flex-col text-xl font-semibold mb-5 relative'>
+          <SignUpField
+            text={'전화번호'}
+            name={'phone'}
+            message={'전화번호를 입력해주세요.'}
+            register={register}
+            errorMsg={errors.phone}
+          />
+          <SignUpField
+            text={'생년원일'}
+            name={'birth'}
+            message={'생년원일을 입력해주세요.'}
+            inputType='date'
+            register={register}
+            errorMsg={errors.birth}
+          />
+          <div className='flex flex-col text-basis font-semibold mb-5 relative'>
             <label className='mb-2' htmlFor='job'>
               직업
             </label>
             <Select
+              className='text-sm'
               placeholder='직업을 선택해주세요.'
               isClearable
               options={options}
               theme={(theme) => ({
                 ...theme,
-                borderRadius: 5,
+                borderRadius: 100,
                 colors: {
                   ...theme.colors,
                   text: 'orangered',
@@ -146,7 +174,7 @@ const SignUp = () => {
                 },
                 spacing: {
                   ...theme.spacing,
-                  baseUnit: 8,
+                  baseUnit: 6,
                 },
               })}
               value={jobValue && options.find((option) => option.label === jobValue)}
@@ -162,6 +190,7 @@ const SignUp = () => {
           <SalaryField
             text={'연소득'}
             name={'salary'}
+            message={'연소득을 입력해주세요.'}
             inputType='number'
             register={register}
             errorMsg={errors.salary}
