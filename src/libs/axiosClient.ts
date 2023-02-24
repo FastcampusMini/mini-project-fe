@@ -1,7 +1,7 @@
 import store from '@/store/store';
 import axios from 'axios';
 
-const BASE_URL = 'https://kingtaeyoon.shop/';
+const BASE_URL = 'https://kingtaeyoon.shop';
 
 const HEADERS = {
   'Content-Type': 'application/json',
