@@ -57,11 +57,36 @@ const Main = () => {
         }
       },
       onSuccess: (data) => {
-        // console.log(data.pages[0].content);
-        setRecommendedProducts(combinePagesContent(data.pages));
+        // combinePagesContent : data.pages 페이지안에서 content 배열을 하나로 합쳐서 반환한다.
+        // 그 반환값을 loanProducts 상태에 저장한다.
+        setLoanProducts(combinePagesContent(data.pages));
+        console.log(data);
       },
     }
   );
+  // 추천 상품 가져오기
+  const { isLoading: fetchingRecommends, fetchNextPage: fetchNextRecPage } =
+    useInfiniteQuery(
+      ['recProducts', accessToken],
+      ({ pageParam = 1 }) => ax.getRecommendsProducts(accessToken, pageParam),
+      {
+        getNextPageParam: (lastPage) => {
+          try {
+            if (!lastPage) return;
+            return lastPage.pageNumber < lastPage.totalPages
+              ? lastPage.pageNumber + 1
+              : undefined;
+          } catch (err) {
+            throw Error(err);
+          }
+        },
+        onSuccess: (data) => {
+          // console.log(data.pages[0].content);
+          if (!data) console.log('data가없어요', data);
+          setRecommendedProducts(combinePagesContent(data.pages));
+        },
+      }
+    );
   // 유저 정보가져오기
   const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
     ax.getUser(accessToken)
@@ -120,7 +145,9 @@ const Main = () => {
           </div>
         </div>
         <div className='bg-yellow w-full h-96 absolute -z-40'>{/*배경 */}</div>
-        <h3 className='my-3 font-bold text-2xl mx-10  pointer-events-none'>추천상품</h3>
+        <h3 className='my-3 font-bold text-2xl mx-10  pointer-events-none'>
+          추천상품
+        </h3>
         <div className='flex flex-col gap-5'>
           {!!recommendedProducts.length && <Slider products={recommendedProducts} fetchNextPage={fetchNextRecPage} />}
 
