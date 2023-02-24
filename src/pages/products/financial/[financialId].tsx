@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios, { Axios } from 'axios';
-import {ax} from '@libs/axiosClient'
+import { ax } from '@libs/axiosClient';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import {
   useAddOrderListMutation,
@@ -18,11 +17,10 @@ import {
 
 const Id = () => {
   const [addOrderList] = useAddOrderListMutation();
-  const [addCart, { error }] = useAddCartMutation();
+  const [addCart] = useAddCartMutation();
   const [addWishList] = useAddWishListMutation();
   const [deleteWishList] = useDeleteWishListMutation();
   const { data: wishList } = useGetWishListQuery('');
-  const { data: order } = useGetOrderListQuery('');
   const { financialId } = useParams();
   const [orderModal, setOrderModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
@@ -32,7 +30,7 @@ const Id = () => {
 
   useEffect(() => {
     {
-      wishList?.data?.map((value: Daum) => {
+      wishList?.data?.map((value: DaumData) => {
         if (value.productId === detail?.productId) setLike(true);
       });
     }
@@ -56,13 +54,13 @@ const Id = () => {
 
   useEffect(() => {
     const getDetails = async (financialId: string | number) => {
-      const res = await ax.getProductsDetails(financialId)
+      const res = await ax.getProductsDetails(financialId);
       setDetail(res);
-      console.log(res)
-    }
-    console.log(detail)
-    getDetails(financialId)
-  }, [])
+      console.log(res);
+    };
+    console.log(detail);
+    getDetails(financialId);
+  }, []);
 
   return (
     <div className='pt-16'>
@@ -151,19 +149,8 @@ const Id = () => {
           title='신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            const find = order?.data?.find((value) => {
-              return (
-                value.purchasedProductList[0].originalProductId ===
-                detail?.productId
-              );
-            });
-            if (find) {
-              setOrderModal(false);
-              setAlertModal(true);
-            } else {
-              await addOrderList({ products_id_list: [detail.productId] });
-              setOrderModal(false);
-            }
+            await addOrderList({ products_id_list: [detail.productId] });
+            setOrderModal(false);
           }}
           onCancel={() => setOrderModal(false)}
         />

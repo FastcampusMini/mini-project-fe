@@ -9,6 +9,8 @@ import {
 import Navigation from '@components/ui/Navigation';
 import SkeletonOrderListElement from '@/components/OrderList/SkeletonOrderListElement';
 import { useNavigate } from 'react-router-dom';
+import { CgProfile } from 'react-icons/cg';
+import { AiFillHome } from 'react-icons/ai';
 
 const OrderList = () => {
   const navigate = useNavigate();
@@ -18,12 +20,24 @@ const OrderList = () => {
     isFetching,
     isError,
   } = useGetOrderListQuery('');
-  const [deleteOrderList] = useDeleteOrderListMutation();
   console.log('order', order);
+  const [deleteOrderList] = useDeleteOrderListMutation();
   return (
     <>
-      <article>
-        <Nav left='arrow' />
+      <article className='p-8'>
+        <div className='flex justify-between'>
+          <Nav left='arrow' />
+          <div className='flex gap-4'>
+            <CgProfile
+              onClick={() => navigate('/user')}
+              className='text-3xl cursor-pointer text-gray hover:text-yellow'
+            />
+            <AiFillHome
+              onClick={() => navigate('/main')}
+              className='text-3xl cursor-pointer text-gray hover:text-yellow'
+            />
+          </div>
+        </div>
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           신청 내역
         </h1>
@@ -49,7 +63,7 @@ const OrderList = () => {
         </div>
       </article>
       <Navigation />
-      {isError && navigate('/signin')}
+      {isError && navigate('/')}
     </>
   );
 };
