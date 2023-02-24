@@ -68,6 +68,7 @@ const Id = () => {
     <>
       <div className='h-full overflow-y-scroll bg-yellow'>
         <Nav left='arrow' addClass='mt-5' />
+
         <div className='px-10 pb-16 relative top-5 bg-white rounded-t-3xl shadow-md'>
           <div className='flex justify-between relative top-[-20px]'>
             <img
@@ -90,6 +91,7 @@ const Id = () => {
               )}
             </div>
           </div>
+
           <h2 className='mb-8 text-3xl font-bold'>{detail?.name}</h2>
           <ul className='mb-12 flex flex-wrap gap-3'>
             {[
@@ -109,22 +111,23 @@ const Id = () => {
               </li>
             ))}
           </ul>
+
           <div className='py-2 flex justify-between text-lg'>
             <span className='text-black40 font-bold'>이율</span>
             <b className='text-orange'>최저 {detail?.rate} %</b>
           </div>
+
           <div className='py-2 flex justify-between text-lg'>
             <span className='text-black40 font-bold'>문의</span>
             <b>{detail?.detail}</b>
           </div>
-          {/* <div className='my-10 flex justify-center items-center h-48 rounded-[10px] border border-black20 text-black40 font-bold bg-black5 overflow-hidden'>
-        상품 이미지 준비중
-      </div> */}
+
           <h3 className='mt-10 mb-4 text-2xl font-bold'>상품 설명</h3>
           <div className='text-orange font-bold text-lg'>
             청년 대출을 만나보세요. 소득이 없거나 재직기간이 1년 미만인 직장인도
             만 19-34세 무주택 청년이라면 대출신청이 가능합니다.
           </div>
+
           <h3 className='mt-12 mb-4 text-2xl font-bold'>안내 사항</h3>
           <ul className='text-black60 text-lg'>
             <li>상품 약관 등 추가할 수 있는 정보. 길이 제한 없음.</li>
@@ -137,6 +140,7 @@ const Id = () => {
               개인신용평점이 하락할 수 있습니다.
             </li>
           </ul>
+          
           <button
             type='button'
             className='mt-16 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
@@ -150,22 +154,26 @@ const Id = () => {
             onClick={() => setOrderModal(true)}
           >
             {data}
-          </li>
-        ))}
-      </ul>
+          </button>
+        {/* ))} */}
+      {/* </ul> */}
+
       <div className='py-2 flex justify-between text-lg'>
         <span className='text-black40 font-bold'>이율</span>
         <b className='text-orange'>최저 {detail?.rate} %</b>
       </div>
+
       <div className='py-2 flex justify-between text-lg'>
         <span className='text-black40 font-bold'>문의</span>
         <b>{detail?.detail}</b>
       </div>
+
       <h3 className='mt-10 mb-4 text-2xl font-bold'>상품 설명</h3>
       <div className='text-orange font-bold text-lg'>
         청년 대출을 만나보세요. 소득이 없거나 재직기간이 1년 미만인 직장인도 만
         19-34세 무주택 청년이라면 대출신청이 가능합니다.
       </div>
+
       <h3 className='mt-12 mb-4 text-2xl font-bold'>안내 사항</h3>
       <ul className='text-black60 text-lg'>
         <li>상품 약관 등 추가할 수 있는 정보. 길이 제한 없음.</li>
@@ -178,10 +186,11 @@ const Id = () => {
           하락할 수 있습니다.
         </li>
       </ul>
+
       <button
         type='button'
         className='mt-16 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
-        onClick={() => setAddModal(true)}
+        onClick={() => setBasketModal(true)}
       >
         장바구니 담기
       </button>
