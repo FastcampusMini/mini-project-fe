@@ -7,17 +7,7 @@ import { ax } from '@/libs/axiosClient';
 const Home = () => {
   const navigate = useNavigate();
   const handleSignin = async () => {
-    // navigate('/signin')
-    const rt = await ax.postRegister({
-      birth: '123123',
-      email: 'tesp@tesp.com',
-      job: '개발자',
-      name: '테스터',
-      password: 'tesp@tesp.com',
-      phone: '010-4444-5555',
-      salary: 123,
-    });
-    console.log(rt);
+    navigate('/signin');
   };
   return (
     <div className='flex flex-col justify-center h-screen'>
