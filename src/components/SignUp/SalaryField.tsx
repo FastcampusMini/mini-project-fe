@@ -37,7 +37,7 @@ const SalaryField = ({ text, name, message = '', inputType = 'text', register, e
         <span className='basis-1/12 shrink-0'>만원</span>
       </div>
       {errorMsg && (
-        <small role='alert' className='text-yellow mt-0 mb-1'>
+        <small role='alert' className='text-yellow mt-1 mb-1'>
           {errorMsg.message}
         </small>
       )}

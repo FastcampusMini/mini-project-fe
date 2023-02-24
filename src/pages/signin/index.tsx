@@ -60,7 +60,7 @@ const SignIn = () => {
 
   return (
     <>
-      <div className='px-8 py-10'>
+      <div className='px-10 py-10'>
         <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
           취소
         </p>

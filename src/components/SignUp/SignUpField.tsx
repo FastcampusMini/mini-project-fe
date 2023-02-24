@@ -1,6 +1,5 @@
 import React from 'react';
 import { Path, UseFormRegister } from 'react-hook-form';
-import Select from 'react-select';
 interface TSignUpFieldValues {
   name: string;
   email: string;
@@ -34,7 +33,7 @@ const SignUpField = ({ text = '', name, message = '', inputType = 'text', regist
         {...register(name)}
       />
       {errorMsg && (
-        <small role='alert' className='text-yellow mt-0 mb-1'>
+        <small role='alert' className='text-yellow mt-1 mb-1'>
           {errorMsg.message}
         </small>
       )}
