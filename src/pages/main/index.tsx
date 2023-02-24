@@ -14,6 +14,7 @@ import SlideCard from './SlideCard';
 import { MdChecklistRtl, MdOutlineAccountCircle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import SkeletonLoanProductCard from '@/components/SkeletonLoanProductCard';
 
 const Main = () => {
   const [loanProducts, setLoanProducts] = useState([]);
@@ -23,6 +24,7 @@ const Main = () => {
   const { accessToken } = useSelector((state: any) => state.authToken); // 토큰가져오기
   // 상품 가져오기
   const {
+    data: loanProductsPages,
     isLoading: fetchingProducts,
     fetchNextPage: fetchingNextProductsPage,
   } = useInfiniteQuery(
@@ -98,12 +100,14 @@ const Main = () => {
         <Nav left='arrow' right='arrow' addClass='mt-5' />
         <div className='flex justify-between px-10 mb-5'>
           <div className=''>
-            <h1 className='font-bold text-4xl'>Let's Get a Loan!</h1>
-            <p className='text-black60'>
+            <h1 className='font-bold text-4xl  pointer-events-none'>
+              Let's Get a Loan!
+            </h1>
+            <p className='text-black60  pointer-events-none'>
               대출자격은 더 <strong>넓게!</strong> 금리는 더{' '}
               <strong>낮게!</strong>
             </p>
-            <p className='mt-4 text-lg text-black60 font-semibold'>
+            <p className='mt-4 text-lg text-black60 font-semibold  pointer-events-none'>
               {userInfo?.name ? userInfo?.name : '(익명)'}님 대출 가능한 금액 :{' '}
               <strong className='text-black80'>
                 {userInfo?.availableAmount}
@@ -111,24 +115,24 @@ const Main = () => {
               만 원
             </p>
           </div>
-          <div className='space-y-2'>
-            <span className='text-black40 text-sm font-semibold'>
+          <div className='space-y-2 flex flex-col items-end'>
+            <span className='text-black40 text-sm font-semibold pointer-events-none'>
               {userInfo?.email}
             </span>
             <div className='flex gap-3'>
               <MdOutlineAccountCircle
                 onClick={() => navigate('/user')}
-                size={40}
+                size={30}
                 className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
               />
               <AiOutlineShoppingCart
                 onClick={() => navigate('/user/mycart')}
-                size={40}
+                size={30}
                 className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
               />
               <MdChecklistRtl
                 onClick={() => navigate('/user/wishlist')}
-                size={40}
+                size={30}
                 className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
               />
             </div>
@@ -137,7 +141,9 @@ const Main = () => {
         <div className='bg-yellow w-[640px] h-96 absolute -z-40'>
           {/*배경 */}
         </div>
-        <h3 className='my-3 font-bold text-2xl mx-10'>추천상품</h3>
+        <h3 className='my-3 font-bold text-2xl mx-10  pointer-events-none'>
+          추천상품
+        </h3>
         <div className='flex flex-col gap-5'>
           {!!recommendedProducts.length && (
             <Slider
@@ -147,14 +153,22 @@ const Main = () => {
           )}
 
           <div className='mx-10'>
-            <h3 className='my-3 font-bold text-2xl'>대출상품</h3>
+            <h3 className='my-3 font-bold text-2xl  pointer-events-none'>
+              대출상품
+            </h3>
 
             <div className='grid grid-cols-2 gap-5 '>
               {loanProducts?.map((product: IProduct) => (
                 <LoanProductCard key={product?.productId} product={product} />
               ))}
-              {/* {[1, 2, 3, 4, 5, 6, 7].map((el) => (
-                <div className='bg-gray border h-20'>{el}</div>
+              {/* {loanProductsPages.pages.map((page) =>
+                page.content.map((product) => (
+                  <LoanProductCard key={product?.productId} product={product} />
+                ))
+              )} */}
+              {/* <LoanProductCard product={loanProducts[0]} /> */}
+              {/* {[1, 2, 3, 4, 5, 6].map((dummy) => (
+                <SkeletonLoanProductCard key={dummy + 'dummy'} />
               ))} */}
             </div>
           </div>

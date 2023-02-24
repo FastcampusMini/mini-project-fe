@@ -1,7 +1,7 @@
 import store from '@/store/store';
 import axios from 'axios';
 
-const BASE_URL = 'http://43.200.194.5:8080';
+const BASE_URL = 'https://kingtaeyoon.shop/';
 
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`getUser ${result.mesage}`, result);
+    console.log(`getUser ${result.message}`, result);
     return result.data;
   }
 
@@ -249,7 +249,18 @@ class Axios {
   }
 
   // 검색
-  async getSearch(accessToken, { name, searchTarget, searchKeyword, sortTarget, sortDirection, isChecked, page }: ISearchInput): Promise<ISearchedData> {
+  async getSearch(
+    accessToken,
+    {
+      name,
+      searchTarget,
+      searchKeyword,
+      sortTarget,
+      sortDirection,
+      isChecked,
+      page,
+    }: ISearchInput
+  ): Promise<ISearchedData> {
     // if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (Number(page) < 1) return;
 
@@ -260,10 +271,10 @@ class Axios {
         // },
         params: {
           // name,
-          searchTarget, 
-          searchKeyword, 
+          searchTarget,
+          searchKeyword,
           sortTarget,
-          sortDirection, 
+          sortDirection,
           isChecked,
           page,
         },

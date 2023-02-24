@@ -19,7 +19,7 @@ export const base = fetchBaseQuery({
     console.log('token', token);
     headers.set(
       'Authorization',
-      accessToken ? `Bearer ${accessToken}` : `Bearer ${token}`,
+      accessToken ? `Bearer ${accessToken}` : `Bearer ${token}`
     );
     headers.set('Content-Type', 'application/json');
     return headers;
@@ -67,7 +67,7 @@ export type FetchBaseQueryError =
     };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://43.200.194.5:8080', // baseUrl 통일예정
+  baseUrl: 'https://kingtaeyoon.shop/api', // baseUrl 통일예정
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     // const token = getState().auth.token;
