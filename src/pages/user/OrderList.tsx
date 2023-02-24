@@ -20,6 +20,7 @@ const OrderList = () => {
     isFetching,
     isError,
   } = useGetOrderListQuery('');
+  console.log('order', order);
   const [deleteOrderList] = useDeleteOrderListMutation();
   return (
     <>

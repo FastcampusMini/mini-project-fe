@@ -1,7 +1,7 @@
 import store from '@/store/store';
 import axios from 'axios';
 
-const BASE_URL = 'http://43.200.194.5:8080';
+const BASE_URL = 'https://kingtaeyoon.shop/api';
 
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -32,13 +32,13 @@ class Axios {
   // 유저 정보수정
   async patchUserEdit(
     accessToken: string,
-    payload: IUserEditPayload
+    payload: IUserEditPayload,
   ): Promise<IPatchUserEditReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
     if (!payload) throw Error(`[에러]payload = "${payload}" 입니다`);
     const result = await this.axiosClient
-      .patch('/api/user', payload, {
+      .patch('/user', payload, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -54,7 +54,7 @@ class Axios {
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
 
     const result = await this.axiosClient
-      .get('/api/user', {
+      .get('/user', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -78,7 +78,7 @@ class Axios {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
           },
-        }
+        },
       )
       .then((response) => response.data);
     console.log(`postRefresh >>`, result);
@@ -97,7 +97,7 @@ class Axios {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       )
       .then((response) => response.data);
     console.log(`postLogout >>`, result);
@@ -114,10 +114,10 @@ class Axios {
   // 회원탈퇴하기
   async deleteUser(
     accessToken: string,
-    { email, password }: ILoginInput
+    { email, password }: ILoginInput,
   ): Promise<IDeleteUserReturn> {
     const result = await this.axiosClient
-      .delete('/api/user', {
+      .delete('/user', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -134,13 +134,13 @@ class Axios {
   // 전체 상품 가져오기
   async getProducts(
     accessToken: string,
-    page: number | string
+    page: number | string,
   ): Promise<IGetProductsReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
     if (Number(page) < 1) return;
     const result = await this.axiosClient
-      .get('/api/products', {
+      .get('/products', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -156,13 +156,13 @@ class Axios {
   // 추천 상품 가져오기
   async getRecommendsProducts(
     accessToken: string,
-    page: number | string
+    page: number | string,
   ): Promise<IGetProductsReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
     if (Number(page) < 1) return;
     const result = await this.axiosClient
-      .get('/api/products/recommends', {
+      .get('/products/recommends', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -178,7 +178,7 @@ class Axios {
   // 상품 상세정보 가져오기
   async getProductsDetails(products_id: string | number): Promise<IProduct> {
     const result = await this.axiosClient
-      .get('/api/products/details', {
+      .get('/products/details', {
         params: {
           products_id,
         },
@@ -191,13 +191,13 @@ class Axios {
   // 상품구매
   async postOrders(
     accessToken: string,
-    products_id_list: any[]
+    products_id_list: any[],
   ): Promise<void> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
 
     const result = await this.axiosClient
-      .post('/api/orders', products_id_list, {
+      .post('/orders', products_id_list, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -211,7 +211,7 @@ class Axios {
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
 
     const result = await this.axiosClient
-      .get('/api/orders', {
+      .get('/orders', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -229,13 +229,13 @@ class Axios {
   // 구매 취소
   async deleteOrders(
     accessToken: string,
-    orderId: number | string
+    orderId: number | string,
   ): Promise<void> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
     if (!orderId) throw Error(`[에러]orderId = "${orderId}" 입니다`);
     const result = await this.axiosClient
-      .delete('/api/orders', {
+      .delete('/orders', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -249,7 +249,18 @@ class Axios {
   }
 
   // 검색
-  async getSearch(accessToken, { name, searchTarget, searchKeyword, sortTarget, sortDirection, isChecked, page }: ISearchInput): Promise<ISearchedData> {
+  async getSearch(
+    accessToken,
+    {
+      name,
+      searchTarget,
+      searchKeyword,
+      sortTarget,
+      sortDirection,
+      isChecked,
+      page,
+    }: ISearchInput,
+  ): Promise<ISearchedData> {
     // if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (Number(page) < 1) return;
 
@@ -260,10 +271,10 @@ class Axios {
         // },
         params: {
           // name,
-          searchTarget, 
-          searchKeyword, 
+          searchTarget,
+          searchKeyword,
           sortTarget,
-          sortDirection, 
+          sortDirection,
           isChecked,
           page,
         },
@@ -279,7 +290,7 @@ class Axios {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
 
     const result = await this.axiosClient
-      .get('/api/wishlists', {
+      .get('/wishlists', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -293,7 +304,7 @@ class Axios {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
 
     const result = await this.axiosClient
-      .get('/api/baskets', {
+      .get('/baskets', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -306,20 +317,20 @@ class Axios {
   // 위시리스트에 상품 추가
   async postWishlists(
     accessToken: string,
-    productId: number | string
+    productId: number | string,
   ): Promise<void> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (!productId) throw Error(`[에러]productId = "${productId}"`);
 
     const result = await this.axiosClient
       .post(
-        '/api/wishlists',
+        '/wishlists',
         { productId },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       )
       .then((response) => response.data);
     console.log(`postWishlists:"${result.message}"`, result);
@@ -327,20 +338,20 @@ class Axios {
   // 장바구니에 상품 추가
   async postBaskets(
     accessToken: string,
-    productId: number | string
+    productId: number | string,
   ): Promise<void> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (!productId) throw Error(`[에러]productId = "${productId}"`);
 
     const result = await this.axiosClient
       .post(
-        '/api/baskets',
+        '/baskets',
         { productId },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       )
       .then((response) => response.data);
     console.log(`postBaskets:`, result);
@@ -349,13 +360,13 @@ class Axios {
   // 위시리스트에 상품 삭제
   async deleteWishlists(
     accessToken: string,
-    wishlistId: number | string
+    wishlistId: number | string,
   ): Promise<void> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (!wishlistId) throw Error(`[에러]wishlistId = "${wishlistId}"`);
 
     const result = await this.axiosClient
-      .delete('/api/wishlists', {
+      .delete('/wishlists', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -369,13 +380,13 @@ class Axios {
   // 장바구니에서 상품 삭제
   async deleteBaskets(
     accessToken: string,
-    basketId: number | string
+    basketId: number | string,
   ): Promise<void> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (!basketId) throw Error(`[에러]basketId = "${basketId}"`);
 
     const result = await this.axiosClient
-      .delete('/api/baskets', {
+      .delete('/baskets', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

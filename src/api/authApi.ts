@@ -3,11 +3,19 @@ import { useCookies } from 'react-cookie';
 import { instance } from './axios';
 
 /** 회원가입 api */
-export const signUp = async ({ name, email, password, phone, birth, job, salary }) => {
+export const signUp = async ({
+  name,
+  email,
+  password,
+  phone,
+  birth,
+  job,
+  salary,
+}) => {
   try {
     const response = await instance.post(
       '/register',
-      JSON.stringify({ name, email, password, phone, birth, job, salary })
+      JSON.stringify({ name, email, password, phone, birth, job, salary }),
     );
     return response.data;
   } catch (error) {
@@ -33,7 +41,7 @@ export const logOut = async (accessToken: string, refreshToken: string) => {
       { refreshToken },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -44,7 +52,7 @@ export const logOut = async (accessToken: string, refreshToken: string) => {
 /** 유저 정보 api */
 export const getUserInfo = async (accessToken: string) => {
   try {
-    const response = await instance.get('/api/user', {
+    const response = await instance.get('/user', {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     return response.data;
@@ -56,7 +64,7 @@ export const getUserInfo = async (accessToken: string) => {
 /** 회원탈퇴 api */
 export const deleteAuth = async (accessToken: string, password: string) => {
   try {
-    const response = await instance.delete('/api/user', {
+    const response = await instance.delete('/user', {
       headers: { Authorization: `Bearer ${accessToken}` },
       data: { password },
     });

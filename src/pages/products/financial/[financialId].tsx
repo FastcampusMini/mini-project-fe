@@ -4,7 +4,10 @@ import { useParams } from 'react-router-dom';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 import AlertModal from '@/components/ui/AlertModal';
-import { useAddCartMutation } from '@/store/api/cartApiSlice';
+import {
+  useAddCartMutation,
+  useDeleteCartMutation,
+} from '@/store/api/cartApiSlice';
 import {
   useAddWishListMutation,
   useDeleteWishListMutation,
@@ -19,11 +22,12 @@ const Id = () => {
   const [addCart] = useAddCartMutation();
   const [addWishList] = useAddWishListMutation();
   const [deleteWishList] = useDeleteWishListMutation();
+  const [deleteCart] = useDeleteCartMutation();
   const { data: wishList } = useGetWishListQuery('');
   const { financialId } = useParams();
   const [orderModal, setOrderModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
-  const [addModal, setAddModal] = useState(false);
+  const [basketModal, setBasketModal] = useState(false);
   const [like, setLike] = useState(false);
   const [detail, setDetail] = useState<IProduct>();
 
@@ -136,7 +140,7 @@ const Id = () => {
           <button
             type='button'
             className='mt-16 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
-            onClick={() => setAddModal(true)}
+            onClick={() => setBasketModal(true)}
           >
             장바구니 담기
           </button>
@@ -154,12 +158,13 @@ const Id = () => {
               description=''
               onConfirm={async () => {
                 await addOrderList({ products_id_list: [detail.productId] });
+                await deleteCart({ basketId: detail.basketId });
                 setOrderModal(false);
               }}
               onCancel={() => setOrderModal(false)}
             />
           )}
-          {addModal && (
+          {basketModal && (
             <ConfirmModal
               title='장바구니에 담으시겠습니까?'
               description=''
@@ -171,13 +176,13 @@ const Id = () => {
                   .then((payload) => payload.code)
                   .catch((error) => console.error('rejected', error));
                 if (res === 500) {
-                  setAddModal(false);
+                  setBasketModal(false);
                   setAlertModal(true);
                 } else {
-                  setAddModal(false);
+                  setBasketModal(false);
                 }
               }}
-              onCancel={() => setAddModal(false)}
+              onCancel={() => setBasketModal(false)}
             />
           )}
           {alertModal && <AlertModal setAlertModal={setAlertModal} />}
