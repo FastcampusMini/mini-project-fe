@@ -10,7 +10,7 @@ const index = ({ isValid, isSubmitting }: IConfirmBtnProps) => {
     <button
       type='submit'
       disabled={isSubmitting}
-      className={`block text-center text-3xl ${
+      className={`block text-center text-2xl ${
         isValid ? `bg-yellow` : `bg-gray`
       } text-white py-6 rounded-t-3xl border-t border-gray cursor-pointer bottom-0 absolute w-full left-0`}
     >
