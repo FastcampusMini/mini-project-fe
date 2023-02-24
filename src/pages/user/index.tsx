@@ -35,16 +35,16 @@ const User = () => {
 
   // 로그아웃 api 호출
   const userlogOut = async (accessToken: string, refreshToken: string) => {
-    const response = await logOut(accessToken, refreshToken);
+    const response = await ax.postLogout(accessToken, refreshToken);
     console.log('response:', response);
 
-    if (response.code === 200) {
-      dispatch(DELETE_TOKEN());
-      removeCookieToken();
-      return navigate('/');
-    } else {
-      console.log(response.message);
-    }
+    // if (response.code === 200) {
+    //   dispatch(DELETE_TOKEN());
+    //   removeCookieToken();
+    //   return navigate('/');
+    // } else {
+    //   console.log(response.message);
+    // }
   };
 
   const logOutConfirm = () => {
