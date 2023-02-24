@@ -15,7 +15,7 @@ export const base = fetchBaseQuery({
     }
     headers.set(
       'Authorization',
-      accessToken ? `Bearer ${accessToken}` : `Bearer ${token}`,
+      accessToken ? `Bearer ${accessToken}` : `Bearer ${token}`
     );
     headers.set('Content-Type', 'application/json');
     return headers;

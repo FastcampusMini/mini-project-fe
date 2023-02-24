@@ -61,7 +61,7 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`getUser ${result.mesage}`, result);
+    console.log(`getUser ${result.message}`, result);
     return result.data;
   }
 
