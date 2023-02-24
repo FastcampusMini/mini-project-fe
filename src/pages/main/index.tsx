@@ -45,6 +45,7 @@ const Main = () => {
         // combinePagesContent : data.pages 페이지안에서 content 배열을 하나로 합쳐서 반환한다.
         // 그 반환값을 loanProducts 상태에 저장한다.
         setLoanProducts(combinePagesContent(data.pages));
+        console.log(data);
       },
     }
   );
@@ -66,6 +67,7 @@ const Main = () => {
         },
         onSuccess: (data) => {
           // console.log(data.pages[0].content);
+          if (!data) console.log('data가없어요', data);
           setRecommendedProducts(combinePagesContent(data.pages));
         },
       }
@@ -138,9 +140,7 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className='bg-yellow w-full h-96 absolute -z-40'>
-          {/*배경 */}
-        </div>
+        <div className='bg-yellow w-full h-96 absolute -z-40'>{/*배경 */}</div>
         <h3 className='my-3 font-bold text-2xl mx-10  pointer-events-none'>
           추천상품
         </h3>

@@ -7,7 +7,7 @@ export const ProtectedRoute = ({ children }) => {
 
   const { isAuth } = CheckToken(location.key);
   if (isAuth === 'Failed') {
-    return <Navigate to='/signin' replace />;
+    // return <Navigate to='/signin' replace />;
   }
 
   return children;
@@ -21,7 +21,7 @@ export const SuccessRoute = ({ children }) => {
   const location = useLocation();
   const { isAuth } = CheckToken(location.key);
   if (isAuth === 'Success') {
-    return <Navigate to='/main' replace />;
+    // return <Navigate to='/main' replace />;
   }
   return children;
 };
