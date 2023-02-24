@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import LoanProductCard from '@components/LoanProductCard';
 import Nav from '@components/Nav';
 import { ax } from '@/libs/axiosClient';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
-import Confirmed from './_Confirmed';
 import ReactLoading from 'react-loading';
 import { useSelector } from 'react-redux';
 import useYScroll from '@/libs/hooks/useYScroll';
@@ -11,10 +10,8 @@ import { combinePagesContent } from '@/libs/utils';
 import Slider from './Slider';
 import { MdChecklistRtl, MdOutlineAccountCircle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
-import SkeletonLoanProductCard from '@/components/SkeletonLoanProductCard';
+import { RiShoppingCart2Line } from 'react-icons/ri';
 import { BsFillArrowUpSquareFill } from 'react-icons/bs';
-import Checkbox from '@/components/Checkbox';
 import Navigation from '../../components/ui/Navigation';
 
 const Main = () => {
@@ -115,7 +112,7 @@ const Main = () => {
                 size={30}
                 className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
               />
-              <AiOutlineShoppingCart
+              <RiShoppingCart2Line
                 onClick={() => navigate('/user/mycart')}
                 size={30}
                 className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'

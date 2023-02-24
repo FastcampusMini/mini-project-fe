@@ -76,6 +76,13 @@ const SignUp = () => {
     { value: 7, label: '무직' },
   ];
 
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      borderRadius: 100, // border-radius 값
+    }),
+  };
+
   const submitForm: SubmitHandler<ISignUpForm> = async ({ name, email, password, phone, birth, job, salary }) => {
     // salary = salary * 10000;
     const response = await ax.postRegister({
@@ -97,7 +104,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className='px-8 py-12 h-full overflow-y-scroll scrollbar-none'>
+    <div className='px-10 py-12 h-full overflow-y-scroll scrollbar-none'>
       <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
         취소
       </p>
@@ -158,13 +165,14 @@ const SignUp = () => {
               직업
             </label>
             <Select
-              className='text-sm'
+              className='text-sm rounded-full'
               placeholder='직업을 선택해주세요.'
               isClearable
+              styles={customStyles}
               options={options}
               theme={(theme) => ({
                 ...theme,
-                borderRadius: 100,
+                borderRadius: 5,
                 colors: {
                   ...theme.colors,
                   text: 'orangered',

@@ -26,7 +26,7 @@ const Mycart = () => {
   }, [cart]);
   return (
     <>
-      <article className='h-full px-8 pt-8 pb-24 overflow-y-scroll scrollbar-none'>
+      <article className='h-full px-10 pt-8 pb-24 overflow-y-scroll scrollbar-none'>
         <div className='flex justify-between'>
           <Nav left='arrow' />
           <div className='flex gap-4'>
