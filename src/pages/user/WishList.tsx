@@ -21,7 +21,6 @@ const WishList = () => {
     isFetching,
     isError,
   } = useGetWishListQuery('');
-  console.log('data', wishlist);
   const [deleteWishList] = useDeleteWishListMutation();
   const [addCart] = useAddCartMutation();
   return (

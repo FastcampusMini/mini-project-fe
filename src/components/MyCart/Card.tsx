@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Card = ({ children, data }) => {
   return (
     <div className='flex justify-between py-5 pl-5 pr-2 border-solid border border-black/10 rounded-t-lg'>
