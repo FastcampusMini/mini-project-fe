@@ -12,7 +12,6 @@ import { AiFillHome } from 'react-icons/ai';
 const OrderList = () => {
   const navigate = useNavigate();
   const { data: order, isLoading, isFetching } = useGetOrderListQuery('');
-  console.log('order', order);
   const [deleteOrderList] = useDeleteOrderListMutation();
   return (
     <>
