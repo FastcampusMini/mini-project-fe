@@ -30,6 +30,22 @@ const getSticker = (num: number) => {
   const index = num % 10;
   return _stickers[index];
 };
+const getDescription = (num: number) => {
+  const _description = [
+    '긴급자금이 필요하세요? 고금리 대출이자로 고민하시나요? 당신의 희망을 이루도록 돕겠습니다!',
+    '이 대출상품 어떠세요? 누구나 3분이면 한도조회 OK! 대출 상담 전문가가 항상 대기 중입니다.',
+    '우수손님을 위한 대출 상품입니다. 우리는 낮은 이자율과 함께 최대 한도의 대출을 제공합니다.',
+    '높은 한도! 소규모 비즈니스를 위한 자금을 필요로 한다면 저희와 함께하세요.',
+    '빠르고 간편한 대출 신청 절차로 당신의 금융 문제를 해결해드립니다.',
+    '현금이 부족한 상황에서는 우리가 도와드립니다. 단기 대출을 지금 신청하세요.',
+    '대출 상담 전문가가 항상 대기 중입니다. 지금 상담을 신청하세요.',
+    '저렴한 이자로 당신의 신용 점수가 낮더라도 저희가 대출을 제공해드립니다.',
+    '저희와 함께라면 당신의 재무 상황을 좀 더 효율적으로 관리할 수 있습니다.',
+    '빠른 승인과 출금으로 즉시 자금을 지원합니다. 지금 바로 문의하세요!',
+  ];
+  const index = num % 10;
+  return _description[index];
+};
 
 const SlideCard = ({ product }: IProps) => {
   const navigate = useNavigate();
@@ -52,9 +68,8 @@ const SlideCard = ({ product }: IProps) => {
 
       <div className='flex flex-col gap-4'>
         <h3 className='font-bold text-2lg'>{product?.name}</h3>
-        <p className='text-sm text-black60'>
-          긴급자금이 필요하세요? 고금리 대출이자로 고민하시나요? 당신의 희망을
-          이루도록 돕겠습니다!
+        <p className='text-sm h-12 text-black60 flex items-center text-ellipsis'>
+          {getDescription(product?.productId)}
         </p>
         <div className='flex items-end justify-end gap-2'>
           <span className='font-semibold text-yellow'>{product?.rate}%</span>
