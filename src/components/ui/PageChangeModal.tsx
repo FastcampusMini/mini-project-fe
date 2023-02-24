@@ -14,13 +14,12 @@ const PageChangeModal = ({ setPageChange, content, button, route }) => {
               X
             </h1>
           </div>
-          <p className='text-xl text-center font-semibold pt-4 pb-8'>
+          <p className='text-xl text-black80 text-center font-semibold pt-4 pb-8'>
             {content}
           </p>
         </div>
         <button
           onClick={() => {
-            navigate(route);
             navigate(route);
           }}
           className='w-60 h-16 ml-16 mb-5 border rounded-md text-center text-orange font-semibold'

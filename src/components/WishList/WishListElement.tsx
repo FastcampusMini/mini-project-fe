@@ -18,7 +18,8 @@ const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
           </div>
           <div className='pointer-events-auto flex flex-col items-center'>
             <button
-              onClick={() => {
+              onClick={(event) => {
+                event.stopPropagation();
                 setDeleteModal(true);
               }}
               className='w-24 h-9 rounded border-2 border-black40 text-sm font-semibold mb-2 text-[#333333]'
@@ -26,7 +27,8 @@ const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
               삭제
             </button>
             <button
-              onClick={() => {
+              onClick={(event) => {
+                event.stopPropagation();
                 setAddModal(true);
               }}
               className='w-24 h-9 rounded border-2 border-orange text-sm font-semibold mb-2 text-orange'

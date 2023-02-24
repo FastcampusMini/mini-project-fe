@@ -4,7 +4,10 @@ const Card = ({ children, data }) => {
   return (
     <div
       className='flex justify-between py-5 pl-5 pr-2 border-solid border border-black/10 rounded-t-lg cursor-pointer'
-      onClick={() => navigate(`/products/financial/${data.productId}`)}
+      onClick={(event) => {
+        event.stopPropagation();
+        navigate(`/products/financial/${data.productId}`);
+      }}
     >
       <div className='flex items-center'>
         <img className='w-16' src={data.logo} alt='bank_logo' />
