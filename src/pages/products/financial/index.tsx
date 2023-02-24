@@ -95,7 +95,7 @@ const Financial = () => {
             </div>
           </form>
         </div>
-        <div className='mb-16'>
+        <div className='mb-24'>
           <div>
             {<Search searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} />}
           </div>

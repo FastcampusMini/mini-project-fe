@@ -38,7 +38,7 @@ const Search = ({ searchTarget, searchKeyword, sortTarget, sortDirection, isChec
         <button
           onClick={() => fetchNextPage()}
           disabled={isFetchingNextPage}
-          className='mt-6 mb-28 p-4 w-full rounded-[10px] bg-light-orange text-lg text-white'>
+          className='mt-6 mb-20 p-4 w-full rounded-[10px] bg-light-orange text-lg text-white'>
           {isFetchingNextPage ? 'Loading more...' : 'Load more'}
         </button>
       )}
