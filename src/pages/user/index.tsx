@@ -53,7 +53,7 @@ const User = () => {
 
   return (
     <>
-      <div className='relative px-8 py-10'>
+      <div className='relative px-8 py-10 h-full overflow-y-scroll scrollbar-none'>
         {outModal && (
           <ConfirmModal
             title='정말 로그아웃 하시겠어요?'
@@ -74,84 +74,82 @@ const User = () => {
           <IoIosArrowForward />
         </div>
 
-        <div className='px-3 h-[calc(100vh-270px)] overflow-y-scroll'>
-          <p className='text-lg font-semibold border-t pt-3 border-black5'>나의 프로필</p>
-          <div className='mb-6'>
-            <div
-              className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-              onClick={() => navigate('/user/wishlist')}
-            >
-              <div className='flex items-center gap-4'>
-                <MdEmail className='text-yellow text-2xl' />
-                <span>이메일</span>
-              </div>
-              <div className='text-black/40'>{email}</div>
+        <p className='text-lg font-semibold border-t pt-3 border-black5'>나의 프로필</p>
+        <div className='mb-6'>
+          <div
+            className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            onClick={() => navigate('/user/wishlist')}
+          >
+            <div className='flex items-center gap-4'>
+              <MdEmail className='text-yellow text-2xl' />
+              <span>이메일</span>
             </div>
-            <div
-              className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-              onClick={() => navigate('/user/wishlist')}
-            >
-              <div className='flex items-center gap-4'>
-                <BsFillTelephoneFill className='text-yellow text-2xl' />
-                <span>전화번호</span>
-              </div>
-              <div className='text-black/40'>{phone}</div>
-            </div>
-            <div
-              className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-              onClick={() => navigate('/user/wishlist')}
-            >
-              <div className='flex items-center gap-4'>
-                <MdOutlineWork className='text-yellow text-2xl' />
-                <span>직업</span>
-              </div>
-              <div className='text-black/40'>{job}</div>
-            </div>
+            <div className='text-black/40'>{email}</div>
           </div>
-
-          <p className='text-lg font-semibold'>나의 금융정보</p>
-          <div className='mb-6'>
-            <div
-              className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-              onClick={() => navigate('/user/wishlist')}
-            >
-              <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
-              <span>관심상품</span>
+          <div
+            className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            onClick={() => navigate('/user/wishlist')}
+          >
+            <div className='flex items-center gap-4'>
+              <BsFillTelephoneFill className='text-yellow text-2xl' />
+              <span>전화번호</span>
             </div>
-            <div
-              className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-              onClick={() => navigate('/user/mycart')}
-            >
-              <BsFillCartCheckFill className='text-yellow text-2xl ' />
-              <span>장바구니</span>
-            </div>
-            <div
-              className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-              onClick={() => navigate('/user/orderlist')}
-            >
-              <MdAccountBalanceWallet className='text-yellow text-2xl' />
-              <span>신청한 상품 내역</span>
-            </div>
+            <div className='text-black/40'>{phone}</div>
           </div>
+          <div
+            className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            onClick={() => navigate('/user/wishlist')}
+          >
+            <div className='flex items-center gap-4'>
+              <MdOutlineWork className='text-yellow text-2xl' />
+              <span>직업</span>
+            </div>
+            <div className='text-black/40'>{job}</div>
+          </div>
+        </div>
 
-          <p className='text-lg font-semibold'>계정</p>
-          <div>
-            <div
-              className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
-              onClick={() => setOutModal(true)}
-            >
-              <FaUserMinus className='text-yellow text-2xl' />
-              <span>로그아웃</span>
-            </div>
-            <div
-              className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
-              onClick={() => {
-                setDeleteModal(true);
-              }}
-            >
-              <FaUserTimes className='text-yellow text-2xl' />
-              <span>회원탈퇴</span>
-            </div>
+        <p className='text-lg font-semibold'>나의 금융정보</p>
+        <div className='mb-6'>
+          <div
+            className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            onClick={() => navigate('/user/wishlist')}
+          >
+            <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
+            <span>관심상품</span>
+          </div>
+          <div
+            className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            onClick={() => navigate('/user/mycart')}
+          >
+            <BsFillCartCheckFill className='text-yellow text-2xl ' />
+            <span>장바구니</span>
+          </div>
+          <div
+            className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            onClick={() => navigate('/user/orderlist')}
+          >
+            <MdAccountBalanceWallet className='text-yellow text-2xl' />
+            <span>신청한 상품 내역</span>
+          </div>
+        </div>
+
+        <p className='text-lg font-semibold'>계정</p>
+        <div>
+          <div
+            className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
+            onClick={() => setOutModal(true)}
+          >
+            <FaUserMinus className='text-yellow text-2xl' />
+            <span>로그아웃</span>
+          </div>
+          <div
+            className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
+            onClick={() => {
+              setDeleteModal(true);
+            }}
+          >
+            <FaUserTimes className='text-yellow text-2xl' />
+            <span>회원탈퇴</span>
           </div>
         </div>
       </div>

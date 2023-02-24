@@ -17,6 +17,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import SkeletonLoanProductCard from '@/components/SkeletonLoanProductCard';
 import { BsFillArrowUpSquareFill } from 'react-icons/bs';
 import Checkbox from '@/components/Checkbox';
+import Navigation from '../../components/ui/Navigation';
 
 const Main = () => {
   const [loanProducts, setLoanProducts] = useState([]);
@@ -47,10 +48,33 @@ const Main = () => {
         // combinePagesContent : data.pages 페이지안에서 content 배열을 하나로 합쳐서 반환한다.
         // 그 반환값을 loanProducts 상태에 저장한다.
         setLoanProducts(combinePagesContent(data.pages));
-        console.log(data);
       },
     }
   );
+  // 추천 상품 가져오기
+  const { isLoading: fetchingRecommends, fetchNextPage: fetchNextRecPage } =
+    useInfiniteQuery(
+      ['recProducts', accessToken],
+      ({ pageParam = 1 }) => ax.getRecommendsProducts(accessToken, pageParam),
+      {
+        getNextPageParam: (lastPage) => {
+          try {
+            if (!lastPage) return;
+            return lastPage.pageNumber < lastPage.totalPages
+              ? lastPage.pageNumber + 1
+              : undefined;
+          } catch (err) {
+            throw Error(err);
+          }
+        },
+        onSuccess: (data) => {
+          // combinePagesContent : data.pages 페이지안에서 content 배열을 하나로 합쳐서 반환한다.
+          // 그 반환값을 loanProducts 상태에 저장한다.
+          setLoanProducts(combinePagesContent(data.pages));
+          console.log(data);
+        },
+      }
+    );
   // 추천 상품 가져오기
   const { isLoading: fetchingRecommends, fetchNextPage: fetchNextRecPage } =
     useInfiniteQuery(
@@ -184,6 +208,7 @@ const Main = () => {
           </div>
         </div>
       </main>
+      <Navigation />
     </>
   );
 };
