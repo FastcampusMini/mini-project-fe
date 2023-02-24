@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import LoanProductCard from '@components/LoanProductCard';
-import { TotalLoans } from './TotalLoans';
 import Nav from '@components/Nav';
 import { ax } from '@/libs/axiosClient';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
@@ -10,7 +9,6 @@ import { useSelector } from 'react-redux';
 import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
 import Slider from './Slider';
-import SlideCard from './SlideCard';
 import { MdChecklistRtl, MdOutlineAccountCircle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -102,7 +100,7 @@ const Main = () => {
         />
       )}
       <BsFillArrowUpSquareFill
-        className='absolute right-10 bottom-6 z-30 text-black/20 cursor-pointer transition-colors hover:text-black/50 hover:scale-110'
+        className='absolute right-10 bottom-28 z-30 text-black/20 cursor-pointer transition-colors hover:text-black/50 hover:scale-110'
         size={40}
         onClick={scrollToTop}
       />
@@ -167,19 +165,16 @@ const Main = () => {
               대출상품
             </h3>
 
-            <div className='grid grid-cols-2 gap-5 '>
+            <div className='grid grid-cols-2 gap-5 pb-16'>
               {/* {loanProducts?.map((product: IProduct) => (
                 <LoanProductCard key={product?.productId} product={product} />
               ))} */}
-              {/* {loanProductsPages.pages.map((page) =>
-                page.content.map((product) => (
+              {loanProductsPages?.pages.map((page) =>
+                page?.content.map((product) => (
                   <LoanProductCard key={product?.productId} product={product} />
                 ))
-              )} */}
+              )}
               {/* <LoanProductCard product={loanProducts[0]} /> */}
-              {/* {[1, 2, 3, 4, 5, 6].map((dummy) => (
-                <SkeletonLoanProductCard key={dummy + 'dummy'} />
-              ))} */}
             </div>
           </div>
         </div>
