@@ -100,7 +100,7 @@ const Edit = () => {
                 기존 비밀번호 <span className=' text-red'>*</span>
               </span>
               <input
-                type='text'
+                type='password'
                 placeholder='기존 비밀번호를 입력해주세요'
                 required
                 className='border-orange valid:border-gray valid:border-2 border-2 rounded-full w-full h-12 px-4 bg-light-orange/5'
@@ -156,17 +156,17 @@ const Edit = () => {
 
             <div>
               <span className='font-semibold flex my-4 text-lg'>직업</span>
-                <select
-                  className='border border-gray rounded-full w-full h-12 px-4'
-                  {...register('job')}>
-                  <option value='개발자'>개발자</option>
-                  <option value='사무직'>사무직</option>
-                  <option value='기획자'>기획자</option>
-                  <option value='마케터'>마케터</option>
-                  <option value='디자이너'>디자이너</option>
-                  <option value='학생'>학생</option>
-                  <option value='무직'>무직</option>
-                </select>
+              <select
+                className='border border-gray rounded-full w-full h-12 px-4'
+                {...register('job')}>
+                <option value='개발자'>개발자</option>
+                <option value='사무직'>사무직</option>
+                <option value='기획자'>기획자</option>
+                <option value='마케터'>마케터</option>
+                <option value='디자이너'>디자이너</option>
+                <option value='학생'>학생</option>
+                <option value='무직'>무직</option>
+              </select>
 
               <span className='text-sm text-orange'>{errors.job?.message}</span>
             </div>
