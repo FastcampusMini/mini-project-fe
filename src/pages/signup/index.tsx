@@ -97,7 +97,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className='px-8 py-10'>
+    <div className='px-8 py-10 h-full overflow-y-scroll scrollbar-none'>
       <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
         취소
       </p>
@@ -107,7 +107,7 @@ const SignUp = () => {
       </h1>
 
       <form className='flex flex-col' onSubmit={handleSubmit(submitForm)}>
-        <div className='px-3 h-[calc(100vh-270px)] overflow-y-scroll scrollbar-thumb-black/20 scrollbar-track-black/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full'>
+        <div className='mb-10'>
           <SignUpField text={'이름'} name={'name'} register={register} errorMsg={errors.name} />
           <SignUpField text={'이메일'} name={'email'} inputType='email' register={register} errorMsg={errors.email} />
           <SignUpField
@@ -166,8 +166,8 @@ const SignUp = () => {
             register={register}
             errorMsg={errors.salary}
           />
-          <ConfirmBtn isSubmitting={isSubmitting} isValid={isValid} />
         </div>
+        <ConfirmBtn isSubmitting={isSubmitting} isValid={isValid} />
       </form>
     </div>
   );

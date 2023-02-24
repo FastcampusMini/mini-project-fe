@@ -3,6 +3,7 @@ import { DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import { ax } from '@/libs/axiosClient';
 import { removeCookieToken } from '@/libs/Cookie';
 import { yupResolver } from '@hookform/resolvers/yup';
+import cogoToast from 'cogo-toast';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -43,16 +44,15 @@ const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
   // 백으로 password 전달해서 회원탈퇴
   const onValid: SubmitHandler<IDeleteForm> = async ({ password }, event) => {
     event.preventDefault();
-    console.log('password:', password);
 
     const response = await ax.deleteUser(accessToken, password);
     console.log(response);
 
-    if (response.status === 200) {
+    if (response.code === 200) {
       dispatch(DELETE_TOKEN(accessToken));
       removeCookieToken();
       setDeleteModal(false);
-      // alert(response.message);
+      await cogoToast.info(response.message);
       navigate('/');
     } else {
       setMessage('기존 비밀번호와 일치하지 않습니다.\n다시 입력해주세요.');

@@ -70,7 +70,7 @@ const Id = () => {
 
   return (
     <>
-      <div className='h-full overflow-y-scroll bg-yellow'>
+      <div className='h-full overflow-y-scroll bg-yellow scrollbar-none'>
         <Nav left='arrow' addClass='mt-5' />
 
         <div className='px-10 pb-16 relative top-5 bg-white rounded-t-3xl shadow-md'>
