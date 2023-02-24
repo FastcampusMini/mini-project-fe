@@ -6,7 +6,8 @@ import {ax} from '@libs/axiosClient'
 import { useSelector } from 'react-redux';
 import { CgSearch } from 'react-icons/cg';
 import Search from '@/components/Search';
-import ProductCard from '../../../components/FinancialProdCard';
+import Nav from '@components/Nav';
+// import ProductCard from '../../../components/FinancialProdCard';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import Navigation from '@components/ui/Navigation';
 
@@ -32,86 +33,94 @@ const Financial = () => {
   };
 
   return (
-    <div>
-      <h2 className='mt-8 text-3xl font-bold'>상품 검색</h2>
-      <div className='mb-16'>
-        <form
-          className='flex flex-wrap gap-3 rounded-[10px]'
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className='w-full sm:text-right text-left'>
-            <label htmlFor='available' className=''>
-              내가 가입할 수 있는 상품만 보기
-            <input
-              type='checkbox'
-              id='available'
-              className='ml-2'
-              {...register('isChecked')}
-              name='isChecked'
-            />
-            </label>
-          </div>
-          <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
-            <select
-              className='pl-3 py-3 outline-none focus:outline-none'
-              {...register('searchTarget')}
-              name='searchTarget'
-              >
-              <option value={''} defaultChecked={true}>
-                전체
-              </option>
-              <option value={'name'}>상품명</option>
-              <option value={'brand'}>은행명</option>
-              <option value={'price'}>대출한도</option>
-            </select>
-          </div>
-          <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
-            <select 
-              className='pl-3 py-3 outline-none focus:outline-none'
-              {...register('sortDirection')} 
-              name='sortDirection'
-            >
-              <option value={''}>정렬</option>
-              <option value={'ASC'}>오름차순</option>
-              <option value={'DESC'}>내림차순</option>
-            </select>
-          </div>
-          <div className='relative grow'>
-            <input
-              type='text'
-              // required
-              className='pl-4 pr-4 py-3 w-full rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus-within:border-yellow focus-within:border-2 valid:border-2'
-              placeholder='원하는 상품을 검색하세요'
-              {...register('searchKeyword')}
-              name='searchKeyword'
-            />
-            <button
-              className='absolute top-0 bottom-0 right-4 text-black40'
-              type='submit'
-            >
-              <CgSearch size='26'></CgSearch>
-            </button>
-          </div>
-        </form>
-      </div>
-      <div className='mb-16'>
-        <div className='h-[calc(100vh-360px)] scrollbar pr-8 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
-          {
-            <Search name='' searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} accessToken={accessToken} />
-          }
+    <div className='h-full overflow-y-scroll'>
+      <Nav left='arrow' right='arrow' addClass='mt-5' />
+      <div className='px-10 relative'>
+        <div className='bg-yellow w-full h-96 absolute top-[-88px] left-0 right-0 -z-40'>
+          {/*배경 */}
         </div>
+        <h2 className='text-3xl font-bold'>상품 검색</h2>
+        <div className='mb-16'>
+          <form
+            className='flex flex-wrap gap-3 rounded-[10px]'
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className='w-full sm:text-right text-left'>
+              <label htmlFor='available' className=''>
+                내가 가입할 수 있는 상품만 보기
+              <input
+                type='checkbox'
+                id='available'
+                className='ml-2'
+                {...register('isChecked')}
+                name='isChecked'
+              />
+              </label>
+            </div>
+            <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
+              <select
+                className='pl-3 py-3 outline-none focus:outline-none'
+                {...register('searchTarget')}
+                name='searchTarget'
+                >
+                <option value={''} defaultChecked={true}>
+                  전체
+                </option>
+                <option value={'name'}>상품명</option>
+                <option value={'brand'}>은행명</option>
+                <option value={'price'}>대출한도</option>
+              </select>
+            </div>
+            <div className='pr-3 outline-none rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus:border-2 hover:border-2 focus:border-yellow invalid:border-light-gray valid:border-yellow hover:border-yellow text-lg'>
+              <select 
+                className='pl-3 py-3 outline-none focus:outline-none'
+                {...register('sortDirection')} 
+                name='sortDirection'
+              >
+                <option value={''}>정렬</option>
+                <option value={'ASC'}>오름차순</option>
+                <option value={'DESC'}>내림차순</option>
+              </select>
+            </div>
+            <div className='relative grow'>
+              <input
+                type='text'
+                // required
+                className='pl-4 pr-4 py-3 w-full rounded-full border-2 border-light-gray bg-white overflow-hidden focus:outline-none focus-within:border-yellow focus-within:border-2 valid:border-2'
+                placeholder='원하는 상품을 검색하세요'
+                {...register('searchKeyword')}
+                name='searchKeyword'
+              />
+              <button
+                className='absolute top-0 bottom-0 right-4 text-black40'
+                type='submit'
+              >
+                <CgSearch size='26'></CgSearch>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className='mb-16'>
+          <div 
+          // className='h-[calc(100vh-400px)] scrollbar scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-hidden scrollbar-thumb-rounded-md scrollbar-track-rounded-md'
+          >
+            {
+              <Search name='' searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} accessToken={accessToken} />
+            }
+          </div>
+        </div>              
+        <>
+          {modal && (
+            <ConfirmModal
+              title='로그인이 필요한 서비스입니다.' 
+              description='로그인 화면으로 이동하시겠습니까?'
+              onConfirm={() => navigate('/signin')}
+              onCancel={() => setModal(false)}
+            />
+          )}
+        </>
       </div>
-      <Navigation />
-      <>
-        {modal && (
-          <ConfirmModal
-            title='로그인이 필요한 서비스입니다.' 
-            description='로그인 화면으로 이동하시겠습니까?'
-            onConfirm={() => navigate('/signin')}
-            onCancel={() => setModal(false)}
-          />
-        )}
-      </>
+      <Navigation />  
     </div>
   );
 };

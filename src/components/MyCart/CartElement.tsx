@@ -1,16 +1,29 @@
-import { useState } from 'react';
-import { TiDeleteOutline } from 'react-icons/ti';
+import { useState, useEffect } from 'react';
 import Card from './Card';
 import ConfirmModal from '../ui/ConfirmModal';
-import { useGetOrderListQuery } from '@/store/api/orderApiSlice';
 import AlertModal from '../ui/AlertModal';
+import { useGetCartQuery } from '@/store/api/cartApiSlice';
 
 // key 값 변경 될 수도 있음
-const CartElement = ({ cartData, deleteCart, addOrderList }) => {
+const CartElement = ({
+  cartData,
+  deleteCart,
+  addOrderList,
+  allOrderModal,
+  setAllOrderModal,
+}) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
-  const { data: order } = useGetOrderListQuery('');
+  const { data: cartAll } = useGetCartQuery('');
+  const orderList = [];
+  console.log('cartAll', cartAll);
+  cartAll.data.map((value) => {
+    return orderList.push(value.productId);
+  });
+  console.log('orderList', orderList);
+  useEffect(() => {}, []);
+
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       <Card data={cartData}>
@@ -57,22 +70,25 @@ const CartElement = ({ cartData, deleteCart, addOrderList }) => {
           title='신청하시겠습니까?'
           description=''
           onConfirm={async () => {
-            const find = order?.data?.find((value) => {
-              return (
-                value.purchasedProductList[0].originalProductId ===
-                cartData.productId
-              );
-            });
-            if (find) {
-              setAddModal(false);
-              setAlertModal(true);
-            } else {
-              await addOrderList({ products_id_list: [cartData.productId] });
-              await deleteCart({ basketId: cartData.basketId });
-              setAddModal(false);
-            }
+            await addOrderList({ products_id_list: [cartData.productId] });
+            await deleteCart({ basketId: cartData.basketId });
+            setAddModal(false);
           }}
           onCancel={() => setAddModal(false)}
+        />
+      )}
+      {allOrderModal && (
+        <ConfirmModal
+          title='전체 상품을 신청하시겠습니까?'
+          description=''
+          onConfirm={async () => {
+            await addOrderList({ products_id_list: [...orderList] });
+            cartAll.data.map(async (value) => {
+              await deleteCart({ basketId: value.basketId });
+            });
+            setAllOrderModal(false);
+          }}
+          onCancel={() => setAllOrderModal(false)}
         />
       )}
       {alertModal && <AlertModal setAlertModal={setAlertModal} />}

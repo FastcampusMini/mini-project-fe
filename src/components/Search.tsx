@@ -27,8 +27,11 @@ const Search = ({ name, accessToken, searchTarget, searchKeyword, sortTarget, so
   }
 
   if (!data) {
+    console.log('no Data')
+    console.log(data)
     return <div>Loading...</div>;
   }
+  
   return (
     <div>
       {dataPack?.map((product: IProduct) => (
@@ -40,7 +43,7 @@ const Search = ({ name, accessToken, searchTarget, searchKeyword, sortTarget, so
         <button
           onClick={() => fetchNextPage()}
           disabled={isFetchingNextPage}
-          className='mb-20 p-4 w-full rounded-[10px] bg-light-orange text-lg text-white'>
+          className='mt-6 mb-20 p-4 w-full rounded-[10px] bg-light-orange text-lg text-white'>
           {isFetchingNextPage ? 'Loading more...' : 'Load more'}
         </button>
       )}

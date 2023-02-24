@@ -10,6 +10,8 @@ import { useAddCartMutation } from '@/store/api/cartApiSlice';
 import Navigation from '@components/ui/Navigation';
 import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
 import { useNavigate } from 'react-router-dom';
+import { CgProfile } from 'react-icons/cg';
+import { AiFillHome } from 'react-icons/ai';
 
 const WishList = () => {
   const navigate = useNavigate();
@@ -24,14 +26,26 @@ const WishList = () => {
   const [addCart] = useAddCartMutation();
   return (
     <>
-      <article>
-        <Nav left='arrow' />
+      <article className='p-8'>
+        <div className='flex justify-between'>
+          <Nav left='arrow' />
+          <div className='flex gap-4'>
+            <CgProfile
+              onClick={() => navigate('/user')}
+              className='text-3xl cursor-pointer text-gray hover:text-yellow'
+            />
+            <AiFillHome
+              onClick={() => navigate('/main')}
+              className='text-3xl cursor-pointer text-gray hover:text-yellow'
+            />
+          </div>
+        </div>
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
           관심상품
         </h1>
         <div className='h-[calc(100vh-270px)] scrollbar pr-6 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
           <div className='max-w-screen-sm h-fit'>
-            {wishlist?.data?.map((value: Daum) => (
+            {wishlist?.data?.map((value: DaumData) => (
               <WishListElement
                 wishlistData={value}
                 addCart={addCart}
@@ -57,7 +71,7 @@ const WishList = () => {
         </div>
       </article>
       <Navigation />
-      {isError && navigate('/signin')}
+      {isError && navigate('/')}
     </>
   );
 };
