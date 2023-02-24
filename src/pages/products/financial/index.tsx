@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import {ax} from '@libs/axiosClient'
-import { useSelector } from 'react-redux';
 import { CgSearch } from 'react-icons/cg';
 import Search from '@/components/Search';
 import Nav from '@components/Nav';
-// import ProductCard from '../../../components/FinancialProdCard';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import Navigation from '@components/ui/Navigation';
 
@@ -19,8 +15,7 @@ const Financial = () => {
   const [isChecked, setIsChecked] = useState()
 
   const navigate = useNavigate()
-  const [modal, setModal] = useState(false);  
-  const { accessToken } = useSelector((state: any) => state.authToken);
+  const [modal, setModal] = useState(false);
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data:any) => {
@@ -100,13 +95,9 @@ const Financial = () => {
             </div>
           </form>
         </div>
-        <div className='mb-16'>
-          <div 
-          // className='h-[calc(100vh-400px)] scrollbar scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-hidden scrollbar-thumb-rounded-md scrollbar-track-rounded-md'
-          >
-            {
-              <Search name='' searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} accessToken={accessToken} />
-            }
+        <div className='mb-24'>
+          <div>
+            {<Search searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} />}
           </div>
         </div>              
         <>

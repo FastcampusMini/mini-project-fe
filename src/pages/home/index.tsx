@@ -2,9 +2,13 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { BiChevronRight } from 'react-icons/bi';
+import { ax } from '@/libs/axiosClient';
 
 const Home = () => {
   const navigate = useNavigate();
+  const handleSignin = async () => {
+    navigate('/signin');
+  };
   return (
     <div className='flex flex-col justify-center h-screen'>
       <div className='flex flex-col mb-32 gap-8'>
@@ -18,7 +22,7 @@ const Home = () => {
       <div className='flex flex-col items-center gap-4'>
         <button
           className='border w-10/12 h-16 bg-yellow rounded-full text-white text-xl flex items-center justify-center px-5 hover:brightness-105'
-          onClick={() => navigate('/signin')}>
+          onClick={handleSignin}>
           Sign in
         </button>
 

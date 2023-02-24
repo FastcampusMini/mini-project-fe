@@ -1,5 +1,6 @@
 import { deleteAuth } from '@/api/authApi';
 import { DELETE_TOKEN } from '@/features/authSlice/authSlice';
+import { ax } from '@/libs/axiosClient';
 import { removeCookieToken } from '@/libs/Cookie';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState } from 'react';
@@ -44,10 +45,10 @@ const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
     event.preventDefault();
     console.log('password:', password);
 
-    const response = await deleteAuth(accessToken, password);
+    const response = await ax.deleteUser(accessToken, password);
     console.log(response);
 
-    if (response.code === 200) {
+    if (response.status === 200) {
       dispatch(DELETE_TOKEN(accessToken));
       removeCookieToken();
       setDeleteModal(false);

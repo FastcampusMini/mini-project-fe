@@ -6,12 +6,12 @@ import ConfrimBtn from '../../components/ui/ConfirmBtn';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import SignInField from '../../components/SignIn/SignInField';
-import { logIn } from '../../api/authApi';
 import { Cookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { setRefreshToken } from '@/libs/Cookie';
 import { SET_TOKEN } from '@/features/authSlice/authSlice';
 import cogoToast from 'cogo-toast';
+import { ax } from '@/libs/axiosClient';
 interface ISignInForm {
   email?: string;
   password: string;
@@ -42,7 +42,7 @@ const SignIn = () => {
     event.preventDefault();
     console.log('email', email);
     console.log('password', password);
-    const response = await logIn({ email, password });
+    const response = await ax.postLogin({ email, password });
     console.log(response);
 
     if (response.code === 200) {
