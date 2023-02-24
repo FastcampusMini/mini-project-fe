@@ -91,7 +91,7 @@ const Main = () => {
         size={40}
         onClick={scrollToTop}
       />
-      <main className='flex flex-col overflow-y-scroll  h-full pb-16 relative' ref={ref}>
+      <main className='flex flex-col overflow-y-scroll scrollbar-none h-full pb-16 relative' ref={ref}>
         <Nav left='arrow' right='arrow' addClass='mt-5' />
         <div className='flex justify-between px-10 mb-5'>
           <div className=''>
