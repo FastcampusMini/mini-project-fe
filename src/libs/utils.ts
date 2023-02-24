@@ -1,4 +1,5 @@
 export function joinNames(...classnames: string[]): string {
+  if (classnames.length === 0) return '';
   return classnames.join(' ');
 }
 
@@ -18,6 +19,14 @@ export function paginaton<T>(arr?: T[], size: number = 10, page: number = 1) {
 
 // 페이지네이션 데이터
 export const combinePagesContent = (pages) => {
+  if (!pages) {
+    console.log('pages가 없습니다', pages);
+    return [];
+  }
+  if (pages.length === 0) {
+    console.log('빈배열이 입력됐습니다.');
+    return [];
+  }
   let result = [];
   if (pages?.length) {
     for (let page of pages) {

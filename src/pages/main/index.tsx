@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import LoanProductCard from '@components/LoanProductCard';
-import { TotalLoans } from './TotalLoans';
 import Nav from '@components/Nav';
 import { ax } from '@/libs/axiosClient';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
@@ -10,11 +9,12 @@ import { useSelector } from 'react-redux';
 import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
 import Slider from './Slider';
-import SlideCard from './SlideCard';
 import { MdChecklistRtl, MdOutlineAccountCircle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import SkeletonLoanProductCard from '@/components/SkeletonLoanProductCard';
+import { BsFillArrowUpSquareFill } from 'react-icons/bs';
+import Checkbox from '@/components/Checkbox';
 import Navigation from '../../components/ui/Navigation';
 
 const Main = () => {
@@ -57,7 +57,7 @@ const Main = () => {
         }
       },
       onSuccess: (data) => {
-        // console.log(data.pages[0].content);
+        if (!data.pages) console.log('data가없어요', data.pages);
         setRecommendedProducts(combinePagesContent(data.pages));
       },
     }
@@ -75,7 +75,11 @@ const Main = () => {
       console.log('무한스크롤', yScroll);
     }
   }, [yScroll]);
-
+  const scrollToTop = () => {
+    if (ref.current) {
+      ref.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   return (
     <>
       {fetchingUser && (
@@ -85,7 +89,12 @@ const Main = () => {
           color='#000'
         />
       )}
-      <main className='flex flex-col overflow-y-scroll scrollbar-none h-full pb-16 relative' ref={ref}>
+      <BsFillArrowUpSquareFill
+        className='absolute right-10 bottom-28 z-30 text-black/20 cursor-pointer transition-colors hover:text-black/50 hover:scale-110'
+        size={40}
+        onClick={scrollToTop}
+      />
+      <main className='flex flex-col overflow-y-scroll  h-full pb-16 relative' ref={ref}>
         <Nav left='arrow' right='arrow' addClass='mt-5' />
         <div className='flex justify-between px-10 mb-5'>
           <div className=''>
@@ -127,19 +136,14 @@ const Main = () => {
           <div className='mx-10'>
             <h3 className='my-3 font-bold text-2xl  pointer-events-none'>대출상품</h3>
 
-            <div className='grid grid-cols-2 gap-5 '>
-              {loanProducts?.map((product: IProduct) => (
+            <div className='grid grid-cols-2 gap-5 pb-16'>
+              {/* {loanProducts?.map((product: IProduct) => (
                 <LoanProductCard key={product?.productId} product={product} />
-              ))}
-              {/* {loanProductsPages.pages.map((page) =>
-                page.content.map((product) => (
-                  <LoanProductCard key={product?.productId} product={product} />
-                ))
-              )} */}
-              {/* <LoanProductCard product={loanProducts[0]} /> */}
-              {/* {[1, 2, 3, 4, 5, 6].map((dummy) => (
-                <SkeletonLoanProductCard key={dummy + 'dummy'} />
               ))} */}
+              {loanProductsPages?.pages.map((page) =>
+                page?.content.map((product) => <LoanProductCard key={product?.productId} product={product} />)
+              )}
+              {/* <LoanProductCard product={loanProducts[0]} /> */}
             </div>
           </div>
         </div>

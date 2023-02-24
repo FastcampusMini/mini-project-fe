@@ -5,21 +5,22 @@ api 명세: https://documenter.getpostman.com/view/25760000/2s935so2bC
 
 ## 라이브러리
 
-- react-icons 아이콘 컴포넌트
-- react-loading 로딩 컴포넌트
-- axios
-- @tanstack/react-query
-- framer-motion
-- redux
-- typescript
-- react-router-dom
+- `react-icons` 아이콘 컴포넌트
+- `react-loading` 로딩 컴포넌트
+- `axios`
+- `@tanstack/react-query` :
+- `redux` - 토큰관리
+- `typescript`
+- `react-router-dom`
 
 ## 페이지 및 기능
+
+<!-- ![](readMeImages/2023-02-24-18-14-01.png) -->
 
 - `/` Home 페이지
   - 로그인 페이지 이동 버튼
   - 회원가입 페이지 이동 버튼
-- `/main` 메인 페이지(금융상품) - "GET : api/products"
+- `/main` 메인 페이지(금융상품 목록) - "GET : api/products"
   - 신청 가능 대출금 총합
   - 현재 신청 가능한 대출 상품들
   - 현재 신청 가능한 청약 상품들
@@ -442,7 +443,7 @@ interface Financial {
   financialId: string; // 금융상품 ID
   title: string; // 제품 이름
   price: number | number[] | null; // 제품 가격
-  type: "loan" | "investment" | "deposit" | "guaranteed"; // 금융상품의 종류: 대출or투자or예금or보장성
+  type: 'loan' | 'investment' | 'deposit' | 'guaranteed'; // 금융상품의 종류: 대출or투자or예금or보장성
   tags: string[]; // 제품 태그
   provider: string; // 서비스 제공자
   image: string | null; // 상품 제공자 로고 or 이미지(URL)
@@ -494,7 +495,7 @@ interface ResponseValue {
   title: string; // 제품 이름
   price: number | null; // 제품 가격
   description: string; // 제품 설명
-  type: "loan" | "investment" | "deposit" | "guaranteed"; // 금융상품의 종류: 대출or투자or예금or보장성
+  type: 'loan' | 'investment' | 'deposit' | 'guaranteed'; // 금융상품의 종류: 대출or투자or예금or보장성
   tags: string[]; // 제품 태그
   provider: string; // 서비스 제공자
   image: string | null; // 상품 제공자 로고 또는 기타 이미지(URL)
@@ -531,7 +532,7 @@ curl https://BASE_API_URL/api/financial/search
 interface RequestBody {
   searchText?: string; // 검색할 상품 이름
   searchTags?: string[]; // 검색할 상품 태그
-  searchType?: "loan" | "investment" | "deposit" | "guaranteed"; // 검색할 상품의 유형
+  searchType?: 'loan' | 'investment' | 'deposit' | 'guaranteed'; // 검색할 상품의 유형
 }
 ```
 
@@ -552,7 +553,7 @@ interface Financial {
   financialId: string; // 금융상품 ID
   title: string; // 제품 이름
   price: number | null; // 제품 가격
-  type: "loan" | "investment" | "deposit" | "guaranteed"; // 금융상품의 종류: 대출or투자or예금or보장성
+  type: 'loan' | 'investment' | 'deposit' | 'guaranteed'; // 금융상품의 종류: 대출or투자or예금or보장성
   tags: string[]; // 제품 태그
   provider: string; // 서비스 제공자
   image: string | null; // 상품 제공자 로고 or 이미지(URL)

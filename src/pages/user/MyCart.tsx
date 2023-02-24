@@ -12,7 +12,7 @@ import { AiFillHome } from 'react-icons/ai';
 
 const Mycart = () => {
   const navigate = useNavigate();
-  const { data: cart, isLoading, isFetching, isError } = useGetCartQuery('');
+  const { data: cart, isLoading, isFetching } = useGetCartQuery('');
   const [deleteCart] = useDeleteCartMutation();
   const [addOrderList] = useAddOrderListMutation();
   const [isValid, setIsValid] = useState(false);
@@ -26,7 +26,7 @@ const Mycart = () => {
   }, [cart]);
   return (
     <>
-      <article className='h-full px-8 pt-8 pb-32 overflow-y-scroll scrollbar-none'>
+      <article className='h-full px-8 pt-8 pb-24 overflow-y-scroll scrollbar-none'>
         <div className='flex justify-between'>
           <Nav left='arrow' />
           <div className='flex gap-4'>
@@ -41,7 +41,7 @@ const Mycart = () => {
           </div>
         </div>
         <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>장바구니</h1>
-        <div>
+        <div className='h-[calc(100vh-270px)] scrollbar pr-5 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
           <div className='max-w-screen-sm h-fit'>
             {cart?.data?.map((value: DaumData) => (
               <CartElement
@@ -77,7 +77,6 @@ const Mycart = () => {
       >
         총 {cart?.data?.length}개 전체상품 신청하기
       </button>
-      {isError && navigate('/')}
     </>
   );
 };
