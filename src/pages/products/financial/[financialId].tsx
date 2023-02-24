@@ -16,6 +16,7 @@ import {
 import Nav from '@components/Nav';
 import Navigation from '@components/ui/Navigation';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import PageChangeModal from '@/components/ui/PageChangeModal';
 
 const Id = () => {
   const [addOrderList] = useAddOrderListMutation();
@@ -28,6 +29,7 @@ const Id = () => {
   const [orderModal, setOrderModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
   const [basketModal, setBasketModal] = useState(false);
+  const [pageChange, setPageChange] = useState(false);
   const [like, setLike] = useState(false);
   const [detail, setDetail] = useState<IProduct>();
 
@@ -179,6 +181,7 @@ const Id = () => {
                   setBasketModal(false);
                   setAlertModal(true);
                 } else {
+                  setPageChange(true);
                   setBasketModal(false);
                 }
               }}
@@ -186,6 +189,7 @@ const Id = () => {
             />
           )}
           {alertModal && <AlertModal setAlertModal={setAlertModal} />}
+          {pageChange && <PageChangeModal setPageChange={setPageChange} />}
         </div>
       </div>
       <Navigation />
