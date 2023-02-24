@@ -3,6 +3,7 @@ import Card from './Card';
 import ConfirmModal from '../ui/ConfirmModal';
 import AlertModal from '../ui/AlertModal';
 import { useGetCartQuery } from '@/store/api/cartApiSlice';
+import { useNavigate } from 'react-router-dom';
 
 const CartElement = ({
   cartData,
@@ -11,6 +12,7 @@ const CartElement = ({
   allOrderModal,
   setAllOrderModal,
 }) => {
+  const navigate = useNavigate();
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
@@ -78,6 +80,7 @@ const CartElement = ({
             } else {
               await deleteCart({ basketId: cartData.basketId });
               setAddModal(false);
+              navigate('/user/orderlist');
             }
           }}
           onCancel={() => setAddModal(false)}
@@ -99,6 +102,7 @@ const CartElement = ({
                 await deleteCart({ basketId: value.basketId });
               });
               setAllOrderModal(false);
+              navigate('/user/orderlist');
             }
           }}
           onCancel={() => setAllOrderModal(false)}

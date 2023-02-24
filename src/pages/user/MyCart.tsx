@@ -3,7 +3,10 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
 import Nav from '@/components/Nav';
-import { useGetCartQuery, useDeleteCartMutation } from '../../store/api/cartApiSlice';
+import {
+  useGetCartQuery,
+  useDeleteCartMutation,
+} from '../../store/api/cartApiSlice';
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +29,7 @@ const Mycart = () => {
   }, [cart]);
   return (
     <>
-      <article className='h-full px-8 pt-8 pb-24 overflow-y-scroll scrollbar-none'>
+      <article className='h-full px-10 pt-10 pb-24 overflow-y-scroll scrollbar-none'>
         <div className='flex justify-between'>
           <Nav left='arrow' />
           <div className='flex gap-4'>
@@ -40,8 +43,9 @@ const Mycart = () => {
             />
           </div>
         </div>
-        <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>장바구니</h1>
-
+        <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
+          장바구니
+        </h1>
         <div className='max-w-screen-sm h-fit'>
           {cart?.data?.map((value: DaumData) => (
             <CartElement
@@ -68,8 +72,8 @@ const Mycart = () => {
       </article>
       <button
         className={`block text-center text-3xl ${
-          isValid ? `bg-yellow` : `bg-gray cursor-not-allowed`
-        } text-white py-6 rounded-t-3xl border-t border-gray cursor-pointer bottom-0 absolute w-full left-0`}
+          isValid ? `bg-yellow cursor-pointer` : `bg-gray cursor-not-allowed`
+        } text-white py-6 rounded-t-3xl bottom-0 absolute w-full left-0`}
         onClick={() => {
           setAllOrderModal(true);
         }}
