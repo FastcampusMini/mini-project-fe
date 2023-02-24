@@ -17,8 +17,8 @@ class Axios {
     });
   }
   //////////////////////// 회원정보
-  // 로그인 요청
-  async postLogin({ email, password }: ILoginInput): Promise<IToken> {
+  /** 로그인 api */
+  async postLogin({ email, password }: ILoginInput) {
     const result = await this.axiosClient
       .post('/login', {
         email,
@@ -26,13 +26,13 @@ class Axios {
       })
       .then((res) => res.data);
     console.log(`postLogin${result.message}>>`, result.data);
-    return result.data;
+    return result;
   }
 
   // 유저 정보수정
   async patchUserEdit(
     accessToken: string,
-    payload: IUserEditPayload,
+    payload: IUserEditPayload
   ): Promise<IPatchUserEditReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
@@ -65,8 +65,8 @@ class Axios {
     return result.data;
   }
 
-  // Refresh token
-  async postRefresh(refreshToken: string): Promise<IPostRefreshReturn> {
+  /** 토큰 재발급 api*/
+  async postRefresh(refreshToken: string) {
     if (!refreshToken) throw Error(`[에러]refreshToken="${refreshToken}" `);
     const result = await this.axiosClient
       .post(
@@ -78,32 +78,31 @@ class Axios {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
           },
-        },
+        }
       )
       .then((response) => response.data);
     console.log(`postRefresh >>`, result);
-    return result.data;
+    return result;
   }
 
-  // Logout
-  async postLogout(accessToken: string): Promise<void> {
+  /** 로그아웃 api */
+  async postLogout(accessToken: string, refreshToken: string) {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
-    const result = await this.axiosClient
-      .post(
-        '/logout',
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+    const result = await this.axiosClient.post(
+      '/logout',
+      { refreshToken },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-      )
-      .then((response) => response.data);
-    console.log(`postLogout >>`, result);
+      }
+    );
+    console.log(`postLogout >>`, result.data);
+    return result;
   }
 
-  // 회원가입하기
+  /** 회원가입 api */
   async postRegister(payload: IRegisterInput): Promise<IPostRegisterReturn> {
     const result = await this.axiosClient
       .post('/register', payload)
@@ -111,30 +110,27 @@ class Axios {
     console.log(`postRegister >>`, result);
     return result;
   }
-  // 회원탈퇴하기
-  async deleteUser(
-    accessToken: string,
-    { email, password }: ILoginInput,
-  ): Promise<IDeleteUserReturn> {
+
+  /** 회원탈퇴 api */
+  async deleteUser(accessToken: string, password: string) {
     const result = await this.axiosClient
       .delete('/user', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         data: {
-          email,
           password,
         },
       })
       .then((response) => response.data);
     console.log(`deleteUser >>`, result);
-    return result.data;
+    return result;
   }
   ////////////// 상품관련
   // 전체 상품 가져오기
   async getProducts(
     accessToken: string,
-    page: number | string,
+    page: number | string
   ): Promise<IGetProductsReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
@@ -156,7 +152,7 @@ class Axios {
   // 추천 상품 가져오기
   async getRecommendsProducts(
     accessToken: string,
-    page: number | string,
+    page: number | string
   ): Promise<IGetProductsReturn> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
@@ -191,7 +187,7 @@ class Axios {
   // 상품구매
   async postOrders(
     accessToken: string,
-    products_id_list: any[],
+    products_id_list: any[]
   ): Promise<void> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
@@ -229,7 +225,7 @@ class Axios {
   // 구매 취소
   async deleteOrders(
     accessToken: string,
-    orderId: number | string,
+    orderId: number | string
   ): Promise<void> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
@@ -249,14 +245,26 @@ class Axios {
   }
 
   // 검색
-  async getSearch({ searchTarget, searchKeyword, sortTarget, sortDirection, isChecked, page }: ISearchInput): Promise<ISearchedData> {
+  async getSearch(
+    accessToken,
+    {
+      name,
+      searchTarget,
+      searchKeyword,
+      sortTarget,
+      sortDirection,
+      isChecked,
+      page,
+    }: ISearchInput
+  ): Promise<ISearchedData> {
+    // if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (Number(page) < 1) return;
 
     const result = await this.axiosClient
       .get('/search', {
         params: {
-          searchTarget, 
-          searchKeyword, 
+          searchTarget,
+          searchKeyword,
           sortTarget,
           sortDirection,
           isChecked,
@@ -301,7 +309,7 @@ class Axios {
   // 위시리스트에 상품 추가
   async postWishlists(
     accessToken: string,
-    productId: number | string,
+    productId: number | string
   ): Promise<void> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (!productId) throw Error(`[에러]productId = "${productId}"`);
@@ -314,7 +322,7 @@ class Axios {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        },
+        }
       )
       .then((response) => response.data);
     console.log(`postWishlists:"${result.message}"`, result);
@@ -322,7 +330,7 @@ class Axios {
   // 장바구니에 상품 추가
   async postBaskets(
     accessToken: string,
-    productId: number | string,
+    productId: number | string
   ): Promise<void> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (!productId) throw Error(`[에러]productId = "${productId}"`);
@@ -335,7 +343,7 @@ class Axios {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        },
+        }
       )
       .then((response) => response.data);
     console.log(`postBaskets:`, result);
@@ -344,7 +352,7 @@ class Axios {
   // 위시리스트에 상품 삭제
   async deleteWishlists(
     accessToken: string,
-    wishlistId: number | string,
+    wishlistId: number | string
   ): Promise<void> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (!wishlistId) throw Error(`[에러]wishlistId = "${wishlistId}"`);
@@ -364,7 +372,7 @@ class Axios {
   // 장바구니에서 상품 삭제
   async deleteBaskets(
     accessToken: string,
-    basketId: number | string,
+    basketId: number | string
   ): Promise<void> {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
     if (!basketId) throw Error(`[에러]basketId = "${basketId}"`);
