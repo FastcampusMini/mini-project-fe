@@ -36,7 +36,9 @@ const Nav = ({ left, right, addClass }: INavProps) => {
           onClick={() => navigate(1)}
         />
       ) : right === 'cancel' ? (
-        <span className='font-bold text-lg' onClick={() => navigate(-1)}>
+        <span
+          className='font-bold text-lg cursor-pointer'
+          onClick={() => navigate(-1)}>
           취소
         </span>
       ) : (

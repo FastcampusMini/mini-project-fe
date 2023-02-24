@@ -13,6 +13,8 @@ api 명세: https://documenter.getpostman.com/view/25760000/2s935so2bC
 - `typescript`
 - `react-router-dom`
 
+## 작업 분배
+
 ## 페이지 및 기능
 
 ![](readMeImages/2023-02-24-18-14-01.png)
@@ -23,36 +25,36 @@ api 명세: https://documenter.getpostman.com/view/25760000/2s935so2bC
 - `singup` 회원가입 페이지
   - 입력 폼: 이메일/ 패스워드/ 이름/나이/직업/거주지역/특기/취미
   - 회원가입 약관
-  - 회원가입 확인 버튼 - "POST : api/auth/signup"
+  - 회원가입 확인 버튼 - `"POST : api/auth/signup"`
 - `signin` 로그인 페이지
   - 입력폼: 이메일 / 패스워드
-    - 로그인 버튼 - "POST : api/auth/signin"
-  - 회원가입 페이지 이동 버튼 (route /signup )
-- `/main` 메인 페이지(금융상품 목록) - "GET : api/products", "GET : api/products/recommends"
-  - 신청 가능 대출금 총합
-  - 대출 상품 목록 무한스크롤
-  - 추천 상품 목록 무한스크롤(슬라이더)
-- `/user` 개인 정보 페이지 - "GET : api/user"
+    - 로그인 버튼 - `"POST : api/auth/signin"`
+  - 회원가입 페이지 이동 버튼 (`route /signup` )
+- `/main` 메인 페이지(금융상품 목록) - `"GET : api/products"`, `"GET : api/products/recommends"`
+  - 신청 가능 대출금 보여주기
+  - 대출 상품 목록 (무한스크롤)
+  - 추천 상품 목록 (무한스크롤 슬라이더)
+- `/user` 개인 정보 페이지 - `"GET : api/user"`
   - 관심상품 리스트
   - 장바구니 상품 리스트
   - 신청한 대출상품 리스트
   - 정보 수정 페이지 이동 버튼
   - 회원 탈퇴
-    - 회원 탈퇴 클릭시 컨펌모달창 띄움 : 예/아니오 - "DELETE : api/auth/signup"
-- `user/edit` 개인정보 수정 페이지 - "GET api/auth/user"
+    - 회원 탈퇴 클릭시 컨펌모달창 띄움 : 예/아니오 - `"DELETE : api/auth/signup"`
+- `user/edit` 개인정보 수정 페이지 - `"GET api/auth/user"`
   - 정보수정 form : 패스워드/이름/나이/직업/거주지/특기/취미/연봉
-  - 확인 버튼 - "PUT api/user"
-- `user/myCart` 장바구니 페이지 - "GET api/auth/user"
+  - 확인 버튼 - `"PUT api/user"`
+- `user/myCart` 장바구니 페이지 - `"GET api/auth/user"`
   - 구매한 상품 (카드형식 구매하기 버튼O)
-  - 구매하기 버튼 - "POST api/products/financial/buy"
-- `user/wishlist` 관심상품 페이지 - "GET api/auth/user"
+  - 구매하기 버튼 - `"POST api/products/financial/buy"`
+- `user/wishlist` 관심상품 페이지 - `"GET api/auth/user"`
 
   - 구매한 상품(카드형식 구매하기 버튼X)
-  - 장바구니로 추가하기 버튼 - - "PUT api/auth/user"
+  - 장바구니로 추가하기 버튼 - - `"PUT api/auth/user"`
 
-- `products/financial` 금융상품페이지 -"GET api/products/financial"
-  - 검색 form
-    - 검색어 제출 - "GET api/products/financial"
+- `products/financial` 금융상품페이지 -`"GET api/products/financial"`
+  - 검색입력 form
+    - 검색어 제출 - `"GET api/products/financial"`
   - 정렬 select 박스
   - 검색 리스트
 - `products/financial/:financialId` 금융 상품 상세페이지 - "GET api/products/financial/:financialId"
