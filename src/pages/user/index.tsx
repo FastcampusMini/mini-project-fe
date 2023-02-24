@@ -53,7 +53,7 @@ const User = () => {
 
   return (
     <>
-      <div className='relative px-8 py-10 h-full overflow-y-scroll scrollbar-none'>
+      <div className='relative px-8 pt-10 pb-28 h-full overflow-y-scroll scrollbar-none'>
         {outModal && (
           <ConfirmModal
             title='정말 로그아웃 하시겠어요?'
@@ -76,35 +76,26 @@ const User = () => {
 
         <p className='text-lg font-semibold border-t pt-3 border-black5'>나의 프로필</p>
         <div className='mb-6'>
-          <div
-            className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+          <div className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
             <div className='flex items-center gap-4'>
               <MdEmail className='text-yellow text-2xl' />
               <span>이메일</span>
             </div>
-            <div className='text-black/40'>{email}</div>
+            <div className='text-black/40 text-base'>{email}</div>
           </div>
-          <div
-            className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+          <div className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
             <div className='flex items-center gap-4'>
               <BsFillTelephoneFill className='text-yellow text-2xl' />
               <span>전화번호</span>
             </div>
-            <div className='text-black/40'>{phone}</div>
+            <div className='text-black/40 text-base'>{phone}</div>
           </div>
-          <div
-            className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+          <div className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
             <div className='flex items-center gap-4'>
               <MdOutlineWork className='text-yellow text-2xl' />
               <span>직업</span>
             </div>
-            <div className='text-black/40'>{job}</div>
+            <div className='text-black/40 text-base'>{job}</div>
           </div>
         </div>
 

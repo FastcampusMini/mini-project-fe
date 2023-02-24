@@ -3,10 +3,7 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 import CartElement from '@components/MyCart/CartElement';
 import EmptyCart from '@components/MyCart/EmptyCart';
 import Nav from '@/components/Nav';
-import {
-  useGetCartQuery,
-  useDeleteCartMutation,
-} from '../../store/api/cartApiSlice';
+import { useGetCartQuery, useDeleteCartMutation } from '../../store/api/cartApiSlice';
 import { useAddOrderListMutation } from '@/store/api/orderApiSlice';
 import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
 import { useNavigate } from 'react-router-dom';
@@ -29,7 +26,7 @@ const Mycart = () => {
   }, [cart]);
   return (
     <>
-      <article className='p-8'>
+      <article className='h-full px-8 pt-8 pb-32 overflow-y-scroll scrollbar-none'>
         <div className='flex justify-between'>
           <Nav left='arrow' />
           <div className='flex gap-4'>
@@ -43,10 +40,8 @@ const Mycart = () => {
             />
           </div>
         </div>
-        <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>
-          장바구니
-        </h1>
-        <div className='h-[calc(100vh-270px)] scrollbar pr-5 scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-y-scroll scrollbar-thumb-rounded-md scrollbar-track-rounded-md'>
+        <h1 className='mb-5 pb-3 text-center text-2xl font-bold border-b border-black'>장바구니</h1>
+        <div>
           <div className='max-w-screen-sm h-fit'>
             {cart?.data?.map((value: DaumData) => (
               <CartElement
