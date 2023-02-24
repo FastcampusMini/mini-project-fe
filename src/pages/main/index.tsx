@@ -15,6 +15,8 @@ import { MdChecklistRtl, MdOutlineAccountCircle } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import SkeletonLoanProductCard from '@/components/SkeletonLoanProductCard';
+import { BsFillArrowUpSquareFill } from 'react-icons/bs';
+import Checkbox from '@/components/Checkbox';
 
 const Main = () => {
   const [loanProducts, setLoanProducts] = useState([]);
@@ -66,8 +68,7 @@ const Main = () => {
           }
         },
         onSuccess: (data) => {
-          // console.log(data.pages[0].content);
-          if (!data) console.log('data가없어요', data);
+          if (!data.pages) console.log('data가없어요', data.pages);
           setRecommendedProducts(combinePagesContent(data.pages));
         },
       }
@@ -86,7 +87,11 @@ const Main = () => {
       console.log('무한스크롤', yScroll);
     }
   }, [yScroll]);
-
+  const scrollToTop = () => {
+    if (ref.current) {
+      ref.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   return (
     <>
       {fetchingUser && (
@@ -96,6 +101,11 @@ const Main = () => {
           color='#000'
         />
       )}
+      <BsFillArrowUpSquareFill
+        className='absolute right-10 bottom-6 z-30 text-black/20 cursor-pointer transition-colors hover:text-black/50 hover:scale-110'
+        size={40}
+        onClick={scrollToTop}
+      />
       <main
         className='flex flex-col overflow-y-scroll  h-full pb-16 relative'
         ref={ref}>
@@ -158,9 +168,9 @@ const Main = () => {
             </h3>
 
             <div className='grid grid-cols-2 gap-5 '>
-              {loanProducts?.map((product: IProduct) => (
+              {/* {loanProducts?.map((product: IProduct) => (
                 <LoanProductCard key={product?.productId} product={product} />
-              ))}
+              ))} */}
               {/* {loanProductsPages.pages.map((page) =>
                 page.content.map((product) => (
                   <LoanProductCard key={product?.productId} product={product} />
