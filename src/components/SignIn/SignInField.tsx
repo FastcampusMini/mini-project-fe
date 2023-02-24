@@ -1,6 +1,6 @@
 import React from 'react';
-import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
-
+import { DeepMap, FieldError, Path, UseFormRegister } from 'react-hook-form';
+import * as yup from 'yup';
 interface TSignInFieldValues {
   email?: string;
   password: string;
@@ -27,7 +27,7 @@ const SignInField = ({ text, name, inputType = 'text', register, errorMsg, isDir
       />
       {errorMsg && (
         <small role='alert' className='text-yellow mt-[-1.75rem] mb-6'>
-          {errorMsg.message}
+          {errorMsg && errorMsg.message}
         </small>
       )}
     </div>
