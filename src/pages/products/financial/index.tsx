@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import {ax} from '@libs/axiosClient'
-import { useSelector } from 'react-redux';
 import { CgSearch } from 'react-icons/cg';
 import Search from '@/components/Search';
 import Nav from '@components/Nav';
-// import ProductCard from '../../../components/FinancialProdCard';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import Navigation from '@components/ui/Navigation';
 
@@ -19,8 +15,7 @@ const Financial = () => {
   const [isChecked, setIsChecked] = useState()
 
   const navigate = useNavigate()
-  const [modal, setModal] = useState(false);  
-  const { accessToken } = useSelector((state: any) => state.authToken);
+  const [modal, setModal] = useState(false);
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data:any) => {
@@ -101,12 +96,8 @@ const Financial = () => {
           </form>
         </div>
         <div className='mb-16'>
-          <div 
-          // className='h-[calc(100vh-400px)] scrollbar scrollbar-thumb-black/20 scrollbar-track-black/20 overflow-hidden scrollbar-thumb-rounded-md scrollbar-track-rounded-md'
-          >
-            {
-              <Search name='' searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} accessToken={accessToken} />
-            }
+          <div>
+            {<Search searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} />}
           </div>
         </div>              
         <>
@@ -120,65 +111,9 @@ const Financial = () => {
           )}
         </>
       </div>
-<<<<<<< HEAD
-
-      <div className='mb-16'>
-        {products.length > 0 
-        ? (products.map((data) => (
-            <ProductCard key={data.productId} data={data} />
-          ))) 
-        : (<div className='my-40 flex justify-center items-center text-black40 font-bold text-lg'>
-            등록된 상품이 없습니다.
-          </div>)
-        }
-      </div>
-      <button 
-        // onClick={handleTotal} 
-        className='mb-20 p-4 w-full rounded-[10px] bg-light-orange text-lg text-white'>
-        더보기
-      </button>
-
-      <>
-        {modal && (
-          <ConfirmModal
-            title='로그인이 필요한 서비스입니다.' 
-            description='로그인 화면으로 이동하시겠습니까?'
-            onConfirm={() => navigate('/')}
-            onCancel={() => setModal(false)}
-          />
-        )}
-      </>
-
-=======
       <Navigation />  
->>>>>>> 8f1aa863faf98790382277cb3ef14ae8f20b5666
     </div>
   );
 };
 
-<<<<<<< HEAD
-// const Button = ({ data, addKeyword, isOn }) => {
-//   const [isActive, setIsActive] = useState(isOn);
-//   const btnToggle = (e) => {
-//     setIsActive((prev) => !prev);
-//     addKeyword(e);
-//   };
-//   return (
-//     <button
-//       type='button'
-//       className={`px-6 py-2 rounded-full text-lg text-black40
-//         ${
-//           isActive
-//             ? 'border-2 border-yellow text-yellow font-bold'
-//             : 'border border-light-gray'
-//         }`}
-//       onClick={btnToggle}
-//       value={data}>
-//       {data}
-//     </button>
-//   );
-// };
-
-=======
->>>>>>> 8f1aa863faf98790382277cb3ef14ae8f20b5666
 export default Financial;

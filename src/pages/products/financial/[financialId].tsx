@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios, { Axios } from 'axios';
 import { ax } from '@libs/axiosClient';
 import { useParams } from 'react-router-dom';
 import ConfirmModal from '@/components/ui/ConfirmModal';
@@ -79,10 +78,8 @@ const Id = () => {
           }}
         >
           {like ? (
-            // <div className='text-6xl cursor-pointer'>❤️</div>
             <AiFillHeart className='text-orange' />
           ) : (
-            // <div className='text-6xl cursor-pointer'>🤍</div>
             <AiOutlineHeart className='text-gray' />
           )}
         </div>
@@ -106,9 +103,6 @@ const Id = () => {
         <span className='text-black40 font-bold'>문의</span>
         <b>{detail?.detail}</b>
       </div>
-      {/* <div className='my-10 flex justify-center items-center h-48 rounded-[10px] border border-black20 text-black40 font-bold bg-black5 overflow-hidden'>
-        상품 이미지 준비중
-      </div> */}
       <h3 className='mt-10 mb-4 text-2xl font-bold'>상품 설명</h3>
       <div className='text-orange font-bold text-lg'>
         청년 대출을 만나보세요. 소득이 없거나 재직기간이 1년 미만인 직장인도 만
