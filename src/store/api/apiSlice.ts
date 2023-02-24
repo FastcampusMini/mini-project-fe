@@ -1,5 +1,6 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getCookieToken } from '@/libs/Cookie';
+import { ax } from '@/libs/axiosClient';
 
 export const base = fetchBaseQuery({
   baseUrl: 'https://kingtaeyoon.shop/api',
