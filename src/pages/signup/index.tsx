@@ -90,7 +90,6 @@ const SignUp = () => {
     console.log(response);
     if (response.code === 200) {
       cogoToast.info(response.message);
-      alert(response.message);
       navigate('/signin');
     } else {
       cogoToast.info(response.message);
@@ -98,7 +97,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className='px-8 py-10'>
       <p className='text-right mb-7 text-lg font-semibold cursor-pointer' onClick={() => navigate('/')}>
         취소
       </p>
@@ -135,6 +134,21 @@ const SignUp = () => {
               placeholder='직업을 선택해주세요.'
               isClearable
               options={options}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 5,
+                colors: {
+                  ...theme.colors,
+                  text: 'orangered',
+                  neutral50: '#00000066', // Placeholder color
+                  primary25: '#F4AE5C',
+                  primary: '#F4AE5C',
+                },
+                spacing: {
+                  ...theme.spacing,
+                  baseUnit: 8,
+                },
+              })}
               value={jobValue && options.find((option) => option.label === jobValue)}
               onChange={(option) => jobOnChange(option && option.label)}
               {...restjobField}
@@ -145,7 +159,13 @@ const SignUp = () => {
               </small>
             )}
           </div>
-          <SalaryField text={'연소득'} name={'salary'} register={register} errorMsg={errors.salary} />
+          <SalaryField
+            text={'연소득'}
+            name={'salary'}
+            inputType='number'
+            register={register}
+            errorMsg={errors.salary}
+          />
           <ConfirmBtn isSubmitting={isSubmitting} isValid={isValid} />
         </div>
       </form>

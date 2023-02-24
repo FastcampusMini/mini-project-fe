@@ -27,7 +27,12 @@ type IGetOrders = {
 
 // getSearch 의 인자중 하나
 interface ISearchInput {
-  name: string | number;
+  name?: string | number;
+  searchTarget?: string;
+  searchKeyword?: string | number;
+  sortTarget?: string; 
+  sortDirection?: string; 
+  isChecked?: boolean;
   page?: string | number;
 }
 
@@ -74,11 +79,15 @@ type IBasketsData = {
 
 // 유저정보수정 리턴 데이터
 interface IPatchUserEditReturn {
-  oldPassword: string;
-  newPassword: string;
-  phone: string;
-  salary: number;
-  job: string;
+  code: number;
+  message: string;
+  data: {
+    oldPassword: string;
+    newPassword: string;
+    phone: string;
+    salary: number;
+    job: string;
+  };
 }
 
 // getUser 리턴

@@ -1,100 +1,163 @@
 import React, { useEffect, useRef, useState } from 'react';
-import LoanProduct from '@components/LoanProductCard';
+import LoanProductCard from '@components/LoanProductCard';
 import { TotalLoans } from './TotalLoans';
-import FNB from '@components/FNB/index';
 import Nav from '@components/Nav';
 import { ax } from '@/libs/axiosClient';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
-
-import SkeletonLoanProductCard from '@/components/SkeletonLoanProductCard';
-import { useLocation, useParams } from 'react-router-dom';
 import Confirmed from './_Confirmed';
-import useGetProducts from '../../libs/hooks/useGetProducts';
-import useToken from '@/libs/hooks/useToken';
-import useGetRecommendProducts from '@/libs/hooks/useGetRecommendsProducts';
-import useGetUser from '@/libs/hooks/useGetUser';
 import ReactLoading from 'react-loading';
 import { useSelector } from 'react-redux';
-import { useScroll } from 'framer-motion';
 import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
+import Slider from './Slider';
+import SlideCard from './SlideCard';
+import { MdChecklistRtl, MdOutlineAccountCircle } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
-const joiningPagesContent = (pages) => {
-  let result = [];
-  if (pages?.length) {
-    for (let page of pages) {
-      result = [...result, ...page?.content];
-    }
-  }
-  return result;
-};
 const Main = () => {
-  const [dataPack, setDataPack] = useState([]);
-  const { accessToken } = useSelector((state: any) => state.authToken); // 토큰가져오기
+  const [loanProducts, setLoanProducts] = useState([]);
+  const navigate = useNavigate();
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
 
-  // const { data, fetchNextPage } = useInfiniteQuery(
-  //   [products],
-  //   ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
-  //   {
-  //     getNextPageParam: (lastPage) => 2,
-  //     onSuccess: (data) => console.log('테스트onSucc ', data),
-  //   }
-  // );
-  const { isLoading: fetchingRecommends, fetchNextPage } = useInfiniteQuery(
+  const { accessToken } = useSelector((state: any) => state.authToken); // 토큰가져오기
+  // 상품 가져오기
+  const {
+    isLoading: fetchingProducts,
+    fetchNextPage: fetchingNextProductsPage,
+  } = useInfiniteQuery(
     ['products', accessToken],
     ({ pageParam = 1 }) => ax.getProducts(accessToken, pageParam),
     {
       getNextPageParam: (lastPage) => {
         try {
           if (!lastPage) return;
-          if (lastPage.pageNumber === lastPage.totalPages) return;
-          return lastPage.pageNumber + 1;
+          return lastPage.pageNumber < lastPage.totalPages
+            ? lastPage.pageNumber + 1
+            : undefined;
         } catch (err) {
           throw Error(err);
         }
       },
       onSuccess: (data) => {
-        setDataPack(combinePagesContent(data.pages));
+        // combinePagesContent : data.pages 페이지안에서 content 배열을 하나로 합쳐서 반환한다.
+        // 그 반환값을 loanProducts 상태에 저장한다.
+        setLoanProducts(combinePagesContent(data.pages));
       },
     }
   );
-
+  // 추천 상품 가져오기
+  const { isLoading: fetchingRecommends, fetchNextPage: fetchNextRecPage } =
+    useInfiniteQuery(
+      ['recProducts', accessToken],
+      ({ pageParam = 1 }) => ax.getRecommendsProducts(accessToken, pageParam),
+      {
+        getNextPageParam: (lastPage) => {
+          try {
+            if (!lastPage) return;
+            return lastPage.pageNumber < lastPage.totalPages
+              ? lastPage.pageNumber + 1
+              : undefined;
+          } catch (err) {
+            throw Error(err);
+          }
+        },
+        onSuccess: (data) => {
+          // console.log(data.pages[0].content);
+          setRecommendedProducts(combinePagesContent(data.pages));
+        },
+      }
+    );
   // 유저 정보가져오기
-  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
-    ax.getUser(accessToken)
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken)
   );
 
-  const ref = useRef();
+  const ref = useRef(null);
   const yScroll = useYScroll(ref);
   useEffect(() => {
-    console.log(yScroll);
+    if (yScroll > 0.99 && !fetchingProducts) {
+      fetchingNextProductsPage();
+      console.log('무한스크롤', yScroll);
+    }
   }, [yScroll]);
-  const handleTotal = () => {
-    console.log('clicked');
 
-    // fetchNextPage();
-  };
   return (
     <>
-      <Confirmed />
+      {fetchingUser && (
+        <ReactLoading
+          className='absolute bottom-2 mx-auto my-auto left-1/2 top-1/2'
+          type='spinningBubbles'
+          color='#000'
+        />
+      )}
       <main
-        className='flex flex-col overflow-y-scroll'
-        ref={ref}
-        onClick={() => {
-          console.log(yScroll);
-        }}
-      >
-        <Nav left='arrow' right='arrow' />
-        <div className='px-3 flex flex-col gap-5'>
-          {fetchingUser ? (
-            <ReactLoading className='relative bottom-2 mx-auto my-auto' type='spinningBubbles' color='#000' />
-          ) : (
-            <TotalLoans userInfo={userInfo} onClick={handleTotal} />
+        className='flex flex-col overflow-y-scroll  h-full pb-16 relative'
+        ref={ref}>
+        <Nav left='arrow' right='arrow' addClass='mt-5' />
+        <div className='flex justify-between px-10 mb-5'>
+          <div className=''>
+            <h1 className='font-bold text-4xl'>Let's Get a Loan!</h1>
+            <p className='text-black60'>
+              대출자격은 더 <strong>넓게!</strong> 금리는 더{' '}
+              <strong>낮게!</strong>
+            </p>
+            <p className='mt-4 text-lg text-black60 font-semibold'>
+              {userInfo?.name ? userInfo?.name : '(익명)'}님 대출 가능한 금액 :{' '}
+              <strong className='text-black80'>
+                {userInfo?.availableAmount}
+              </strong>
+              만 원
+            </p>
+          </div>
+          <div className='space-y-2'>
+            <span className='text-black40 text-sm font-semibold'>
+              {userInfo?.email}
+            </span>
+            <div className='flex gap-3'>
+              <MdOutlineAccountCircle
+                onClick={() => navigate('/user')}
+                size={40}
+                className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
+              />
+              <AiOutlineShoppingCart
+                onClick={() => navigate('/user/mycart')}
+                size={40}
+                className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
+              />
+              <MdChecklistRtl
+                onClick={() => navigate('/user/wishlist')}
+                size={40}
+                className='rounded-2xl p-1 box-content bg-black/5 transition-all cursor-pointer hover:bg-black/10'
+              />
+            </div>
+          </div>
+        </div>
+        <div className='bg-yellow w-full h-96 absolute -z-40'>
+          {/*배경 */}
+        </div>
+        <h3 className='my-3 font-bold text-2xl mx-10'>추천상품</h3>
+        <div className='flex flex-col gap-5'>
+          {!!recommendedProducts.length && (
+            <Slider
+              products={recommendedProducts}
+              fetchNextPage={fetchNextRecPage}
+            />
           )}
 
-          {dataPack?.map((product) => (
-            <LoanProduct key={product.id} product={product} />
-          ))}
+          <div className='mx-10'>
+            <h3 className='my-3 font-bold text-2xl'>대출상품</h3>
+
+            <div className='grid grid-cols-2 gap-5 '>
+              {loanProducts?.map((product: IProduct) => (
+                <LoanProductCard key={product?.productId} product={product} />
+              ))}
+              {/* {[1, 2, 3, 4, 5, 6, 7].map((el) => (
+                <div className='bg-gray border h-20'>{el}</div>
+              ))} */}
+            </div>
+          </div>
         </div>
       </main>
     </>
