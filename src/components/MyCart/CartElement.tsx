@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Card from './Card';
 import ConfirmModal from '../ui/ConfirmModal';
 import AlertModal from '../ui/AlertModal';
 import { useGetCartQuery } from '@/store/api/cartApiSlice';
 
-// key 값 변경 될 수도 있음
 const CartElement = ({
   cartData,
   deleteCart,
@@ -17,12 +16,9 @@ const CartElement = ({
   const [alertModal, setAlertModal] = useState(false);
   const { data: cartAll } = useGetCartQuery('');
   const orderList = [];
-  console.log('cartAll', cartAll);
   cartAll.data.map((value) => {
     return orderList.push(value.productId);
   });
-  console.log('orderList', orderList);
-  useEffect(() => {}, []);
 
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
