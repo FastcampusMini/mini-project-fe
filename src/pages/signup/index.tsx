@@ -7,9 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import regex from '../../libs/regex';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
-import { signUp } from '../../api/authApi';
 import SalaryField from '@/components/SignUp/SalaryField';
 import cogoToast from 'cogo-toast';
+import { ax } from '@/libs/axiosClient';
 interface ISignUpForm {
   name: string;
   email: string;
@@ -78,7 +78,7 @@ const SignUp = () => {
 
   const submitForm: SubmitHandler<ISignUpForm> = async ({ name, email, password, phone, birth, job, salary }) => {
     // salary = salary * 10000;
-    const response = await signUp({
+    const response = await ax.postRegister({
       name,
       email,
       password,

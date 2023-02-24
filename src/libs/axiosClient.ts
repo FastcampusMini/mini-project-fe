@@ -1,7 +1,7 @@
 import store from '@/store/store';
 import axios from 'axios';
 
-const BASE_URL = 'https://kingtaeyoon.shop';
+const BASE_URL = 'https://kingtaeyoon.shop/api';
 
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -17,8 +17,8 @@ class Axios {
     });
   }
   //////////////////////// 회원정보
-  // 로그인 요청
-  async postLogin({ email, password }: ILoginInput): Promise<IToken> {
+  /** 로그인 api */
+  async postLogin({ email, password }: ILoginInput) {
     const result = await this.axiosClient
       .post('/login', {
         email,
@@ -26,7 +26,7 @@ class Axios {
       })
       .then((res) => res.data);
     console.log(`postLogin${result.message}>>`, result.data);
-    return result.data;
+    return result;
   }
 
   // 유저 정보수정
@@ -60,8 +60,8 @@ class Axios {
     return result.data;
   }
 
-  // Refresh token
-  async postRefresh(refreshToken: string): Promise<IPostRefreshReturn> {
+  /** 토큰 재발급 api*/
+  async postRefresh(refreshToken: string) {
     if (!refreshToken) throw Error(`[에러]refreshToken="${refreshToken}" `);
     const result = await this.axiosClient
       .post(
@@ -77,47 +77,46 @@ class Axios {
       )
       .then((response) => response.data);
     console.log(`postRefresh >>`, result);
-    return result.data;
+    return result;
   }
 
   /** 로그아웃 api */
-  async postLogout(accessToken: string, refreshToken: string): Promise<void> {
+  async postLogout(accessToken: string, refreshToken: string) {
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
-    const result = await this.axiosClient
-      .post(
-        '/logout',
-        { refreshToken },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      .then((response) => response.data);
-    console.log(`postLogout >>`, result);
+    const result = await this.axiosClient.post(
+      '/logout',
+      { refreshToken },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    console.log(`postLogout >>`, result.data);
+    return result;
   }
 
-  // 회원가입하기
+  /** 회원가입 api */
   async postRegister(payload: IRegisterInput): Promise<IPostRegisterReturn> {
     const result = await this.axiosClient.post('/register', payload).then((response) => response.data);
     console.log(`postRegister >>`, result);
     return result;
   }
-  // 회원탈퇴하기
-  async deleteUser(accessToken: string, { email, password }: ILoginInput): Promise<IDeleteUserReturn> {
+
+  /** 회원탈퇴 api */
+  async deleteUser(accessToken: string, password: string) {
     const result = await this.axiosClient
       .delete('/api/user', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         data: {
-          email,
           password,
         },
       })
       .then((response) => response.data);
     console.log(`deleteUser >>`, result);
-    return result.data;
+    return result;
   }
   ////////////// 상품관련
   // 전체 상품 가져오기

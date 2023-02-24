@@ -9,7 +9,6 @@ import ConfirmModal from '@/components/ui/ConfirmModal';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getCookieToken, removeCookieToken } from '../../libs/Cookie';
-import { logOut } from '@/api/authApi';
 import { DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import DeleteAccountModal from '@/components/User/DeleteAccountModal';
 import { ax } from '@/libs/axiosClient';
@@ -38,13 +37,13 @@ const User = () => {
     const response = await ax.postLogout(accessToken, refreshToken);
     console.log('response:', response);
 
-    // if (response.code === 200) {
-    //   dispatch(DELETE_TOKEN());
-    //   removeCookieToken();
-    //   return navigate('/');
-    // } else {
-    //   console.log(response.message);
-    // }
+    if (response.status === 200) {
+      dispatch(DELETE_TOKEN());
+      removeCookieToken();
+      return navigate('/');
+    } else {
+      console.log(response.data.message);
+    }
   };
 
   const logOutConfirm = () => {

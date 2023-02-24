@@ -1,5 +1,6 @@
 import { requestToken } from '@/api/authApi';
 import { DELETE_TOKEN, SET_TOKEN } from '@/features/authSlice/authSlice';
+import { ax } from '@/libs/axiosClient';
 import { getCookieToken, removeCookieToken } from '@/libs/Cookie';
 import cogoToast from 'cogo-toast';
 import React, { useEffect, useState } from 'react';
@@ -8,9 +9,7 @@ import { useSelector } from 'react-redux';
 
 export default function CheckToken(key: string) {
   const [isAuth, setIsAuth] = useState('Loaded');
-  const { authenticated, expireTime } = useSelector(
-    (state: any) => state.authToken,
-  );
+  const { authenticated, expireTime } = useSelector((state: any) => state.authToken);
   const refreshToken = getCookieToken();
   const dispatch = useDispatch();
 
@@ -22,7 +21,7 @@ export default function CheckToken(key: string) {
         dispatch(DELETE_TOKEN());
         setIsAuth('Failed');
       } else {
-        const response = await requestToken(refreshToken);
+        const response = await ax.postRefresh(refreshToken);
 
         if (response.code === 200) {
           const accessToken = response.data.accessToken;
