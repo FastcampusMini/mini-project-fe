@@ -249,30 +249,14 @@ class Axios {
   }
 
   // 검색
-  async getSearch(
-    accessToken,
-    {
-      name,
-      searchTarget,
-      searchKeyword,
-      sortTarget,
-      sortDirection,
-      isChecked,
-      page,
-    }: ISearchInput
-  ): Promise<ISearchedData> {
-    // if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
+  async getSearch({ searchTarget, searchKeyword, sortTarget, sortDirection, isChecked, page }: ISearchInput): Promise<ISearchedData> {
     if (Number(page) < 1) return;
 
     const result = await this.axiosClient
       .get('/search', {
-        // headers: {
-        //   Authorization: `Bearer ${accessToken}`,
-        // },
         params: {
-          // name,
-          searchTarget,
-          searchKeyword,
+          searchTarget, 
+          searchKeyword, 
           sortTarget,
           sortDirection,
           isChecked,
