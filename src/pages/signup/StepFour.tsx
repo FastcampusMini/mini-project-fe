@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import regex from '../../libs/regex';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
-import NewSalaryField from '../../components/SignUp/newSalaryField';
+import SalaryField from '../../components/SignUp/SalaryField';
 
 interface ISignUpForm {
   name?: string;
@@ -127,7 +127,7 @@ const StepFour = ({ onSubmit, formData }) => {
             )}
           </div>
 
-          <NewSalaryField
+          <SalaryField
             text={'연소득'}
             registerName={'salary'}
             inputType='number'
