@@ -32,10 +32,7 @@ const Financial = () => {
 
   const ref = useRef(null);
   const scrollToTop = () => {
-    console.log(ref)
-    if (ref.current) {
       ref.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
   };
 
   return (
@@ -114,17 +111,7 @@ const Financial = () => {
           <div>
             {<Search searchTarget={searchTarget} searchKeyword={searchKeyword} sortTarget={sortTarget} sortDirection={sortDirection} isChecked={isChecked} accessToken={accessToken} />}
           </div>
-        </div>              
-        <>
-          {modal && (
-            <ConfirmModal
-              title='로그인이 필요한 서비스입니다.' 
-              description='로그인 화면으로 이동하시겠습니까?'
-              onConfirm={() => navigate('/signin')}
-              onCancel={() => setModal(false)}
-            />
-          )}
-        </>
+        </div>
       </div>
       <Navigation />  
     </div>
