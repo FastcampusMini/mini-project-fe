@@ -1,17 +1,18 @@
 import React from 'react';
 
 interface IConfirmBtnProps {
-  type?: string;
+  isValid?: boolean;
+  isSubmitting?: boolean;
 }
 
-const index = ({ type }: IConfirmBtnProps) => {
-  const isScroll = type === 'scroll';
+const index = ({ isValid, isSubmitting }: IConfirmBtnProps) => {
   return (
     <button
       type='submit'
-      className={`block text-center text-3xl bg-yellow text-white py-6 rounded-t-3xl border-t border-gray cursor-pointer bottom-0 ${
-        isScroll ? `w-[calc(100%+5rem)] sticky mx-[-2.5rem]` : `absolute w-full left-0`
-      } `}
+      disabled={isSubmitting}
+      className={`block text-center text-2xl ${
+        isValid ? `bg-yellow` : `bg-gray`
+      } text-white py-6 rounded-t-3xl border-t border-gray cursor-pointer bottom-0 absolute w-full left-0`}
     >
       확인
     </button>

@@ -1,0 +1,816 @@
+{
+  "code": 200,
+  "message": "요청에 성공하였습니다.",
+  "data": [
+    {
+      "price": 1000,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 1
+    },
+    {
+      "price": 2000,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 2
+    },
+    {
+      "price": 3000,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 3
+    },
+    {
+      "price": 4000,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 4
+    },
+    {
+      "price": 5000,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 5
+    },
+    {
+      "price": 5000,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 6
+    },
+    {
+      "price": 5000,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 7
+    },
+    {
+      "price": 5000,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 8
+    },
+    {
+      "price": 5000,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 9
+    },
+    {
+      "price": 5000,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 10
+    },
+    {
+      "price": 1500,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 11
+    },
+    {
+      "price": 2500,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 12
+    },
+    {
+      "price": 3500,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 13
+    },
+    {
+      "price": 4500,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 14
+    },
+    {
+      "price": 5500,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 15
+    },
+    {
+      "price": 5500,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 16
+    },
+    {
+      "price": 5500,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 17
+    },
+    {
+      "price": 5500,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 18
+    },
+    {
+      "price": 5500,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 19
+    },
+    {
+      "price": 5500,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 20
+    },
+    {
+      "price": 3100,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 21
+    },
+    {
+      "price": 3200,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 22
+    },
+    {
+      "price": 3300,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 23
+    },
+    {
+      "price": 3400,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 24
+    },
+    {
+      "price": 3500,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 25
+    },
+    {
+      "price": 3600,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 26
+    },
+    {
+      "price": 3700,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 27
+    },
+    {
+      "price": 3800,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 28
+    },
+    {
+      "price": 3900,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 29
+    },
+    {
+      "price": 4200,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 30
+    },
+    {
+      "price": 1000,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 31
+    },
+    {
+      "price": 2000,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 32
+    },
+    {
+      "price": 3000,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 33
+    },
+    {
+      "price": 4000,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 34
+    },
+    {
+      "price": 5000,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 35
+    },
+    {
+      "price": 5000,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 36
+    },
+    {
+      "price": 5000,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 37
+    },
+    {
+      "price": 5000,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 38
+    },
+    {
+      "price": 5000,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 39
+    },
+    {
+      "price": 5000,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 40
+    },
+    {
+      "price": 1500,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 41
+    },
+    {
+      "price": 2500,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 42
+    },
+    {
+      "price": 3500,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 43
+    },
+    {
+      "price": 4500,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 44
+    },
+    {
+      "price": 5500,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 45
+    },
+    {
+      "price": 5500,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 46
+    },
+    {
+      "price": 5500,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 47
+    },
+    {
+      "price": 5500,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 48
+    },
+    {
+      "price": 5500,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 49
+    },
+    {
+      "price": 5500,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 50
+    },
+    {
+      "price": 3100,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 51
+    },
+    {
+      "price": 3200,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 52
+    },
+    {
+      "price": 3300,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 53
+    },
+    {
+      "price": 3400,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 54
+    },
+    {
+      "price": 3500,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 55
+    },
+    {
+      "price": 3600,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 56
+    },
+    {
+      "price": 3700,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 57
+    },
+    {
+      "price": 3800,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 58
+    },
+    {
+      "price": 3900,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 59
+    },
+    {
+      "price": 4200,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 60
+    },
+    {
+      "price": 1000,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 61
+    },
+    {
+      "price": 2000,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 62
+    },
+    {
+      "price": 3000,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 63
+    },
+    {
+      "price": 4000,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 64
+    },
+    {
+      "price": 5000,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 65
+    },
+    {
+      "price": 5000,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 66
+    },
+    {
+      "price": 5000,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 67
+    },
+    {
+      "price": 5000,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 68
+    },
+    {
+      "price": 5000,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 69
+    },
+    {
+      "price": 5000,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 70
+    },
+    {
+      "price": 1500,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 71
+    },
+    {
+      "price": 2500,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 72
+    },
+    {
+      "price": 3500,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 73
+    },
+    {
+      "price": 4500,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 74
+    },
+    {
+      "price": 5500,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 75
+    },
+    {
+      "price": 5500,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 76
+    },
+    {
+      "price": 5500,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 77
+    },
+    {
+      "price": 5500,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 78
+    },
+    {
+      "price": 5500,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 79
+    },
+    {
+      "price": 5500,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 80
+    },
+    {
+      "price": 3100,
+      "brand": "우리은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/hana.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 81
+    },
+    {
+      "price": 3200,
+      "brand": "국민은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/SC.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 82
+    },
+    {
+      "price": 3300,
+      "brand": "하나은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/wori.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 83
+    },
+    {
+      "price": 3400,
+      "brand": "신한은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kakao.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 84
+    },
+    {
+      "price": 3500,
+      "brand": "카카오뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/shinhan.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 85
+    },
+    {
+      "price": 3600,
+      "brand": "기업은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/toss.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 86
+    },
+    {
+      "price": 3700,
+      "brand": "k뱅크",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/nh.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 87
+    },
+    {
+      "price": 3800,
+      "brand": "농협은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kbank.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 88
+    },
+    {
+      "price": 3900,
+      "brand": "SC제일은행",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/kb.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 89
+    },
+    {
+      "price": 4200,
+      "brand": "토스",
+      "logo": "<img src='https://ai.esmplus.com/heehyohoo/project/ibk.png' />",
+      "name": "부동산담보대출",
+      "rate": 7.7,
+      "detail": "02-123-1234",
+      "productId": 90
+    }
+  ]
+}

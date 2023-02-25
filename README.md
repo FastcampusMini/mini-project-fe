@@ -5,53 +5,56 @@ api 명세: https://documenter.getpostman.com/view/25760000/2s935so2bC
 
 ## 라이브러리
 
-- react-icons 아이콘 컴포넌트
-- react-loading 로딩 컴포넌트
-- axios
-- @tanstack/react-query
-- framer-motion
-- redux
-- typescript
-- react-router-dom
+- `react-icons` 아이콘 컴포넌트
+- `react-loading` 로딩 컴포넌트
+- `axios`
+- `@tanstack/react-query`
+- `redux` - 토큰관리
+- `typescript`
+- `react-router-dom`
+
+## 작업 분배
 
 ## 페이지 및 기능
+
+![](readMeImages/2023-02-24-18-14-01.png)
 
 - `/` Home 페이지
   - 로그인 페이지 이동 버튼
   - 회원가입 페이지 이동 버튼
-- `/main` 메인 페이지(금융상품) - "GET : api/products"
-  - 신청 가능 대출금 총합
-  - 현재 신청 가능한 대출 상품들
-  - 현재 신청 가능한 청약 상품들
-- `user` 개인 페이지 - "GET : api/user"
+- `singup` 회원가입 페이지
+  - 입력 폼: 이메일/ 패스워드/ 이름/나이/직업/거주지역/특기/취미
+  - 회원가입 약관
+  - 회원가입 확인 버튼 - `"POST : api/auth/signup"`
+- `signin` 로그인 페이지
+  - 입력폼: 이메일 / 패스워드
+    - 로그인 버튼 - `"POST : api/auth/signin"`
+  - 회원가입 페이지 이동 버튼 (`route /signup` )
+- `/main` 메인 페이지(금융상품 목록) - `"GET : api/products"`, `"GET : api/products/recommends"`
+  - 신청 가능 대출금 보여주기
+  - 대출 상품 목록 (무한스크롤)
+  - 추천 상품 목록 (무한스크롤 슬라이더)
+- `/user` 개인 정보 페이지 - `"GET : api/user"`
   - 관심상품 리스트
   - 장바구니 상품 리스트
   - 신청한 대출상품 리스트
   - 정보 수정 페이지 이동 버튼
   - 회원 탈퇴
-    - 회원 탈퇴 클릭시 컨펌모달창 띄움 : 예/아니오 - "DELETE : api/auth/signup"
-- `user/edit` 개인정보 수정 페이지 - "GET api/auth/user"
+    - 회원 탈퇴 클릭시 컨펌모달창 띄움 : 예/아니오 - `"DELETE : api/auth/signup"`
+- `user/edit` 개인정보 수정 페이지 - `"GET api/auth/user"`
   - 정보수정 form : 패스워드/이름/나이/직업/거주지/특기/취미/연봉
-  - 확인 버튼 - "PUT api/user"
-- `user/myCart` 장바구니 페이지 - "GET api/auth/user"
+  - 확인 버튼 - `"PUT api/user"`
+- `user/myCart` 장바구니 페이지 - `"GET api/auth/user"`
   - 구매한 상품 (카드형식 구매하기 버튼O)
-  - 구매하기 버튼 - "POST api/products/financial/buy"
-- `user/wishlist` 관심상품 페이지 - "GET api/auth/user"
+  - 구매하기 버튼 - `"POST api/products/financial/buy"`
+- `user/wishlist` 관심상품 페이지 - `"GET api/auth/user"`
+
   - 구매한 상품(카드형식 구매하기 버튼X)
-  - 장바구니로 추가하기 버튼 - - "PUT api/auth/user"
-- `singup` 회원가입 페이지
-  - 입력 폼: 이메일/ 패스워드/ 이름/나이/직업/거주지역/특기/취미
-  - 회원가입 약관
-  - 회원가입 확인 버튼 - "POST : api/auth/signup"
-- `signin` 로그인 페이지
+  - 장바구니로 추가하기 버튼 - - `"PUT api/auth/user"`
 
-  - 입력폼: 이메일 / 패스워드
-    - 로그인 버튼 - "POST : api/auth/signin"
-  - 회원가입 페이지 이동 버튼 (route /signup )
-
-- `products/financial` 금융상품페이지 -"GET api/products/financial"
-  - 검색 form
-    - 검색어 제출 - "GET api/products/financial"
+- `products/financial` 금융상품페이지 -`"GET api/products/financial"`
+  - 검색입력 form
+    - 검색어 제출 - `"GET api/products/financial"`
   - 정렬 select 박스
   - 검색 리스트
 - `products/financial/:financialId` 금융 상품 상세페이지 - "GET api/products/financial/:financialId"
@@ -442,7 +445,7 @@ interface Financial {
   financialId: string; // 금융상품 ID
   title: string; // 제품 이름
   price: number | number[] | null; // 제품 가격
-  type: "loan" | "investment" | "deposit" | "guaranteed"; // 금융상품의 종류: 대출or투자or예금or보장성
+  type: 'loan' | 'investment' | 'deposit' | 'guaranteed'; // 금융상품의 종류: 대출or투자or예금or보장성
   tags: string[]; // 제품 태그
   provider: string; // 서비스 제공자
   image: string | null; // 상품 제공자 로고 or 이미지(URL)
@@ -494,7 +497,7 @@ interface ResponseValue {
   title: string; // 제품 이름
   price: number | null; // 제품 가격
   description: string; // 제품 설명
-  type: "loan" | "investment" | "deposit" | "guaranteed"; // 금융상품의 종류: 대출or투자or예금or보장성
+  type: 'loan' | 'investment' | 'deposit' | 'guaranteed'; // 금융상품의 종류: 대출or투자or예금or보장성
   tags: string[]; // 제품 태그
   provider: string; // 서비스 제공자
   image: string | null; // 상품 제공자 로고 또는 기타 이미지(URL)
@@ -531,7 +534,7 @@ curl https://BASE_API_URL/api/financial/search
 interface RequestBody {
   searchText?: string; // 검색할 상품 이름
   searchTags?: string[]; // 검색할 상품 태그
-  searchType?: "loan" | "investment" | "deposit" | "guaranteed"; // 검색할 상품의 유형
+  searchType?: 'loan' | 'investment' | 'deposit' | 'guaranteed'; // 검색할 상품의 유형
 }
 ```
 
@@ -552,7 +555,7 @@ interface Financial {
   financialId: string; // 금융상품 ID
   title: string; // 제품 이름
   price: number | null; // 제품 가격
-  type: "loan" | "investment" | "deposit" | "guaranteed"; // 금융상품의 종류: 대출or투자or예금or보장성
+  type: 'loan' | 'investment' | 'deposit' | 'guaranteed'; // 금융상품의 종류: 대출or투자or예금or보장성
   tags: string[]; // 제품 태그
   provider: string; // 서비스 제공자
   image: string | null; // 상품 제공자 로고 or 이미지(URL)

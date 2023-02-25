@@ -1,33 +1,125 @@
-import React from "react";
-import { TiDeleteOutline } from "react-icons/ti";
-import Card from "./Card";
+import { useState } from 'react';
+import Card from './Card';
+import ConfirmModal from '../ui/ConfirmModal';
+import AlertModal from '../ui/AlertModal';
+import { useGetCartQuery } from '@/store/api/cartApiSlice';
+import { useNavigate } from 'react-router-dom';
 
-// key 값 변경 될 수도 있음
-const CartElement = ({ cartData, deleteCart }) => {
+const CartElement = ({
+  cartData,
+  deleteCart,
+  addOrderList,
+  allOrderModal,
+  setAllOrderModal,
+}) => {
+  const navigate = useNavigate();
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
+  const [alertModal, setAlertModal] = useState(false);
+  const [overAmount, setOverAmount] = useState(false);
+  const { data: cartAll } = useGetCartQuery('');
+  const orderList = [];
+  cartAll.data.map((value) => {
+    return orderList.push(value.productId);
+  });
+
   return (
-    <section className="w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]">
+    <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       <Card data={cartData}>
-        <div className="flex">
-          <div className="flex flex-col font-bold text-orange items-end gap-2 mx-4 mt-1 text-lg">
+        <div className='flex'>
+          <div className='flex flex-col font-bold text-orange items-end gap-4 mx-4 mt-1 text-lg'>
             <span>최저 {cartData.rate}%</span>
             <span>{cartData.price}만원</span>
           </div>
-          <div className="pointer-events-auto">
-            <TiDeleteOutline
-              onClick={async () => {
-                await deleteCart(cartData.basketId);
+          <div className='pointer-events-auto flex flex-col items-center'>
+            <button
+              onClick={(event) => {
+                event.stopPropagation();
+                setDeleteModal(true);
               }}
-              className="text-4xl text-[#E5E7EB] font-light cursor-pointer"
-            />
+              className='w-24 h-9 rounded border-2 border-black40 text-sm font-semibold mb-2 text-[#333333]'
+            >
+              삭제
+            </button>
+            <button
+              onClick={(event) => {
+                event.stopPropagation();
+                setAddModal(true);
+              }}
+              className='w-24 h-9 rounded border-2 border-orange text-sm font-semibold mb-2 text-orange'
+            >
+              <span className='flex items-center justify-center gap-1.5'>
+                신청하기
+              </span>
+            </button>
           </div>
         </div>
       </Card>
-      <div className="flex items-center justify-between px-3 py-1 border border-t-0 border-black5 rounded-b-lg bg-[#f3f3f3] ">
-        <p className="font-semibold text-black60">{cartData.datail}</p>
-        <button className="bg-light-orange px-6 py-3 text-white font-bold rounded">
-          신청하기
-        </button>
-      </div>
+      {deleteModal && (
+        <ConfirmModal
+          title='삭제하시겠습니까?'
+          description=''
+          onConfirm={async () => {
+            await deleteCart({ basketId: cartData.basketId });
+            setDeleteModal(false);
+          }}
+          onCancel={() => setDeleteModal(false)}
+        />
+      )}
+      {addModal && (
+        <ConfirmModal
+          title='신청하시겠습니까?'
+          description=''
+          onConfirm={async () => {
+            const res = await addOrderList({
+              products_id_list: [cartData.productId],
+            });
+            if (res.data.code === 500) {
+              setAddModal(false);
+              setOverAmount(true);
+            } else {
+              await deleteCart({ basketId: cartData.basketId });
+              setAddModal(false);
+              navigate('/user/orderlist');
+            }
+          }}
+          onCancel={() => setAddModal(false)}
+        />
+      )}
+      {allOrderModal && (
+        <ConfirmModal
+          title='전체 상품을 신청하시겠습니까?'
+          description=''
+          onConfirm={async () => {
+            const res = await addOrderList({
+              products_id_list: [...orderList],
+            });
+            if (res.data.code === 500) {
+              setAllOrderModal(false);
+              setOverAmount(true);
+            } else {
+              cartAll.data.map(async (value) => {
+                await deleteCart({ basketId: value.basketId });
+              });
+              setAllOrderModal(false);
+              navigate('/user/orderlist');
+            }
+          }}
+          onCancel={() => setAllOrderModal(false)}
+        />
+      )}
+      {alertModal && (
+        <AlertModal
+          setAlertModal={setAlertModal}
+          content='이미 존재하는 상품입니다.'
+        />
+      )}
+      {overAmount && (
+        <AlertModal
+          setAlertModal={setOverAmount}
+          content='대출 가능 금액을 초과하였습니다.'
+        />
+      )}
     </section>
   );
 };

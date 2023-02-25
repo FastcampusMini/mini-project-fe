@@ -1,24 +1,36 @@
 // import ConfirmModal from "../../components/ui/ConfirmModal";
-import React, { useState } from "react";
-import Btn from "./Btn";
-import ConfirmModal from "@components/ui/ConfirmModal";
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { BiChevronRight } from 'react-icons/bi';
+import { ax } from '@/libs/axiosClient';
 
 const Home = () => {
-  const [modal, setModal] = useState(false);
+  const navigate = useNavigate();
+  const handleSignin = async () => {
+    navigate('/signin');
+  };
   return (
     <div className='flex flex-col justify-center h-screen'>
-      {modal && (
-        <ConfirmModal
-          title='정말 탈퇴하실건가요?'
-          description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae aperiam magnam error provident iste,'
-          onConfirm={() => setModal(false)}
-          onCancel={() => setModal(false)}
-        />
-      )}
-      <h1 className='mx-auto text-4xl font-black mb-32'>Finnq</h1>
+      <div className='flex flex-col mb-32 gap-8'>
+        <h1 className='mx-auto text-5xl font-black'>
+          Welcome to <em className='text-orange'>LoanTech</em>
+        </h1>
+        <p className='text-center text-black40 font-semibold'>
+          이제껏 경험 못 했던 쉽고 편리한 금융 서비스
+        </p>
+      </div>
       <div className='flex flex-col items-center gap-4'>
-        <Btn text={"로그인"} onClick={() => setModal(true)} />
-        <Btn text={"회원가입"} />
+        <button
+          className='border w-10/12 h-16 bg-yellow rounded-full text-white text-xl flex items-center justify-center px-5 hover:brightness-105'
+          onClick={handleSignin}>
+          Sign in
+        </button>
+
+        <button
+          className='border w-10/12 h-16 bg-yellow/5 rounded-full text-yellow text-xl flex items-center justify-center px-5 hover:brightness-95'
+          onClick={() => navigate('/signup')}>
+          Sign up
+        </button>
       </div>
     </div>
   );
