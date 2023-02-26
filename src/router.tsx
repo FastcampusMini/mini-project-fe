@@ -14,6 +14,8 @@ import OrderList from './pages/user/OrderList';
 import { ProtectedRoute } from './pages/ProtectedRoute';
 import { SuccessRoute } from './pages/ProtectedRoute';
 import NotFound from './pages/NotFound';
+import StepOne from './pages/signup/StepOne';
+import Test from './pages/signup/Test';
 
 const router = createBrowserRouter([
   {
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
         path: 'signup',
         element: (
           <SuccessRoute>
-            <SignUp />
+            <Test />
           </SuccessRoute>
         ),
       },

@@ -21,7 +21,7 @@ interface IProps {
   onBlur?: () => void;
 }
 
-const SignUpField = ({ text = '', registerName, message = '', inputType = 'text', register, errorMsg }: IProps) => {
+const NewSalaryField = ({ text = '', registerName, message = '', inputType = 'text', register, errorMsg }: IProps) => {
   return (
     <div className='flex flex-col text-basis text-black80 font-semibold mb-5 relative'>
       <input
@@ -47,4 +47,4 @@ const SignUpField = ({ text = '', registerName, message = '', inputType = 'text'
   );
 };
 
-export default SignUpField;
+export default NewSalaryField;
