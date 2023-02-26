@@ -50,8 +50,8 @@ const StepTwo = ({ onSubmit }) => {
         취소
       </p>
       <h1 className='text-3xl mb-12'>
-        <span className='font-semibold'>이름</span>
-        <span>을 입력해 주세요</span>
+        <span className='font-semibold'>회원정보</span>
+        <span>를 입력해 주세요</span>
       </h1>
 
       <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>

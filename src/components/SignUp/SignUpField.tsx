@@ -28,7 +28,6 @@ const SignUpField = ({ text = '', registerName, message = '', inputType = 'text'
         id={registerName}
         className='peer border border-black/20 px-4 py-3 rounded-xl focus:outline-yellow placeholder-transparent'
         type={inputType}
-        // autoComplete='off'
         placeholder={text}
         {...register(registerName)}
       />

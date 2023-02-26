@@ -65,7 +65,7 @@ const SignIn = () => {
           취소
         </p>
         <h1 className='text-3xl mb-10'>
-          핀크 이용을 위해 <br />
+          론테크 이용을 위해 <br />
           <span className='font-semibold'>본인확인</span>을 해주세요
         </h1>
         <form className='flex flex-col' onSubmit={handleSubmit(onValid)}>
@@ -77,7 +77,7 @@ const SignIn = () => {
             isDirty={isDirty}
           />
           <SignInField
-            text={'********'}
+            text={'************'}
             name={'password'}
             inputType='password'
             register={register}
@@ -87,7 +87,7 @@ const SignIn = () => {
           <ConfrimBtn isValid={isValid} isSubmitting={isSubmitting} />
         </form>
         <div
-          className='flex items-center justify-center gap-1 my-8 font-semibold text-gray cursor-pointer hover:text-yellow'
+          className='flex items-center justify-center gap-1 my-5 font-semibold text-sm text-black20 cursor-pointer hover:text-yellow'
           onClick={() => navigate('/signup')}
         >
           <p>회원가입을 아직 안하셨나요?</p>

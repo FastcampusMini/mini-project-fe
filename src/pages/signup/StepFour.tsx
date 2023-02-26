@@ -7,9 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import regex from '../../libs/regex';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
-import SalaryField from '@/components/SignUp/SalaryField';
-import cogoToast from 'cogo-toast';
-import { ax } from '@/libs/axiosClient';
 import NewSalaryField from '../../components/SignUp/newSalaryField';
 
 interface ISignUpForm {
@@ -67,7 +64,7 @@ const StepFour = ({ onSubmit, formData }) => {
   const customStyles = {
     control: (provided) => ({
       ...provided,
-      borderRadius: 13, // border-radius 값
+      borderRadius: 12, // border-radius 값
     }),
   };
 
@@ -83,17 +80,10 @@ const StepFour = ({ onSubmit, formData }) => {
 
       <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-col gap-10 mb-10'>
-          <SignUpField
-            text={'전화번호'}
-            registerName={'phone'}
-            message={'전화번호를 입력해주세요.'}
-            register={register}
-            errorMsg={errors.phone}
-          />
+          <SignUpField text={'전화번호'} registerName={'phone'} register={register} errorMsg={errors.phone} />
           <SignUpField
             text={'생년원일'}
             registerName={'birth'}
-            message={'생년원일을 입력해주세요.'}
             inputType='date'
             register={register}
             errorMsg={errors.birth}
@@ -123,7 +113,7 @@ const StepFour = ({ onSubmit, formData }) => {
                 },
                 spacing: {
                   ...theme.spacing,
-                  baseUnit: 6,
+                  baseUnit: 7,
                 },
               })}
               value={jobValue && options.find((option) => option.label === jobValue)}
@@ -136,6 +126,7 @@ const StepFour = ({ onSubmit, formData }) => {
               </small>
             )}
           </div>
+
           <NewSalaryField
             text={'연소득'}
             registerName={'salary'}

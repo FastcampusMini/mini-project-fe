@@ -6,12 +6,13 @@ import { useGetWishListQuery, useDeleteWishListMutation } from '@/store/api/wish
 import { useAddCartMutation } from '@/store/api/cartApiSlice';
 import Navigation from '@components/ui/Navigation';
 import SkeletonWishListElement from '@/components/WishList/SkeletonWishListElement';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 import { AiFillHome } from 'react-icons/ai';
 
 const WishList = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { data: wishlist, isLoading, isFetching } = useGetWishListQuery('');
   const [deleteWishList] = useDeleteWishListMutation();
   const [addCart] = useAddCartMutation();
@@ -56,7 +57,7 @@ const WishList = () => {
           {(isLoading || isFetching) && <SkeletonWishListElement />}
         </div>
       </article>
-      <Navigation />
+      <Navigation pathname={pathname} />
     </>
   );
 };

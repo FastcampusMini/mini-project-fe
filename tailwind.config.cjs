@@ -17,6 +17,9 @@ module.exports = {
           '60%': { transform: 'rotate(0.0deg)' },
           '100%': { transform: 'rotate(0.0deg)' },
         },
+        ping: {
+          '75%': { transform: 'scale(2)', opacity: 0 },
+        },
       },
     },
     colors: {

@@ -19,7 +19,7 @@ const SignInField = ({ text, name, inputType = 'text', register, errorMsg, isDir
   return (
     <div className='flex flex-col relative'>
       <input
-        className='text-black .placeholder-black40 border border-black/20 px-6 py-3 rounded-full mb-8 w-full focus:outline-yellow'
+        className='text-black .placeholder-black40 border border-black/20 rounded-xl mb-8 w-full focus:outline-yellow peer px-4 py-3 placeholder-transparent'
         type={inputType}
         placeholder={text}
         aria-invalid={!isDirty ? undefined : errorMsg ? 'true' : 'false'}

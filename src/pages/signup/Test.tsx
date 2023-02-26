@@ -48,10 +48,6 @@ const Test = () => {
   };
 
   const handleSubmit = async (data) => {
-    // setFormData((prevData) => ({ ...prevData, ...data }));
-    console.log('data:', data);
-    console.log('formData:', formData);
-
     const { phone, birth, job, salary } = data;
     const { name, email, password } = formData;
 

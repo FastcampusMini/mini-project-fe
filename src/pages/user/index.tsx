@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import { BsFillBookmarkHeartFill, BsFillCartCheckFill, BsFillTelephoneFill } from 'react-icons/bs';
 import { FaUserTimes, FaUserMinus } from 'react-icons/fa';
@@ -15,6 +15,7 @@ import { ax } from '@/libs/axiosClient';
 import { useQuery } from '@tanstack/react-query';
 
 const User = () => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -62,61 +63,65 @@ const User = () => {
           />
         )}
         {deleteModal && <DeleteAccountModal setDeleteModal={setDeleteModal} />}
-        <h1 className='text-3xl mt-10 mb-2'>
-          안녕하세요! <span className='font-semibold'>{name}님</span>
+        <h1 className='flex gap-1 text-3xl mt-10 mb-2'>
+          <span>안녕하세요! </span>
+          <div className='flex gap-1'>
+            <span className='font-semibold'>{name}님</span>
+            <span className='animate-wave'>👋</span>
+          </div>
         </h1>
 
         <div
-          className='flex items-center gap-1 font-semibold text-gray cursor-pointer mb-6 mt-5 hover:text-yellow'
+          className='flex items-center gap-1 text-sm font-semibold text-gray cursor-pointer mb-6 mt-5 hover:text-yellow'
           onClick={() => navigate('/user/edit')}
         >
           <p>내 프로필 수정하기</p>
           <IoIosArrowForward />
         </div>
 
-        <p className='text-lg font-semibold border-t pt-3 border-black5'>나의 프로필</p>
-        <div className='mb-6'>
-          <div className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
+        <p className='text-basis font-semibold border-t pt-8 mb-1 border-black5'>나의 프로필</p>
+        <div className='mb-6 flex flex-col gap-1'>
+          <div className='flex justify-between items-center text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
             <div className='flex items-center gap-4'>
               <MdEmail className='text-yellow text-2xl' />
               <span>이메일</span>
             </div>
-            <div className='text-black/40 text-base'>{email}</div>
+            <div className='text-black/40 text-sm'>{email}</div>
           </div>
-          <div className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
+          <div className='flex justify-between items-center text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
             <div className='flex items-center gap-4'>
               <BsFillTelephoneFill className='text-yellow text-2xl' />
               <span>전화번호</span>
             </div>
-            <div className='text-black/40 text-base'>{phone}</div>
+            <div className='text-black/40 text-sm'>{phone}</div>
           </div>
-          <div className='flex justify-between text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
+          <div className='flex justify-between items-center text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
             <div className='flex items-center gap-4'>
               <MdOutlineWork className='text-yellow text-2xl' />
               <span>직업</span>
             </div>
-            <div className='text-black/40 text-base'>{job}</div>
+            <div className='text-black/40 text-sm'>{job}</div>
           </div>
         </div>
 
-        <p className='text-lg font-semibold'>나의 금융정보</p>
-        <div className='mb-6'>
+        <p className='text-basis font-semibold mb-1'>나의 금융정보</p>
+        <div className='mb-6 flex flex-col gap-1'>
           <div
-            className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            className='flex items-center gap-4 text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
             onClick={() => navigate('/user/wishlist')}
           >
             <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
             <span>관심상품</span>
           </div>
           <div
-            className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            className='flex items-center gap-4 text-lg py-3  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
             onClick={() => navigate('/user/mycart')}
           >
             <BsFillCartCheckFill className='text-yellow text-2xl ' />
             <span>장바구니</span>
           </div>
           <div
-            className='flex items-center gap-4 text-xl py-5  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
+            className='flex items-center gap-4 text-lg py-3  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
             onClick={() => navigate('/user/orderlist')}
           >
             <MdAccountBalanceWallet className='text-yellow text-2xl' />
@@ -124,17 +129,17 @@ const User = () => {
           </div>
         </div>
 
-        <p className='text-lg font-semibold'>계정</p>
-        <div>
+        <p className='text-basis font-semibold mb-1 '>계정</p>
+        <div className='flex flex-col gap-1'>
           <div
-            className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
+            className='flex items-center gap-4 text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
             onClick={() => setOutModal(true)}
           >
             <FaUserMinus className='text-yellow text-2xl' />
             <span>로그아웃</span>
           </div>
           <div
-            className='flex items-center gap-4 text-xl py-5 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
+            className='flex items-center gap-4 text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
             onClick={() => {
               setDeleteModal(true);
             }}
@@ -144,7 +149,7 @@ const User = () => {
           </div>
         </div>
       </div>
-      <Navigation />
+      <Navigation pathname={pathname} />
     </>
   );
 };

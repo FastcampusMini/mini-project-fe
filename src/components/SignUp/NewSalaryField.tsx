@@ -28,7 +28,6 @@ const NewSalaryField = ({ text = '', registerName, message = '', inputType = 'te
         id={registerName}
         className='peer border border-black/20 px-4 py-3 rounded-xl focus:outline-yellow placeholder-transparent'
         type={inputType}
-        // autoComplete='off'
         placeholder={text}
         {...register(registerName)}
       />
