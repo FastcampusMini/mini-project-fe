@@ -12,10 +12,6 @@ const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       <Card data={wishlistData}>
         <div className='flex'>
-          <div className='flex flex-col font-bold text-orange items-end gap-4 mx-4 mt-1 text-lg'>
-            <span>최저 {wishlistData.rate}%</span>
-            <span>{wishlistData.price}만원</span>
-          </div>
           <div className='pointer-events-auto flex flex-col items-center'>
             <button
               onClick={(event) => {
