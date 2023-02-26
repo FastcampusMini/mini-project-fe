@@ -18,7 +18,7 @@ const OrderListCard = ({ orderList }) => {
           <h2 className='text-black40 font-semibold'>
             {orderList.purchasedProductBrand}
           </h2>
-          <h3 className='font-bold text-2xl mb-2'>
+          <h3 className='font-bold text-[20px] mb-2'>
             {orderList.purchasedProductName}
           </h3>
         </div>
