@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import Search from '@/components/Search';
@@ -16,7 +16,7 @@ const Financial = () => {
   const [searchKeyword, setSearchKeyword] = useState();
   const [sortTarget, setSortTarget] = useState();
   const [sortDirection, setSortDirection] = useState();
-  const [isChecked, setIsChecked] = useState();
+  const [isChecked, setIsChecked] = useState(false);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -24,12 +24,16 @@ const Financial = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
     setSearchTarget(data.searchTarget);
     setSearchKeyword(data.searchKeyword);
     setSortTarget(data.searchTarget);
     setSortDirection(data.sortDirection);
-    setIsChecked(data.isChecked);
+    setIsChecked(isChecked);
+  };
+
+  const ref = useRef(null);
+  const scrollToTop = () => {
+    ref.current.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -46,12 +50,7 @@ const Financial = () => {
           <h2 className='text-3xl font-bold'>상품 검색</h2>
           <div className='mt-4 mb-16'>
             <form className='flex flex-wrap gap-3 rounded-[10px]' onSubmit={handleSubmit(onSubmit)}>
-              <div className='w-full sm:text-right text-left'>
-                <label htmlFor='available' className=''>
-                  내가 가입할 수 있는 상품만 보기
-                  <input type='checkbox' id='available' className='ml-2' {...register('isChecked')} name='isChecked' />
-                </label>
-              </div>
+              <div className='w-full sm:text-right text-left'></div>
               <div className='pr-3 outline-none rounded-full border border-white bg-white overflow-hidden focus:outline-none text-lg'>
                 <select
                   className='pl-3 py-3 outline-none focus:outline-none'
@@ -119,16 +118,6 @@ const Financial = () => {
               }
             </div>
           </div>
-          <>
-            {modal && (
-              <ConfirmModal
-                title='로그인이 필요한 서비스입니다.'
-                description='로그인 화면으로 이동하시겠습니까?'
-                onConfirm={() => navigate('/signin')}
-                onCancel={() => setModal(false)}
-              />
-            )}
-          </>
         </div>
         <Navigation pathname={pathname} />
       </div>
