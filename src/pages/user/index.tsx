@@ -13,6 +13,7 @@ import { DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import DeleteAccountModal from '@/components/User/DeleteAccountModal';
 import { ax } from '@/libs/axiosClient';
 import { useQuery } from '@tanstack/react-query';
+import cogoToast from 'cogo-toast';
 
 const User = () => {
   const { pathname } = useLocation();
@@ -31,7 +32,7 @@ const User = () => {
 
   if (fetchingUser) return;
 
-  const { email, job, name, birth, phone, salary } = userInfo;
+  const { email, job, name, phone } = userInfo;
 
   // 로그아웃 api 호출
   const userlogOut = async (accessToken: string, refreshToken: string) => {
@@ -41,9 +42,10 @@ const User = () => {
     if (response.status === 200) {
       dispatch(DELETE_TOKEN());
       removeCookieToken();
+      await cogoToast.info(response.data.message);
       return navigate('/');
     } else {
-      console.log(response.data.message);
+      await cogoToast.info(response.data.message);
     }
   };
 
