@@ -40,17 +40,14 @@ const SignIn = () => {
   // 백으로 유저 정보 전달하여 로그인 요청
   const onValid: SubmitHandler<ISignInForm> = async ({ email, password }, event) => {
     event.preventDefault();
-    console.log('email', email);
-    console.log('password', password);
     const response = await ax.postLogin({ email, password });
-    console.log(response);
 
     if (response.code === 200) {
       // cookie에 refreshToken, store에 accessToken 저장
       const { accessToken, refreshToken } = response.data;
       setRefreshToken(refreshToken);
       dispatch(SET_TOKEN(accessToken));
-      cogoToast.info(response.message);
+      cogoToast.info('로그인에 성공하셨습니다.');
       navigate('/main');
     } else {
       cogoToast.info(response.message);
