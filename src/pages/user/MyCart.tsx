@@ -67,12 +67,12 @@ const Mycart = () => {
   }, [cart]);
 
   useEffect(() => {
-    if (cart?.data?.length !== 0) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-  }, [cart]);
+    const find = items.find((value) => {
+      return value.isChecked === true;
+    });
+    if (find) setIsValid(true);
+    else setIsValid(false);
+  }, [items]);
   return (
     <>
       <article className='h-full px-10 pt-8 pb-24 overflow-y-scroll scrollbar-none'>
