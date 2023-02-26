@@ -1,4 +1,3 @@
-import { deleteAuth } from '@/api/authApi';
 import { DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import { ax } from '@/libs/axiosClient';
 import { removeCookieToken } from '@/libs/Cookie';
@@ -23,9 +22,15 @@ interface IDeleteForm {
 const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [message, setMessage] = useState('탈퇴하시면 더 이상 서비스를\n이용하실 수 없어요.');
+  const [message, setMessage] = useState(
+    '탈퇴하시면 더 이상 서비스를\n이용하실 수 없어요.'
+  );
   const schema = yup.object().shape({
-    password: yup.string().required('비밀번호는 필수 입력입니다.').min(8, '8자리 이상 비밀번호를 사용하세요.').max(25),
+    password: yup
+      .string()
+      .required('비밀번호는 필수 입력입니다.')
+      .min(8, '8자리 이상 비밀번호를 사용하세요.')
+      .max(25),
   });
 
   const {
@@ -68,7 +73,9 @@ const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
           <h1 className='font-semibold text-xl w-full whitespace-normal text-yellow text-center my-4'>
             정말 탈퇴 하시겠어요?
           </h1>
-          <p className=' text-black40 text-center font-semibold text-sm mb-5 whitespace-pre-line'>{message}</p>
+          <p className=' text-black40 text-center font-semibold text-sm mb-5 whitespace-pre-line'>
+            {message}
+          </p>
         </div>
 
         <div className='w-full'>
@@ -86,8 +93,7 @@ const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
           <button
             type='button'
             onClick={() => setDeleteModal(false)}
-            className='rounded h-12 w-1/2 text-white bg-black40 hover:bg-black60'
-          >
+            className='rounded h-12 w-1/2 text-white bg-black40 hover:bg-black60'>
             취소
           </button>
           <button
@@ -95,9 +101,10 @@ const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
             onClick={handleSubmit(onValid)}
             disabled={isSubmitting}
             className={`border rounded h-12 w-1/2 text-white ${
-              isValid ? `bg-light-orange hover:bg-orange` : `bg-black40 hover:bg-black60`
-            }  `}
-          >
+              isValid
+                ? `bg-light-orange hover:bg-orange`
+                : `bg-black40 hover:bg-black60`
+            }  `}>
             확인
           </button>
         </div>
