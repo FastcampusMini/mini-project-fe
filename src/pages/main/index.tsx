@@ -9,12 +9,13 @@ import useYScroll from '@/libs/hooks/useYScroll';
 import { combinePagesContent } from '@/libs/utils';
 import Slider from './Slider';
 import { MdChecklistRtl, MdOutlineAccountCircle } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { RiShoppingCart2Line } from 'react-icons/ri';
 import { BsFillArrowUpSquareFill } from 'react-icons/bs';
 import Navigation from '../../components/ui/Navigation';
 
 const Main = () => {
+  const { pathname } = useLocation();
   const [loanProducts, setLoanProducts] = useState([]);
   const navigate = useNavigate();
   const [recommendedProducts, setRecommendedProducts] = useState([]);
@@ -146,7 +147,7 @@ const Main = () => {
           </div>
         </div>
       </main>
-      <Navigation />
+      <Navigation pathname={pathname} />
     </>
   );
 };
