@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import Search from './components/Search';
 import { useSelector } from 'react-redux';
 import cogoToast from 'cogo-toast';
+import { firebaseConfig } from './firebase/fb';
 
 const DevLinks = () => {
   const textRef = useRef(null);
@@ -29,6 +30,9 @@ const DevLinks = () => {
     setName(other);
   };
 
+  const handleTestSpan = () => {
+    console.log(firebaseConfig);
+  };
   return (
     <>
       <div
@@ -65,7 +69,7 @@ const DevLinks = () => {
             Copy!
           </div>
         </div>
-
+        <span onClick={handleTestSpan}>testBTN</span>
         <ul>
           <li>
             <Link className='hover:bg-black/10' to='/'>
