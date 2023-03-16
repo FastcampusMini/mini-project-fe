@@ -25,4 +25,5 @@ module.exports = {
   getDetails,
   getSearch,
   postProducts,
+  // wishlists & baskets
 };

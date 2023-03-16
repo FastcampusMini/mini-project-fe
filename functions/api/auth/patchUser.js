@@ -25,16 +25,15 @@ const patchUser = async (req, res) => {
     const { userId } = jwt.verify(token, SECRET_KEY);
 
     const userRef = firestore.collection('users').doc(userId);
-    const userData = await userRef.get();
+    const userSnapshot = await userRef.get();
 
-    if (!userData.exists) {
+    if (!userSnapshot.exists) {
       return res
         .status(404)
         .json({ code: 404, error: '유저를 찾을 수 없습니다.' });
     }
-    console.log('userdata.data()', userData.data());
-    console.log('userdata', userData);
-    if (userData.data().password !== oldPassword) {
+    const userData = userSnapshot.data();
+    if (userData.password !== oldPassword) {
       return res.status(400).json({
         code: 400,
         message: '기존 비밀번호와 일치하지 않습니다.',
@@ -45,7 +44,8 @@ const patchUser = async (req, res) => {
 
     if (newPassword) updateData.password = newPassword.trim();
     if (phone) updateData.phone = phone.trim();
-    if (salary !== undefined) updateData.salary = Number(salary);
+    if (salary)
+      updateData.salary = Number(salary) < 3000 ? 3000 : Number(salary);
     if (job) updateData.job = job.trim();
 
     await userRef.update(updateData);

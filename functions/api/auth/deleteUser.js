@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 
 const firestore = admin.firestore();
 const SECRET_KEY = 'my-secret-key';
-const SUCCESS_MSG = '요청에 성공하였습니다.';
-const TOKEN_EXPIRATION = '24h';
 
 const deleteUser = async (req, res) => {
   const authHeader = req.headers.authorization;
@@ -20,7 +18,6 @@ const deleteUser = async (req, res) => {
     return res.status(400).json({
       code: 400,
       message: 'email 혹은 password 가 없습니다.',
-      data: undefined,
     });
   }
 
