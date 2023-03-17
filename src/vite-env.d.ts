@@ -30,8 +30,8 @@ interface ISearchInput {
   name?: string | number;
   searchTarget?: string;
   searchKeyword?: string | number;
-  sortTarget?: string; 
-  sortDirection?: string; 
+  sortTarget?: string;
+  sortDirection?: string;
   isChecked?: boolean;
   page?: string | number;
 }
