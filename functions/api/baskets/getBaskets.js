@@ -6,7 +6,7 @@ const SECRET_KEY = 'my-secret-key';
 const SUCCESS_MSG = '요청에 성공하였습니다.';
 const TOKEN_EXPIRATION = '24h';
 
-const deleteWishlists = async (req, res) => {
+const getBaskets = async (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({
@@ -21,26 +21,18 @@ const deleteWishlists = async (req, res) => {
       message: 'token 이 존재하지 않습니다.',
     });
   }
-  const productId = req.body.productId;
-  if (!productId) {
-    return res.status(400).json({
-      code: 400,
-      message: 'productId 가 없습니다.',
-    });
-  }
-
   try {
     const { userId } = jwt.verify(token, SECRET_KEY);
     const userRef = firestore.collection('users').doc(userId);
-    const wishlistProductRef = userRef.collection('wishlists').doc(productId);
-    await wishlistProductRef.delete();
+    const basketsRef = userRef.collection('baskets');
+    const snapshot = await basketsRef.get();
 
-    const snapshot = await userRef.collection('wishlists').get();
-    const wishlists = snapshot.docs.map((doc) => doc.data());
+    const baskets = snapshot.docs.map((doc) => doc.data());
+
     return res.status(200).json({
       code: 200,
-      message: `${productId} 상품이 wishlists 에서 삭제됐습니다.`,
-      data: wishlists,
+      message: SUCCESS_MSG,
+      data: baskets,
     });
   } catch (error) {
     return res.status(400).json({
@@ -50,4 +42,4 @@ const deleteWishlists = async (req, res) => {
   }
 };
 
-module.exports = deleteWishlists;
+module.exports = getBaskets;
