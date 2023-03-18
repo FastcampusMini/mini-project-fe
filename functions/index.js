@@ -8,12 +8,18 @@ const api = require('./api');
 const app = express();
 
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const corsOptions = {
+  origin: 'https://subtle-stardust-bdb90a.netlify.app',
+  methods: ['GET', 'POST', 'DELETE'],
+};
 
 const firestore = admin.firestore();
 
 const SECRET_KEY = 'my-secret-key';
 const SUCCESS_MSG = '요청에 성공하였습니다.';
 
+// app.use(cors(corsOptions));
 app.use(express.json()); // JSON body를 파싱하기 위한 middleware
 
 // 주문하기
@@ -21,7 +27,7 @@ app.post('/orders', api.postOrders);
 // 주문 정보 가져오기
 app.get('/orders', api.getOrders);
 // 주문 삭제하기
-app.delete('/orders', api.deleteOrders);
+app.delete('/orders/:orderId', api.deleteOrders);
 
 // wishlists 추가하기
 app.post('/wishlists', api.postWishlists);
