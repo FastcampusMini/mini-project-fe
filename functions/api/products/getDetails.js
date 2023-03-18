@@ -4,7 +4,7 @@ const firestore = admin.firestore();
 const SUCCESS_MSG = '요청에 성공하였습니다.';
 
 const getDetails = async (req, res) => {
-  const productId = req.query.products_id;
+  const productId = req.query.product_id;
   if (!productId) {
     return res.status(400).json({
       code: 400,
