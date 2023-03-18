@@ -32,9 +32,9 @@ app.get('/wishlists', api.getWishlists);
 // baskets 가져오기
 app.get('/baskets', api.getBaskets);
 // wishilists 삭제하기
-app.delete('/wishlists', api.deleteWishlists);
+app.delete('/wishlists/:productId', api.deleteWishlists);
 // baskets 삭제하기
-app.delete('/baskets', api.deleteBaskets);
+app.delete('/baskets/:productId', api.deleteBaskets);
 
 // 추천 상품 가져오기(토큰x)
 app.get('/products/recommends', api.getRecommends);

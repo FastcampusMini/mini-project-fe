@@ -5,11 +5,11 @@ const firestore = admin.firestore();
 const SECRET_KEY = 'my-secret-key';
 
 const deleteOrders = async (req, res) => {
-  const { orderId } = req.body;
+  const { orderId } = req.params;
   if (!orderId) {
     return res.status(400).json({
       code: 400,
-      mesage: 'orderId를 body에 넣어서 요청해주세요',
+      mesage: 'orderId와 함께 요청해주세요',
     });
   }
   const authHeader = req.headers.authorization;

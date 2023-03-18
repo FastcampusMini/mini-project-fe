@@ -21,7 +21,7 @@ const deleteBaskets = async (req, res) => {
       message: 'token 이 존재하지 않습니다.',
     });
   }
-  const productId = req.body.productId;
+  const { productId } = req.params;
   if (!productId) {
     return res.status(400).json({
       code: 400,

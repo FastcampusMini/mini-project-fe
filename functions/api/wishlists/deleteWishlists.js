@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 
 const firestore = admin.firestore();
 const SECRET_KEY = 'my-secret-key';
-const SUCCESS_MSG = '요청에 성공하였습니다.';
-const TOKEN_EXPIRATION = '24h';
 
 const deleteWishlists = async (req, res) => {
   const authHeader = req.headers.authorization;
@@ -21,7 +19,7 @@ const deleteWishlists = async (req, res) => {
       message: 'token 이 존재하지 않습니다.',
     });
   }
-  const productId = req.body.productId;
+  const { productId } = req.params;
   if (!productId) {
     return res.status(400).json({
       code: 400,

@@ -13,14 +13,6 @@ const deleteUser = async (req, res) => {
 
   const token = authHeader.split(' ')[1];
 
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({
-      code: 400,
-      message: 'email 혹은 password 가 없습니다.',
-    });
-  }
-
   try {
     const { userId } = jwt.verify(token, SECRET_KEY);
 
