@@ -9,17 +9,17 @@ const app = express();
 
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-const corsOptions = {
-  origin: 'https://subtle-stardust-bdb90a.netlify.app',
-  methods: ['GET', 'POST', 'DELETE'],
-};
+// const corsOptions = {
+//   origin: 'https://subtle-stardust-bdb90a.netlify.app',
+//   methods: ['GET', 'POST', 'DELETE'],
+// };
 
 const firestore = admin.firestore();
 
 const SECRET_KEY = 'my-secret-key';
 const SUCCESS_MSG = '요청에 성공하였습니다.';
 
-// app.use(cors(corsOptions));
+app.use(cors()); // 모든 요청에 대해 CORS 허용
 app.use(express.json()); // JSON body를 파싱하기 위한 middleware
 
 // 주문하기
@@ -65,5 +65,7 @@ app.get('/user', api.getUser);
 app.delete('/user', api.deleteUser);
 // 회원정보 수정
 app.patch('/user', api.patchUser);
+// refresh
+app.post('/refresh', api.postRefresh);
 
 exports.api = functions.region('asia-northeast3').https.onRequest(app);
