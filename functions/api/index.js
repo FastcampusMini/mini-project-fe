@@ -4,6 +4,7 @@ const logout = require('./auth/logout');
 const getUser = require('./auth/getUser');
 const deleteUser = require('./auth/deleteUser');
 const patchUser = require('./auth/patchUser');
+const postRefresh = require('./auth/postRefresh');
 
 const getRecommends = require('./products/getRecommends');
 const getProducts = require('./products/getProducts');
@@ -30,6 +31,7 @@ module.exports = {
   getUser,
   deleteUser,
   patchUser,
+  postRefresh,
   // products
   getRecommends,
   getProducts,
