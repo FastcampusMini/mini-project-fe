@@ -1,8 +1,5 @@
 # mini-project-fe
 
-api 명세: https://documenter.getpostman.com/view/25760000/2s935so2bC  
-배포(develop): https://subtle-stardust-bdb90a.netlify.app/
-
 ## 라이브러리
 
 - `react-icons` 아이콘 컴포넌트

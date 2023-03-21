@@ -15,16 +15,15 @@ export const orderApi = createApi({
         return {
           url: '/orders',
           method: 'POST',
-          body: orderData,
+          body: { products_id_list: orderData.products_id_list },
         };
       },
       invalidatesTags: ['Order'],
     }),
     deleteOrderList: builder.mutation({
       query: (orderData: IOrderId) => ({
-        url: '/orders',
+        url: `/orders/${orderData.orderId}`,
         method: 'DELETE',
-        body: orderData,
       }),
       invalidatesTags: ['Order'],
     }),

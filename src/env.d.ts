@@ -4,9 +4,9 @@ interface IProduct {
   logo: string;
   name: string;
   price: number;
-  productId: number;
+  productId: string;
   rate: number;
-  basketId?: number;
+  basketId?: string;
 }
 
 interface IUserEditPayload {
@@ -24,9 +24,9 @@ interface IData {
 }
 
 interface DaumData {
-  wishlistId?: number;
-  basketId?: number;
-  productId: number;
+  wishlistId?: string;
+  basketId?: string;
+  productId: string;
   brand: string;
   logo: string;
   name: string;
@@ -36,23 +36,23 @@ interface DaumData {
 }
 
 interface IProductId {
-  productId: number;
+  productId: string;
 }
 
 interface IBasketId {
-  basketId: number;
+  basketId: string;
 }
 
 interface IWishListId {
-  wishlistId: number;
+  wishlistId: string;
 }
 
 interface IProductsId {
-  products_id_list: number[];
+  products_id_list: string[];
 }
 
 interface IOrderId {
-  orderId: number;
+  orderId: string;
 }
 
 interface IOrderData {
@@ -62,20 +62,20 @@ interface IOrderData {
 }
 
 interface DaumOrder {
-  orderId: number;
+  orderId: string;
   purchaseDate: number[];
   purchasedProductList: PurchasedProductList[];
 }
 
 interface PurchasedProductList {
-  purchasedProductId: number;
+  purchasedProductId: string;
   purchasedProductPrice: number;
   purchasedProductBrand: string;
   purchasedProductLogo: string;
   purchasedProductName: string;
   purchasedProductRate: number;
   purchasedProductDetail: string;
-  originalProductId: number;
+  originalProductId: string;
 }
 
 interface ILoginInput {

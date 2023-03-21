@@ -14,24 +14,34 @@ const DevLinks = () => {
   const textRef = useRef(null);
   const [toggle, setToggle] = useState(false);
   const { register, handleSubmit, getValues } = useForm();
-  // const { mutate: login } = useLogin();
+  const { mutate: login } = useMutation(
+    ['login'],
+    async ({ email, password }: any) => {
+      ax.postLogin({ email, password });
+    }
+  );
+
   const { accessToken } = useSelector((state: any) => state.authToken);
   // const { accessToken, refreshToken } = useToken();
+
   const onValid = () => {
     const { email, password } = getValues();
     console.log('email', email, 'pw', password);
     // login({ email, password });
   };
-  // const { data: orderdata } = useGetOrders(accessToken);
 
-  const [name, setName] = useState('');
-  const handleTest = async () => {
-    const { email, password, other } = getValues();
-    setName(other);
-  };
-
-  const handleTestSpan = () => {
-    console.log(firebaseConfig);
+  const handleTestSpan = async () => {
+    const products_id_list = [
+      '2CtHem2tzRubYqwCp5h5hReOc',
+      '2F16uTFkca53ZDMNZ44Xe0ob8',
+    ];
+    const productId = '2CtHem2tzRubYqwCp5h5hReOc';
+    // console.log(products_id_list);
+    const res = await ax.getSearch(accessToken, {
+      searchKeyword: '안심',
+      page: '2',
+    });
+    console.log(res);
   };
   return (
     <>
@@ -48,6 +58,19 @@ const DevLinks = () => {
           )}>
           test
         </h1>
+        <form onSubmit={handleSubmit(onValid)} className='w-10'>
+          <input
+            type='text'
+            className='border bg-gray'
+            {...register('email')}
+          />
+          <input
+            type='text'
+            className='border bg-gray'
+            {...register('password')}
+          />
+          <button>login</button>
+        </form>
         <div className='w-auto'>
           <input
             className={!accessToken ? 'text-red' : ''}
