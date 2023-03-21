@@ -64,7 +64,7 @@ const Id = () => {
       setDetail(res);
       console.log(res);
     };
-    console.log(detail);
+    console.log('detail', detail);
     getDetails(financialId);
   }, []);
 
@@ -84,8 +84,7 @@ const Id = () => {
               className='h-fit p-2 bg-white rounded-[10px] shadow-md text-4xl cursor-pointer hover:scale-110 transition-transform'
               onClick={() => {
                 setLike(!like);
-              }}
-            >
+              }}>
               {like ? (
                 // <div className='text-6xl cursor-pointer'>❤️</div>
                 <AiFillHeart className='text-orange' />
@@ -109,8 +108,7 @@ const Id = () => {
             ].map((data, i) => (
               <li
                 key={i}
-                className='px-4 py-2 rounded-full border border-yellow bg-white/100 text-yellow font-bold'
-              >
+                className='px-4 py-2 rounded-full border border-yellow bg-white/100 text-yellow font-bold'>
                 {data}
               </li>
             ))}
@@ -148,8 +146,7 @@ const Id = () => {
           <button
             type='button'
             className='mt-16 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
-            onClick={() => setBasketModal(true)}
-          >
+            onClick={() => setBasketModal(true)}>
             장바구니 담기
           </button>
           <button

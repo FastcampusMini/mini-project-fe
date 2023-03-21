@@ -18,7 +18,7 @@ const Main = () => {
   const { pathname } = useLocation();
   const [loanProducts, setLoanProducts] = useState([]);
   const navigate = useNavigate();
-  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  // const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   const { accessToken } = useSelector((state: any) => state.authToken); // 토큰가져오기
   // 상품 가져오기
@@ -49,28 +49,32 @@ const Main = () => {
     }
   );
   // 추천 상품 가져오기
-  const { isLoading: fetchingRecommends, fetchNextPage: fetchNextRecPage } =
-    useInfiniteQuery(
-      ['recProducts', accessToken],
-      ({ pageParam = 1 }) => ax.getRecommendsProducts(accessToken, pageParam),
-      {
-        getNextPageParam: (lastPage) => {
-          try {
-            if (!lastPage) return;
-            return lastPage.pageNumber < lastPage.totalPages
-              ? lastPage.pageNumber + 1
-              : undefined;
-          } catch (err) {
-            throw Error(err);
-          }
-        },
-        onSuccess: (data) => {
-          if (!data.pages) console.log('data가없어요', data.pages);
-          setRecommendedProducts(combinePagesContent(data.pages));
-        },
-        staleTime: 1000 * 60 * 5,
-      }
-    );
+  const {
+    data: recProducts,
+    isLoading: fetchingRecommends,
+    fetchNextPage: fetchNextRecPage,
+  } = useInfiniteQuery(
+    ['recProducts', accessToken],
+    ({ pageParam = 1 }) => ax.getRecommendsProducts(accessToken, pageParam),
+    {
+      getNextPageParam: (lastPage) => {
+        try {
+          if (!lastPage) return;
+          return lastPage.pageNumber < lastPage.totalPages
+            ? lastPage.pageNumber + 1
+            : undefined;
+        } catch (err) {
+          throw Error(err);
+        }
+      },
+      onSuccess: (data) => {
+        // if (!data.pages) console.log('data가없어요', data.pages);
+        // setRecommendedProducts(combinePagesContent(data.pages));
+      },
+
+      staleTime: 1000 * 60 * 5,
+    }
+  );
   // 유저 정보가져오기
   const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
     ['user', accessToken],
@@ -85,6 +89,7 @@ const Main = () => {
       console.log('무한스크롤', yScroll);
     }
   }, [yScroll]);
+
   const scrollToTop = () => {
     if (ref.current) {
       ref.current.scrollTo({ top: 0, behavior: 'smooth' });
@@ -110,14 +115,14 @@ const Main = () => {
         <Nav left='arrow' right='arrow' addClass='mt-5' />
         <div className='flex justify-between px-10 mb-5'>
           <div className=''>
-            <h1 className='font-bold text-4xl  pointer-events-none'>
+            <h1 className='font-bold text-3xl  pointer-events-none'>
               Let's Get a Loan!
             </h1>
             <p className='text-black60  pointer-events-none'>
               대출자격은 더 <strong>넓게!</strong> 금리는 더{' '}
               <strong>낮게!</strong>
             </p>
-            <p className='mt-4 text-lg text-black60 font-semibold  pointer-events-none'>
+            <p className='mt-4 text-md text-black60 font-semibold  pointer-events-none'>
               {userInfo?.name ? userInfo?.name : '(익명)'}님 대출 가능한 금액 :{' '}
               <strong className='text-black80'>
                 {userInfo?.availableAmount <= 0 ? 0 : userInfo?.availableAmount}
@@ -153,11 +158,16 @@ const Main = () => {
           추천상품
         </h3>
         <div className='flex flex-col gap-5'>
-          {!!recommendedProducts.length && (
+          {!fetchingRecommends && (
             <Slider
-              products={recommendedProducts}
+              products={combinePagesContent(recProducts?.pages)}
               fetchNextPage={fetchNextRecPage}
             />
+            // recProducts?.pages.map(page => <Slider products={page.content} />)
+            // <Slider
+            //   products={recommendedProducts}
+            //   fetchNextPage={fetchNextRecPage}
+            // />
           )}
 
           <div className='mx-10'>
@@ -171,7 +181,11 @@ const Main = () => {
               ))} */}
               {loanProductsPages?.pages.map((page) =>
                 page?.content.map((product) => (
-                  <LoanProductCard key={product?.productId} product={product} />
+                  <LoanProductCard
+                    key={`loan-${product?.productId}`}
+                    // @ts-ignore
+                    product={product}
+                  />
                 ))
               )}
               {/* <LoanProductCard product={loanProducts[0]} /> */}
