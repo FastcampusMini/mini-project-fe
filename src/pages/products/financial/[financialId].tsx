@@ -75,11 +75,13 @@ const Id = () => {
 
         <div className='px-10 pb-16 relative top-5 bg-white rounded-t-3xl shadow-md'>
           <div className='flex justify-between relative top-[-20px]'>
-            <img
-              className='w-32 relative top-[-10px]'
-              src={detail?.logo}
-              alt='cartItem_logo'
-            />
+            {detail?.logo && (
+              <img
+                className='w-32 relative top-[-10px]'
+                src={detail?.logo}
+                alt='cartItem_logo'
+              />
+            )}
             <div
               className='h-fit p-2 bg-white rounded-[10px] shadow-md text-4xl cursor-pointer hover:scale-110 transition-transform'
               onClick={() => {

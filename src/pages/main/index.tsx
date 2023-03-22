@@ -123,7 +123,8 @@ const Main = () => {
               <strong>낮게!</strong>
             </p>
             <p className='mt-4 text-md text-black60 font-semibold  pointer-events-none'>
-              {userInfo?.name ? userInfo?.name : '(익명)'}님 대출 가능한 금액 :{' '}
+              {userInfo?.name ? userInfo?.name : '(익명)'}님 대출 가능한 금액 :
+              <br />
               <strong className='text-black80'>
                 {userInfo?.availableAmount <= 0 ? 0 : userInfo?.availableAmount}
               </strong>
