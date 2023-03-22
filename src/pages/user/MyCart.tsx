@@ -12,7 +12,6 @@ import SkeletonWishListElement from '@/components/WishList/SkeletonWishListEleme
 import { useNavigate } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 import { AiFillHome } from 'react-icons/ai';
-import OrderList from './OrderList';
 
 const Mycart = () => {
   const navigate = useNavigate();
@@ -34,9 +33,9 @@ const Mycart = () => {
   console.log('orderList', orderList);
 
   // 각 아이템 체크박스의 상태 변경 이벤트 핸들러
-  function handleItemCheckboxChange(basketId) {
+  function handleItemCheckboxChange(productId) {
     const updatedItems = items.map((item) => {
-      if (item?.basketId === basketId) {
+      if (item?.productId === productId) {
         return {
           ...item,
           isChecked: !item.isChecked,
@@ -73,6 +72,9 @@ const Mycart = () => {
     if (find) setIsValid(true);
     else setIsValid(false);
   }, [items]);
+
+  console.log(items);
+
   return (
     <>
       <article className='h-full px-10 pt-8 pb-24 overflow-y-scroll scrollbar-none'>
@@ -108,7 +110,7 @@ const Mycart = () => {
               cartData={value}
               deleteCart={deleteCart}
               addOrderList={addOrderList}
-              key={value.basketId}
+              key={value.productId}
               allOrderModal={allOrderModal}
               setAllOrderModal={setAllOrderModal}
               handleItemCheckboxChange={handleItemCheckboxChange}

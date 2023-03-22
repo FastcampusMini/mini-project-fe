@@ -21,8 +21,8 @@ export const orderApi = createApi({
       invalidatesTags: ['Order'],
     }),
     deleteOrderList: builder.mutation({
-      query: (orderData: IOrderId) => ({
-        url: `/orders/${orderData.orderId}`,
+      query: (orderId) => ({
+        url: `/orders/${orderId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Order'],
