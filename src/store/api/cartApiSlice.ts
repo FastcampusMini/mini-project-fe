@@ -15,14 +15,14 @@ export const cartApi = createApi({
         return {
           url: '/baskets',
           method: 'POST',
-          body: { productId: cartData.productId },
+          body: cartData,
         };
       },
       invalidatesTags: ['Cart'],
     }),
     deleteCart: builder.mutation({
-      query: (cartData: IBasketId) => ({
-        url: `/baskets/${cartData.basketId}`,
+      query: (productId) => ({
+        url: `/baskets/${productId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Cart'],

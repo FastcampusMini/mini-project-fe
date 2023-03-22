@@ -7,6 +7,7 @@ import AlertModal from '@/components/ui/AlertModal';
 import {
   useAddCartMutation,
   useDeleteCartMutation,
+  useGetCartQuery,
 } from '@/store/api/cartApiSlice';
 import {
   useAddWishListMutation,
@@ -21,6 +22,7 @@ import PageChangeModal from '@/components/ui/PageChangeModal';
 const Id = () => {
   const [addOrderList] = useAddOrderListMutation();
   const [addCart] = useAddCartMutation();
+  const { data: cart } = useGetCartQuery('');
   const [addWishList] = useAddWishListMutation();
   const [deleteWishList] = useDeleteWishListMutation();
   const [deleteCart] = useDeleteCartMutation();
@@ -52,9 +54,7 @@ const Id = () => {
       const find = wishList?.data?.find((value) => {
         return value?.productId === detail?.productId;
       });
-      deleteWishList({
-        wishlistId: find?.wishlistId,
-      });
+      deleteWishList(find?.productId);
     }
   }, [like]);
 
@@ -84,12 +84,11 @@ const Id = () => {
               className='h-fit p-2 bg-white rounded-[10px] shadow-md text-4xl cursor-pointer hover:scale-110 transition-transform'
               onClick={() => {
                 setLike(!like);
-              }}>
+              }}
+            >
               {like ? (
-                // <div className='text-6xl cursor-pointer'>❤️</div>
                 <AiFillHeart className='text-orange' />
               ) : (
-                // <div className='text-6xl cursor-pointer'>🤍</div>
                 <AiOutlineHeart className='text-gray' />
               )}
             </div>
@@ -108,7 +107,8 @@ const Id = () => {
             ].map((data, i) => (
               <li
                 key={i}
-                className='px-4 py-2 rounded-full border border-yellow bg-white/100 text-yellow font-bold'>
+                className='px-4 py-2 rounded-full border border-yellow bg-white/100 text-yellow font-bold'
+              >
                 {data}
               </li>
             ))}
@@ -146,13 +146,15 @@ const Id = () => {
           <button
             type='button'
             className='mt-16 p-4 w-full rounded-[10px] border border-orange bg-white text-orange text-lg font-bold'
-            onClick={() => setBasketModal(true)}>
+            onClick={() => setBasketModal(true)}
+          >
             장바구니 담기
           </button>
           <button
             type='button'
             className='mt-6 mb-28 p-4 w-full rounded-[10px] bg-yellow text-white text-lg font-bold'
-            onClick={() => setOrderModal(true)}>
+            onClick={() => setOrderModal(true)}
+          >
             신청하기
           </button>
 
@@ -161,17 +163,14 @@ const Id = () => {
               title='신청하시겠습니까?'
               description=''
               onConfirm={async () => {
-                const res = await addOrderList({
+                const res: any = await addOrderList({
                   products_id_list: [detail.productId],
-                })
-                  .unwrap()
-                  .then((payload) => payload.code)
-                  .catch((error) => console.error('rejected', error));
-                if (res === 500) {
+                });
+                if (!res.data) {
                   setOrderModal(false);
                   setOverAmount(true);
                 } else {
-                  await deleteCart({ basketId: detail.basketId });
+                  await deleteCart(detail.productId);
                   setOrderModal(false);
                   setOrderPageChange(true);
                 }
@@ -184,19 +183,17 @@ const Id = () => {
               title='장바구니에 담으시겠습니까?'
               description=''
               onConfirm={async () => {
-                const res = await addCart({
-                  productId: detail?.productId,
-                })
-                  .unwrap()
-                  .then((payload) => payload.code)
-                  .catch((error) => console.error('rejected', error));
-                if (res === 500) {
+                const find = cart?.data.find(
+                  (value) => value.productId === detail?.productId,
+                );
+                if (find) {
                   setBasketModal(false);
                   setAlertModal(true);
-                } else {
-                  setBasketModal(false);
-                  setBasketPageChange(true);
+                  return;
                 }
+                await addCart({ productId: detail?.productId });
+                setBasketModal(false);
+                setBasketPageChange(true);
               }}
               onCancel={() => setBasketModal(false)}
             />

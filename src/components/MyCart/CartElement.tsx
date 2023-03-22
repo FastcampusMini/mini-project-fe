@@ -21,6 +21,8 @@ const CartElement = ({
   const [overAmount, setOverAmount] = useState(false);
   const { data: cartAll } = useGetCartQuery('');
 
+  console.log(orderList);
+
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       <div
@@ -35,7 +37,7 @@ const CartElement = ({
             type='checkbox'
             className='form-checkbox text-yellow border-2 border-black20 rounded-full focus:border-yellow text-2xl mr-2'
             checked={cartData.isChecked}
-            onChange={() => handleItemCheckboxChange(cartData.basketId)}
+            onChange={() => handleItemCheckboxChange(cartData.productId)}
             onClick={(event) => {
               event.stopPropagation();
             }}
@@ -65,7 +67,7 @@ const CartElement = ({
           title='삭제하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await deleteCart({ basketId: cartData.basketId });
+            await deleteCart(cartData.productId);
             setDeleteModal(false);
           }}
           onCancel={() => setDeleteModal(false)}
@@ -79,12 +81,12 @@ const CartElement = ({
             const res = await addOrderList({
               products_id_list: [...orderList],
             });
-            if (res.data.code === 500) {
+            if (!res.data) {
               setAllOrderModal(false);
               setOverAmount(true);
             } else {
               orderList.map(async (value: number) => {
-                await deleteCart({ basketId: value });
+                await deleteCart(value);
               });
               setAllOrderModal(false);
               navigate('/user/orderlist');
