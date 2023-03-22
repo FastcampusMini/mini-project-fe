@@ -26,7 +26,7 @@ class Axios {
         password,
       })
       .then((res) => res.data);
-    console.log(`postLogin${result.message}>>`, result.data);
+    // console.log(`postLogin${result.message}>>`, result.data);
     return result;
   }
 
@@ -46,7 +46,7 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`patchUserEdit>>${result?.message}`, result);
+    // console.log(`patchUserEdit>>${result?.message}`, result);
     return result;
   }
   // 유저 정보 가져오기 OK
@@ -62,7 +62,7 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`getUser ${result.message}`, result);
+    // console.log(`getUser ${result.message}`, result);
     return result.data;
   }
 
@@ -99,7 +99,7 @@ class Axios {
         },
       }
     );
-    console.log(`postLogout >>`, result.data);
+    // console.log(`postLogout >>`, result.data);
     return result;
   }
 
@@ -108,7 +108,7 @@ class Axios {
     const result = await this.axiosClient
       .post('/register', payload)
       .then((response) => response.data);
-    console.log(`postRegister >>`, result);
+    // console.log(`postRegister >>`, result);
     return result;
   }
 
@@ -124,7 +124,7 @@ class Axios {
         },
       })
       .then((response) => response.data);
-    console.log(`deleteUser >>`, result);
+    // console.log(`deleteUser >>`, result);
     return result;
   }
 
@@ -170,7 +170,7 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`getRecommendsProducts(${result.message}) ${result.data}`);
+    // console.log(`getRecommendsProducts(${result.message}) ${result.data}`);
     return result.data;
   }
   // 상품 상세정보 가져오기 OK
@@ -183,7 +183,7 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`getProductsDetails`, result);
+    // console.log(`getProductsDetails`, result);
     return result.data;
   }
   // 상품구매 OK
@@ -193,7 +193,7 @@ class Axios {
   ): Promise<void> {
     if (!accessToken)
       throw Error(`[에러]accessToken = "${accessToken}" 입니다`);
-    console.log(products_id_list);
+    // console.log(products_id_list);
     const result = await this.axiosClient
       .post(
         '/orders',
@@ -205,7 +205,7 @@ class Axios {
         }
       )
       .then((response) => response.data);
-    console.log(`postOrders >>`, result.message);
+    // console.log(`postOrders >>`, result.message);
   }
   // 구매목록 조회 OK
   async getOrders(accessToken: string): Promise<IGetOrders> {
@@ -221,9 +221,9 @@ class Axios {
       .then((response) => response.data);
 
     if (result.code === 200) {
-      console.log(`getOrders >>`, result.data);
+      // console.log(`getOrders >>`, result.data);
     } else {
-      console.log(result);
+      // console.log(result);
     }
 
     return result.data;
@@ -245,10 +245,10 @@ class Axios {
       })
       .then((response) => response.data);
 
-    console.log(`deleteOrders/orderId: ${orderId}`, result.message);
+    // console.log(`deleteOrders/orderId: ${orderId}`, result.message);
   }
 
-  // 검색
+  // 검색 OK
   async getSearch(
     accessToken,
     {
@@ -278,7 +278,7 @@ class Axios {
         },
       })
       .then((response) => response.data);
-    console.log(`getSearch:"${result.message}"`, result.data);
+    // console.log(`getSearch:"${result.message}"`, result.data);
     return result.data;
   }
 
@@ -294,7 +294,7 @@ class Axios {
         },
       })
       .then((response) => response.data);
-    console.log(`getWishlists:"${result.message}"`, result);
+    // console.log(`getWishlists:"${result.message}"`, result);
     return result.data;
   }
   // 장바구니에 추가한 목록 가져오기 OK
@@ -308,7 +308,7 @@ class Axios {
         },
       })
       .then((response) => response.data);
-    console.log(`getBaskets:"${result.message}"`, result);
+    // console.log(`getBaskets:"${result.message}"`, result);
     return result.data;
   }
 
@@ -331,7 +331,7 @@ class Axios {
         }
       )
       .then((response) => response.data);
-    console.log(`postWishlists:"${result.message}"`, result);
+    // console.log(`postWishlists:"${result.message}"`, result);
   }
   // 장바구니에 상품 추가 OK
   async postBaskets(
@@ -352,7 +352,7 @@ class Axios {
         }
       )
       .then((response) => response.data);
-    console.log(`postBaskets:`, result);
+    // console.log(`postBaskets:`, result);
   }
 
   // 위시리스트에 상품 삭제 OK
@@ -370,7 +370,7 @@ class Axios {
         },
       })
       .then((response) => response.data);
-    console.log(`deleteWishlists:"${result.message}"`, result);
+    // console.log(`deleteWishlists:"${result.message}"`, result);
   }
   // 장바구니에서 상품 삭제 OK
   async deleteBaskets(
@@ -387,7 +387,7 @@ class Axios {
         },
       })
       .then((response) => response.data);
-    console.log(`deleteBaskets:"${result.message}"`, result);
+    // console.log(`deleteBaskets:"${result.message}"`, result);
   }
 }
 
