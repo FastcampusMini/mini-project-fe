@@ -40,17 +40,14 @@ const SignIn = () => {
   // 백으로 유저 정보 전달하여 로그인 요청
   const onValid: SubmitHandler<ISignInForm> = async ({ email, password }, event) => {
     event.preventDefault();
-    console.log('email', email);
-    console.log('password', password);
     const response = await ax.postLogin({ email, password });
-    console.log(response);
 
     if (response.code === 200) {
       // cookie에 refreshToken, store에 accessToken 저장
       const { accessToken, refreshToken } = response.data;
       setRefreshToken(refreshToken);
       dispatch(SET_TOKEN(accessToken));
-      cogoToast.info(response.message);
+      cogoToast.info('로그인에 성공하셨습니다.');
       navigate('/main');
     } else {
       cogoToast.info(response.message);
@@ -65,7 +62,7 @@ const SignIn = () => {
           취소
         </p>
         <h1 className='text-3xl mb-10'>
-          핀크 이용을 위해 <br />
+          론테크 이용을 위해 <br />
           <span className='font-semibold'>본인확인</span>을 해주세요
         </h1>
         <form className='flex flex-col' onSubmit={handleSubmit(onValid)}>
@@ -77,7 +74,7 @@ const SignIn = () => {
             isDirty={isDirty}
           />
           <SignInField
-            text={'********'}
+            text={'************'}
             name={'password'}
             inputType='password'
             register={register}
@@ -87,7 +84,7 @@ const SignIn = () => {
           <ConfrimBtn isValid={isValid} isSubmitting={isSubmitting} />
         </form>
         <div
-          className='flex items-center justify-center gap-1 my-8 font-semibold text-gray cursor-pointer hover:text-yellow'
+          className='flex items-center justify-center gap-1 my-5 font-semibold text-sm text-black20 cursor-pointer hover:text-yellow'
           onClick={() => navigate('/signup')}
         >
           <p>회원가입을 아직 안하셨나요?</p>

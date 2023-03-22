@@ -4,12 +4,17 @@ import OrderListCard from './OrderListCard';
 
 const OrderListElement = ({ orderData, deleteOrderList }) => {
   const [deleteModal, setDeleteModal] = useState(false);
+  const dateStr = orderData.purchaseDate;
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       <div className='flex justify-between items-center mb-2'>
         <div className='ml-2 mb-2 text-lg font-bold'>
-          {orderData.purchaseDate[0]}. {orderData.purchaseDate[1]}.{' '}
-          {orderData.purchaseDate[2]} 주문
+          {year}. {month}. {day} 주문
         </div>
         <button
           onClick={() => {
@@ -30,7 +35,7 @@ const OrderListElement = ({ orderData, deleteOrderList }) => {
           title='신청취소 하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await deleteOrderList({ orderId: orderData.orderId });
+            await deleteOrderList(orderData.orderId.replace(/\"/gi, ''));
             setDeleteModal(false);
           }}
           onCancel={() => setDeleteModal(false)}

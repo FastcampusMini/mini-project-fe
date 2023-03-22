@@ -3,19 +3,18 @@ import { BsCart2 } from 'react-icons/bs';
 import Card from '../MyCart/Card';
 import ConfirmModal from '../ui/ConfirmModal';
 import AlertModal from '../ui/AlertModal';
+import { useGetCartQuery } from '@/store/api/cartApiSlice';
 
 const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [addModal, setAddModal] = useState(false);
   const [alertModal, setAlertModal] = useState(false);
+  const { data: cart } = useGetCartQuery('');
+
   return (
     <section className='w-full mb-7 shadow-[0_30px_15px_-25px_rgb(0,0,0,0.3)]'>
       <Card data={wishlistData}>
         <div className='flex'>
-          <div className='flex flex-col font-bold text-orange items-end gap-4 mx-4 mt-1 text-lg'>
-            <span>최저 {wishlistData.rate}%</span>
-            <span>{wishlistData.price}만원</span>
-          </div>
           <div className='pointer-events-auto flex flex-col items-center'>
             <button
               onClick={(event) => {
@@ -46,9 +45,7 @@ const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
           title='삭제하시겠습니까?'
           description=''
           onConfirm={async () => {
-            await deleteWishList({
-              wishlistId: wishlistData.wishlistId,
-            });
+            await deleteWishList(wishlistData.productId);
             setDeleteModal(false);
           }}
           onCancel={() => setDeleteModal(false)}
@@ -59,18 +56,17 @@ const WishListElement = ({ wishlistData, addCart, deleteWishList }) => {
           title='장바구니에 담으시겠습니까?'
           description=''
           onConfirm={async () => {
-            const res = await addCart({
-              productId: wishlistData.productId,
-            });
-            if (res.data?.code === 500) {
+            const find = cart?.data.find(
+              (value) => value.productId === wishlistData.productId,
+            );
+            if (find) {
               setAddModal(false);
               setAlertModal(true);
-            } else {
-              await deleteWishList({
-                wishlistId: wishlistData.wishlistId,
-              });
-              setAddModal(false);
+              return;
             }
+            await addCart({ productId: wishlistData.productId });
+            await deleteWishList(wishlistData.productId);
+            setAddModal(false);
           }}
           onCancel={() => setAddModal(false)}
         />

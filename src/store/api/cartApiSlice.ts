@@ -21,10 +21,9 @@ export const cartApi = createApi({
       invalidatesTags: ['Cart'],
     }),
     deleteCart: builder.mutation({
-      query: (cartData: IBasketId) => ({
-        url: '/baskets',
+      query: (productId) => ({
+        url: `/baskets/${productId}`,
         method: 'DELETE',
-        body: cartData,
       }),
       invalidatesTags: ['Cart'],
     }),

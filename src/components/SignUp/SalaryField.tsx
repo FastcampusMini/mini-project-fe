@@ -1,40 +1,44 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Path, UseFormRegister } from 'react-hook-form';
-import Select from 'react-select';
 interface TSignUpFieldValues {
-  name: string;
-  email: string;
-  password: string;
-  checkPw: string;
-  phone: string;
-  job: string;
-  salary: number;
-  birth: string;
+  name?: string;
+  email?: string;
+  password?: string;
+  checkPw?: string;
+  phone?: string;
+  job?: string;
+  salary?: number;
+  birth?: string;
 }
 
 interface IProps {
-  text: string;
-  inputType?: string;
+  text?: string;
   message?: string;
-  name: Path<TSignUpFieldValues>;
+  inputType?: string;
+  registerName: Path<TSignUpFieldValues>;
   register: UseFormRegister<TSignUpFieldValues>;
   errorMsg?: any;
+  onBlur?: () => void;
 }
 
-const SalaryField = ({ text, name, message = '', inputType = 'text', register, errorMsg }: IProps) => {
+const SalaryField = ({ text = '', registerName, message = '', inputType = 'text', register, errorMsg }: IProps) => {
   return (
-    <div className='flex flex-col text-basis font-semibold mb-5 relative'>
-      <label className='mb-2' htmlFor={name}>
-        {text}
-      </label>
-      <div className='flex items-center justify-between gap-2'>
+    <div className='flex flex-col text-basis text-black80 font-semibold mb-5 relative'>
+      <div className='flex items-center justify-between'>
         <input
-          className='text-black .placeholder-black40 border border-black/20 placeholder:italic placeholder:text-slate-400 text-sm px-6 py-3 rounded-full w-full focus:outline-yellow'
+          id={registerName}
+          className='peer border border-black/20 w-full px-4 py-3 rounded-xl focus:outline-yellow placeholder-transparent'
           type={inputType}
-          placeholder={message}
-          {...register(name)}
+          placeholder={text}
+          {...register(registerName)}
         />
-        <span className='basis-1/12 shrink-0'>만원</span>
+        <span className='basis-1/12 shrink-0 ml-2'>만원</span>
+        <label
+          className='text-black40 bg-white px-1 absolute text-sm left-4 -top-2.5 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-black40 peer-placeholder-shown:top-3 peer-focus:-top-2.5 peer-focus:text-yellow peer-focus:text-sm peer-focus:bg-white'
+          htmlFor={registerName}
+        >
+          {text}
+        </label>
       </div>
       {errorMsg && (
         <small role='alert' className='text-yellow mt-1 mb-1'>

@@ -11,7 +11,7 @@ const Home = () => {
   };
   return (
     <div className='flex flex-col justify-center h-screen'>
-      <div className='flex flex-col mb-32 gap-8'>
+      <div className='flex flex-col mb-32 gap-8 text-center'>
         <h1 className='mx-auto text-5xl font-black'>
           Welcome to <em className='text-orange'>LoanTech</em>
         </h1>

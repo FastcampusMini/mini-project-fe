@@ -1,4 +1,3 @@
-import { deleteAuth } from '@/api/authApi';
 import { DELETE_TOKEN } from '@/features/authSlice/authSlice';
 import { ax } from '@/libs/axiosClient';
 import { removeCookieToken } from '@/libs/Cookie';
@@ -23,9 +22,15 @@ interface IDeleteForm {
 const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [message, setMessage] = useState('탈퇴하시면 더 이상 서비스를\n이용하실 수 없어요.');
+  const [message, setMessage] = useState(
+    '탈퇴하시면 더 이상 서비스를\n이용하실 수 없어요.'
+  );
   const schema = yup.object().shape({
-    password: yup.string().required('비밀번호는 필수 입력입니다.').min(8, '8자리 이상 비밀번호를 사용하세요.').max(25),
+    password: yup
+      .string()
+      .required('비밀번호는 필수 입력입니다.')
+      .min(8, '8자리 이상 비밀번호를 사용하세요.')
+      .max(25),
   });
 
   const {
@@ -63,12 +68,14 @@ const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
 
   return (
     <div className='fixed w-screen h-screen bg-black40 left-0 top-0 flex justify-center items-center z-10'>
-      <div className='flex flex-col justify-between w-96 h-auto bg-white rounded items-center p-5 pt-10'>
+      <div className='flex flex-col justify-between w-80 h-auto bg-white rounded items-center p-5 pt-10'>
         <div className='h-full flex flex-col justify-center'>
-          <h1 className='font-semibold text-2xl w-full whitespace-normal text-yellow text-center my-4'>
+          <h1 className='font-semibold text-xl w-full whitespace-normal text-yellow text-center my-4'>
             정말 탈퇴 하시겠어요?
           </h1>
-          <p className=' text-black40 text-center font-semibold mb-5 whitespace-pre-line'>{message}</p>
+          <p className=' text-black40 text-center font-semibold text-sm mb-5 whitespace-pre-line'>
+            {message}
+          </p>
         </div>
 
         <div className='w-full'>
@@ -86,18 +93,18 @@ const DeleteAccountModal = ({ setDeleteModal }: IProps) => {
           <button
             type='button'
             onClick={() => setDeleteModal(false)}
-            className='rounded h-14 w-1/2 text-white bg-black40 hover:bg-black60'
-          >
+            className='rounded h-12 w-1/2 text-white bg-black40 hover:bg-black60'>
             취소
           </button>
           <button
             type='submit'
             onClick={handleSubmit(onValid)}
             disabled={isSubmitting}
-            className={`border rounded h-14 w-1/2 text-white ${
-              isValid ? `bg-light-orange hover:bg-orange` : `bg-black40 hover:bg-black60`
-            }  `}
-          >
+            className={`border rounded h-12 w-1/2 text-white ${
+              isValid
+                ? `bg-light-orange hover:bg-orange`
+                : `bg-black40 hover:bg-black60`
+            }  `}>
             확인
           </button>
         </div>

@@ -1,4 +1,3 @@
-import { requestToken } from '@/api/authApi';
 import { DELETE_TOKEN, SET_TOKEN } from '@/features/authSlice/authSlice';
 import { ax } from '@/libs/axiosClient';
 import { getCookieToken, removeCookieToken } from '@/libs/Cookie';
@@ -32,7 +31,7 @@ export default function CheckToken(key: string) {
           dispatch(DELETE_TOKEN());
           removeCookieToken();
           setIsAuth('Failed');
-          cogoToast.info(response.message);
+          // cogoToast.info(response.message);
         }
       }
     };
@@ -54,6 +53,20 @@ export default function CheckToken(key: string) {
 //     if (authenticated && new Date().getTime() < expireTime) {
 //       // 로그인이 되어 있고, 만료기간이 남았있을 경우
 //       setIsAuth('Success');
+//     } else if (authenticated && expireTime - new Date().getTime() <= 60 && expireTime - new Date().getTime() > 0) {
+//       // 로그인이 되어있고 만료기간 60초 이내일 경우, 새로 accessToken 발급
+//       const response = await requestToken(refreshToken);
+
+//       console.log('response1:', response);
+//       if (response.code === 200) {
+//         const accessToken = response.data.accessToken;
+//         dispatch(SET_TOKEN(accessToken));
+//         setIsAuth('Success');
+//       } else {
+//         dispatch(DELETE_TOKEN());
+//         removeCookieToken();
+//         setIsAuth('Failed');
+//       }
 //     } else {
 //       // 로그인이 되어 있지 않을때(accessToken이 만료되었을때) accessToken 발급
 //       const response = await requestToken(refreshToken);
@@ -71,21 +84,6 @@ export default function CheckToken(key: string) {
 //         alert(response.message);
 //       }
 //     }
+
 //   }
 // };
-
-// else if (authenticated && expireTime - new Date().getTime() <= 60 && expireTime - new Date().getTime() > 0) {
-//   // 로그인이 되어있고 만료기간 60초 이내일 경우, 새로 accessToken 발급
-//   const response = await requestToken(refreshToken);
-
-//   console.log('response1:', response);
-//   if (response.code === 200) {
-//     const accessToken = response.data.accessToken;
-//     dispatch(SET_TOKEN(accessToken));
-//     setIsAuth('Success');
-//   } else {
-//     dispatch(DELETE_TOKEN());
-//     removeCookieToken();
-//     setIsAuth('Failed');
-//   }
-// }

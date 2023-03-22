@@ -3,7 +3,7 @@ import { getCookieToken } from '@/libs/Cookie';
 import { ax } from '@/libs/axiosClient';
 
 export const base = fetchBaseQuery({
-  baseUrl: 'https://kingtaeyoon.shop/api',
+  baseUrl: 'https://asia-northeast3-loantech-7603b.cloudfunctions.net/api',
   prepareHeaders: async (headers, { getState }) => {
     const {
       authToken: { accessToken },

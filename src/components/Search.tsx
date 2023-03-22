@@ -23,13 +23,18 @@ const Search = ({accessToken, searchTarget, searchKeyword, sortTarget, sortDirec
       }
     );
     if (!accessToken) {
-      return
-      // return <div>No accessToken</div>;
+      // return
+      return <div>No accessToken</div>;
     }
 
-  if (!data) {
-    console.log('no Data')
-    return <div>상품 정보가 없습니다.</div>;
+  if (!data || dataPack.length == 0) {
+    console.log('no Data', data)
+    return <div className='flex items-center py-8 shadow-md rounded-b-lg rounded-t-3xl border border-black/10 transition-all bg-white px-8 mt-6'>
+      <div className='w-full text-center'>
+        <h3 className="font-bold text-black80 text-2xl">상품 정보가 없습니다</h3>
+        <b className="font-semibold text-yellow"><span className='text-black40 text-sm'>검색 조건을 다시 확인해주세요</span></b>
+      </div>
+    </div>;
   }
   
   return (

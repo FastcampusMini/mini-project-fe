@@ -38,7 +38,7 @@ export default function Slider({ products, fetchNextPage }: IProps) {
         className='flex transition-transform duration-500 ease-in-out w-auto h-auto gap-3 pt-3'
         style={{ transform: `translateX(${position}px)` }}>
         {products.map((product: IProduct, index) => (
-          <SlideCard product={product} />
+          <SlideCard product={product} index={index} key={product.productId} />
         ))}
       </div>
       <div className='flex absolute bottom-0 w-full justify-between px-4'>

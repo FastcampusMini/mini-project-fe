@@ -13,6 +13,7 @@ import { MdRecommend } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 interface IProps {
   product: IProduct;
+  index: number;
 }
 const getSticker = (num: number) => {
   const _stickers = [
@@ -47,7 +48,7 @@ const getDescription = (num: number) => {
   return _description[index];
 };
 
-const SlideCard = ({ product }: IProps) => {
+const SlideCard = ({ product, index }: IProps) => {
   const navigate = useNavigate();
   return (
     <div
@@ -59,17 +60,14 @@ const SlideCard = ({ product }: IProps) => {
 
       <div className='relative rounded-full w-28 h-28 mx-auto flex items-center justify-center bg-light-gray'>
         <div className='absolute w-36'>
-          <img
-            className='relative w-36 mx-auto'
-            src={getSticker(product?.productId)}
-          />
+          <img className='relative w-36 mx-auto' src={getSticker(index)} />
         </div>
       </div>
 
       <div className='flex flex-col gap-4'>
         <h3 className='font-bold text-2lg'>{product?.name}</h3>
         <p className='text-sm h-12 text-black60 flex items-center text-ellipsis'>
-          {getDescription(product?.productId)}
+          {getDescription(index)}
         </p>
         <div className='flex items-end justify-end gap-2'>
           <span className='font-semibold text-yellow'>{product?.rate}%</span>
