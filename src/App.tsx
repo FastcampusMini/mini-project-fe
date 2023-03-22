@@ -9,7 +9,7 @@ import { CookiesProvider } from 'react-cookie';
 function App() {
   return (
     <CookiesProvider>
-      <DevLinks />
+      {/* <DevLinks /> */}
       <main className='max-w-lg h-screen overflow-y-hidden border-black20 shadow-lg mx-auto relative'>
         <Outlet />
       </main>

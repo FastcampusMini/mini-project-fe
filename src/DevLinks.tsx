@@ -37,11 +37,11 @@ const DevLinks = () => {
     ];
     const productId = '2CtHem2tzRubYqwCp5h5hReOc';
     // console.log(products_id_list);
-    const res = await ax.getSearch(accessToken, {
-      searchKeyword: '안심',
-      page: '2',
-    });
-    console.log(res);
+    // const res = await ax.getSearch(accessToken, {
+    //   searchKeyword: '안심',
+    //   page: '2',
+    // });
+    // console.log(res);
   };
   return (
     <>
