@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
-import { BsFillBookmarkHeartFill, BsFillCartCheckFill, BsFillTelephoneFill } from 'react-icons/bs';
+import {
+  BsFillBookmarkHeartFill,
+  BsFillCartCheckFill,
+  BsFillTelephoneFill,
+} from 'react-icons/bs';
 import { FaUserTimes, FaUserMinus } from 'react-icons/fa';
 import { MdAccountBalanceWallet, MdEmail, MdOutlineWork } from 'react-icons/md';
 import Navigation from '@components/ui/Navigation';
@@ -26,12 +30,13 @@ const User = () => {
   const { accessToken } = useSelector((state: any) => state.authToken);
   const refreshToken = getCookieToken();
 
-  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(['user', accessToken], () =>
-    ax.getUser(accessToken)
+  const { data: userInfo, isLoading: fetchingUser } = useQuery<IUserInfo>(
+    ['user', accessToken],
+    () => ax.getUser(accessToken)
   );
 
   if (fetchingUser) return;
-
+  if (!userInfo) return;
   const { email, job, name, phone } = userInfo;
 
   // 로그아웃 api 호출
@@ -75,13 +80,14 @@ const User = () => {
 
         <div
           className='flex items-center gap-1 text-sm font-semibold text-gray cursor-pointer mb-6 mt-5 hover:text-yellow'
-          onClick={() => navigate('/user/edit')}
-        >
+          onClick={() => navigate('/user/edit')}>
           <p>내 프로필 수정하기</p>
           <IoIosArrowForward />
         </div>
 
-        <p className='text-basis font-semibold border-t pt-8 mb-1 border-black5'>나의 프로필</p>
+        <p className='text-basis font-semibold border-t pt-8 mb-1 border-black5'>
+          나의 프로필
+        </p>
         <div className='mb-6 flex flex-col gap-1'>
           <div className='flex justify-between items-center text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'>
             <div className='flex items-center gap-4'>
@@ -110,22 +116,19 @@ const User = () => {
         <div className='mb-6 flex flex-col gap-1'>
           <div
             className='flex items-center gap-4 text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/wishlist')}
-          >
+            onClick={() => navigate('/user/wishlist')}>
             <BsFillBookmarkHeartFill className='text-yellow text-2xl' />
             <span>관심상품</span>
           </div>
           <div
             className='flex items-center gap-4 text-lg py-3  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/mycart')}
-          >
+            onClick={() => navigate('/user/mycart')}>
             <BsFillCartCheckFill className='text-yellow text-2xl ' />
             <span>장바구니</span>
           </div>
           <div
             className='flex items-center gap-4 text-lg py-3  cursor-pointer hover:bg-black5 hover:rounded-xl hover:border-white transition-all hover:px-2'
-            onClick={() => navigate('/user/orderlist')}
-          >
+            onClick={() => navigate('/user/orderlist')}>
             <MdAccountBalanceWallet className='text-yellow text-2xl' />
             <span>신청한 상품 내역</span>
           </div>
@@ -135,8 +138,7 @@ const User = () => {
         <div className='flex flex-col gap-1'>
           <div
             className='flex items-center gap-4 text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
-            onClick={() => setOutModal(true)}
-          >
+            onClick={() => setOutModal(true)}>
             <FaUserMinus className='text-yellow text-2xl' />
             <span>로그아웃</span>
           </div>
@@ -144,8 +146,7 @@ const User = () => {
             className='flex items-center gap-4 text-lg py-3 cursor-pointer hover:bg-black5 hover:rounded-xl transition-all hover:px-2'
             onClick={() => {
               setDeleteModal(true);
-            }}
-          >
+            }}>
             <FaUserTimes className='text-yellow text-2xl' />
             <span>회원탈퇴</span>
           </div>
