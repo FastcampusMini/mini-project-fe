@@ -5,11 +5,7 @@ const SUCCESS_MSG = '요청에 성공하였습니다.';
 // 쿼리: searchKeyword, page,
 const getSearch = async (req, res) => {
   try {
-    const {
-      searchKeyword,
-      searchTarget = 'name',
-      sortDirection = 'ASC',
-    } = req.query;
+    const { searchKeyword, searchTarget, sortDirection = 'ASC' } = req.query;
 
     const target = searchTarget;
     // 검색어 없을때 핸들링
@@ -27,8 +23,18 @@ const getSearch = async (req, res) => {
     const productsRef = firestore.collection('products');
     const snapshot = await productsRef.get();
     const results = [];
-
-    if (target === 'price') {
+    
+    if (target === '') {
+      snapshot.forEach((doc) => {
+        const docData = doc.data();
+        if (
+          docData['name'].search(searchKeyword) >= 0 ||
+          docData['brand'].search(searchKeyword) >= 0
+        ) {
+          results.push(docData);
+        }
+      });
+    } else if (target === 'price') {
       snapshot.forEach((doc) => {
         const docData = doc.data();
         if (docData.price <= Number(searchKeyword)) {

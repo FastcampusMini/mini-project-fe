@@ -12,10 +12,10 @@ import { BsFillArrowUpSquareFill } from 'react-icons/bs';
 
 const Financial = () => {
   const { accessToken } = useSelector((state: any) => state.authToken);
-  const [searchTarget, setSearchTarget] = useState('name');
-  const [searchKeyword, setSearchKeyword] = useState();
-  const [sortTarget, setSortTarget] = useState('name');
-  const [sortDirection, setSortDirection] = useState();
+  const [searchTarget, setSearchTarget] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [sortTarget, setSortTarget] = useState('');
+  const [sortDirection, setSortDirection] = useState('ASC');
   const [isChecked, setIsChecked] = useState(false);
 
   const navigate = useNavigate();
