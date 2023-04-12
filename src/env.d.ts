@@ -7,6 +7,7 @@ interface IProduct {
   productId: string;
   rate: number;
   basketId?: string;
+  recommend: boolean;
 }
 
 interface IUserEditPayload {
