@@ -28,10 +28,10 @@ type IGetOrders = {
 // getSearch 의 인자중 하나
 interface ISearchInput {
   name?: string | number;
-  searchTarget?: string;
+  searchTarget?: 'brand' | 'name' | 'price';
   searchKeyword?: string | number;
-  sortTarget?: string;
-  sortDirection?: string;
+  sortTarget?: 'brand' | 'name' | 'price';
+  sortDirection?: 'ASC' | 'DESC';
   isChecked?: boolean;
   page?: string | number;
 }

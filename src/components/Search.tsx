@@ -9,9 +9,15 @@ const Search = ({accessToken, searchTarget, searchKeyword, sortTarget, sortDirec
   const [dataPack, setDataPack] = useState([]);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
-      ['searchResults', searchTarget, searchKeyword, sortTarget, sortDirection, isChecked],
+      ['searchResults', searchTarget, searchKeyword, sortTarget, sortDirection],
       ({ pageParam = 1 }) =>
-        ax.getSearch(accessToken, { searchTarget, searchKeyword, sortTarget, sortDirection, isChecked, page: pageParam }),
+        ax.getSearch(accessToken, {
+          searchTarget,
+          searchKeyword,
+          sortTarget,
+          sortDirection,
+          page: pageParam,
+        }),
       {
         getNextPageParam: (lastPage) => {
           return (
@@ -39,9 +45,15 @@ const Search = ({accessToken, searchTarget, searchKeyword, sortTarget, sortDirec
   
   return (
     <div>
-      {dataPack?.map((product: IProduct) => (
-        <ProductCard key={product.productId} data={product} />
-      ))}
+      {dataPack?.map((product: IProduct) =>
+        isChecked ? (
+          product.recommend && (
+            <ProductCard key={product.productId} data={product} />
+          )
+        ) : (
+          <ProductCard key={product.productId} data={product} />
+        )
+      )}
 
       {hasNextPage && (
         <button

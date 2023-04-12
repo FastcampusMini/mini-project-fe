@@ -5,7 +5,14 @@ const SUCCESS_MSG = '요청에 성공하였습니다.';
 // 쿼리: searchKeyword, page,
 const getSearch = async (req, res) => {
   try {
-    const searchKeyword = req.query.searchKeyword;
+    const {
+      searchKeyword,
+      searchTarget = 'name',
+      sortDirection = 'ASC',
+    } = req.query;
+
+    const target = searchTarget;
+    // 검색어 없을때 핸들링
     if (!searchKeyword || searchKeyword.trim() === '') {
       return res.status(400).json({
         code: 400,
@@ -19,21 +26,32 @@ const getSearch = async (req, res) => {
 
     const productsRef = firestore.collection('products');
     const snapshot = await productsRef.get();
-
     const results = [];
-    snapshot.forEach((doc) => {
-      const docData = doc.data();
-      if (docData.name.search(searchKeyword) >= 0) {
-        results.push(docData);
-      }
-    });
+
+    if (target === 'price') {
+      snapshot.forEach((doc) => {
+        const docData = doc.data();
+        if (docData.price <= Number(searchKeyword)) {
+          results.push(docData);
+        }
+      });
+    } else {
+      snapshot.forEach((doc) => {
+        const docData = doc.data();
+        if (docData[target].search(searchKeyword) >= 0) {
+          results.push(docData);
+        }
+      });
+    }
+
+    const sortASC = sortDirection === 'ASC';
 
     results.sort((a, b) => {
       if (a.name.includes(searchKeyword) && !b.name.includes(searchKeyword)) {
-        return -1;
+        return sortASC ? -1 : 1;
       }
       if (!a.name.includes(searchKeyword) && b.name.includes(searchKeyword)) {
-        return 1;
+        return sortASC ? 1 : -1;
       }
       return 0;
     });

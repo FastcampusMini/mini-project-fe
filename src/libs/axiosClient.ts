@@ -260,19 +260,27 @@ class Axios {
       page,
     }: ISearchInput
   ): Promise<ISearchedData> {
+    console.log('getSearch payload>> ', {
+      searchTarget,
+      searchKeyword,
+      sortTarget,
+      sortDirection,
+      isChecked,
+      page,
+    });
+    if (searchKeyword === '') throw new Error('검색어를 입력하세요');
     if (!accessToken) throw Error(`[에러]accessToken = "${accessToken}"`);
-    if (Number(page) < 1) return;
-
+    if (Number(page) < 1) throw new Error('유효하지 않은 페이지입니다.');
     const result = await this.axiosClient
       .get('/search', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          searchTarget,
+          searchTarget: searchTarget || 'name',
           searchKeyword,
           sortTarget,
-          sortDirection,
+          sortDirection: sortDirection || 'ASC',
           isChecked,
           page,
         },
