@@ -277,7 +277,7 @@ class Axios {
           Authorization: `Bearer ${accessToken}`,
         },
         params: {
-          searchTarget: searchTarget || 'name',
+          searchTarget,
           searchKeyword,
           sortTarget,
           sortDirection: sortDirection || 'ASC',
